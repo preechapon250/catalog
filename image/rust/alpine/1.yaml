@@ -8,8 +8,8 @@ image: dhi/rust
 variant: runtime
 tags:
     - 1-alpine3.22
-    - 1.91-alpine3.22
-    - 1.91.1-alpine3.22
+    - 1.92-alpine3.22
+    - 1.92.0-alpine3.22
 platforms:
     - linux/amd64
     - linux/arm64
@@ -17,10 +17,10 @@ dates:
     release: "2025-09-18"
 vars:
     ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
-    SEMVER_MAJOR_MINOR_VERSION: "1.91"
+    SEMVER_MAJOR_MINOR_VERSION: "1.92"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.91.1
-    VERSION: 1.91.1
+    SEMVER_VERSION: 1.92.0
+    VERSION: 1.92.0
 contents:
     repositories:
         - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -40,17 +40,17 @@ contents:
                 - busybox
                 - bash
             files:
-                - url: https://static.rust-lang.org/dist/rust-1.91.1-${ARCH}-unknown-linux-musl.tar.xz
+                - url: https://static.rust-lang.org/dist/rust-1.92.0-${ARCH}-unknown-linux-musl.tar.xz
                   path: ${source.dir}
                   spdx:
                     name: rust
-                    version: 1.91.1
+                    version: 1.92.0
                     packages:
                         - name: rust
-                          purl: pkg:dhi/rust@1.91.1
+                          purl: pkg:dhi/rust@1.92.0
                           license: MIT
                         - name: cargo
-                          purl: pkg:dhi/cargo@1.91.1
+                          purl: pkg:dhi/cargo@1.92.0
                           license: MIT
                   uid: 0
                   gid: 0
@@ -59,7 +59,7 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                cd "rust-1.91.1-${ARCH}-unknown-linux-musl"
+                cd "rust-1.92.0-${ARCH}-unknown-linux-musl"
                 ./install.sh --destdir="${target.dir}" --disable-ldconfig
 
                 # remove html documentation
@@ -94,7 +94,7 @@ os-release:
     bug-report-url: https://docker.com/support/
 work-dir: /build
 environment:
-    RUST_VERSION: 1.91.1
+    RUST_VERSION: 1.92.0
 annotations:
     org.opencontainers.image.description: A minimal Rust image
     org.opencontainers.image.licenses: MIT
