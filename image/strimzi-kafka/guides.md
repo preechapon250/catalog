@@ -58,7 +58,6 @@ following table of migration notes.
 | TLS certificates   | Docker Hardened Images contain standard TLS certificates by default. There is no need to install TLS certificates.                                                                                                                                                                                                           |
 | Ports              | Non-dev hardened images run as a nonroot user by default. As a result, applications in these images can’t bind to privileged ports (below 1024) when running in Kubernetes or in Docker Engine versions older than 20.10. To avoid issues, configure your application to listen on port 1025 or higher inside the container. |
 | Entry point        | Docker Hardened Images may have different entry points than images such as Docker Official Images. Inspect entry points for Docker Hardened Images and update your Dockerfile if necessary.                                                                                                                                  |
-| No shell           | By default, non-dev images, intended for runtime, don't contain a shell. Use dev images in build stages to run shell commands and then copy artifacts to the runtime stage.                                                                                                                                                  |
 
 The following steps outline the general migration process.
 
@@ -98,8 +97,7 @@ The following are common issues that you may encounter during migration.
 
 ### General debugging
 
-The hardened images intended for runtime don't contain a shell nor any tools for debugging. The recommended method for
-debugging applications built with Docker Hardened Images is to use
+The recommended method for debugging applications built with Docker Hardened Images is to use
 [Docker Debug](https://docs.docker.com/reference/cli/docker/debug/) to attach to these containers. Docker Debug provides
 a shell, common debugging tools, and lets you install other tools in an ephemeral, writable layer that only exists
 during the debugging session.
@@ -119,14 +117,6 @@ privileged ports (below 1024) when running in Kubernetes or in Docker Engine ver
 configure your application to listen on port 1025 or higher inside the container, even if you map it to a lower port on
 the host. For example, `docker run -p 80:8080 my-image` will work because the port inside the container is 8080, and
 `docker run -p 80:81 my-image` won't work because the port inside the container is 81.
-
-### No shell
-
-By default, image variants intended for runtime don't contain a shell. Use `dev` images in build stages to run shell
-commands and then copy any necessary artifacts into the runtime stage. In addition, use Docker Debug to debug containers
-with no shell.
-
-To see if a shell is available in an image variant and which one, select the **Tags** tab for this repository.
 
 ### Entry point
 
