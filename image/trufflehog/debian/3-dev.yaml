@@ -9,10 +9,10 @@ variant: dev
 tags:
     - 3-dev
     - 3.92-dev
-    - 3.92.2-dev
+    - 3.92.3-dev
     - 3-debian13-dev
     - 3.92-debian13-dev
-    - 3.92.2-debian13-dev
+    - 3.92.3-debian13-dev
 platforms:
     - linux/amd64
     - linux/arm64
@@ -20,12 +20,12 @@ vars:
     BASE_DIGEST: sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
     BASE_TAG: 20250419-debian13
     BINUTILS_REFERENCE: dhi/pkg-binutils:2.45-debian13@sha256:48107c1824276349ccbddce3853299de8b7c6a554b775957864d44c7b9a6b5b4
-    COMMIT_SHA: 702bbefa350895c57f0e303eeb2855a1c637908f
+    COMMIT_SHA: 05cccb53bc9e13bc6d17997db5a6bcc3df44bf2f
     GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
     SEMVER_MAJOR_MINOR_VERSION: "3.92"
     SEMVER_MAJOR_VERSION: "3"
-    SEMVER_VERSION: 3.92.2
-    VERSION: 3.92.2
+    SEMVER_VERSION: 3.92.3
+    VERSION: 3.92.3
 contents:
     packages:
         - '!base-files'
@@ -62,15 +62,15 @@ contents:
           uses: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
           contents:
             files:
-                - url: git+https://github.com/trufflesecurity/trufflehog.git#v3.92.2
-                  checksum: 702bbefa350895c57f0e303eeb2855a1c637908f
+                - url: git+https://github.com/trufflesecurity/trufflehog.git#v3.92.3
+                  checksum: 05cccb53bc9e13bc6d17997db5a6bcc3df44bf2f
                   path: /go/src/github.com/trufflesecurity/trufflehog
                   spdx:
                     name: trufflehog
-                    version: 3.92.2
+                    version: 3.92.3
                     packages:
                         - name: trufflehog
-                          purl: pkg:golang/github.com/trufflesecurity/trufflehog/v3@3.92.2
+                          purl: pkg:golang/github.com/trufflesecurity/trufflehog/v3@3.92.3
                           license: AGPL-3.0
                   uid: 0
                   gid: 0
@@ -87,13 +87,13 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                sed -i 's/\"dev\"/\"3.92.2\"/' /go/src/github.com/trufflesecurity/trufflehog/main.go
+                sed -i 's/\"dev\"/\"3.92.3\"/' /go/src/github.com/trufflesecurity/trufflehog/main.go
             - name: build
               work-dir: /go/src/github.com/trufflesecurity/trufflehog
               runs: |
                 set -eux -o pipefail
 
-                GOLDFLAGS="-X github.com/trufflesecurity/trufflehog/v3/pkg/version.BuildVersion=3.92.2"
+                GOLDFLAGS="-X github.com/trufflesecurity/trufflehog/v3/pkg/version.BuildVersion=3.92.3"
 
                 if [ "${target.dev}" != "true" ]; then
                   GOLDFLAGS="-s -w $GOLDFLAGS"
