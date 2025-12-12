@@ -19,10 +19,10 @@ platforms:
 vars:
     COMMIT_SHA: cf5ff316889d418d8a38334eb703ed253ca957a0
     JAVA_HOME_PATH: /opt/java/openjdk
-    JDK_DIGEST: sha256:085018ec46e7687f0a91d0f141905b4506c74feabc98da70261ff14e9d5538e8
+    JDK_DIGEST: sha256:d0f00ba5f42f71c35496c6ba2809d443e17bae57f6382cb7476b539a7998522a
     JDK_MAJOR_VERSION: "17"
     JDK_VERSION: 17.0.17.10
-    MAVEN_DIGEST: sha256:e11d97a12f75f07a48d75d335049f740ad18aa7d50e9c9218500dd3ea3edb461
+    MAVEN_DIGEST: sha256:b82bb94d73cf090a87e67f6a8530754bd2895bec2893afc34af4e22008b569f7
     MAVEN_VERSION: 3.9.11
     NETTY_VERSION: 4.1.125.Final
     SEMVER_MAJOR_MINOR_VERSION: "25.11"
@@ -44,7 +44,7 @@ contents:
         - grep
     builds:
         - name: sonarqube
-          uses: dhi/maven:3.9.11-jdk17-debian13-dev@sha256:e11d97a12f75f07a48d75d335049f740ad18aa7d50e9c9218500dd3ea3edb461
+          uses: dhi/maven:3.9.11-jdk17-debian13-dev@sha256:b82bb94d73cf090a87e67f6a8530754bd2895bec2893afc34af4e22008b569f7
           privileged: true
           contents:
             packages:
@@ -198,7 +198,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/eclipse-temurin:17-jdk-debian13@sha256:085018ec46e7687f0a91d0f141905b4506c74feabc98da70261ff14e9d5538e8
+        - name: dhi/eclipse-temurin:17-jdk-debian13@sha256:d0f00ba5f42f71c35496c6ba2809d443e17bae57f6382cb7476b539a7998522a
           includes:
             - opt/**
             - usr/local/bin/**
