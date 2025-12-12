@@ -18,8 +18,8 @@ platforms:
     - linux/arm64
 vars:
     COMMIT_SHA: 8bc23798cc840af423135fad3a573837d02fe098
-    PYTHON_BUILD_REF: dhi/python:3.14.2-debian13-dev@sha256:0ff9f163ed4a4f409e81435928cc5a82fb56dc936ce7517bae0c3297c05fb44c
-    PYTHON_REF: dhi/python:3.14.2-debian13@sha256:94555bf0b3fe38e19048fa323eb3c6a870d26a08c1c614112fa7c3e74e9ee45d
+    PYTHON_BUILD_REF: dhi/python:3.14.2-debian13-dev@sha256:86242ee032ca43c4b6c7f8abf269dbca6286af1d0debdf7ac768d897fba2105f
+    PYTHON_REF: dhi/python:3.14.2-debian13@sha256:dde511d46cd4a45ec18794a219b20f660a8756bacb0b2d48e09b262a37b527c6
     SEMVER_MAJOR_MINOR_VERSION: "2.1"
     SEMVER_MAJOR_VERSION: "2"
     SEMVER_VERSION: 2.1.4
@@ -47,7 +47,7 @@ contents:
         - tzdata
     builds:
         - name: k8s-sidecar
-          uses: dhi/python:3.14.2-debian13-dev@sha256:0ff9f163ed4a4f409e81435928cc5a82fb56dc936ce7517bae0c3297c05fb44c
+          uses: dhi/python:3.14.2-debian13-dev@sha256:86242ee032ca43c4b6c7f8abf269dbca6286af1d0debdf7ac768d897fba2105f
           contents:
             packages:
                 - build-essential
@@ -115,7 +115,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/python:3.14.2-debian13@sha256:94555bf0b3fe38e19048fa323eb3c6a870d26a08c1c614112fa7c3e74e9ee45d
+        - name: dhi/python:3.14.2-debian13@sha256:dde511d46cd4a45ec18794a219b20f660a8756bacb0b2d48e09b262a37b527c6
           includes:
             - opt/**
             - usr/**
