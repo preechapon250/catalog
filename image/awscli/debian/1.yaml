@@ -9,24 +9,24 @@ variant: runtime
 tags:
     - "1"
     - "1.43"
-    - 1.43.14
+    - 1.43.15
     - 1-debian13
     - 1.43-debian13
-    - 1.43.14-debian13
+    - 1.43.15-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
-    COMMIT_SHA: 70bb5d4161f5aaf56b4b4250160a49b425147484
+    COMMIT_SHA: 7e0151487fe30379b8940f3f7438c9d36d8b0f26
     PYTHON_BUILD_DIGEST: sha256:3f12acd68a12fd53aa6bb84ffa5d370a5a931023516ccfe42d4b9237d95e06c8
     PYTHON_BUILD_VERSION: 3.12.12
     PYTHON_DIGEST: sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
     PYTHON_VERSION: 3.12.12
     SEMVER_MAJOR_MINOR_VERSION: "1.43"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.43.14
-    VERSION: 1.43.14
+    SEMVER_VERSION: 1.43.15
+    VERSION: 1.43.15
 contents:
     packages:
         - '!libelogind0'
@@ -50,14 +50,14 @@ contents:
                 - unzip
                 - '!libexpat1'
             files:
-                - url: https://s3.amazonaws.com/aws-cli/awscli-bundle-1.43.14.zip
+                - url: https://s3.amazonaws.com/aws-cli/awscli-bundle-1.43.15.zip
                   path: ${source.dir}/awscli.zip
                   spdx:
                     name: awscli
-                    version: 1.43.14
+                    version: 1.43.15
                     packages:
                         - name: awscli
-                          purl: pkg:dhi/awscli@1.43.14
+                          purl: pkg:dhi/awscli@1.43.15
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -116,7 +116,7 @@ os-release:
     home-url: https://docker.com/products/hardened-images/
     bug-report-url: https://docker.com/support/
 environment:
-    AWS_CLI_VERSION: 1.43.14
+    AWS_CLI_VERSION: 1.43.15
     PATH: /opt/aws-cli/bin:/usr/sbin:/sbin:/usr/bin:/bin
 annotations:
     org.opencontainers.image.description: A minimal AWS CLI image
