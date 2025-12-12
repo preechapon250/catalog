@@ -19,7 +19,7 @@ dates:
     end-of-life: "2025-11-28"
 vars:
     COMMIT_SHA: 5d78e4e470a361ac8378582ad15df39a54724856
-    PYTHON_DIGEST: sha256:b144e58db5f9fde9e1e110e02fcc8b93888d959f8892d6212f19defc73236366
+    PYTHON_DIGEST: sha256:0f3812f9995cc2947f614192c38b9d7d0836ebc16911e297d0c402c10ad1a843
     PYTHON_VERSION: 3.13.11
     RUST_DIGEST: sha256:b51048f4ff7a88671f37514ec740a411fa41c40b9848696fb0704b6d20fb98e7
     RUST_VERSION: 1.92.0
@@ -106,7 +106,7 @@ contents:
                     - usr/local/lib
                   uid: 0
                   gid: 0
-                - name: dhi/python:3.13.11-debian13-dev@sha256:b144e58db5f9fde9e1e110e02fcc8b93888d959f8892d6212f19defc73236366
+                - name: dhi/python:3.13.11-debian13-dev@sha256:0f3812f9995cc2947f614192c38b9d7d0836ebc16911e297d0c402c10ad1a843
                   includes:
                     - opt/**
                   uid: 0
