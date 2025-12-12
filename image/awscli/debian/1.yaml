@@ -19,9 +19,9 @@ platforms:
 vars:
     ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
     COMMIT_SHA: 70bb5d4161f5aaf56b4b4250160a49b425147484
-    PYTHON_BUILD_DIGEST: sha256:0d2fab5e07fd5fbd4a87511e54bdf2b86307b9746f0bab019afc3c8be953a17b
+    PYTHON_BUILD_DIGEST: sha256:3f12acd68a12fd53aa6bb84ffa5d370a5a931023516ccfe42d4b9237d95e06c8
     PYTHON_BUILD_VERSION: 3.12.12
-    PYTHON_DIGEST: sha256:d3ec3c7cae070da30496c462372f091aced76c06b795012f7a3bbefe98dde0ca
+    PYTHON_DIGEST: sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
     PYTHON_VERSION: 3.12.12
     SEMVER_MAJOR_MINOR_VERSION: "1.43"
     SEMVER_MAJOR_VERSION: "1"
@@ -41,7 +41,7 @@ contents:
         - zlib1g
     builds:
         - name: awscli
-          uses: dhi/python:3.12.12-debian13-dev@sha256:0d2fab5e07fd5fbd4a87511e54bdf2b86307b9746f0bab019afc3c8be953a17b
+          uses: dhi/python:3.12.12-debian13-dev@sha256:3f12acd68a12fd53aa6bb84ffa5d370a5a931023516ccfe42d4b9237d95e06c8
           privileged: true
           contents:
             packages:
@@ -90,7 +90,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/python:3.12.12@sha256:d3ec3c7cae070da30496c462372f091aced76c06b795012f7a3bbefe98dde0ca
+        - name: dhi/python:3.12.12@sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
           includes:
             - opt/**
             - usr/**
