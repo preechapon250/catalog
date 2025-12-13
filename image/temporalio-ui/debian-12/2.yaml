@@ -19,7 +19,7 @@ vars:
     DOCKERIZE_VERSION: 0.9.5
     GO_REFERENCE: dhi/golang:1.24.11-debian12-dev@sha256:b735e718818bc18ea91d9068a70518f44f06d00f4ba0f201ec46307087cb00aa
     GO_VERSION: 1.24.11
-    NODE_REFERENCE: dhi/node:24.11.1-debian12-dev@sha256:1e30ffc03cbfa4e765a4881145a518a094fea3685abde5f9ed93341d8ed23b52
+    NODE_REFERENCE: dhi/node:24.11.1-debian12-dev@sha256:78b0445cef13393b148fd0d47deb29707af7cf1a805bb6fc1b639ff8e130596b
     NODE_VERSION: 24.11.1
     SEMVER_MAJOR_MINOR_VERSION: "2.43"
     SEMVER_MAJOR_VERSION: "2"
@@ -53,7 +53,7 @@ contents:
                   uid: 0
                   gid: 0
             artifacts:
-                - name: dhi/node:24.11.1-debian12-dev@sha256:1e30ffc03cbfa4e765a4881145a518a094fea3685abde5f9ed93341d8ed23b52
+                - name: dhi/node:24.11.1-debian12-dev@sha256:78b0445cef13393b148fd0d47deb29707af7cf1a805bb6fc1b639ff8e130596b
                   includes:
                     - opt/nodejs
                     - usr/local/bin
