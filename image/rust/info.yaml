@@ -5,3 +5,10 @@ metadata:
   home-url: https://www.rust-lang.org/
   categories:
     - languages-and-frameworks
+  included-tools:
+    - name: rustc
+      description: Rust Compiler
+    - name: cargo
+      description: Rust Package Manager
+    - name: sfw
+      description: Socket Firewall to securely install Cargo packages

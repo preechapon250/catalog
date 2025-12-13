@@ -161,6 +161,7 @@ environment:
     LC_ALL: en_US.UTF-8
     NODE_VERSION: 24.11.1
     NPM_CONFIG_UPDATE_NOTIFIER: "false"
+    YARN_DISABLE_SELF_UPDATE_CHECK: "true"
 paths:
     - type: directory
       path: /app

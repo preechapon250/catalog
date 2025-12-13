@@ -7,6 +7,8 @@ metadata:
     - languages-and-frameworks
   included-tools:
     - name: python
-      description: The Python interpreter.
+      description: Python interpreter
     - name: pip
-      description: The Python's package installer.
+      description: Python's package installer
+    - name: sfw
+      description: Socket Firewall to securely install Python packages
