@@ -24,7 +24,7 @@ vars:
     COMMIT_SHA: 26286bc921d1f07096b43aebb01b29c2f73b6f5e
     GO_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
     GO_VERSION: 1.24.11
-    GRADLE_REFERENCE: dhi/gradle:8.14.3-jdk21-debian13-dev@sha256:e4b61f304ce8b71681cc2a3eb23095663e35d26525baa058c7777898d57b59d2
+    GRADLE_REFERENCE: dhi/gradle:8.14.3-jdk21-debian13-dev@sha256:4ff2e8dc01f9788edfa0e06cde7b87d5ac85df18927331c5cda97a6af52aff64
     GRADLE_VERSION: 8.14.3
     JDK_REFERENCE: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
     JDK_VERSION: 21.0.9.10
@@ -73,7 +73,7 @@ contents:
               gid: 0
               mode: "0755"
         - name: build logstash
-          uses: dhi/gradle:8.14.3-jdk21-debian13-dev@sha256:e4b61f304ce8b71681cc2a3eb23095663e35d26525baa058c7777898d57b59d2
+          uses: dhi/gradle:8.14.3-jdk21-debian13-dev@sha256:4ff2e8dc01f9788edfa0e06cde7b87d5ac85df18927331c5cda97a6af52aff64
           contents:
             packages:
                 - coreutils
