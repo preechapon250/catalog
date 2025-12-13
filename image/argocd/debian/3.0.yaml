@@ -22,7 +22,7 @@ vars:
     EXPAT_REF: dhi/pkg-expat:2.7.3-debian13@sha256:bf522255414eb53b8992e36dc64fde670d477c0b3be62c84209c4409de35e324
     GIT_LFS_REF: dhi/pkg-git-lfs:3.7.1-debian13@sha256:3051a3a5c5e1b61f59a9312997b269398dcdc4a9ffe697a0607e86fa69fa9f2c
     GO_REF: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
-    HELM_REF: dhi/helm:3.19.3-debian13@sha256:36118b6ebaddbde41122ae0965ba7d2e81cffabe96679c55c8a31f929c3916cb
+    HELM_REF: dhi/helm:3.19.4-debian13@sha256:1fa507e6b9fe804da23430fe3cde29cc2f6673e7d9673d7f190002f6844bc331
     KUSTOMIZE_REF: dhi/kustomize:5.8.0-debian13@sha256:e449ac32589a2853ee25b66d93ad9dd40af116badbaea64fe866a129046683e3
     NODE_REF: dhi/node:20.19.6-debian13-dev@sha256:ca50222cb6c3f51479adafb630bcd0efc1bd814738a7c7d5f534bc9b5ec25c5e
     SEMVER_MAJOR_MINOR_VERSION: "3.0"
@@ -82,7 +82,7 @@ contents:
                     - usr/local/bin/yarn
                   uid: 0
                   gid: 0
-                - name: dhi/helm:3.19.3-debian13@sha256:36118b6ebaddbde41122ae0965ba7d2e81cffabe96679c55c8a31f929c3916cb
+                - name: dhi/helm:3.19.4-debian13@sha256:1fa507e6b9fe804da23430fe3cde29cc2f6673e7d9673d7f190002f6844bc331
                   includes:
                     - opt/**
                     - usr/**
@@ -220,7 +220,7 @@ contents:
             - var/lib/dpkg/status.d
           uid: 0
           gid: 0
-        - name: dhi/helm:3.19.3-debian13@sha256:36118b6ebaddbde41122ae0965ba7d2e81cffabe96679c55c8a31f929c3916cb
+        - name: dhi/helm:3.19.4-debian13@sha256:1fa507e6b9fe804da23430fe3cde29cc2f6673e7d9673d7f190002f6844bc331
           includes:
             - opt/**
             - usr/**
