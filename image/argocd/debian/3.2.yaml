@@ -38,6 +38,7 @@ contents:
         - '!mawk'
         - '!original-awk'
         - base-files
+        - ca-certificates
         - coreutils
         - dash
         - git
