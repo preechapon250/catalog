@@ -12,13 +12,13 @@ platforms:
     - linux/amd64
 vars:
     ALLOY_IMAGE_TAG: 1.12.0
-    ALLOY_REFERENCE: dhi/alloy:1.12.0-debian13@sha256:37560cb822a4cdb710cf1dcc422b5a23f0d3e0c72b969811020fe1e06c27659b
+    ALLOY_REFERENCE: dhi/alloy:1.12.0-debian13@sha256:6290f3f582f3f2e4d1996568747ef5299989b01b8cc9dd25f24e23811524bc2c
     CHART_COMMIT_SHA: 6dde6297f7d19c13e27d932dae446a4f9a0a2393
     DHI_NAMESPACE: dhi
     DHI_PREFIX: ""
     DHI_REGISTRY: docker.io
     DHI_SKIP_CONTEXT_COPY: "true"
-    HELM_REFERENCE: dhi/helm:3.19.3-debian13-dev@sha256:e5f5727e6d74131d8d9201c70de54c9431a562b749ccf6af0c56acbb39d2d73a
+    HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:5b1c0c9aeadb87a6f9de696998d851653e7d41ba1b93858b162b98747b1ea80b
     PROMETHEUS_CONFIG_RELOADER_REFERENCE: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:99adf75d497cddf1820b551e8bdb9292b8d523b3bc5b417216cb563b86c9044d
     SEMVER_MAJOR_MINOR_VERSION: "1.5"
     SEMVER_MAJOR_VERSION: "1"
@@ -27,7 +27,7 @@ vars:
 contents:
     builds:
         - name: alloy
-          uses: dhi/helm:3.19.3-debian13-dev@sha256:e5f5727e6d74131d8d9201c70de54c9431a562b749ccf6af0c56acbb39d2d73a
+          uses: dhi/helm:3.19.4-debian13-dev@sha256:5b1c0c9aeadb87a6f9de696998d851653e7d41ba1b93858b162b98747b1ea80b
           contents:
             packages:
                 - bash
@@ -55,7 +55,7 @@ contents:
                     description: Docker Hardened Images Helm chart for Grafana Alloy
                     images:
                         - name: alloy
-                          ref: dhi/alloy:1.12.0-debian13@sha256:37560cb822a4cdb710cf1dcc422b5a23f0d3e0c72b969811020fe1e06c27659b
+                          ref: dhi/alloy:1.12.0-debian13@sha256:6290f3f582f3f2e4d1996568747ef5299989b01b8cc9dd25f24e23811524bc2c
                         - name: prometheus-config-reloader
                           ref: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:99adf75d497cddf1820b551e8bdb9292b8d523b3bc5b417216cb563b86c9044d
                     name: alloy-chart
