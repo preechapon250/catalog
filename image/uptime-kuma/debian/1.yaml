@@ -18,9 +18,9 @@ platforms:
     - linux/arm64
 vars:
     COMMIT_SHA: 40ec7158534a28e6f8b431a628c53133c327c539
-    NODE_BUILD_REFERENCE: dhi/node:24.11.1-debian13-dev@sha256:a68392809f99bd0a9b6f7ca3f620c00e5c8ae0b14250bc8833385b1c3c73ed0e
+    NODE_BUILD_REFERENCE: dhi/node:24.11.1-debian13-dev@sha256:61842dcde615e7f8165deedf661a15170d7be1e4a2649e8330fad312ec50f85b
     NODE_BUILD_VERSION: 24.11.1
-    NODE_RUNTIME_REFERENCE: dhi/node:24.11.1-debian13@sha256:483db51fc29b8226297732655fc0c9b2942512bff6e756e3d0ab66559d31f8c8
+    NODE_RUNTIME_REFERENCE: dhi/node:24.11.1-debian13@sha256:8f85366d336b0e07c330d2b5f42e8d89ddb985320ecb06227ded38341a580f10
     NODE_RUNTIME_VERSION: 24.11.1
     SEMVER_MAJOR_MINOR_VERSION: "1.23"
     SEMVER_MAJOR_VERSION: "1"
@@ -31,7 +31,7 @@ contents:
         - '!base-files'
     builds:
         - name: uptime-kuma
-          uses: dhi/node:24.11.1-debian13-dev@sha256:a68392809f99bd0a9b6f7ca3f620c00e5c8ae0b14250bc8833385b1c3c73ed0e
+          uses: dhi/node:24.11.1-debian13-dev@sha256:61842dcde615e7f8165deedf661a15170d7be1e4a2649e8330fad312ec50f85b
           contents:
             packages:
                 - jq
@@ -136,7 +136,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/node:24.11.1-debian13@sha256:483db51fc29b8226297732655fc0c9b2942512bff6e756e3d0ab66559d31f8c8
+        - name: dhi/node:24.11.1-debian13@sha256:8f85366d336b0e07c330d2b5f42e8d89ddb985320ecb06227ded38341a580f10
           uid: 0
           gid: 0
 accounts:
