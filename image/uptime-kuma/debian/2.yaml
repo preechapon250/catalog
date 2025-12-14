@@ -20,7 +20,7 @@ vars:
     COMMIT_SHA: c451db542d7c36c66d10a4218628bc6cc0d314a9
     NODE_BUILD_REFERENCE: dhi/node:24.11.1-debian13-dev@sha256:61842dcde615e7f8165deedf661a15170d7be1e4a2649e8330fad312ec50f85b
     NODE_BUILD_VERSION: 24.11.1
-    NODE_RUNTIME_REFERENCE: dhi/node:24.11.1-debian13@sha256:8f85366d336b0e07c330d2b5f42e8d89ddb985320ecb06227ded38341a580f10
+    NODE_RUNTIME_REFERENCE: dhi/node:24.11.1-debian13@sha256:be4fd5f42c722bee4e5b8edad60e49b0b0fcb3bda59ecab6a83e9efce37d4a97
     NODE_RUNTIME_VERSION: 24.11.1
     SEMVER_MAJOR_MINOR_VERSION: "2.0"
     SEMVER_MAJOR_VERSION: "2"
@@ -136,7 +136,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/node:24.11.1-debian13@sha256:8f85366d336b0e07c330d2b5f42e8d89ddb985320ecb06227ded38341a580f10
+        - name: dhi/node:24.11.1-debian13@sha256:be4fd5f42c722bee4e5b8edad60e49b0b0fcb3bda59ecab6a83e9efce37d4a97
           uid: 0
           gid: 0
 accounts:
