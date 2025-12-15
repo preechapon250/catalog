@@ -9,23 +9,23 @@ variant: runtime
 tags:
     - "1"
     - "1.4"
-    - 1.4.11
-    - v1.4.11
+    - 1.4.12
+    - v1.4.12
     - 1-debian13
     - 1.4-debian13
-    - 1.4.11-debian13
+    - 1.4.12-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     ARCH: '#{ target.arch == "amd64" ? "amd64" : "arm64" }'
-    COMMIT_SHA: 5907d6103110062aaef9c5ab65c4b941ca354acf
+    COMMIT_SHA: 264b90df9d40a474308be258f4185996347de915
     GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
     GO_VERSION: 1.25.5
     SEMVER_MAJOR_MINOR_VERSION: "1.4"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.4.11
-    VERSION: 1.4.11
+    SEMVER_VERSION: 1.4.12
+    VERSION: 1.4.12
 contents:
     packages:
         - '!dpkg'
@@ -48,7 +48,7 @@ contents:
                 - gzip
                 - sed
             files:
-                - url: git+https://github.com/stakater/Reloader.git#v1.4.11
+                - url: git+https://github.com/stakater/Reloader.git#v1.4.12
                   path: ${source.dir}/Reloader
                   uid: 0
                   gid: 0
@@ -57,7 +57,7 @@ contents:
               uses: git/checkout@v1
               with:
                 dir: Reloader
-                expected-commit: 5907d6103110062aaef9c5ab65c4b941ca354acf
+                expected-commit: 264b90df9d40a474308be258f4185996347de915
             - name: build
               runs: |
                 set -eux -o pipefail
@@ -70,7 +70,7 @@ contents:
                 ts=$(git show -s --format=%cd --date=iso-strict HEAD)
                 sed -i "s/DATE := .*/DATE := \"$ts\"/g" Makefile
 
-                sed -i 's|LDFLAGS =.*|LDFLAGS = "-ldflags=-X github.com/stakater/Reloader/main.Version=1.4.11"|g' Makefile
+                sed -i 's|LDFLAGS =.*|LDFLAGS = "-ldflags=-X github.com/stakater/Reloader/main.Version=1.4.12"|g' Makefile
 
                 CGO_ENABLED=0 make build
 
