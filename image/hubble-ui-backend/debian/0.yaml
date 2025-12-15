@@ -21,10 +21,9 @@ vars:
     BASE_TAG: 20250419-debian13
     CILIUM_VERSION: 1.17.6
     COMMIT_SHA: 3ef88cd8b72b698c3643e7c2f584165b613659a5
-    GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+    GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
     GO_VERSION: 1.25.5
-    GOPS_COMMIT_SHA: ac7253a1736413f0a618f28559ce5034c71e61f6
-    GOPS_VERSION: 0.3.28
+    GOPS_REFERENCE: dhi/pkg-gops:0.3.28@sha256:acab16123f72fc94ef6280b2763948d5013c31aca46e6692a7f7d3ca8d5035e7
     SEMVER_MAJOR_MINOR_VERSION: "0.13"
     SEMVER_MAJOR_VERSION: "0"
     SEMVER_VERSION: 0.13.3
@@ -33,53 +32,14 @@ contents:
     packages:
         - '!base-files'
     builds:
-        - name: gops
-          uses: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
-          privileged: true
-          contents:
-            files:
-                - url: git+https://github.com/google/gops.git#v0.3.28
-                  path: /go/src/github.com/google/gops
-                  spdx:
-                    name: gops
-                    version: 0.3.28
-                    packages:
-                        - name: gops
-                          purl: pkg:golang/github.com/google/gops@0.3.28
-                          license: BSD-3-Clause
-                  uid: 0
-                  gid: 0
-          pipeline:
-            - name: verify checkout
-              uses: git/checkout@v1
-              work-dir: /go/src/github.com/google/gops
-              with:
-                expected-commit: ac7253a1736413f0a618f28559ce5034c71e61f6
-            - name: build gops
-              work-dir: /go/src/github.com/google/gops
-              runs: |
-                set -eux -o pipefail
-
-                CGO_ENABLED=0 go build \
-                  -o "${target.dir}/usr/bin/gops" \
-                  github.com/google/gops
-          outputs:
-            - source: ${target.dir}/usr/bin/gops
-              target: /usr/bin/gops
-              uid: 0
-              gid: 0
-            - source: /opt/docker/sbom/gops
-              target: /opt/docker/sbom/gops
-              uid: 0
-              gid: 0
         - name: hubble-ui-backend
           uses: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
-          privileged: true
           contents:
             packages:
                 - coreutils
             files:
                 - url: git+https://github.com/cilium/hubble-ui.git#v0.13.3
+                  checksum: 3ef88cd8b72b698c3643e7c2f584165b613659a5
                   path: /go/src/github.com/cilium/hubble-ui
                   spdx:
                     name: hubble-ui-backend
@@ -91,11 +51,6 @@ contents:
                   uid: 0
                   gid: 0
           pipeline:
-            - name: verify
-              uses: git/checkout@v1
-              work-dir: /go/src/github.com/cilium/hubble-ui
-              with:
-                expected-commit: 3ef88cd8b72b698c3643e7c2f584165b613659a5
             - name: patch
               uses: go/bump@v1
               work-dir: /go/src/github.com/cilium/hubble-ui/backend
@@ -109,12 +64,10 @@ contents:
 
                 CGO_ENABLED=0 go test -v -skip 'TestEverything' ./...
             - name: build
+              uses: go/build@v1
               work-dir: /go/src/github.com/cilium/hubble-ui/backend
-              runs: |
-                set -eux -o pipefail
-
-                CGO_ENABLED=0 go build \
-                  -o "${target.dir}/usr/local/bin/backend"
+              with:
+                output: ${target.dir}/usr/local/bin/backend
           outputs:
             - source: ${target.dir}/usr/local/bin/backend
               target: /usr/local/bin/backend
@@ -125,6 +78,12 @@ contents:
               uid: 0
               gid: 0
     artifacts:
+        - name: dhi/pkg-gops:0.3.28@sha256:acab16123f72fc94ef6280b2763948d5013c31aca46e6692a7f7d3ca8d5035e7
+          includes:
+            - opt/**
+            - usr/local/**
+          uid: 0
+          gid: 0
         - name: dhi/static:20250419-debian13@sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
           includes:
             - bin
