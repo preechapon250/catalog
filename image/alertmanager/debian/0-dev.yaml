@@ -8,23 +8,23 @@ image: dhi/alertmanager
 variant: dev
 tags:
     - 0-dev
-    - 0.29-dev
-    - 0.29.0-dev
+    - 0.30-dev
+    - 0.30.0-dev
     - 0-debian13-dev
-    - 0.29-debian13-dev
-    - 0.29.0-debian13-dev
+    - 0.30-debian13-dev
+    - 0.30.0-debian13-dev
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     BASE_DIGEST: sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
     BASE_TAG: 20250419-debian13
-    COMMIT_SHA: 2f0cff51fd1cc761eeb671db43736341ca2ab511
+    COMMIT_SHA: ecda6777f8b67ba00ff40571c6a754c965fc1aaa
     GOLANG_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
-    SEMVER_MAJOR_MINOR_VERSION: "0.29"
+    SEMVER_MAJOR_MINOR_VERSION: "0.30"
     SEMVER_MAJOR_VERSION: "0"
-    SEMVER_VERSION: 0.29.0
-    VERSION: 0.29.0
+    SEMVER_VERSION: 0.30.0
+    VERSION: 0.30.0
 contents:
     packages:
         - '!base-files'
@@ -49,15 +49,15 @@ contents:
           uses: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
           contents:
             files:
-                - url: git+https://github.com/prometheus/alertmanager.git#v0.29.0
-                  checksum: 2f0cff51fd1cc761eeb671db43736341ca2ab511
+                - url: git+https://github.com/prometheus/alertmanager.git#v0.30.0
+                  checksum: ecda6777f8b67ba00ff40571c6a754c965fc1aaa
                   path: /go/src/github.com/prometheus/alertmanager
                   spdx:
                     name: alertmanager
-                    version: 0.29.0
+                    version: 0.30.0
                     packages:
                         - name: alertmanager
-                          purl: pkg:golang/github.com/prometheus/alertmanager@0.29.0
+                          purl: pkg:golang/github.com/prometheus/alertmanager@0.30.0
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -83,8 +83,8 @@ contents:
                 ldflags:
                     - -s
                     - -w
-                    - -X github.com/prometheus/common/version.Version=0.29.0
-                    - -X github.com/prometheus/common/version.Revision=2f0cff51fd1cc761eeb671db43736341ca2ab511
+                    - -X github.com/prometheus/common/version.Version=0.30.0
+                    - -X github.com/prometheus/common/version.Revision=ecda6777f8b67ba00ff40571c6a754c965fc1aaa
                     - -X github.com/prometheus/common/version.BuildUser=dhi
                     - -X github.com/prometheus/common/version.BuildDate=${SOURCE_DATE_EPOCH}
                 output: ${target.dir}/usr/local/bin/alertmanager
@@ -96,8 +96,8 @@ contents:
                 ldflags:
                     - -s
                     - -w
-                    - -X github.com/prometheus/common/version.Version=0.29.0
-                    - -X github.com/prometheus/common/version.Revision=2f0cff51fd1cc761eeb671db43736341ca2ab511
+                    - -X github.com/prometheus/common/version.Version=0.30.0
+                    - -X github.com/prometheus/common/version.Revision=ecda6777f8b67ba00ff40571c6a754c965fc1aaa
                     - -X github.com/prometheus/common/version.BuildUser=dhi
                     - -X github.com/prometheus/common/version.BuildDate=${SOURCE_DATE_EPOCH}
                 output: ${target.dir}/usr/local/bin/amtool
