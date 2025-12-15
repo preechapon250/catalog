@@ -9,23 +9,23 @@ variant: runtime
 tags:
     - "2"
     - "2.8"
-    - 2.8.2
+    - 2.8.3
     - 2-debian13
     - 2.8-debian13
-    - 2.8.2-debian13
+    - 2.8.3-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    COMMIT: f4b2edd072e6e31b3930f7deaf1e1fbbe35ad8a0
+    COMMIT: 35f44eb4d17adadd158c4a27878b8889fbe3fb5c
     GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
     GO_VERSION: 1.25.5
     PYTHON_DIGEST: sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
     PYTHON_VERSION: 3.12.12
     SEMVER_MAJOR_MINOR_VERSION: "2.8"
     SEMVER_MAJOR_VERSION: "2"
-    SEMVER_VERSION: 2.8.2
-    VERSION: 2.8.2
+    SEMVER_VERSION: 2.8.3
+    VERSION: 2.8.3
 contents:
     packages:
         - base-files
@@ -90,14 +90,14 @@ contents:
                 - libzstd-dev
                 - patch
             files:
-                - url: git+https://github.com/netdata/netdata.git#v2.8.2
+                - url: git+https://github.com/netdata/netdata.git#v2.8.3
                   path: /usr/src/netdata
                   spdx:
                     name: netdata
-                    version: 2.8.2
+                    version: 2.8.3
                     packages:
                         - name: netdata
-                          purl: pkg:dhi/netdata@2.8.2
+                          purl: pkg:dhi/netdata@2.8.3
                           license: GPL-3.0
                   uid: 0
                   gid: 0
@@ -106,7 +106,7 @@ contents:
               uses: git/checkout@v1
               with:
                 dir: /usr/src/netdata
-                expected-commit: f4b2edd072e6e31b3930f7deaf1e1fbbe35ad8a0
+                expected-commit: 35f44eb4d17adadd158c4a27878b8889fbe3fb5c
             - name: update go dependencies
               uses: go/bump@v1
               with:
