@@ -7,22 +7,22 @@ name: VictoriaMetrics Alerts Helm chart 0.x
 image: dhi/victoriametrics-alert-chart
 variant: helm
 tags:
-    - 0.27.0
+    - 0.28.0
 platforms:
     - linux/amd64
 vars:
     ALERTMANAGER_REFERENCE: dhi/alertmanager:0.29.0-debian13@sha256:b874c7a9a6c8e82387f34eba1b224e8bdf1b9b5c70180f2cdd3d21da6634af85
-    CHART_COMMIT_SHA: ad56730a2f7163210d25fa1cf088fecec2900e68
+    CHART_COMMIT_SHA: edbb837a44bd36c22b1e9f1afeb245eda7426652
     DHI_NAMESPACE: dhi
     DHI_PREFIX: ""
     DHI_REGISTRY: docker.io
     DHI_SKIP_CONTEXT_COPY: "true"
     HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:5b1c0c9aeadb87a6f9de696998d851653e7d41ba1b93858b162b98747b1ea80b
-    SEMVER_MAJOR_MINOR_VERSION: "0.27"
+    SEMVER_MAJOR_MINOR_VERSION: "0.28"
     SEMVER_MAJOR_VERSION: "0"
-    SEMVER_VERSION: 0.27.0
-    VERSION: 0.27.0
-    VMALERT_REFERENCE: dhi/victoriametrics-vmalert:1.131.0-debian13@sha256:2865e53ef3973ce11aeefbf9832cb1da01cb5603948401c8f6a45eca072c5d9f
+    SEMVER_VERSION: 0.28.0
+    VERSION: 0.28.0
+    VMALERT_REFERENCE: dhi/victoriametrics-vmalert:1.132.0-debian13@sha256:16573b9d9ac883580fbf75d66150c933327c8247e05542bc42424ef69c744709
     VMALERT_TAG: 1.129.1
 contents:
     builds:
@@ -30,8 +30,8 @@ contents:
           uses: dhi/helm:3.19.4-debian13-dev@sha256:5b1c0c9aeadb87a6f9de696998d851653e7d41ba1b93858b162b98747b1ea80b
           contents:
             files:
-                - url: git+https://github.com/VictoriaMetrics/helm-charts.git#victoria-metrics-alert-0.27.0
-                  checksum: ad56730a2f7163210d25fa1cf088fecec2900e68
+                - url: git+https://github.com/VictoriaMetrics/helm-charts.git#victoria-metrics-alert-0.28.0
+                  checksum: edbb837a44bd36c22b1e9f1afeb245eda7426652
                   path: ${source.dir}/helm-charts
                   uid: 0
                   gid: 0
@@ -45,7 +45,7 @@ contents:
                     description: Docker Hardened Images Helm chart for VictoriaMetrics Alert
                     images:
                         - name: victoriametrics-vmalert
-                          ref: dhi/victoriametrics-vmalert:1.131.0-debian13@sha256:2865e53ef3973ce11aeefbf9832cb1da01cb5603948401c8f6a45eca072c5d9f
+                          ref: dhi/victoriametrics-vmalert:1.132.0-debian13@sha256:16573b9d9ac883580fbf75d66150c933327c8247e05542bc42424ef69c744709
                         - name: alertmanager
                           ref: dhi/alertmanager:0.29.0-debian13@sha256:b874c7a9a6c8e82387f34eba1b224e8bdf1b9b5c70180f2cdd3d21da6634af85
                     name: victoriametrics-alert-chart
