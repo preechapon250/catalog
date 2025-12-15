@@ -17,3 +17,10 @@ hotReload:
     repository: ${configmap-reload.registry}/${configmap-reload.repository}
     tag: ${configmap-reload.tag}
     digest: ${configmap-reload.digest}
+
+podSecurityContext:
+  fsGroup: 65532
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 65532
+  runAsGroup: 65532
