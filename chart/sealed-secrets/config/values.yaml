@@ -2,3 +2,6 @@ image:
   registry: ${sealed-secrets-controller.registry}
   repository: ${sealed-secrets-controller.repository}
   tag: ${sealed-secrets-controller.tag}@${sealed-secrets-controller.digest}
+
+podSecurityContext:
+  fsGroup: 65532

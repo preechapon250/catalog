@@ -10,3 +10,10 @@ configReloader:
     repository: ${configmap-reload.repository}
     tag: ${configmap-reload.tag}
     digest: ${configmap-reload.digest}
+
+global:
+  podSecurityContext:
+    fsGroup: 65532
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
