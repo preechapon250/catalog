@@ -21,8 +21,8 @@ vars:
     DOCKERIZE_VERSION: 0.9.5
     GO_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
     GO_VERSION: 1.24.11
-    NODE_REFERENCE: dhi/node:24.11.1-debian13-dev@sha256:61842dcde615e7f8165deedf661a15170d7be1e4a2649e8330fad312ec50f85b
-    NODE_VERSION: 24.11.1
+    NODE_REFERENCE: dhi/node:24.12.0-debian13-dev@sha256:0a90afadabdddcdd7e9eecef7048e5a0f1f45e6f165c2a035be091f1efd2255e
+    NODE_VERSION: 24.12.0
     SEMVER_MAJOR_MINOR_VERSION: "2.43"
     SEMVER_MAJOR_VERSION: "2"
     SEMVER_VERSION: 2.43.3
@@ -56,7 +56,7 @@ contents:
                   uid: 0
                   gid: 0
             artifacts:
-                - name: dhi/node:24.11.1-debian13-dev@sha256:61842dcde615e7f8165deedf661a15170d7be1e4a2649e8330fad312ec50f85b
+                - name: dhi/node:24.12.0-debian13-dev@sha256:0a90afadabdddcdd7e9eecef7048e5a0f1f45e6f165c2a035be091f1efd2255e
                   includes:
                     - opt/nodejs
                     - usr/local/bin
@@ -70,18 +70,6 @@ contents:
                 deps:
                     - golang.org/x/crypto@v0.45.0
                 download: true
-            - name: install pnpm
-              work-dir: ${source.dir}/ui
-              privileged: true
-              runs: |
-                set -eux -o pipefail
-
-                # Install pnpm from Node.js distribution
-                npm install --global pnpm@$(jq -r '.packageManager' package.json | cut -d'@' -f2)
-
-                # Create a symlink to pnpm on the PATH this avoids us have to put append the path
-                npm_prefix=$(npm prefix --global)
-                ln -s "$npm_prefix/bin/pnpm" /usr/local/bin/pnpm
             - name: bump pnpm
               work-dir: ${source.dir}/ui
               privileged: true
