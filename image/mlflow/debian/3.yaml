@@ -18,7 +18,7 @@ platforms:
     - linux/arm64
 vars:
     COMMIT_SHA: c4d8b3a29dff5b443bb825dbaec735c37343a801
-    NODE_DIGEST: sha256:4c79d098635b21e727a20f0cb82c9ba3f2d79d0eef5079f33992c432c122b788
+    NODE_DIGEST: sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
     NODE_VERSION: 22.21.1
     PYTHON_DIGEST: sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
     PYTHON_MAJOR_MINOR_VERSION: "3.12"
@@ -56,7 +56,7 @@ contents:
                   uid: 0
                   gid: 0
             artifacts:
-                - name: dhi/pkg-node:22.21.1-debian13@sha256:4c79d098635b21e727a20f0cb82c9ba3f2d79d0eef5079f33992c432c122b788
+                - name: dhi/pkg-node:22.21.1-debian13@sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
                   includes:
                     - opt/nodejs
                     - opt/yarn
