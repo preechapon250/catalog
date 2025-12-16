@@ -166,8 +166,8 @@ paths:
       mode: "0755"
 annotations:
     org.opencontainers.image.licenses: Apache-2.0
-cmd:
-    - /bin/bash
+entrypoint:
+    - /opt/kserve/storage-initializer-entrypoint
 tests:
     - name: Run testcontainers tests
       directory: image/kserve-storage-initializer/tests

@@ -144,8 +144,8 @@ paths:
 annotations:
     org.opencontainers.image.description: KServe provides a Kubernetes Custom Resource Definition for serving predictive and generative machine learning (ML) models.
     org.opencontainers.image.licenses: Apache-2.0
-cmd:
-    - /bin/bash
+entrypoint:
+    - /manager
 tests:
     - name: Run testcontainers tests
       directory: image/kserve-controller/tests

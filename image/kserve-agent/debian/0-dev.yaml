@@ -140,8 +140,8 @@ environment:
 annotations:
     org.opencontainers.image.description: KServe Agent - ML inference sidecar container
     org.opencontainers.image.licenses: Apache-2.0
-cmd:
-    - /bin/bash
+entrypoint:
+    - kserve-agent
 ports:
     - 9081/tcp
 tests:

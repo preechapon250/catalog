@@ -140,8 +140,8 @@ environment:
 annotations:
     org.opencontainers.image.description: A minimal KServe LocalModel Controller image
     org.opencontainers.image.licenses: Apache-2.0
-cmd:
-    - /bin/bash
+entrypoint:
+    - /usr/local/bin/localmodel
 ports:
     - 8080/tcp
     - 8081/tcp
