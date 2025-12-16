@@ -7,8 +7,8 @@ name: Jenkins 2.x (weekly)
 image: dhi/jenkins
 variant: runtime
 tags:
-    - "2.541"
-    - 2.541-debian13
+    - "2.542"
+    - 2.542-debian13
 platforms:
     - linux/amd64
     - linux/arm64
@@ -21,9 +21,9 @@ vars:
     BUILD_JDK_DIGEST: sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
     BUILD_JDK_REF: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
     BUILD_JDK_VERSION: 21.0.9.10
-    COMMIT_SHA: ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3
-    DOCKER_REPO_COMMIT_SHA: 1d22f3716cc2a5baeedeb636a006c4c38d35ce4c
-    DOCKER_REPO_VERSION: "2.541"
+    COMMIT_SHA: bc673e4d81eb860c9ee57cf5ad605646c60f66cc
+    DOCKER_REPO_COMMIT_SHA: 503298f3e3d6c97a20cb723338bd5a25c4abae79
+    DOCKER_REPO_VERSION: "2.542"
     JAVA_HOME_PATH: /opt/java/openjdk/21-jre
     JAVA_MAJOR_VERSION: "21"
     JDK_MAJOR_VERSION: "21"
@@ -34,9 +34,9 @@ vars:
     MAVEN_DIGEST: sha256:d32db03bcb4d85dd30c226ed791e3f661c12d3832be497518bc534694ab0fcb5
     MAVEN_REF: dhi/maven:3.9.11-jdk21-debian13-dev@sha256:d32db03bcb4d85dd30c226ed791e3f661c12d3832be497518bc534694ab0fcb5
     MAVEN_VERSION: 3.9.11
-    SEMVER_MAJOR_MINOR_VERSION: "2.541"
+    SEMVER_MAJOR_MINOR_VERSION: "2.542"
     SEMVER_MAJOR_VERSION: "2"
-    VERSION: "2.541"
+    VERSION: "2.542"
 contents:
     packages:
         - '!libelogind0'
@@ -71,20 +71,20 @@ contents:
                 - sed
                 - tar
             files:
-                - url: git+https://github.com/jenkinsci/jenkins.git#jenkins-2.541
-                  checksum: ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3
-                  path: ${source.dir}/jenkins-ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3
+                - url: git+https://github.com/jenkinsci/jenkins.git#jenkins-2.542
+                  checksum: bc673e4d81eb860c9ee57cf5ad605646c60f66cc
+                  path: ${source.dir}/jenkins-bc673e4d81eb860c9ee57cf5ad605646c60f66cc
                   spdx:
                     name: jenkins
-                    version: "2.541"
+                    version: "2.542"
                     packages:
                         - name: jenkins
-                          purl: pkg:dhi/jenkins@2.541
+                          purl: pkg:dhi/jenkins@2.542
                           license: MIT
                   uid: 0
                   gid: 0
-                - url: git+https://github.com/jenkinsci/docker.git#1d22f3716cc2a5baeedeb636a006c4c38d35ce4c
-                  checksum: 1d22f3716cc2a5baeedeb636a006c4c38d35ce4c
+                - url: git+https://github.com/jenkinsci/docker.git#503298f3e3d6c97a20cb723338bd5a25c4abae79
+                  checksum: 503298f3e3d6c97a20cb723338bd5a25c4abae79
                   path: ${source.dir}/docker-builds
                   uid: 0
                   gid: 0
@@ -97,14 +97,14 @@ contents:
                   gid: 0
           pipeline:
             - name: build
-              work-dir: ${source.dir}/jenkins-ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3
+              work-dir: ${source.dir}/jenkins-bc673e4d81eb860c9ee57cf5ad605646c60f66cc
               privileged: true
               runs: |
                 set -eux -o pipefail
 
                 mvn clean install -DskipTests -Dmaven.test.skip=true -Dspotless.check.skip=true
             - name: install
-              work-dir: ${source.dir}/jenkins-ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3
+              work-dir: ${source.dir}/jenkins-bc673e4d81eb860c9ee57cf5ad605646c60f66cc
               runs: |
                 set -eux -o pipefail
 
@@ -184,7 +184,7 @@ environment:
     JENKINS_SLAVE_AGENT_PORT: "50000"
     JENKINS_UC: https://updates.jenkins.io
     JENKINS_UC_EXPERIMENTAL: https://updates.jenkins.io/experimental
-    JENKINS_VERSION: "2.541"
+    JENKINS_VERSION: "2.542"
     LANG: C.UTF-8
     PATH: /usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
     REF: /usr/share/jenkins/ref
