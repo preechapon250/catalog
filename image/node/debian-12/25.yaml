@@ -17,7 +17,7 @@ dates:
     release: "2025-10-15"
     end-of-life: "2026-06-01"
 vars:
-    DIGEST: sha256:7dbd484e3e1b073de07368f98871cffaa3568a734b30b9fa53775af4ebaa3c8f
+    DIGEST: sha256:3c2aa792dbf483b91c6a25b34badb1b20554b26626ac115b0f7ea3b3025c73fb
     NODEJS_VERSION_MAJOR: "25"
     NODEJS_VERSION_MAJOR_MINOR: "25.2"
     VERSION: 25.2.1
@@ -79,19 +79,23 @@ contents:
                 - bash
                 - coreutils
             artifacts:
-                - name: dhi/pkg-node:25.2.1-debian12@sha256:7dbd484e3e1b073de07368f98871cffaa3568a734b30b9fa53775af4ebaa3c8f
+                - name: dhi/pkg-node:25.2.1-debian12@sha256:3c2aa792dbf483b91c6a25b34badb1b20554b26626ac115b0f7ea3b3025c73fb
                   includes:
                     - opt/docker
                     - opt/nodejs
+                    - usr/local/bin/node
                   excludes:
                     - opt/docker/sbom/yarn
                     - opt/nodejs/node-v25.2.1/bin/corepack
                     - opt/nodejs/node-v25.2.1/bin/npm
                     - opt/nodejs/node-v25.2.1/bin/npx
+                    - opt/nodejs/node-v25.2.1/bin/pnpm
+                    - opt/nodejs/node-v25.2.1/bin/pnpx
+                    - opt/nodejs/node-v25.2.1/bin/yarn
+                    - opt/nodejs/node-v25.2.1/bin/yarnpkg
                     - opt/nodejs/node-v25.2.1/include
                     - opt/nodejs/node-v25.2.1/lib
                     - opt/nodejs/node-v25.2.1/share
-                    - usr/local/bin/node
                   uid: 0
                   gid: 0
           pipeline:
@@ -99,12 +103,6 @@ contents:
               uses: strip@v1
               with:
                 dir: /opt/nodejs/node-v25.2.1
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-                ln -s "/opt/nodejs/node-v25.2.1/bin/node" /usr/local/bin/node
           outputs:
             - source: /opt/nodejs
               target: /opt/nodejs

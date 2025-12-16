@@ -8,16 +8,16 @@ image: dhi/node
 variant: dev
 tags:
     - 24-debian12-dev
-    - 24.11-debian12-dev
-    - 24.11.1-debian12-dev
+    - 24.12-debian12-dev
+    - 24.12.0-debian12-dev
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    DIGEST: sha256:f176e9753ffb9fea6e488dd2665137c9f00742145d7f8f2492f93b00dfdf08ef
+    DIGEST: sha256:d9c175b7bee7d041feed65c5e9c0ece7ce8ca2301b853c0165a7cfcb1c8f836b
     NODEJS_VERSION_MAJOR: "24"
-    NODEJS_VERSION_MAJOR_MINOR: "24.11"
-    VERSION: 24.11.1
+    NODEJS_VERSION_MAJOR_MINOR: "24.12"
+    VERSION: 24.12.0
 contents:
     packages:
         - '!gawk'
@@ -40,56 +40,15 @@ contents:
         - perl-base
         - sed
         - util-linux
-    builds:
-        - name: node
-          contents:
-            packages:
-                - bash
-                - coreutils
-                - findutils
-            artifacts:
-                - name: dhi/pkg-node:24.11.1-debian12@sha256:f176e9753ffb9fea6e488dd2665137c9f00742145d7f8f2492f93b00dfdf08ef
-                  includes:
-                    - opt/docker
-                    - opt/nodejs
-                    - opt/yarn
-                  excludes:
-                    - usr/local/bin
-                  uid: 0
-                  gid: 0
-          pipeline:
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-
-                find "/opt/nodejs/node-v24.11.1/bin" -type f -executable -o -type l | while read -r file; do
-                  filename=$(basename "${file}")
-                  ln -s "${file}" "/usr/local/bin/${filename}"
-                done
-
-                find /opt/yarn -type f -executable -o -type l | while read -r file; do
-                  filename=$(basename "${file}")
-                  ln -s "${file}" "/usr/local/bin/${filename}"
-                done
-          outputs:
-            - source: /opt/nodejs
-              target: /opt/nodejs
-              uid: 0
-              gid: 0
-            - source: /opt/yarn
-              target: /opt/yarn
-              uid: 0
-              gid: 0
-            - source: /opt/docker/sbom
-              target: /opt/docker/sbom
-              uid: 0
-              gid: 0
-            - source: /usr/local/bin
-              target: /usr/local/bin
-              uid: 0
-              gid: 0
+    artifacts:
+        - name: dhi/pkg-node:24.12.0-debian12@sha256:d9c175b7bee7d041feed65c5e9c0ece7ce8ca2301b853c0165a7cfcb1c8f836b
+          includes:
+            - opt/docker
+            - opt/nodejs
+            - opt/yarn
+            - usr/local/bin
+          uid: 0
+          gid: 0
 accounts:
     root: true
     run-as: root
@@ -116,7 +75,7 @@ os-release:
 work-dir: /app
 environment:
     DEBIAN_FRONTEND: noninteractive
-    NODE_VERSION: 24.11.1
+    NODE_VERSION: 24.12.0
     NPM_CONFIG_UPDATE_NOTIFIER: "false"
     YARN_DISABLE_SELF_UPDATE_CHECK: "true"
 paths:
@@ -129,7 +88,7 @@ annotations:
     org.opencontainers.image.description: A minimal Node.JS image
     org.opencontainers.image.licenses: MIT
 cmd:
-    - /bin/bash
+    - node
 tests:
     - name: Run base tests
       directory: test/go-testing/base

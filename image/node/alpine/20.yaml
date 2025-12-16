@@ -17,7 +17,7 @@ dates:
     release: "2023-04-18"
     end-of-life: "2026-04-30"
 vars:
-    DIGEST: sha256:fe99304f116cf05e9456284bd71492132f7fbf066cb5e980edc72787052d7c2a
+    DIGEST: sha256:b0639b39aec9f1c18ddfa365594332babe48332dbffb2c273ab0c9b9d4780fb6
     NODEJS_VERSION_MAJOR: "20"
     NODEJS_VERSION_MAJOR_MINOR: "20.19"
     VERSION: 20.19.6
@@ -32,22 +32,53 @@ contents:
         - libgcc
         - libstdc++
         - musl
-    artifacts:
-        - name: dhi/pkg-node:20.19.6-alpine3.22@sha256:fe99304f116cf05e9456284bd71492132f7fbf066cb5e980edc72787052d7c2a
-          includes:
-            - opt/docker
-            - opt/nodejs
-            - usr/local/bin/node
-          excludes:
-            - opt/docker/sbom/yarn
-            - opt/nodejs/node-v20.19.6/bin/corepack
-            - opt/nodejs/node-v20.19.6/bin/npm
-            - opt/nodejs/node-v20.19.6/bin/npx
-            - opt/nodejs/node-v20.19.6/include
-            - opt/nodejs/node-v20.19.6/lib
-            - opt/nodejs/node-v20.19.6/share
-          uid: 0
-          gid: 0
+    builds:
+        - name: node
+          contents:
+            repositories:
+                - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
+                - https://dl-cdn.alpinelinux.org/alpine/v3.22/community
+            packages:
+                - busybox
+                - coreutils
+            artifacts:
+                - name: dhi/pkg-node:20.19.6-alpine3.22@sha256:b0639b39aec9f1c18ddfa365594332babe48332dbffb2c273ab0c9b9d4780fb6
+                  includes:
+                    - opt/docker
+                    - opt/nodejs
+                    - usr/local/bin/node
+                  excludes:
+                    - opt/docker/sbom/yarn
+                    - opt/nodejs/node-v20.19.6/bin/corepack
+                    - opt/nodejs/node-v20.19.6/bin/npm
+                    - opt/nodejs/node-v20.19.6/bin/npx
+                    - opt/nodejs/node-v20.19.6/bin/pnpm
+                    - opt/nodejs/node-v20.19.6/bin/pnpx
+                    - opt/nodejs/node-v20.19.6/bin/yarn
+                    - opt/nodejs/node-v20.19.6/bin/yarnpkg
+                    - opt/nodejs/node-v20.19.6/include
+                    - opt/nodejs/node-v20.19.6/lib
+                    - opt/nodejs/node-v20.19.6/share
+                  uid: 0
+                  gid: 0
+          pipeline:
+            - name: strip
+              uses: strip@v1
+              with:
+                dir: /opt/nodejs/node-v20.19.6
+          outputs:
+            - source: /opt/nodejs
+              target: /opt/nodejs
+              uid: 0
+              gid: 0
+            - source: /opt/docker/sbom
+              target: /opt/docker/sbom
+              uid: 0
+              gid: 0
+            - source: /usr/local/bin
+              target: /usr/local/bin
+              uid: 0
+              gid: 0
 accounts:
     root: true
     run-as: node

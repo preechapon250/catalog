@@ -17,7 +17,7 @@ dates:
     release: "2024-04-24"
     end-of-life: "2027-04-30"
 vars:
-    DIGEST: sha256:57d523028e354dada92012cd236d42b43c9b03736ec663fe2cc56b59a2d0474a
+    DIGEST: sha256:eafb856954b059fb399466f5c0a2ca7a5356e9f810f99169069676e1d8b92a7f
     NODEJS_VERSION_MAJOR: "22"
     NODEJS_VERSION_MAJOR_MINOR: "22.21"
     VERSION: 22.21.1
@@ -36,7 +36,7 @@ contents:
         - libstdc++
         - musl
     artifacts:
-        - name: dhi/pkg-node:22.21.1-alpine3.22@sha256:57d523028e354dada92012cd236d42b43c9b03736ec663fe2cc56b59a2d0474a
+        - name: dhi/pkg-node:22.21.1-alpine3.22@sha256:eafb856954b059fb399466f5c0a2ca7a5356e9f810f99169069676e1d8b92a7f
           includes:
             - opt/docker
             - opt/nodejs
@@ -78,7 +78,7 @@ annotations:
     org.opencontainers.image.description: A minimal Node.JS image
     org.opencontainers.image.licenses: MIT
 cmd:
-    - /bin/sh
+    - node
 tests:
     - name: Run base tests
       directory: test/go-testing/base

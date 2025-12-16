@@ -14,7 +14,7 @@ platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    DIGEST: sha256:f019a262194ec962b447ccb9953606eaa0c8c025f5702c6d171746575b5b09d3
+    DIGEST: sha256:cdfbfc032eb105ad971db509a37fecaa25a4ada7c164bc2883deeb9fb70e02d8
     NODEJS_VERSION_MAJOR: "20"
     NODEJS_VERSION_MAJOR_MINOR: "20.19"
     VERSION: 20.19.6
@@ -75,19 +75,23 @@ contents:
                 - bash
                 - coreutils
             artifacts:
-                - name: dhi/pkg-node:20.19.6-debian12@sha256:f019a262194ec962b447ccb9953606eaa0c8c025f5702c6d171746575b5b09d3
+                - name: dhi/pkg-node:20.19.6-debian12@sha256:cdfbfc032eb105ad971db509a37fecaa25a4ada7c164bc2883deeb9fb70e02d8
                   includes:
                     - opt/docker
                     - opt/nodejs
+                    - usr/local/bin/node
                   excludes:
                     - opt/docker/sbom/yarn
                     - opt/nodejs/node-v20.19.6/bin/corepack
                     - opt/nodejs/node-v20.19.6/bin/npm
                     - opt/nodejs/node-v20.19.6/bin/npx
+                    - opt/nodejs/node-v20.19.6/bin/pnpm
+                    - opt/nodejs/node-v20.19.6/bin/pnpx
+                    - opt/nodejs/node-v20.19.6/bin/yarn
+                    - opt/nodejs/node-v20.19.6/bin/yarnpkg
                     - opt/nodejs/node-v20.19.6/include
                     - opt/nodejs/node-v20.19.6/lib
                     - opt/nodejs/node-v20.19.6/share
-                    - usr/local/bin/node
                   uid: 0
                   gid: 0
           pipeline:
@@ -95,12 +99,6 @@ contents:
               uses: strip@v1
               with:
                 dir: /opt/nodejs/node-v20.19.6
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-                ln -s "/opt/nodejs/node-v20.19.6/bin/node" /usr/local/bin/node
           outputs:
             - source: /opt/nodejs
               target: /opt/nodejs

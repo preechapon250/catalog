@@ -17,7 +17,7 @@ dates:
     release: "2025-10-15"
     end-of-life: "2026-06-01"
 vars:
-    DIGEST: sha256:9f86ac1174d8e37cd48c72bc7f38909900dfff07948231e6b867930d6d86e99d
+    DIGEST: sha256:320b3e12b0ed862c9d809effc3671bc8649bea9edc19d65dc5bcdb457962b8d0
     NODEJS_VERSION_MAJOR: "25"
     NODEJS_VERSION_MAJOR_MINOR: "25.2"
     VERSION: 25.2.1
@@ -32,22 +32,53 @@ contents:
         - libgcc
         - libstdc++
         - musl
-    artifacts:
-        - name: dhi/pkg-node:25.2.1-alpine3.22@sha256:9f86ac1174d8e37cd48c72bc7f38909900dfff07948231e6b867930d6d86e99d
-          includes:
-            - opt/docker
-            - opt/nodejs
-            - usr/local/bin/node
-          excludes:
-            - opt/docker/sbom/yarn
-            - opt/nodejs/node-v25.2.1/bin/corepack
-            - opt/nodejs/node-v25.2.1/bin/npm
-            - opt/nodejs/node-v25.2.1/bin/npx
-            - opt/nodejs/node-v25.2.1/include
-            - opt/nodejs/node-v25.2.1/lib
-            - opt/nodejs/node-v25.2.1/share
-          uid: 0
-          gid: 0
+    builds:
+        - name: node
+          contents:
+            repositories:
+                - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
+                - https://dl-cdn.alpinelinux.org/alpine/v3.22/community
+            packages:
+                - busybox
+                - coreutils
+            artifacts:
+                - name: dhi/pkg-node:25.2.1-alpine3.22@sha256:320b3e12b0ed862c9d809effc3671bc8649bea9edc19d65dc5bcdb457962b8d0
+                  includes:
+                    - opt/docker
+                    - opt/nodejs
+                    - usr/local/bin/node
+                  excludes:
+                    - opt/docker/sbom/yarn
+                    - opt/nodejs/node-v25.2.1/bin/corepack
+                    - opt/nodejs/node-v25.2.1/bin/npm
+                    - opt/nodejs/node-v25.2.1/bin/npx
+                    - opt/nodejs/node-v25.2.1/bin/pnpm
+                    - opt/nodejs/node-v25.2.1/bin/pnpx
+                    - opt/nodejs/node-v25.2.1/bin/yarn
+                    - opt/nodejs/node-v25.2.1/bin/yarnpkg
+                    - opt/nodejs/node-v25.2.1/include
+                    - opt/nodejs/node-v25.2.1/lib
+                    - opt/nodejs/node-v25.2.1/share
+                  uid: 0
+                  gid: 0
+          pipeline:
+            - name: strip
+              uses: strip@v1
+              with:
+                dir: /opt/nodejs/node-v25.2.1
+          outputs:
+            - source: /opt/nodejs
+              target: /opt/nodejs
+              uid: 0
+              gid: 0
+            - source: /opt/docker/sbom
+              target: /opt/docker/sbom
+              uid: 0
+              gid: 0
+            - source: /usr/local/bin
+              target: /usr/local/bin
+              uid: 0
+              gid: 0
 accounts:
     root: true
     run-as: node

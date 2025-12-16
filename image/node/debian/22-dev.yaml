@@ -20,7 +20,7 @@ dates:
     release: "2024-04-24"
     end-of-life: "2027-04-30"
 vars:
-    DIGEST: sha256:4c79d098635b21e727a20f0cb82c9ba3f2d79d0eef5079f33992c432c122b788
+    DIGEST: sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
     EXPAT_DIGEST: sha256:bf522255414eb53b8992e36dc64fde670d477c0b3be62c84209c4409de35e324
     EXPAT_VERSION: 2.7.3
     NODEJS_VERSION_MAJOR: "22"
@@ -50,55 +50,6 @@ contents:
         - sed
         - util-linux
     builds:
-        - name: node
-          contents:
-            packages:
-                - bash
-                - coreutils
-                - findutils
-            artifacts:
-                - name: dhi/pkg-node:22.21.1-debian13@sha256:4c79d098635b21e727a20f0cb82c9ba3f2d79d0eef5079f33992c432c122b788
-                  includes:
-                    - opt/docker
-                    - opt/nodejs
-                    - opt/yarn
-                  excludes:
-                    - usr/local/bin
-                  uid: 0
-                  gid: 0
-          pipeline:
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-
-                find "/opt/nodejs/node-v22.21.1/bin" -type f -executable -o -type l | while read -r file; do
-                  filename=$(basename "${file}")
-                  ln -s "${file}" "/usr/local/bin/${filename}"
-                done
-
-                find /opt/yarn -type f -executable -o -type l | while read -r file; do
-                  filename=$(basename "${file}")
-                  ln -s "${file}" "/usr/local/bin/${filename}"
-                done
-          outputs:
-            - source: /opt/nodejs
-              target: /opt/nodejs
-              uid: 0
-              gid: 0
-            - source: /opt/yarn
-              target: /opt/yarn
-              uid: 0
-              gid: 0
-            - source: /opt/docker/sbom
-              target: /opt/docker/sbom
-              uid: 0
-              gid: 0
-            - source: /usr/local/bin
-              target: /usr/local/bin
-              uid: 0
-              gid: 0
         - name: locale
           uses: dhi/debian-base:trixie-debian13@sha256:c7651f9ef631e9a9feada59aff228f9382bdb537e85dc8e9c201093597898c45
           contents:
@@ -128,6 +79,14 @@ contents:
           includes:
             - usr/**
             - var/lib/dpkg/status.d
+          uid: 0
+          gid: 0
+        - name: dhi/pkg-node:22.21.1-debian13@sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
+          includes:
+            - opt/docker
+            - opt/nodejs
+            - opt/yarn
+            - usr/local/bin
           uid: 0
           gid: 0
 accounts:
@@ -172,7 +131,7 @@ annotations:
     org.opencontainers.image.description: A minimal Node.JS image
     org.opencontainers.image.licenses: MIT
 cmd:
-    - /bin/bash
+    - node
 tests:
     - name: Run base tests
       directory: test/go-testing/base

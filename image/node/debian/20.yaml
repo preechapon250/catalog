@@ -20,7 +20,7 @@ dates:
     release: "2023-04-18"
     end-of-life: "2026-04-30"
 vars:
-    DIGEST: sha256:713f37e64f6b098de134856ecf73d8fd5a01751c0f0883bb40f301c03f54eb90
+    DIGEST: sha256:2923c6688beb6e0fb12c13a2d1f2ccfd0d3c5aa9b8ab3944cca22dc92ee0860f
     NODEJS_VERSION_MAJOR: "20"
     NODEJS_VERSION_MAJOR_MINOR: "20.19"
     VERSION: 20.19.6
@@ -81,19 +81,23 @@ contents:
                 - bash
                 - coreutils
             artifacts:
-                - name: dhi/pkg-node:20.19.6-debian13@sha256:713f37e64f6b098de134856ecf73d8fd5a01751c0f0883bb40f301c03f54eb90
+                - name: dhi/pkg-node:20.19.6-debian13@sha256:2923c6688beb6e0fb12c13a2d1f2ccfd0d3c5aa9b8ab3944cca22dc92ee0860f
                   includes:
                     - opt/docker
                     - opt/nodejs
+                    - usr/local/bin/node
                   excludes:
                     - opt/docker/sbom/yarn
                     - opt/nodejs/node-v20.19.6/bin/corepack
                     - opt/nodejs/node-v20.19.6/bin/npm
                     - opt/nodejs/node-v20.19.6/bin/npx
+                    - opt/nodejs/node-v20.19.6/bin/pnpm
+                    - opt/nodejs/node-v20.19.6/bin/pnpx
+                    - opt/nodejs/node-v20.19.6/bin/yarn
+                    - opt/nodejs/node-v20.19.6/bin/yarnpkg
                     - opt/nodejs/node-v20.19.6/include
                     - opt/nodejs/node-v20.19.6/lib
                     - opt/nodejs/node-v20.19.6/share
-                    - usr/local/bin/node
                   uid: 0
                   gid: 0
           pipeline:
@@ -101,12 +105,6 @@ contents:
               uses: strip@v1
               with:
                 dir: /opt/nodejs/node-v20.19.6
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-                ln -s "/opt/nodejs/node-v20.19.6/bin/node" /usr/local/bin/node
           outputs:
             - source: /opt/nodejs
               target: /opt/nodejs

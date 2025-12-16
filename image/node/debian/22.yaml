@@ -20,7 +20,7 @@ dates:
     release: "2024-04-24"
     end-of-life: "2027-04-30"
 vars:
-    DIGEST: sha256:4c79d098635b21e727a20f0cb82c9ba3f2d79d0eef5079f33992c432c122b788
+    DIGEST: sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
     NODEJS_VERSION_MAJOR: "22"
     NODEJS_VERSION_MAJOR_MINOR: "22.21"
     VERSION: 22.21.1
@@ -81,19 +81,23 @@ contents:
                 - bash
                 - coreutils
             artifacts:
-                - name: dhi/pkg-node:22.21.1-debian13@sha256:4c79d098635b21e727a20f0cb82c9ba3f2d79d0eef5079f33992c432c122b788
+                - name: dhi/pkg-node:22.21.1-debian13@sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
                   includes:
                     - opt/docker
                     - opt/nodejs
+                    - usr/local/bin/node
                   excludes:
                     - opt/docker/sbom/yarn
                     - opt/nodejs/node-v22.21.1/bin/corepack
                     - opt/nodejs/node-v22.21.1/bin/npm
                     - opt/nodejs/node-v22.21.1/bin/npx
+                    - opt/nodejs/node-v22.21.1/bin/pnpm
+                    - opt/nodejs/node-v22.21.1/bin/pnpx
+                    - opt/nodejs/node-v22.21.1/bin/yarn
+                    - opt/nodejs/node-v22.21.1/bin/yarnpkg
                     - opt/nodejs/node-v22.21.1/include
                     - opt/nodejs/node-v22.21.1/lib
                     - opt/nodejs/node-v22.21.1/share
-                    - usr/local/bin/node
                   uid: 0
                   gid: 0
           pipeline:
@@ -101,12 +105,6 @@ contents:
               uses: strip@v1
               with:
                 dir: /opt/nodejs/node-v22.21.1
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-                ln -s "/opt/nodejs/node-v22.21.1/bin/node" /usr/local/bin/node
           outputs:
             - source: /opt/nodejs
               target: /opt/nodejs

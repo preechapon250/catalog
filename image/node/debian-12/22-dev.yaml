@@ -14,7 +14,7 @@ platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    DIGEST: sha256:357c5e6c10452b565aac486b8cb95333660c69770527981ad5000a68768dfef3
+    DIGEST: sha256:6d2d5059055cd0c16a05a1c4349a5099b49be4c3b85e32a6bc67dddb1b9ab7df
     NODEJS_VERSION_MAJOR: "22"
     NODEJS_VERSION_MAJOR_MINOR: "22.21"
     VERSION: 22.21.1
@@ -40,56 +40,15 @@ contents:
         - perl-base
         - sed
         - util-linux
-    builds:
-        - name: node
-          contents:
-            packages:
-                - bash
-                - coreutils
-                - findutils
-            artifacts:
-                - name: dhi/pkg-node:22.21.1-debian12@sha256:357c5e6c10452b565aac486b8cb95333660c69770527981ad5000a68768dfef3
-                  includes:
-                    - opt/docker
-                    - opt/nodejs
-                    - opt/yarn
-                  excludes:
-                    - usr/local/bin
-                  uid: 0
-                  gid: 0
-          pipeline:
-            - name: symlink
-              runs: |
-                set -eux -o pipefail
-
-                mkdir -p /usr/local/bin
-
-                find "/opt/nodejs/node-v22.21.1/bin" -type f -executable -o -type l | while read -r file; do
-                  filename=$(basename "${file}")
-                  ln -s "${file}" "/usr/local/bin/${filename}"
-                done
-
-                find /opt/yarn -type f -executable -o -type l | while read -r file; do
-                  filename=$(basename "${file}")
-                  ln -s "${file}" "/usr/local/bin/${filename}"
-                done
-          outputs:
-            - source: /opt/nodejs
-              target: /opt/nodejs
-              uid: 0
-              gid: 0
-            - source: /opt/yarn
-              target: /opt/yarn
-              uid: 0
-              gid: 0
-            - source: /opt/docker/sbom
-              target: /opt/docker/sbom
-              uid: 0
-              gid: 0
-            - source: /usr/local/bin
-              target: /usr/local/bin
-              uid: 0
-              gid: 0
+    artifacts:
+        - name: dhi/pkg-node:22.21.1-debian12@sha256:6d2d5059055cd0c16a05a1c4349a5099b49be4c3b85e32a6bc67dddb1b9ab7df
+          includes:
+            - opt/docker
+            - opt/nodejs
+            - opt/yarn
+            - usr/local/bin
+          uid: 0
+          gid: 0
 accounts:
     root: true
     run-as: root
@@ -129,7 +88,7 @@ annotations:
     org.opencontainers.image.description: A minimal Node.JS image
     org.opencontainers.image.licenses: MIT
 cmd:
-    - /bin/bash
+    - node
 tests:
     - name: Run base tests
       directory: test/go-testing/base

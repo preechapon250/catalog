@@ -8,8 +8,8 @@ image: dhi/node
 variant: runtime
 tags:
     - 24-alpine3.22
-    - 24.11-alpine3.22
-    - 24.11.1-alpine3.22
+    - 24.12-alpine3.22
+    - 24.12.0-alpine3.22
 platforms:
     - linux/amd64
     - linux/arm64
@@ -17,10 +17,10 @@ dates:
     release: "2025-05-06"
     end-of-life: "2028-04-30"
 vars:
-    DIGEST: sha256:fa211ffe22efe24ef5124d8526e110726cf37f58139b53cc86fcd70606fb75ad
+    DIGEST: sha256:86ce63d33e9a1d02ba678af26a224d4f25eb791ac45dfbe2e822cd782e6991ec
     NODEJS_VERSION_MAJOR: "24"
-    NODEJS_VERSION_MAJOR_MINOR: "24.11"
-    VERSION: 24.11.1
+    NODEJS_VERSION_MAJOR_MINOR: "24.12"
+    VERSION: 24.12.0
 contents:
     repositories:
         - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -32,22 +32,53 @@ contents:
         - libgcc
         - libstdc++
         - musl
-    artifacts:
-        - name: dhi/pkg-node:24.11.1-alpine3.22@sha256:fa211ffe22efe24ef5124d8526e110726cf37f58139b53cc86fcd70606fb75ad
-          includes:
-            - opt/docker
-            - opt/nodejs
-            - usr/local/bin/node
-          excludes:
-            - opt/docker/sbom/yarn
-            - opt/nodejs/node-v24.11.1/bin/corepack
-            - opt/nodejs/node-v24.11.1/bin/npm
-            - opt/nodejs/node-v24.11.1/bin/npx
-            - opt/nodejs/node-v24.11.1/include
-            - opt/nodejs/node-v24.11.1/lib
-            - opt/nodejs/node-v24.11.1/share
-          uid: 0
-          gid: 0
+    builds:
+        - name: node
+          contents:
+            repositories:
+                - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
+                - https://dl-cdn.alpinelinux.org/alpine/v3.22/community
+            packages:
+                - busybox
+                - coreutils
+            artifacts:
+                - name: dhi/pkg-node:24.12.0-alpine3.22@sha256:86ce63d33e9a1d02ba678af26a224d4f25eb791ac45dfbe2e822cd782e6991ec
+                  includes:
+                    - opt/docker
+                    - opt/nodejs
+                    - usr/local/bin/node
+                  excludes:
+                    - opt/docker/sbom/yarn
+                    - opt/nodejs/node-v24.12.0/bin/corepack
+                    - opt/nodejs/node-v24.12.0/bin/npm
+                    - opt/nodejs/node-v24.12.0/bin/npx
+                    - opt/nodejs/node-v24.12.0/bin/pnpm
+                    - opt/nodejs/node-v24.12.0/bin/pnpx
+                    - opt/nodejs/node-v24.12.0/bin/yarn
+                    - opt/nodejs/node-v24.12.0/bin/yarnpkg
+                    - opt/nodejs/node-v24.12.0/include
+                    - opt/nodejs/node-v24.12.0/lib
+                    - opt/nodejs/node-v24.12.0/share
+                  uid: 0
+                  gid: 0
+          pipeline:
+            - name: strip
+              uses: strip@v1
+              with:
+                dir: /opt/nodejs/node-v24.12.0
+          outputs:
+            - source: /opt/nodejs
+              target: /opt/nodejs
+              uid: 0
+              gid: 0
+            - source: /opt/docker/sbom
+              target: /opt/docker/sbom
+              uid: 0
+              gid: 0
+            - source: /usr/local/bin
+              target: /usr/local/bin
+              uid: 0
+              gid: 0
 accounts:
     root: true
     run-as: node
@@ -69,7 +100,7 @@ os-release:
     bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
-    NODE_VERSION: 24.11.1
+    NODE_VERSION: 24.12.0
 paths:
     - type: directory
       path: /app
