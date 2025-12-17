@@ -20,7 +20,7 @@ platforms:
 vars:
     ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
     COMMIT_SHA: 0155af3069fb6d593165037a28703cb3a595cf67
-    PYTHON_DEV_REFERENCE: dhi/python:3.14.2-debian13-sfw-dev@sha256:c608c8b93b32f34699aed9393e0ff3f59cfb3aaca65d4416e68c7271514d7f37
+    PYTHON_DEV_REFERENCE: dhi/python:3.14.2-debian13-sfw-dev@sha256:fdc248d42119bcd448b5e6465a86bba9713b08953417bf8ca592574257a1d41c
     PYTHON_REFERENCE: dhi/python:3.14.2-debian13@sha256:dde511d46cd4a45ec18794a219b20f660a8756bacb0b2d48e09b262a37b527c6
     SEMVER_MAJOR_MINOR_VERSION: "2025.11"
     SEMVER_MAJOR_VERSION: "2025"
@@ -33,7 +33,7 @@ contents:
         - git
     builds:
         - name: git-mcp
-          uses: dhi/python:3.14.2-debian13-sfw-dev@sha256:c608c8b93b32f34699aed9393e0ff3f59cfb3aaca65d4416e68c7271514d7f37
+          uses: dhi/python:3.14.2-debian13-sfw-dev@sha256:fdc248d42119bcd448b5e6465a86bba9713b08953417bf8ca592574257a1d41c
           environment:
             UV_COMPILE_BYTECODE: "1"
           contents:
