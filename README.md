@@ -176,7 +176,7 @@ This project is licensed under the Apache License 2.0. See [LICENSE.txt](LICENSE
 - **Docker Hardened Images**: [docker.com/products/hardened-images](https://docker.com/products/hardened-images/)
 - **Commercial Support**: [docker.com/support](https://docker.com/support/)
 - **Issue Tracker**: [GitHub Issues](https://github.com/docker-hardened-images/catalog/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/docker-hardened-images/discussion)
+- **Discussions**: [GitHub Discussions](https://github.com/orgs/docker-hardened-images/discussions)
 
 ---
 
