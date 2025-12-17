@@ -9,22 +9,22 @@ variant: runtime
 tags:
     - "1"
     - "1.92"
-    - 1.92.2
+    - 1.92.3
     - 1-debian13
     - 1.92-debian13
-    - 1.92.2-debian13
+    - 1.92.3-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    COMMIT_SHA: 95a957cdd7b5c054289345c04ac271128c84c622
+    COMMIT_SHA: 9a08e8f1c2021d5c85895e660cf01d8bb1bc9df0
     GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
     GO_VERSION: 1.25.5
     SEMVER_MAJOR_MINOR_VERSION: "1.92"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.92.2
-    TS_VERSION: 1.92.2-t95a957cd
-    VERSION: 1.92.2
+    SEMVER_VERSION: 1.92.3
+    TS_VERSION: 1.92.3-t9a08e8f1
+    VERSION: 1.92.3
 contents:
     packages:
         - base-files
@@ -37,15 +37,15 @@ contents:
           uses: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
           contents:
             files:
-                - url: git+https://github.com/tailscale/tailscale.git#v1.92.2
-                  checksum: 95a957cdd7b5c054289345c04ac271128c84c622
+                - url: git+https://github.com/tailscale/tailscale.git#v1.92.3
+                  checksum: 9a08e8f1c2021d5c85895e660cf01d8bb1bc9df0
                   path: /go/src/tailscale.com
                   spdx:
                     name: tailscale
-                    version: 1.92.2
+                    version: 1.92.3
                     packages:
                         - name: tailscale
-                          purl: pkg:dhi/tailscale@1.92.2
+                          purl: pkg:dhi/tailscale@1.92.3
                           license: BSD-3-Clause
                   uid: 0
                   gid: 0
@@ -61,10 +61,10 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                GOLDFLAGS='-X tailscale.com/version.Version=1.92.2
-                           -X tailscale.com/version.shortStamp=1.92.2
-                           -X tailscale.com/version.longStamp=1.92.2-t95a957cd
-                           -X tailscale.com/version.gitCommitStamp=95a957cdd7b5c054289345c04ac271128c84c622'
+                GOLDFLAGS='-X tailscale.com/version.Version=1.92.3
+                           -X tailscale.com/version.shortStamp=1.92.3
+                           -X tailscale.com/version.longStamp=1.92.3-t9a08e8f1
+                           -X tailscale.com/version.gitCommitStamp=9a08e8f1c2021d5c85895e660cf01d8bb1bc9df0'
 
                 mkdir -p '${target.dir}/usr/local/bin'
                 for cmd in tailscale tailscaled containerboot; do
