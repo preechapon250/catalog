@@ -8,9 +8,9 @@ image: dhi/haproxy
 variant: dev
 tags:
     - 3.0-dev
-    - 3.0.12-dev
+    - 3.0.13-dev
     - 3.0-debian13-dev
-    - 3.0.12-debian13-dev
+    - 3.0.13-debian13-dev
 platforms:
     - linux/amd64
     - linux/arm64
@@ -22,9 +22,9 @@ vars:
     BASE_TAG: 20250419-glibc-debian13
     SEMVER_MAJOR_MINOR_VERSION: "3.0"
     SEMVER_MAJOR_VERSION: "3"
-    SEMVER_VERSION: 3.0.12
-    SHA256: sha256:cd2bade59a7e2d61f2d62be7c6c4cfc0e2b3a90431023720cae7c43843b0570b
-    VERSION: 3.0.12
+    SEMVER_VERSION: 3.0.13
+    SHA256: sha256:55019dbe80b44b4a83ea08f725671c26b7d61663f1c265bdcdfed5dfc3e51130
+    VERSION: 3.0.13
 contents:
     packages:
         - '!gawk'
@@ -65,15 +65,15 @@ contents:
                 - make
                 - tar
             files:
-                - url: https://www.haproxy.org/download/3.0/src/haproxy-3.0.12.tar.gz
-                  checksum: sha256:cd2bade59a7e2d61f2d62be7c6c4cfc0e2b3a90431023720cae7c43843b0570b
+                - url: https://www.haproxy.org/download/3.0/src/haproxy-3.0.13.tar.gz
+                  checksum: sha256:55019dbe80b44b4a83ea08f725671c26b7d61663f1c265bdcdfed5dfc3e51130
                   path: ${source.dir}/haproxy.tar.gz
                   spdx:
                     name: haproxy
-                    version: 3.0.12
+                    version: 3.0.13
                     packages:
                         - name: haproxy
-                          purl: pkg:dhi/haproxy@3.0.12
+                          purl: pkg:dhi/haproxy@3.0.13
                           license: GPL-2.0-only
                   uid: 0
                   gid: 0
@@ -88,7 +88,7 @@ contents:
                 set -eux -o pipefail
 
                 nproc="$(nproc)"
-                make -C 'haproxy-3.0.12' -j "$nproc" \
+                make -C 'haproxy-3.0.13' -j "$nproc" \
                   TARGET=linux-glibc \
                   CC=gcc \
                   \
@@ -105,7 +105,7 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                make -C 'haproxy-3.0.12' \
+                make -C 'haproxy-3.0.13' \
                   \
                   PREFIX='${target.dir}/opt/haproxy' \
                   SBINDIR='${target.dir}/opt/haproxy/bin' \
@@ -165,7 +165,7 @@ os-release:
     bug-report-url: https://docker.com/support/
 environment:
     DEBIAN_FRONTEND: noninteractive
-    HAPROXY_VERSION: 3.0.12
+    HAPROXY_VERSION: 3.0.13
     PATH: /opt/haproxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 paths:
     - type: file
