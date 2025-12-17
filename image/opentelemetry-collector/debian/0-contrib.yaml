@@ -61,6 +61,7 @@ contents:
               with:
                 deps:
                     - github.com/dvsekhvalnov/jose2go@v1.7.0
+                    - github.com/expr-lang/expr@v1.17.7
                 download: true
             - name: build
               uses: go/build@v1
