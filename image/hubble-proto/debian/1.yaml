@@ -9,17 +9,17 @@ variant: runtime
 tags:
     - "1"
     - "1.18"
-    - 1.18.4
+    - 1.18.5
     - 1-debian13
     - 1.18-debian13
-    - 1.18.4-debian13
+    - 1.18.5-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     BASE_DIGEST: sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
     BASE_TAG: 20250419-debian13
-    COMMIT_SHA: afda2aa99d26f190de8944580ceadb64d9d14d38
+    COMMIT_SHA: 7d4d89321e17ea5b75eceb6dcb2ace1d4a6cfc5e
     GO_DIGEST: sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
     GO_VERSION: 1.24.11
     PROTOC_GEN_GO_GRPC_VERSION: 1.5.1
@@ -27,8 +27,8 @@ vars:
     PROTOC_GEN_GO_VERSION: 1.36.10
     SEMVER_MAJOR_MINOR_VERSION: "1.18"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.18.4
-    VERSION: 1.18.4
+    SEMVER_VERSION: 1.18.5
+    VERSION: 1.18.5
 contents:
     packages:
         - '!base-files'
@@ -38,14 +38,14 @@ contents:
           privileged: true
           contents:
             files:
-                - url: git+https://github.com/cilium/cilium#v1.18.4
+                - url: git+https://github.com/cilium/cilium#v1.18.5
                   path: /go/src/github.com/cilium/cilium
                   spdx:
                     name: hubble-proto
-                    version: 1.18.4
+                    version: 1.18.5
                     packages:
                         - name: hubble-proto
-                          purl: pkg:golang//github.com/cilium/cilium@1.18.4
+                          purl: pkg:golang//github.com/cilium/cilium@1.18.5
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -54,7 +54,7 @@ contents:
               uses: git/checkout@v1
               work-dir: /go/src/github.com/cilium/cilium
               with:
-                expected-commit: afda2aa99d26f190de8944580ceadb64d9d14d38
+                expected-commit: 7d4d89321e17ea5b75eceb6dcb2ace1d4a6cfc5e
             - name: install
               work-dir: /go/src/github.com/cilium/cilium
               runs: |
