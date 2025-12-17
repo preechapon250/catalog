@@ -24,7 +24,7 @@ vars:
     GRADLE_MAJOR_MINOR_VERSION: "8.14"
     GRADLE_MAJOR_VERSION: "8"
     GRADLE_VERSION: 8.14.3
-    JAVA_DIGEST: sha256:f32f0ef5c7e380ad24ed9c6ffbdfdc0e72652b9150bc4bf7e9a2cdff85c9b78d
+    JAVA_DIGEST: sha256:e9d75bc24f46813785a51be346109c2e02efabdfb5a4a91ee66bfe38afa29e6c
     JAVA_MAJOR_VERSION: "11"
     JAVA_VERSION: 11.0.29.7
 contents:
@@ -45,7 +45,7 @@ contents:
         - locales
         - sed
     artifacts:
-        - name: dhi/eclipse-temurin:11.0.29.7-jdk-debian13-dev@sha256:f32f0ef5c7e380ad24ed9c6ffbdfdc0e72652b9150bc4bf7e9a2cdff85c9b78d
+        - name: dhi/eclipse-temurin:11.0.29.7-jdk-debian13-dev@sha256:e9d75bc24f46813785a51be346109c2e02efabdfb5a4a91ee66bfe38afa29e6c
           includes:
             - etc/locale.gen
             - opt/**
