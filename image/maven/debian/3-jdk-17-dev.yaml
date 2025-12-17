@@ -19,7 +19,7 @@ platforms:
 dates:
     release: "2013-10-22"
 vars:
-    JAVA_DIGEST: sha256:d0f00ba5f42f71c35496c6ba2809d443e17bae57f6382cb7476b539a7998522a
+    JAVA_DIGEST: sha256:98cfd5d8dcdc5120750eda258ddfedad56e36104c0c34dc65ae3693934919250
     JAVA_MAJOR_VERSION: "17"
     JAVA_VERSION: 17.0.17
     MAVEN_MAJOR_MINOR_VERSION: "3.9"
@@ -117,7 +117,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/eclipse-temurin:17.0.17-jdk-debian13-dev@sha256:d0f00ba5f42f71c35496c6ba2809d443e17bae57f6382cb7476b539a7998522a
+        - name: dhi/eclipse-temurin:17.0.17-jdk-debian13-dev@sha256:98cfd5d8dcdc5120750eda258ddfedad56e36104c0c34dc65ae3693934919250
           includes:
             - opt/**
             - usr/local/bin/**
