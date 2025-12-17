@@ -21,7 +21,7 @@ vars:
     DEBIAN_EPOCH_MAJOR_MINOR_VERSION: "4.2"
     DEBIAN_EPOCH_MAJOR_VERSION: "4"
     DEBIAN_EPOCH_VERSION: 4.2.2
-    ERLANG_VERSION: 27.3.3
+    ERLANG_VERSION: 27.3.4.6
     VERSION: 4.2.2
 contents:
     packages:
@@ -55,15 +55,15 @@ contents:
                 - tar
                 - xz-utils
             files:
-                - url: https://github.com/erlang/otp/releases/download/OTP-27.3.3/otp_src_27.3.3.tar.gz
-                  checksum: https://github.com/erlang/otp/releases/download/OTP-27.3.3/SHA256.txt
+                - url: https://github.com/erlang/otp/releases/download/OTP-27.3.4.6/otp_src_27.3.4.6.tar.gz
+                  checksum: https://github.com/erlang/otp/releases/download/OTP-27.3.4.6/SHA256.txt
                   path: ${source.dir}/erlang.tar.gz
                   spdx:
                     name: erlang
-                    version: 27.3.3
+                    version: 27.3.4.6
                     packages:
                         - name: erlang
-                          purl: pkg:dhi/erlang@27.3.3
+                          purl: pkg:dhi/erlang@27.3.4.6
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -94,12 +94,12 @@ contents:
                 keys: ${source.dir}/rabbitmq-signing-key-public.asc
                 signature: ${source.dir}/rabbitmq-sig.tar.xz.asc
             - name: install-erlang
+              work-dir: ${source.dir}/erlang
               runs: |
                 set -eux -o pipefail
 
                 mkdir -p "${source.dir}/erlang"
-                tar -xzf erlang.tar.gz -C "${source.dir}/erlang" --strip-components=1
-                cd "${source.dir}/erlang"
+                tar -xzf ${source.dir}/erlang.tar.gz -C "${source.dir}/erlang" --strip-components=1
                 ERL_TOP="$(pwd)"
                 export ERL_TOP
 
@@ -107,12 +107,12 @@ contents:
 
                 make && make install
             - name: install
+              work-dir: /usr/local/rabbitmq_server-4.2.2/sbin
               runs: |
                 set -eux -o pipefail
 
                 mkdir -p "/usr/local"
-                tar -xJf "rabbitmq-server-generic-unix-4.2.2.tar.xz" -C "/usr/local"
-                cd "/usr/local/rabbitmq_server-4.2.2/sbin"
+                tar -xJf "${source.dir}/rabbitmq-server-generic-unix-4.2.2.tar.xz" -C "/usr/local"
                 # shellcheck disable=SC2086
                 sed --debug -i 's/SYS_PREFIX=\${RABBITMQ_HOME}/SYS_PREFIX=/g' rabbitmq-defaults
           outputs:
