@@ -7,30 +7,30 @@ name: Traefik Helm chart 37.x
 image: dhi/traefik-chart
 variant: helm
 tags:
-    - 37.1.2
+    - 37.4.0
 platforms:
     - linux/amd64
 vars:
     CHART_COMMIT_SHA: 75bdb79d11e23560eebb0302f030121e5cfb081f
+    COMMIT_SHA: 64d25f2c7dd932b3b7dc27d0bfa6ea131fc280f3
     DHI_NAMESPACE: dhi
     DHI_PREFIX: ""
     DHI_REGISTRY: dhi.io
     DHI_SKIP_CONTEXT_COPY: "true"
     HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
-    SEMVER_MAJOR_MINOR_VERSION: "37.1"
+    SEMVER_MAJOR_MINOR_VERSION: "37.4"
     SEMVER_MAJOR_VERSION: "37"
-    SEMVER_VERSION: 37.1.2
-    TRAEFIK_COMMIT_SHA: e4f0c3051c91e23f2c7271da6070b33d7beb4496
+    SEMVER_VERSION: 37.4.0
     TRAEFIK_REFERENCE: dhi/traefik:3.6.4-debian13@sha256:758e2156f9e5394c4690e186945323046a99bfe052da3d5f90f96f715d85b6a7
     TRAEFIK_VERSION: 3.6.5
-    VERSION: 37.1.2
+    VERSION: 37.4.0
 contents:
     builds:
         - name: traefik
           uses: dhi/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
           contents:
             files:
-                - url: git+https://github.com/traefik/traefik-helm-chart.git#v37.1.2
+                - url: git+https://github.com/traefik/traefik-helm-chart.git#v37.4.0
                   path: ${source.dir}/helm-charts
                   uid: 0
                   gid: 0
