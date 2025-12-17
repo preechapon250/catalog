@@ -7,13 +7,13 @@ name: Grafana Alloy Helm chart 1.x
 image: dhi/alloy-chart
 variant: helm
 tags:
-    - 1.5.0
+    - 1.5.1
 platforms:
     - linux/amd64
 vars:
     ALLOY_IMAGE_TAG: 1.12.0
-    ALLOY_REFERENCE: dhi/alloy:1.12.1-debian13@sha256:0ddd20f2ccd607f583fb032b5d5e190e9d7e8ac2b673cf40e69bd0ab7b6274f8
-    CHART_COMMIT_SHA: 6dde6297f7d19c13e27d932dae446a4f9a0a2393
+    ALLOY_REFERENCE: dhi/alloy:1.12.1-debian13@sha256:d6453c3cad1c0c3a6b79263bfbef588e9c38b98dbc45077e6e6035e939f98cbe
+    CHART_COMMIT_SHA: a1861605c3744006d26caecc380a2fdc2845757a
     DHI_NAMESPACE: dhi
     DHI_PREFIX: ""
     DHI_REGISTRY: dhi.io
@@ -22,8 +22,8 @@ vars:
     PROMETHEUS_CONFIG_RELOADER_REFERENCE: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:181186c36a4a0974653cab58f03c2f35e113aeecaacc44b9fb6d7fe45ff5d927
     SEMVER_MAJOR_MINOR_VERSION: "1.5"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.5.0
-    VERSION: 1.5.0
+    SEMVER_VERSION: 1.5.1
+    VERSION: 1.5.1
 contents:
     builds:
         - name: alloy
@@ -37,8 +37,8 @@ contents:
                 - libc-bin
                 - sed
             files:
-                - url: git+https://github.com/grafana/alloy.git#helm-chart/1.5.0
-                  checksum: 6dde6297f7d19c13e27d932dae446a4f9a0a2393
+                - url: git+https://github.com/grafana/alloy.git#helm-chart/1.5.1
+                  checksum: a1861605c3744006d26caecc380a2fdc2845757a
                   path: ${source.dir}/helm-charts
                   uid: 0
                   gid: 0
@@ -55,7 +55,7 @@ contents:
                     description: Docker Hardened Images Helm chart for Grafana Alloy
                     images:
                         - name: alloy
-                          ref: dhi/alloy:1.12.1-debian13@sha256:0ddd20f2ccd607f583fb032b5d5e190e9d7e8ac2b673cf40e69bd0ab7b6274f8
+                          ref: dhi/alloy:1.12.1-debian13@sha256:d6453c3cad1c0c3a6b79263bfbef588e9c38b98dbc45077e6e6035e939f98cbe
                         - name: prometheus-config-reloader
                           ref: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:181186c36a4a0974653cab58f03c2f35e113aeecaacc44b9fb6d7fe45ff5d927
                     name: alloy-chart
