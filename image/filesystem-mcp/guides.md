@@ -1,8 +1,14 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Getting Started with Filesystem MCP Server
 
@@ -25,7 +31,7 @@ Add to your `claude_desktop_config.json`:
         "--rm",
         "-i",
         "-v", "/path/to/allowed/directory:/workspace:rw",
-        "<your-namespace>/dhi-filesystem-mcp",
+        "dhi.io/filesystem-mcp",
         "/workspace"
       ]
     }
@@ -33,8 +39,7 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-Replace `<your-namespace>` with your organization's namespace and `/path/to/allowed/directory` with the directory you
-want to grant access to.
+Replace `/path/to/allowed/directory` with the directory you want to grant access to.
 
 ### Running the Server
 
@@ -43,7 +48,7 @@ Basic usage with a mounted directory:
 ```bash
 docker run --rm -i \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-filesystem-mcp\
+  dhi.io/filesystem-mcp\
   /workspace
 ```
 
@@ -53,7 +58,7 @@ With multiple allowed directories:
 docker run --rm -i \
   -v "$HOME/documents:/documents:rw" \
   -v "$HOME/projects:/projects:rw" \
-  <your-namespace>/dhi-filesystem-mcp \
+  dhi.io/filesystem-mcp \
   /documents /projects
 ```
 
@@ -62,7 +67,7 @@ Read-only access:
 ```bash
 docker run --rm -i \
   -v "$PWD:/workspace:ro" \
-  <your-namespace>/dhi-filesystem-mcp \
+  dhi.io/filesystem-mcp \
   /workspace
 ```
 
@@ -165,9 +170,9 @@ docker debug <container-name>
 or mount debugging tools with the Image Mount feature:
 
 ```
-docker run --rm -it --pid container:my-argocd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-argocd:<tag> /dbg/bin/sh
+docker run --rm -it --pid container:my-filesystem-mcp \
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/filesystem-mcp:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

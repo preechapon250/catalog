@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 See the how-to
 [work with containers and Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-how-to-custom-container)
@@ -12,16 +18,16 @@ If you are testing this image on Apple Silicon (M1, M2, etc) use the following c
 correct platform:
 
 ```
-docker pull --platform linux/amd64 <your-namespace>/dhi-azure-functions-python:<tag>
+docker pull --platform linux/amd64 dhi.io/azure-functions-python:<tag>
 ```
 
 ### Run a container and open a shell
 
-For production scenarios, run the following command to run the container and open a shell. Replace `<your-namespace>`
-with your organization's namespace and `<tag>` with the image variant you want to run.
+For production scenarios, run the following command to run the container and open a shell. Replace `<tag>` with the
+image variant you want to run.
 
 ```
-docker run -it --rm --entrypoint bash <your-namespace>/dhi-azure-functions-python:<tag>
+docker run -it --rm --entrypoint bash dhi.io/azure-functions-python:<tag>
 ```
 
 Note that Azure Functions CLI (Azure Functions Core Tools) are unavailable in this hardened image. Follow the
@@ -102,12 +108,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 ```
 
 Also create the following `Dockerfile` in the same directory. This extends the hardened image, copies in your function
-files, and starts the function host manually without dependending on the Azure Functions CLI. Replace `<your-namespace>`
-with your organization's namespace and `<tag>` with the image variant you want to run.
+files, and starts the function host manually without dependending on the Azure Functions CLI. Replace `<tag>` with the
+image variant you want to run.
 
 ```dockerfile
 # Use your hardened Azure Functions Python image
-FROM <your-namespace>/dhi-azure-functions-python:<tag>
+FROM dhi.io/azure-functions-python:<tag>
 
 # Set the working directory used by Azure Functions
 WORKDIR /home/site/wwwroot

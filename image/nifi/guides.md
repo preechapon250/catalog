@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this NiFi image
 
 This Docker Hardened NiFi image includes :
@@ -18,7 +28,7 @@ Run a standalone instance with HTTPS and single-user authentication:
 docker run -d \
   --name nifi \
   -p 8443:8443 \
-  <your-namespace>/dhi-nifi:<tag>
+  dhi.io/nifi:<tag>
 ```
 
 The NiFi UI is available at [https://localhost:8443/nifi](https://localhost:8443/nifi). On startup, NiFi generates
@@ -34,7 +44,7 @@ docker logs nifi | grep Generated
 docker run -d --name nifi \
   -p 9443:9443 \
   -e NIFI_WEB_HTTPS_PORT=9443 \
-  <your-namespace>/dhi-nifi:<tag>
+  dhi.io/nifi:<tag>
 ```
 
 ### Configure single-user credentials
@@ -44,7 +54,7 @@ docker run -d --name nifi \
   -p 8443:8443 \
   -e SINGLE_USER_CREDENTIALS_USERNAME=admin \
   -e SINGLE_USER_CREDENTIALS_PASSWORD=StrongPassword123 \
-  <your-namespace>/dhi-nifi:<tag>
+  dhi.io/nifi:<tag>
 ```
 
 Passwords must be at least 12 characters. If not provided, NiFi generates random credentials at startup.
@@ -67,7 +77,7 @@ docker run -d --name nifi \
   -e TRUSTSTORE_TYPE=JKS \
   -e TRUSTSTORE_PASSWORD=changeit \
   -e INITIAL_ADMIN_IDENTITY="CN=Admin, O=Org, C=US" \
-  <your-namespace>/dhi-nifi:<tag>
+  dhi.io/nifi:<tag>
 ```
 
 #### LDAP authentication
@@ -90,7 +100,7 @@ docker run -d --name nifi \
   -e LDAP_USER_SEARCH_BASE="dc=example,dc=org" \
   -e LDAP_USER_SEARCH_FILTER="cn={0}" \
   -e LDAP_URL="ldap://ldap:389" \
-  <your-namespace>/dhi-nifi:<tag>
+  dhi.io/nifi:<tag>
 ```
 
 Optional variables for secure LDAP (LDAPS or START_TLS) are supported: `LDAP_TLS_KEYSTORE`,
@@ -169,8 +179,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -195,7 +205,7 @@ multi-stage Dockerfile. These images typically:
 
 1. Update image reference. Replace the image reference in your Docker run command or Compose file:
    - From: `apache/nifi:<tag>`
-   - To: `<your-namespace>/dhi-nifi:<tag>`
+   - To: `dhi.io/nifi:<tag>`
 1. Fix permissions on mounted volumes:
    ```
    chown -R 1000:1000 /host/path

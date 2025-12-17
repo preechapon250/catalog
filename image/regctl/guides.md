@@ -3,14 +3,24 @@
 This guide provides practical examples for using the regctl Docker Hardened Image to perform registry operations and
 manage OCI content.
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Running regctl Commands
 
 ```bash
 # Check regctl version
-docker run --rm <your-namespace>/dhi-regctl:0 version
+docker run --rm dhi.io/regctl:0 version
 
 # Get help for regctl commands
-docker run --rm <your-namespace>/dhi-regctl:0 --help
+docker run --rm dhi.io/regctl:0 --help
 ```
 
 ### Authentication
@@ -20,12 +30,12 @@ For operations requiring authentication, mount your Docker configuration:
 ```bash
 # Using Docker credentials
 docker run --rm -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 version
+  dhi.io/regctl:0 version
 
 # Using specific credential file
 docker run --rm \
   -v /path/to/config.json:/home/nonroot/.docker/config.json:ro \
-  <your-namespace>/dhi-regctl:0 version
+  dhi.io/regctl:0 version
 ```
 
 ## Image Operations
@@ -36,19 +46,19 @@ docker run --rm \
 # Inspect an image manifest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image manifest \
+  dhi.io/regctl:0 image manifest \
     registry.example.com/myapp:latest
 
 # Get image config
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image config \
+  dhi.io/regctl:0 image config \
     registry.example.com/myapp:latest
 
 # Get image digest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image digest \
+  dhi.io/regctl:0 image digest \
     registry.example.com/myapp:latest
 ```
 
@@ -58,21 +68,21 @@ docker run --rm \
 # Copy image between registries
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image copy \
+  dhi.io/regctl:0 image copy \
     source-registry.com/myapp:v1.0 \
     dest-registry.com/myapp:v1.0
 
 # Copy with different tag
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image copy \
+  dhi.io/regctl:0 image copy \
     registry.example.com/myapp:v1.0 \
     registry.example.com/myapp:latest
 
 # Copy all tags from a repository
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image copy \
+  dhi.io/regctl:0 image copy \
     --digest-tags \
     source-registry.com/myapp \
     dest-registry.com/myapp
@@ -84,7 +94,7 @@ docker run --rm \
 # Add annotations to an image
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image mod \
+  dhi.io/regctl:0 image mod \
     --annotation "version=1.0" \
     --annotation "build-date=$(date -Iseconds)" \
     registry.example.com/myapp:latest
@@ -92,14 +102,14 @@ docker run --rm \
 # Convert Docker format to OCI format
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image mod \
+  dhi.io/regctl:0 image mod \
     --format oci \
     registry.example.com/myapp:latest
 
 # Replace base image layers
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image mod \
+  dhi.io/regctl:0 image mod \
     --replace registry.example.com/base-old:latest=registry.example.com/base-new:latest \
     registry.example.com/myapp:latest
 ```
@@ -112,17 +122,17 @@ docker run --rm \
 # List repositories in a registry
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 repo ls registry.example.com
+  dhi.io/regctl:0 repo ls registry.example.com
 
 # List tags in a repository
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 tag ls registry.example.com/myapp
+  dhi.io/regctl:0 tag ls registry.example.com/myapp
 
 # List tags with additional details
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 tag ls \
+  dhi.io/regctl:0 tag ls \
     --format "{{ .Name }} {{ .Digest }}" \
     registry.example.com/myapp
 ```
@@ -133,19 +143,19 @@ docker run --rm \
 # Delete specific tag
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 tag delete \
+  dhi.io/regctl:0 tag delete \
     registry.example.com/myapp:old-version
 
 # Delete image by digest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image delete \
+  dhi.io/regctl:0 image delete \
     registry.example.com/myapp@sha256:abc123...
 
 # Delete unused manifests (dry run)
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image delete \
+  dhi.io/regctl:0 image delete \
     --dry-run \
     registry.example.com/myapp
 ```
@@ -158,7 +168,7 @@ docker run --rm \
 # Create multi-platform manifest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 index create \
+  dhi.io/regctl:0 index create \
     registry.example.com/myapp:latest \
     registry.example.com/myapp:linux-amd64 \
     registry.example.com/myapp:linux-arm64
@@ -166,14 +176,14 @@ docker run --rm \
 # Inspect multi-platform manifest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image manifest \
+  dhi.io/regctl:0 image manifest \
     --platform linux/amd64 \
     registry.example.com/myapp:latest
 
 # Copy specific platform
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 image copy \
+  dhi.io/regctl:0 image copy \
     --platform linux/arm64 \
     source-registry.com/myapp:latest \
     dest-registry.com/myapp:arm64
@@ -187,7 +197,7 @@ docker run --rm \
 # Push arbitrary content as artifact
 echo "configuration data" | docker run --rm -i \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 artifact put \
+  dhi.io/regctl:0 artifact put \
     --media-type application/vnd.example.config \
     --subject registry.example.com/myapp:latest \
     registry.example.com/myapp:config
@@ -195,13 +205,13 @@ echo "configuration data" | docker run --rm -i \
 # List artifacts attached to an image
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 artifact ls \
+  dhi.io/regctl:0 artifact ls \
     registry.example.com/myapp:latest
 
 # Get artifact content
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 artifact get \
+  dhi.io/regctl:0 artifact get \
     registry.example.com/myapp:config
 ```
 
@@ -215,7 +225,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-regctl:0 image export \
+  dhi.io/regctl:0 image export \
     registry.example.com/myapp:latest \
     myapp-oci-layout
 
@@ -224,7 +234,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-regctl:0 image import \
+  dhi.io/regctl:0 image import \
     myapp-oci-layout \
     registry.example.com/myapp:imported
 
@@ -233,7 +243,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-regctl:0 image export \
+  dhi.io/regctl:0 image export \
     --format docker \
     registry.example.com/myapp:latest \
     myapp.tar
@@ -264,7 +274,7 @@ jobs:
         run: |
           docker run --rm \
             -v ~/.docker:/home/nonroot/.docker:ro \
-            <your-namespace>/dhi-regctl:0 image copy \
+            dhi.io/regctl:0 image copy \
               ghcr.io/${{ github.repository }}:${{ github.sha }} \
               ghcr.io/${{ github.repository }}:latest
 
@@ -272,7 +282,7 @@ jobs:
         run: |
           docker run --rm \
             -v ~/.docker:/home/nonroot/.docker:ro \
-            <your-namespace>/dhi-regctl:0 image mod \
+            dhi.io/regctl:0 image mod \
               --annotation "git.sha=${{ github.sha }}" \
               --annotation "git.ref=${{ github.ref }}" \
               --annotation "build.date=$(date -Iseconds)" \
@@ -283,7 +293,7 @@ jobs:
 
 ```yaml
 registry-operations:
-  image: <your-namespace>/dhi-regctl:0
+  image: dhi.io/regctl:0
   before_script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER \
         --password-stdin $CI_REGISTRY
@@ -305,14 +315,14 @@ registry-operations:
 # Migrate entire repository
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 repo copy \
+  dhi.io/regctl:0 repo copy \
     old-registry.com/myapp \
     new-registry.com/myapp
 
 # Migrate with filtering
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 repo copy \
+  dhi.io/regctl:0 repo copy \
     --filter-tag "v.*" \
     old-registry.com/myapp \
     new-registry.com/myapp
@@ -320,7 +330,7 @@ docker run --rm \
 # Verify migration
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 repo verify \
+  dhi.io/regctl:0 repo verify \
     old-registry.com/myapp \
     new-registry.com/myapp
 ```
@@ -333,7 +343,7 @@ docker run --rm \
 # Check Docker Hub rate limits
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 repo ratelimit \
+  dhi.io/regctl:0 repo ratelimit \
     docker.io/library/alpine
 ```
 
@@ -343,13 +353,13 @@ docker run --rm \
 # Test registry connectivity
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 registry ping \
+  dhi.io/regctl:0 registry ping \
     registry.example.com
 
 # Get registry version information
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-regctl:0 registry version \
+  dhi.io/regctl:0 registry version \
     registry.example.com
 ```
 

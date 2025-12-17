@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Scan a container image for vulnerabilities
 
 The following command scans a container image for vulnerabilities and displays the results in a table format. Replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+`<tag>` with the image variant you want to run.
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest
 ```
 
 ### Scan a filesystem directory
@@ -14,7 +24,7 @@ $ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest
 To scan a local directory for vulnerabilities, mount it as a volume:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> dir:/workspace
+$ docker run --rm -v $(pwd):/workspace dhi.io/grype:<tag> dir:/workspace
 ```
 
 ### Scan an SBOM (Software Bill of Materials)
@@ -22,7 +32,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> dir:/wor
 Grype can scan SBOMs directly. Mount the SBOM file and scan it:
 
 ```
-$ docker run --rm -v $(pwd)/sbom.json:/sbom.json <your-namespace>/dhi-grype:<tag> sbom:/sbom.json
+$ docker run --rm -v $(pwd)/sbom.json:/sbom.json dhi.io/grype:<tag> sbom:/sbom.json
 ```
 
 ### Advanced scanning options
@@ -30,7 +40,7 @@ $ docker run --rm -v $(pwd)/sbom.json:/sbom.json <your-namespace>/dhi-grype:<tag
 #### Filter by severity levels
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --fail-on critical
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --fail-on critical
 ```
 
 #### Output in different formats
@@ -38,25 +48,25 @@ $ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --fail-on criti
 JSON output:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest -o json
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest -o json
 ```
 
 SARIF output for CI/CD integration:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> ubuntu:latest -o sarif > /workspace/grype-report.sarif
+$ docker run --rm -v $(pwd):/workspace dhi.io/grype:<tag> ubuntu:latest -o sarif > /workspace/grype-report.sarif
 ```
 
 CycloneDX XML report:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest -o cyclonedx
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest -o cyclonedx
 ```
 
 CycloneDX JSON report:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest -o cyclonedx-json
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest -o cyclonedx-json
 ```
 
 #### Sort results by different criteria
@@ -64,25 +74,25 @@ $ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest -o cyclonedx-js
 Sort by severity:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --sort-by severity
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --sort-by severity
 ```
 
 Sort by EPSS (threat) score:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --sort-by epss
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --sort-by epss
 ```
 
 Sort by risk score:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --sort-by risk
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --sort-by risk
 ```
 
 Sort by KEV (Known Exploited Vulnerabilities):
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --sort-by kev
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --sort-by kev
 ```
 
 #### Filter by fix availability
@@ -90,13 +100,13 @@ $ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --sort-by kev
 Show only vulnerabilities with available fixes:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --only-fixed
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --only-fixed
 ```
 
 Show only vulnerabilities without fixes:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --only-notfixed
+$ docker run --rm dhi.io/grype:<tag> ubuntu:latest --only-notfixed
 ```
 
 #### Exclude specific paths
@@ -104,7 +114,7 @@ $ docker run --rm <your-namespace>/dhi-grype:<tag> ubuntu:latest --only-notfixed
 Exclude certain file paths from scanning:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> dir:/workspace --exclude './out/**/*.json' --exclude '/etc'
+$ docker run --rm -v $(pwd):/workspace dhi.io/grype:<tag> dir:/workspace --exclude './out/**/*.json' --exclude '/etc'
 ```
 
 ### Using VEX (Vulnerability Exploitability Exchange)
@@ -112,7 +122,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> dir:/wor
 Grype supports VEX documents for filtering false positives and augmenting results:
 
 ```
-$ docker run --rm -v $(pwd)/my.vex.json:/vex.json <your-namespace>/dhi-grype:<tag> ubuntu:latest --vex /vex.json
+$ docker run --rm -v $(pwd)/my.vex.json:/vex.json dhi.io/grype:<tag> ubuntu:latest --vex /vex.json
 ```
 
 ### Integration with cosign for attestation verification
@@ -125,7 +135,7 @@ COSIGN_EXPERIMENTAL=1 cosign verify-attestation myimage:latest \
   | jq -r .payload \
   | base64 --decode \
   | jq -r .predicate.Data \
-  | docker run --rm -i <your-namespace>/dhi-grype:<tag>
+  | docker run --rm -i dhi.io/grype:<tag>
 ```
 
 ### CI/CD Integration
@@ -135,7 +145,7 @@ COSIGN_EXPERIMENTAL=1 cosign verify-attestation myimage:latest \
 Exit with error code if critical or high severity vulnerabilities are found:
 
 ```
-$ docker run --rm <your-namespace>/dhi-grype:<tag> myapp:latest --fail-on high
+$ docker run --rm dhi.io/grype:<tag> myapp:latest --fail-on high
 ```
 
 #### Generate reports in CI pipelines
@@ -145,7 +155,7 @@ GitHub Actions example workflow:
 ```yaml
 - name: Scan image with Grype
   run: |
-    docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> \
+    docker run --rm -v $(pwd):/workspace dhi.io/grype:<tag> \
       myapp:${{ github.sha }} --fail-on critical -o sarif > /workspace/grype-report.sarif
 ```
 
@@ -154,7 +164,7 @@ GitHub Actions example workflow:
 Use custom Go templates for specialized reporting:
 
 ```
-$ docker run --rm -v $(pwd)/custom.tmpl:/template <your-namespace>/dhi-grype:<tag> ubuntu:latest -o template -t /template
+$ docker run --rm -v $(pwd)/custom.tmpl:/template dhi.io/grype:<tag> ubuntu:latest -o template -t /template
 ```
 
 ### Advanced Configuration
@@ -164,7 +174,7 @@ $ docker run --rm -v $(pwd)/custom.tmpl:/template <your-namespace>/dhi-grype:<ta
 Mount a custom Grype configuration file:
 
 ```
-$ docker run --rm -v $(pwd)/.grype.yaml:/root/.grype.yaml <your-namespace>/dhi-grype:<tag> ubuntu:latest
+$ docker run --rm -v $(pwd)/.grype.yaml:/root/.grype.yaml dhi.io/grype:<tag> ubuntu:latest
 ```
 
 Example configuration with ignore rules:
@@ -201,7 +211,7 @@ external-sources:
 For repeated scans, cache the vulnerability database:
 
 ```
-$ docker run --rm -v grype-cache:/root/.cache/grype <your-namespace>/dhi-grype:<tag> ubuntu:latest
+$ docker run --rm -v grype-cache:/root/.cache/grype dhi.io/grype:<tag> ubuntu:latest
 ```
 
 #### Database-only updates
@@ -209,7 +219,7 @@ $ docker run --rm -v grype-cache:/root/.cache/grype <your-namespace>/dhi-grype:<
 Update just the vulnerability database without scanning:
 
 ```
-$ docker run --rm -v grype-cache:/root/.cache/grype <your-namespace>/dhi-grype:<tag> db update
+$ docker run --rm -v grype-cache:/root/.cache/grype dhi.io/grype:<tag> db update
 ```
 
 ## Image variants
@@ -290,10 +300,10 @@ The following steps outline the general migration process.
 
 ```bash
 # Full scan with detailed JSON output for analysis
-docker run --rm <your-namespace>/dhi-grype:<tag> myapp:latest -o json > vulnerability-report.json
+docker run --rm dhi.io/grype:<tag> myapp:latest -o json > vulnerability-report.json
 
 # Risk-prioritized scanning with EPSS scores
-docker run --rm <your-namespace>/dhi-grype:<tag> myapp:latest --sort-by epss --fail-on high
+docker run --rm dhi.io/grype:<tag> myapp:latest --sort-by epss --fail-on high
 ```
 
 #### Policy enforcement with ignore rules
@@ -320,10 +330,10 @@ ignore:
 
 ```bash
 # Generate CycloneDX SBOM with vulnerabilities for compliance
-docker run --rm <your-namespace>/dhi-grype:<tag> myapp:latest -o cyclonedx-json > compliance-report.json
+docker run --rm dhi.io/grype:<tag> myapp:latest -o cyclonedx-json > compliance-report.json
 
 # SARIF format for security dashboards
-docker run --rm <your-namespace>/dhi-grype:<tag> myapp:latest -o sarif > security-analysis.sarif
+docker run --rm dhi.io/grype:<tag> myapp:latest -o sarif > security-analysis.sarif
 ```
 
 ### DevSecOps Integration
@@ -332,14 +342,14 @@ docker run --rm <your-namespace>/dhi-grype:<tag> myapp:latest -o sarif > securit
 
 ```bash
 # Quick scan of local development environment
-docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-grype:<tag> dir:/workspace --fail-on medium
+docker run --rm -v $(pwd):/workspace dhi.io/grype:<tag> dir:/workspace --fail-on medium
 ```
 
 #### Container registry integration
 
 ```bash
 # Scan images before promotion to production
-docker run --rm <your-namespace>/dhi-grype:<tag> registry.company.com/myapp:candidate --fail-on high
+docker run --rm dhi.io/grype:<tag> registry.company.com/myapp:candidate --fail-on high
 ```
 
 #### Kubernetes deployment scanning
@@ -347,7 +357,7 @@ docker run --rm <your-namespace>/dhi-grype:<tag> registry.company.com/myapp:cand
 ```bash
 # Scan all images in a Kubernetes manifest
 for image in $(kubectl get pods -o jsonpath='{.items[*].spec.containers[*].image}' | tr ' ' '\n' | sort -u); do
-  docker run --rm <your-namespace>/dhi-grype:<tag> "$image" --fail-on critical
+  docker run --rm dhi.io/grype:<tag> "$image" --fail-on critical
 done
 ```
 
@@ -403,10 +413,10 @@ If Grype fails to download vulnerability databases, ensure network connectivity:
 
 ```bash
 # Test database update separately
-docker run --rm <your-namespace>/dhi-grype:<tag> db update
+docker run --rm dhi.io/grype:<tag> db update
 
 # Check database status
-docker run --rm <your-namespace>/dhi-grype:<tag> db status
+docker run --rm dhi.io/grype:<tag> db status
 ```
 
 #### Large image scanning performance
@@ -415,7 +425,7 @@ For very large images, consider increasing memory limits:
 
 ```bash
 # Increase memory for large scans
-docker run --rm --memory=4g <your-namespace>/dhi-grype:<tag> huge-image:latest
+docker run --rm --memory=4g dhi.io/grype:<tag> huge-image:latest
 ```
 
 #### False positive management
@@ -424,10 +434,10 @@ Use ignore rules and VEX documents to manage false positives systematically:
 
 ```bash
 # Test ignore rules configuration
-docker run --rm -v $(pwd)/.grype.yaml:/root/.grype.yaml <your-namespace>/dhi-grype:<tag> ubuntu:latest
+docker run --rm -v $(pwd)/.grype.yaml:/root/.grype.yaml dhi.io/grype:<tag> ubuntu:latest
 
 # Validate VEX document application
-docker run --rm -v $(pwd)/filter.vex.json:/vex.json <your-namespace>/dhi-grype:<tag> ubuntu:latest --vex /vex.json
+docker run --rm -v $(pwd)/filter.vex.json:/vex.json dhi.io/grype:<tag> ubuntu:latest --vex /vex.json
 ```
 
 #### Template formatting issues
@@ -436,5 +446,5 @@ For custom templates, validate template syntax:
 
 ```bash
 # Test custom template with simple data
-echo '{"matches": []}' | docker run --rm -i -v $(pwd)/template.tmpl:/template <your-namespace>/dhi-grype:<tag> -o template -t /template
+echo '{"matches": []}' | docker run --rm -i -v $(pwd)/template.tmpl:/template dhi.io/grype:<tag> -o template -t /template
 ```

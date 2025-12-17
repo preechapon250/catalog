@@ -1,8 +1,14 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a uv instance
 
@@ -14,11 +20,10 @@ This image includes uv tools you can invoke directly:
 The following example shows how to run `uv --help` in a Docker container. You can use this pattern to run any of the uv
 tools included in this image.
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command.
 
 ```
-docker run --rm <your-namespace>/dhi-uv:<tag> uv --help
+docker run --rm dhi.io/uv:<tag> uv --help
 ```
 
 ## Common uv use cases
@@ -30,7 +35,7 @@ Create a new Python project with uv:
 ```
 docker run --rm -it \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-uv:<tag> \
+  dhi.io/uv:<tag> \
   uv init my-project
 ```
 
@@ -41,7 +46,7 @@ Use uv to install Python packages in your project:
 ```
 docker run --rm -it \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-uv:<tag> \
+  dhi.io/uv:<tag> \
   uv add requests pandas
 ```
 
@@ -52,7 +57,7 @@ Create a virtual environment for your Python project:
 ```
 docker run --rm -it \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-uv:<tag> \
+  dhi.io/uv:<tag> \
   uv venv
 ```
 
@@ -63,7 +68,7 @@ Execute Python scripts using uvx:
 ```
 docker run --rm -it \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-uv:<tag> \
+  dhi.io/uv:<tag> \
   uvx ruff check .
 ```
 
@@ -74,7 +79,7 @@ Install and run Python tools without creating a virtual environment:
 ```
 docker run --rm -it \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-uv:<tag> \
+  dhi.io/uv:<tag> \
   uv tool install ruff
 ```
 
@@ -85,7 +90,7 @@ Synchronize your environment with a lockfile for reproducible builds:
 ```
 docker run --rm -it \
   -v "$PWD:/workspace:rw" \
-  <your-namespace>/dhi-uv:<tag> \
+  dhi.io/uv:<tag> \
   uv sync
 ```
 
@@ -94,13 +99,13 @@ docker run --rm -it \
 Use the uv image to manage Python dependencies in your application's Dockerfile:
 
 ```dockerfile
-FROM <your-namespace>/dhi-uv:<tag> AS builder
+FROM dhi.io/uv:<tag> AS builder
 
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen
 
-FROM <your-namespace>/dhi-python:<tag>
+FROM dhi.io/python:<tag>
 
 WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
@@ -151,8 +156,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-uv \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-uv:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/uv:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

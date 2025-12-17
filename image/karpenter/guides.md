@@ -1,10 +1,20 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Use Karpenter in Kubernetes
 
 To use the Karpenter hardened image in Kubernetes, update your deployment manifests to reference the hardened image.
 Karpenter is deployed as a controller in your cluster, typically through a Helm chart, or you can also apply manifests
-directly. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the desired tag.
+directly. Replace `<tag>` with the desired tag.
 
 For example, in your `karpenter-controller.yaml` file:
 
@@ -34,7 +44,7 @@ spec:
       serviceAccountName: karpenter
       containers:
         - name: controller
-          image: <your-namespace>/dhi-karpenter:<tag>
+          image: dhi.io/karpenter:<tag>
 ```
 
 Make sure to create an `imagePullSecret` in the `karpenter` namespace and attach it to the Karpenter `ServiceAccount` so
@@ -83,8 +93,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -114,7 +124,7 @@ for the standard Karpenter controller image in your existing workflows and confi
 
 1. Update your image reference. For example:
    - From: `public.ecr.aws/karpenter/controller:<tag>`
-   - To: `<your-namespace>/dhi-karpenter:<tag>`
+   - To: `dhi.io/karpenter:<tag>`
 1. All your existing environment variables, volume mounts, and network settings remain the same.
 
 ### General migration considerations

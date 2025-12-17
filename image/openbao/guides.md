@@ -1,20 +1,26 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start an OpenBao instance
 
-Run an OpenBao container in dev mode, exposing the OpenBao API on port 8200 with the following command. Replace
-<your-namespace> with your organization's namespace and <tag> with the image variant you want to run.
+Run an OpenBao container in dev mode, exposing the OpenBao API on port 8200 with the following command. Replace `<tag>`
+with the image variant you want to run.
 
 > [!WARNING] The `-dev` flag runs an in-memory OpenBao instance, which should be used exclusively for development
 > purposes.
 
 ```
 $ docker run --rm -p 8200:8200 \
-  <your-namespace>/dhi-openbao:<tag> \
+  dhi.io/openbao:<tag> \
   server -dev -dev-root-token-id=dev-only-token -dev-listen-address=0.0.0.0:8200
 ```
 
@@ -28,7 +34,7 @@ listener settings, and other operational parameters.
 ```
 $ docker run --rm -p 8200:8200 \
   -v /path/to/config.hcl:/openbao/config/config.hcl:ro \
-  <your-namespace>/dhi-openbao:<tag>
+  dhi.io/openbao:<tag>
 ```
 
 ### Using environment variables for configuration
@@ -39,7 +45,7 @@ OpenBao supports configuration through environment variables, which can be usefu
 $ docker run --rm -p 8200:8200 \
   -e BAO_ADDR=http://0.0.0.0:8200 \
   -e BAO_API_ADDR=http://0.0.0.0:8200 \
-  <your-namespace>/dhi-openbao:<tag> \
+  dhi.io/openbao:<tag> \
   server -config=/openbao/config/config.hcl
 ```
 
@@ -52,7 +58,7 @@ restarts.
 $ docker run --rm -p 8200:8200 \
   -v openbao-data:/openbao/data \
   -v /path/to/config.hcl:/openbao/config/config.hcl:ro \
-  <your-namespace>/dhi-openbao:<tag>
+  dhi.io/openbao:<tag>
 ```
 
 ## Non-hardened images vs Docker Hardened Images
@@ -96,8 +102,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-image \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-openbao:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/openbao:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

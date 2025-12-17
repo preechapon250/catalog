@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Velero image
 
 This Docker Hardened Velero image includes :
@@ -37,10 +47,10 @@ The following example installs Velero with the AWS plugin. It assumes you alread
 docker run -it --rm \
   -v $(pwd)/aws-minio-credentials.txt:/etc/aws-minio-credentials.txt \
   -v $(pwd)/kube/config:/etc/kube-config \
-  <your-namespace>/dhi-velero:<tag> \
+  dhi.io/velero:<tag> \
   velero install \
-    --image <your-namespace>/dhi-velero:<tag> \
-    --plugins <your-namespace>/dhi-velero-plugin-for-aws:<tag> \
+    --image dhi.io/velero:<tag> \
+    --plugins dhi.io/velero-plugin-for-aws:<tag> \
     --provider aws \
     --bucket velero \
     --secret-file /etc/aws-minio-credentials.txt \
@@ -101,8 +111,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -132,7 +142,7 @@ the standard Velero (`velero/velero`) image in your existing workflows and confi
 
 1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
    - From: `velero/velero:<tag>`
-   - To: `<your-namespace>/dhi-velero:<tag>`
+   - To: `dhi.io/velero:<tag>`
 1. No configuration changes needed. All your existing environment variables, volume mounts, and network settings remain
    the same.
 

@@ -1,16 +1,22 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run Polaris to scan a local directory
 
-The following command runs polaris CLI to analyze k8s manifests in a local directory. Replace `<your-namespace>` with
-your organization's namespace and `<tag>` with the image variant you want to run.
+The following command runs polaris CLI to analyze k8s manifests in a local directory. Replace `<tag>` with the image
+variant you want to run.
 
 ```
-$ docker run --rm -v $(pwd):/app <your-namespace>/dhi-polaris:<tag> audit --audit-path /app
+$ docker run --rm -v $(pwd):/app dhi.io/polaris:<tag> audit --audit-path /app
 ```
 
 ### Run Polaris Dashboard
@@ -18,7 +24,7 @@ $ docker run --rm -v $(pwd):/app <your-namespace>/dhi-polaris:<tag> audit --audi
 Polaris can also start in dashboard mode and show a web UI with the audit results.
 
 ```
-$ docker run --rm -v $(pwd):/app -p 8080:8080 <your-namespace>/dhi-polaris:<tag> dashboard --audit-path /app
+$ docker run --rm -v $(pwd):/app -p 8080:8080 dhi.io/polaris:<tag> dashboard --audit-path /app
 ```
 
 Then browse to localhost:8080 to find the result of the resources audit.
@@ -27,8 +33,8 @@ Then browse to localhost:8080 to find the result of the resources audit.
 
 Polaris can also run as an admission controller to validate and mutate k8s resources before they make it to the cluster.
 
-The recommended way to install Polaris as an admission controller is using the official Helm chart. Replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+The recommended way to install Polaris as an admission controller is using the official Helm chart. Replace `<tag>` with
+the image variant you want to run.
 
 ```bash
 # Add the Azure Service Operator Helm repository
@@ -63,6 +69,13 @@ Docker Hardened Images come in different variants depending on their intended us
   - Run as the root user
   - Include a shell and package manager
   - Are used to build or compile applications
+
+- Compat variants support more seamless usage of DHI as a drop-in replacement for upstream images, particularly for
+  circumstances that the ultra-minimal runtime variant may not fully support. These images typically:
+
+  - Run as the nonroot user
+  - Improve compatibility with upstream helm charts
+  - Include optional tools that are critical for certain use-cases
 
 - FIPS variants include `fips` in the variant name and tag. They come in both runtime and build-time variants. These
   variants use cryptographic modules that have been validated under FIPS 140, a U.S. government standard for secure

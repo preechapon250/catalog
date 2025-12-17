@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Grafana Agent Hardened image
 
 This image contains Grafana Agent, a lightweight telemetry collector for metrics, logs, traces, and continuous profiles.
@@ -14,17 +24,12 @@ backends like Prometheus, Grafana Cloud, and other compatible systems.
 
 ## Start a Grafana Agent instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
-
-**Note:** Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```console
 $ docker run -p 12345:12345 \
   -v /path/to/agent.yaml:/etc/agent/agent.yaml:ro \
-  <your-namespace>/dhi-grafana-agent:<tag> \
+  dhi.io/grafana-agent:<tag> \
   -config.file=/etc/agent/agent.yaml \
   -metrics.wal-directory=/tmp/agent \
   -server.http.address=0.0.0.0:12345
@@ -47,7 +52,7 @@ For persistent storage of the Write-Ahead Log, mount a volume:
 $ docker run -p 12345:12345 \
   -v /path/to/agent.yaml:/etc/agent/agent.yaml:ro \
   -v agent-wal:/tmp/agent \
-  <your-namespace>/dhi-grafana-agent:<tag> \
+  dhi.io/grafana-agent:<tag> \
   -config.file=/etc/agent/agent.yaml \
   -metrics.wal-directory=/tmp/agent \
   -server.http.address=0.0.0.0:12345
@@ -102,8 +107,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-grafana-agent:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/grafana-agent:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

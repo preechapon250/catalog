@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start an Istio CNI image
 
@@ -12,8 +18,7 @@ First follow the
 The Istio CNI image runs as a **DaemonSet** on each node in your Kubernetes cluster. It installs the CNI plugin binary
 and manages pod network namespace configuration. This image cannot be run standalone.
 
-Replace `<your-namespace>` with your organization's namespace, `<secret name>` with your Kubernetes image pull secret,
-and `<tag>` with the image variant you want to use.
+Replace `<secret name>` with your Kubernetes image pull secret and `<tag>` with the image variant you want to use.
 
 ```yaml
 apiVersion: apps/v1
@@ -35,7 +40,7 @@ spec:
       - name: <secret name>
       containers:
       - name: install-cni
-        image: <your-namespace>/dhi-istio-install-cni:<tag>
+        image: dhi.io/istio-install-cni:<tag>
         securityContext:
           privileged: true
 ```
@@ -71,7 +76,7 @@ To view the image variants and get more information about them, select the **Tag
 To migrate your Istio CNI deployment, update your DaemonSet or Istio installation configuration:
 
 ```yaml
-image: <your-namespace>/dhi-istio-install-cni:<tag>
+image: dhi.io/istio-install-cni:<tag>
 ```
 
 Ensure the DaemonSet has appropriate RBAC permissions for pod monitoring and CNI configuration.

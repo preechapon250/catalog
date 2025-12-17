@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Redis image
 
 This Docker Hardened Redis image includes the complete Redis toolkit in a single, security-hardened package:
@@ -24,11 +34,10 @@ binary.
 
 ## Start a Redis instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run --name some-redis -d <your-namespace>/dhi-redis:<tag> redis-server
+$ docker run --name some-redis -d dhi.io/redis:<tag> redis-server
 ```
 
 ## Common Redis use cases
@@ -38,7 +47,7 @@ $ docker run --name some-redis -d <your-namespace>/dhi-redis:<tag> redis-server
 Start the Redis server and connect using the bundled `redis-cli`:
 
 ```
-docker run --name my-redis -d <your-namespace>/dhi-redis:<tag> redis-server
+docker run --name my-redis -d dhi.io/redis:<tag> redis-server
 
 docker exec -it my-redis redis-cli ping
 ```
@@ -50,7 +59,7 @@ Run Redis with data persistence using a Docker volume:
 ```
 docker run --name redis-persistent -d \
   -v redis-data:/data \
-  <your-namespace>/dhi-redis:<tag> redis-server --appendonly yes
+  dhi.io/redis:<tag> redis-server --appendonly yes
 ```
 
 ### Redis Sentinel for high availability
@@ -60,7 +69,7 @@ Start Redis Sentinel using the same image:
 ```
 docker run --name redis-sentinel -d \
   -v /path/to/sentinel.conf:/etc/redis/sentinel.conf:ro \
-  <your-namespace>/dhi-redis:<tag> redis-sentinel /etc/redis/sentinel.conf
+  dhi.io/redis:<tag> redis-sentinel /etc/redis/sentinel.conf
 ```
 
 ### Performance testing
@@ -68,10 +77,10 @@ docker run --name redis-sentinel -d \
 Test Redis performance using the bundled `redis-benchmark` tool:
 
 ```
-docker run --name redis-for-testing -d <your-namespace>/dhi-redis:<tag> redis-server
+docker run --name redis-for-testing -d dhi.io/redis:<tag> redis-server
 
 docker run --rm --network container:redis-for-testing \
-  <your-namespace>/dhi-redis:<tag> redis-benchmark -h localhost -p 6379
+  dhi.io/redis:<tag> redis-benchmark -h localhost -p 6379
 ```
 
 ## Docker Official Images vs. Docker Hardened Images
@@ -115,8 +124,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-redis \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-redis:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/redis:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

@@ -1,8 +1,14 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Getting Started with Git MCP Server
 
@@ -25,7 +31,7 @@ Add to your `claude_desktop_config.json`:
         "--rm",
         "-i",
         "-v", "/path/to/repository:/repo:rw",
-        "<your-namespace>/dhi-git-mcp",
+        "dhi.io/git-mcp",
         "/repo"
       ]
     }
@@ -33,7 +39,7 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-Replace `<your-namespace>` with your organization's namespace and `/path/to/repository` with your Git repository path.
+Replace `/path/to/repository` with your Git repository path.
 
 ### Running the Server
 
@@ -42,7 +48,7 @@ Basic usage with a mounted repository:
 ```bash
 docker run --rm -i \
   -v "$PWD:/repo:rw" \
-  <your-namespace>/dhi-git-mcp \
+  dhi.io/git-mcp \
   /repo
 ```
 
@@ -52,7 +58,7 @@ With multiple repositories:
 docker run --rm -i \
   -v "$HOME/project1:/repo1:rw" \
   -v "$HOME/project2:/repo2:rw" \
-  <your-namespace>/dhi-git-mcp \
+  dhi.io/git-mcp \
   /repo1 /repo2
 ```
 
@@ -61,7 +67,7 @@ Read-only access:
 ```bash
 docker run --rm -i \
   -v "$PWD:/repo:ro" \
-  <your-namespace>/dhi-git-mcp \
+  dhi.io/git-mcp \
   /repo
 ```
 
@@ -136,7 +142,7 @@ For private repositories requiring authentication:
 docker run --rm -i \
   -v "$PWD:/repo:rw" \
   -v "$HOME/.ssh:/home/nonroot/.ssh:ro" \
-  <your-namespace>/dhi-git-mcp \
+  dhi.io/git-mcp \
   /repo
 ```
 
@@ -146,7 +152,7 @@ docker run --rm -i \
 docker run --rm -i \
   -v "$PWD:/repo:rw" \
   -v "$HOME/.gitconfig:/home/nonroot/.gitconfig:ro" \
-  <your-namespace>/dhi-git-mcp \
+  dhi.io/git-mcp \
   /repo
 ```
 
@@ -203,9 +209,9 @@ docker debug <container-name>
 or mount debugging tools with the Image Mount feature:
 
 ```
-docker run --rm -it --pid container:my-argocd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-argocd:<tag> /dbg/bin/sh
+docker run --rm -it --pid container:my-git-mcp \
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/git-mcp:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Use as a base image
 
-Use this image as a base for building custom containerized applications. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to use.
+Use this image as a base for building custom containerized applications. Replace `<tag>` with the image variant you want
+to use.
 
 ```dockerfile
-FROM <your-namespace>/dhi-debian-base:<tag>
+FROM dhi.io/debian-base:<tag>
 
 # Install additional packages
 RUN apt-get update && apt-get install -y \
@@ -27,7 +37,7 @@ CMD ["./your-application"]
 To start an interactive shell session:
 
 ```bash
-$ docker run -it --rm <your-namespace>/dhi-debian-base:<tag>
+$ docker run -it --rm dhi.io/debian-base:<tag>
 ```
 
 ### Running as the nonroot user
@@ -36,7 +46,7 @@ By default, the image runs as root, but it includes a pre-configured nonroot use
 nonroot user:
 
 ```dockerfile
-FROM <your-namespace>/dhi-debian-base:<tag>
+FROM dhi.io/debian-base:<tag>
 
 # Switch to the existing nonroot user
 USER nonroot

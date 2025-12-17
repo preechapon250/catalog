@@ -1,11 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Add to your Kubeflow Kubernetes Deployment
 
 #### Verify you can pull the image. Substitute your company namespace:
 
 ```
-$ docker pull <your-namespace>/dhi-kubeflow-pipelines-apiserver
+$ docker pull dhi.io/kubeflow-pipelines-apiserver
 ```
 
 #### Create the a default Kubeflow deployment:

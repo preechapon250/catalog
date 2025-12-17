@@ -1,12 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Start a Node.js instance
 
-Run the following command to run a Nodejs container. Replace `<your-namespace>` with your organization's namespace and
-`<tag>` with the image variant you want to run.
+Run the following command to run a Nodejs container. Replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run --rm <your-namespace>/dhi-node:<tag> node --version
+$ docker run --rm dhi.io/node:<tag> node --version
 ```
 
 ### Getting Started
@@ -75,7 +84,7 @@ Finally, let's create a Dockerfile for our image build:
 cat << 'EOF' > Dockerfile
 # syntax=docker/dockerfile:1
 # Use dev variant for building
-FROM <your-namespace>/dhi-node:<tag>-dev AS build-stage
+FROM dhi.io/node:<tag>-dev AS build-stage
 
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
@@ -87,7 +96,7 @@ COPY package*.json ./
 RUN npm i --omit=dev && mkdir -p node_modules
 
 # Use runtime variant for final image
-FROM <your-namespace>/dhi-node:<tag> AS runtime-stage
+FROM dhi.io/node:<tag> AS runtime-stage
 
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
@@ -215,18 +224,18 @@ Federal Information Processing Standards compliance.
 
 ```shell
 # Check FIPS status (should return 1 for enabled)
-$ docker run --rm <your-namespace>/dhi-node:<tag>-fips \
+$ docker run --rm dhi.io/node:<tag>-fips \
   node -e "console.log('FIPS status:', require('crypto').getFips ? require('crypto').getFips() : 'FIPS method not available')"
 
 # Verify cipher restrictions (FIPS has significantly fewer available)
-$ docker run --rm <your-namespace>/dhi-node:<tag>-fips \
+$ docker run --rm dhi.io/node:<tag>-fips \
   node -e "console.log('FIPS ciphers:', require('crypto').getCiphers().length)"
 
-$ docker run --rm <your-namespace>/dhi-node:<tag> \
+$ docker run --rm dhi.io/node:<tag> \
   node -e "console.log('Non-FIPS ciphers:', require('crypto').getCiphers().length)"
 
 # Test disabled cryptographic functions (MD5 disabled in FIPS)
-$ docker run --rm <your-namespace>/dhi-node:tag>-fips \
+$ docker run --rm dhi.io/node:tag>-fips \
   node -e "
   try {
     require('crypto').createHash('md5').update('test').digest('hex');

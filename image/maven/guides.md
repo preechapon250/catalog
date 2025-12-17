@@ -1,16 +1,22 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Maven build
 
-Run the following command to execute Maven commands using a Docker Hardened Image. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+Run the following command to execute Maven commands using a Docker Hardened Image. Replace `<tag>` with the image
+variant you want to run.
 
 ```bash
-$ docker run --rm <your-namespace>/dhi-maven:<tag>-dev --version
+$ docker run --rm dhi.io/maven:<tag>-dev --version
 ```
 
 **Important**: Maven DHI images have `mvn` as their ENTRYPOINT. When using `docker run`, omit `mvn` from your commands.
@@ -23,7 +29,7 @@ In Dockerfiles, use `RUN mvn ...` as normal since RUN commands execute in shell 
 Build your Maven project by mounting your source code and running Maven commands:
 
 ```bash
-$ docker run --rm -v "$(pwd)":/app -w /app <your-namespace>/dhi-maven:<tag>-dev clean compile
+$ docker run --rm -v "$(pwd)":/app -w /app dhi.io/maven:<tag>-dev clean compile
 ```
 
 ### Build and package application artifacts
@@ -31,7 +37,7 @@ $ docker run --rm -v "$(pwd)":/app -w /app <your-namespace>/dhi-maven:<tag>-dev 
 Create application artifacts like JAR or WAR files by building your Maven project:
 
 ```bash
-$ docker run --rm -v "$(pwd)":/app -w /app <your-namespace>/dhi-maven:<tag>-dev clean package
+$ docker run --rm -v "$(pwd)":/app -w /app dhi.io/maven:<tag>-dev clean package
 ```
 
 ## Build and run with Multi-stage Dockerfile
@@ -54,7 +60,7 @@ $ cd spring-petclinic
 docker run --rm \
     -v "$(pwd)":/app -w /app \
     -v maven-repo:/root/.m2 \
-    <your-namespace>/dhi-maven:<tag>-dev \
+    dhi.io/maven:<tag>-dev \
     clean package -DskipTests
 ```
 
@@ -63,7 +69,7 @@ Create a `Dockerfile` in the Pet Clinic directory:
 ```dockerfile
 # syntax=docker/dockerfile:1
 # Build stage - Maven DHI for building Pet Clinic
-FROM <your-namespace>/dhi-maven:<tag>-dev AS build
+FROM dhi.io/maven:<tag>-dev AS build
 
 WORKDIR /app
 
@@ -200,7 +206,7 @@ DHI images are build-only, **you must use multi-stage builds**.
 
    ```dockerfile
    # Build stage
-   FROM <your-namespace>/dhi-maven:<tag>-dev AS build
+   FROM dhi.io/maven:<tag>-dev AS build
    # ... Maven build commands ...
 
    # Runtime stage

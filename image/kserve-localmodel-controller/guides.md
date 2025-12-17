@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this KServe LocalModel Controller Hardened Image
 
 This Docker Hardened KServe LocalModel Controller image includes the LocalModel controller component from KServe. The
@@ -15,7 +25,7 @@ standalone for testing, use the following command:
 ```bash
 docker run --name kserve-localmodel-controller \
   -p 8080:8080 -p 8081:8081 -p 9443:9443 \
-  <your-namespace>/dhi-kserve-localmodel-controller:<tag>
+  dhi.io/kserve-localmodel-controller:<tag>
 ```
 
 **Note**: The controller requires access to a Kubernetes cluster API to function properly. When running standalone
@@ -62,8 +72,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kserve-localmodel-controller:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kserve-localmodel-controller:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -98,7 +108,7 @@ commands and arguments are compatible.
    Replace the image reference in your Kubernetes manifests or Helm values, for example:
 
    - From: `kserve/kserve-localmodel-controller:<tag>`
-   - To: `<your-namespace>/dhi-kserve-localmodel-controller:<tag>`
+   - To: `dhi.io/kserve-localmodel-controller:<tag>`
 
 1. All your existing command-line arguments, environment variables, port mappings, and network settings remain the same.
 

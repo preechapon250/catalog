@@ -1,18 +1,24 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a RabbitMQ server instance
 
 RabbitMQ stores data based on what it calls the "Node Name", which defaults to the hostname. When running a container in
 Docker, you should specify `-h` or `--hostname` explicitly for each daemon so that you don't get a random hostname and
-can keep track of our data. For example, run the following command and replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+can keep track of our data. For example, run the following command and replace `<tag>` with the image variant you want
+to run.
 
 ```console
-$ docker run -d --hostname my-rabbit --name some-rabbit <your-namespace>/dhi-rabbitmq:<tag>
+$ docker run -d --hostname my-rabbit --name some-rabbit dhi.io/rabbitmq:<tag>
 ```
 
 This starts a RabbitMQ server instance in a container named `some-rabbit` with the hostname `my-rabbit`.
@@ -24,7 +30,7 @@ This starts a RabbitMQ server instance in a container named `some-rabbit` with t
 The following example shows how to use environment variables to set the default user and password for RabbitMQ.
 
 ```console
-$ docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password <your-namespace>/dhi-rabbitmq:<tag>
+$ docker run -d --hostname my-rabbit --name some-rabbit -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password dhi.io/rabbitmq:<tag>
 ```
 
 This will create a new user `user` with password `password` and grant that user administrative privileges.
@@ -40,7 +46,7 @@ Compose with a volume mount:
 ```yaml
 services:
   rabbitmq:
-    image: <your-namespace>/dhi-rabbitmq:<tag>
+    image: dhi.io/rabbitmq:<tag>
     hostname: my-rabbit
     ports:
       - "5672:5672"
@@ -71,7 +77,7 @@ Then go to `http://localhost:15672` in a browser and use `user` / `password` to 
 You can provide custom configuration using a bind-mounted config file:
 
 ```console
-$ docker run -d --name some-rabbit -v /path/to/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro <your-namespace>/dhi-rabbitmq:<tag>
+$ docker run -d --name some-rabbit -v /path/to/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro dhi.io/rabbitmq:<tag>
 ```
 
 Example `rabbitmq.conf` file:
@@ -89,8 +95,7 @@ For more details on configuring RabbitMQ, see the official documentation for
 
 To use the RabbitMQ hardened image in Kubernetes, [set up authentication](https://docs.docker.com/dhi/how-to/k8s/) and
 update your Kubernetes deployment. For example, in your `rabbitmq.yaml` file, replace the image reference in the
-container spec. In the following example replace `<your-namespace>` and `<tag>` with your organization's namespace and
-the desired tag.
+container spec. In the following example, replace `<tag>` with the desired tag.
 
 ```yaml
 apiVersion: apps/v1
@@ -103,7 +108,7 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: <your-namespace>/dhi-rabbitmq:<tag>
+          image: dhi.io/rabbitmq:<tag>
           ports:
           - containerPort: 5672
       imagePullSecrets:
@@ -159,8 +164,8 @@ or mount debugging tools with the image mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -181,10 +186,7 @@ ensure that your commands and arguments are compatible.
 
 ### Migration steps
 
-1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
-
-   - From: `rabbitmq:<tag>`
-   - To: `<your-namespace>/dhi-rabbitmq:<tag>`
+1. Replace the image reference in your Docker run command or Compose file.
 
 1. All your existing environment variables, volume mounts, and network settings remain the same.
 

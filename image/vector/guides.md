@@ -1,11 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a Vector container
 
-Run the following command. Replace <your-namespace> with your organization's namespace.
+Run the following command.
 
 ```
-$ docker run -p 8686:8686 <your-namespace>/dhi-vector:0.47
+$ docker run -p 8686:8686 dhi.io/vector:<tag>
 ```
 
 ### Configuration
@@ -13,7 +23,7 @@ $ docker run -p 8686:8686 <your-namespace>/dhi-vector:0.47
 Vector requires a configuration file to run. You can mount your configuration file into the container:
 
 ```
-$ docker run -v /path/to/vector.yaml:/etc/vector/vector.yaml -p 8686:8686 <your-namespace>/dhi-vector:0.47
+$ docker run -v /path/to/vector.yaml:/etc/vector/vector.yaml -p 8686:8686 dhi.io/vector:<tag>
 ```
 
 Alternatively, you can provide configuration via environment variables or command line arguments. See the Vector

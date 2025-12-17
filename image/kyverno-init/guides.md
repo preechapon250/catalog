@@ -1,5 +1,15 @@
 ## How to use this Kyverno Init image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 This guide provides practical examples for using the Kyverno Init Hardened Image to use as an initialization container
 for the Kyverno admissions controller in Kubernetes.
 
@@ -11,16 +21,15 @@ controller to run as its init container.
 ### Start a Kyverno Init image
 
 ```bash
-docker run -d --name kyverno -p 8443:443 <your-namespace>/dhi-kyverno-init:<tag>
+docker run -d --name kyverno -p 8443:443 dhi.io/kyverno-init:<tag>
 ```
 
 ## Common use cases
 
 ### Install Kyverno using Helm
 
-You can install Kyverno using the official helm chart and replace the image. Replace `<your-namespace>` with your
-organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Kyverno using the official helm chart and replace the image. Replace `<your-registry-secret>` with your
+[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image tag.
 
 ```bash
 helm repo add kyverno https://kyverno.github.io/kyverno
@@ -29,8 +38,8 @@ helm repo update
 helm upgrade --install kyverno kyverno/kyverno \
   -n kyverno --create-namespace --wait \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set .image.registry=docker.io \
-  --set admissionController.initContainer.image.repository=<your-namespace>/dhi-kyverno-init\
+  --set .image.registry=dhi.io \
+  --set admissionController.initContainer.image.repository=kyverno-init\
   --set admissionController.initContainer.image.tag=<tag> \
   --set admissionController.initContainer.securityContext.runAsUser=65532
 ```
@@ -76,8 +85,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kyverno-init:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kyverno-init:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -112,7 +121,7 @@ compatible.
    Replace the image reference in your Docker run command or Compose file, for example:
 
    - From: `bitnami/kyverno-init:<tag>`
-   - To: `<your-namespace>/dhi-kyverno-init:<tag>`
+   - To: `dhi.io/kyverno-init:<tag>`
 
 1. All your existing command-line arguments, environment variables, port mappings, and network settings remain the same.
 

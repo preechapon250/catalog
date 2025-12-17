@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Jenkins Inbound Agent image
 
@@ -31,7 +35,7 @@ $ docker run -d --name jenkins-inbound-agent --init \
   -e JENKINS_URL=http://jenkins-controller:8080 \
   -e JENKINS_SECRET=<secret-from-controller> \
   -e JENKINS_AGENT_NAME=agent1 \
-  <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+  dhi.io/jenkins-inbound-agent:<tag>
 ```
 
 This command:
@@ -56,7 +60,7 @@ $ docker run -d --name jenkins-inbound-agent --init \
   -e JENKINS_AGENT_NAME=agent1 \
   -e JENKINS_AGENT_WORKDIR=/home/jenkins/agent \
   -v agent-workdir:/home/jenkins/agent \
-  <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+  dhi.io/jenkins-inbound-agent:<tag>
 ```
 
 ### Environment variables
@@ -89,7 +93,7 @@ $ docker run -d --name jenkins-inbound-agent --init \
   -e TZ=America/New_York \
   -e JAVA_OPTS="-Xmx512m -Xms256m" \
   -v agent-workdir:/home/jenkins/agent \
-  <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+  dhi.io/jenkins-inbound-agent:<tag>
 ```
 
 ## Common Jenkins Inbound Agent use cases
@@ -103,7 +107,7 @@ $ docker run -d --name jenkins-inbound-agent --init \
   -e JENKINS_URL=http://jenkins-controller:8080 \
   -e JENKINS_SECRET=<secret-from-controller> \
   -e JENKINS_AGENT_NAME=agent1 \
-  <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+  dhi.io/jenkins-inbound-agent:<tag>
 ```
 
 ### Agent with persistent work directory
@@ -117,7 +121,7 @@ $ docker run -d --name jenkins-inbound-agent --init \
   -e JENKINS_AGENT_NAME=agent1 \
   -e JENKINS_AGENT_WORKDIR=/home/jenkins/agent \
   -v jenkins-agent-work:/home/jenkins/agent \
-  <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+  dhi.io/jenkins-inbound-agent:<tag>
 ```
 
 ### Agent in Kubernetes
@@ -142,7 +146,7 @@ spec:
     spec:
       containers:
       - name: jenkins-inbound-agent
-        image: <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+        image: dhi.io/jenkins-inbound-agent:<tag>
         env:
         - name: JENKINS_URL
           value: "http://jenkins-controller:8080"
@@ -171,7 +175,7 @@ Use Docker Compose to run a Jenkins controller with an inbound agent:
 version: '3.8'
 services:
   jenkins-controller:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-controller
     ports:
       - "8080:8080"
@@ -182,7 +186,7 @@ services:
       - jenkins-network
 
   jenkins-inbound-agent:
-    image: <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+    image: dhi.io/jenkins-inbound-agent:<tag>
     container_name: jenkins-inbound-agent
     init: true
     environment:
@@ -215,7 +219,7 @@ $ docker run -d --name jenkins-inbound-agent --init \
   -e JENKINS_SECRET=<secret-from-controller> \
   -e JENKINS_AGENT_NAME=agent1 \
   -e JAVA_OPTS="-Xmx1024m -Xms512m" \
-  <your-namespace>/dhi-jenkins-inbound-agent:<tag>
+  dhi.io/jenkins-inbound-agent:<tag>
 ```
 
 ## Image variants

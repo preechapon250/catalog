@@ -1,13 +1,19 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Install Azure Service Operator using Helm
 
-The recommended way to install Azure Service Operator is using the official Helm chart. Replace `<your-namespace>` with
-your organization's namespace and `<tag>` with the image variant you want to run.
+The recommended way to install Azure Service Operator is using the official Helm chart. Replace `<tag>` with the image
+variant you want to run.
 
 ```bash
 # Add the Azure Service Operator Helm repository
@@ -18,7 +24,7 @@ helm repo update
 helm install aso2 aso2/azure-service-operator \
   --create-namespace \
   --namespace azureserviceoperator-system \
-  --set image.repository=<your-namespace>/dhi-azure-service-operator:<tag> \
+  --set image.repository=dhi.io/azure-service-operator:<tag> \
   --set azureTenantID="your-tenant-id" \
   --set azureSubscriptionID="your-subscription-id" \
   --set azureClientID="your-client-id" \
@@ -35,7 +41,7 @@ docker run --rm -e AZURE_TENANT_ID="your-tenant-id" \
   -e AZURE_SUBSCRIPTION_ID="your-subscription-id" \
   -e AZURE_CLIENT_ID="your-client-id" \
   -e AZURE_CLIENT_SECRET="your-client-secret" \
-  <your-namespace>/dhi-azure-service-operator:<tag>
+  dhi.io/azure-service-operator:<tag>
 ```
 
 > [!NOTE] This direct approach is for testing only. Production deployments should use the Helm chart for proper RBAC,
@@ -233,7 +239,7 @@ The following steps outline the general migration process.
 
    # After
    image:
-     repository: <your-namespace>/dhi-azure-service-operator:<tag>
+     repository: dhi.io/azure-service-operator:<tag>
    ```
 
 1. **Verify authentication configuration**

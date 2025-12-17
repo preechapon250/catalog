@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Scan a container image for vulnerabilities
 
-The following command scans a container image for vulnerabilities and displays the results. Replace `<your-namespace>`
-with your organization's namespace and `<tag>` with the image variant you want to run.
+The following command scans a container image for vulnerabilities and displays the results. Replace `<tag>` with the
+image variant you want to run.
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image alpine:latest
+$ docker run --rm dhi.io/trivy:<tag> image alpine:latest
 ```
 
 ### Scan the current directory for vulnerabilities
@@ -14,7 +24,7 @@ $ docker run --rm <your-namespace>/dhi-trivy:<tag> image alpine:latest
 To scan the current directory (filesystem) for vulnerabilities, mount it as a volume:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> filesystem /workspace
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> filesystem /workspace
 ```
 
 ### Scan Infrastructure as Code files
@@ -22,7 +32,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> filesyst
 Scan Terraform, CloudFormation, or Kubernetes manifest files for misconfigurations:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> config /workspace
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> config /workspace
 ```
 
 ### Generate an SBOM (Software Bill of Materials)
@@ -30,7 +40,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> config /
 Generate a Software Bill of Materials for a container image:
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --format spdx-json alpine:latest
+$ docker run --rm dhi.io/trivy:<tag> image --format spdx-json alpine:latest
 ```
 
 ### Scan for secrets
@@ -38,7 +48,7 @@ $ docker run --rm <your-namespace>/dhi-trivy:<tag> image --format spdx-json alpi
 Scan a Git repository or filesystem for hardcoded secrets:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> secret /workspace
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> secret /workspace
 ```
 
 ### Advanced scanning options
@@ -46,25 +56,25 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> secret /
 #### Filter by severity
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --severity HIGH,CRITICAL alpine:latest
+$ docker run --rm dhi.io/trivy:<tag> image --severity HIGH,CRITICAL alpine:latest
 ```
 
 #### Output in JSON format
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --format json alpine:latest
+$ docker run --rm dhi.io/trivy:<tag> image --format json alpine:latest
 ```
 
 #### Ignore unfixed vulnerabilities
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --ignore-unfixed alpine:latest
+$ docker run --rm dhi.io/trivy:<tag> image --ignore-unfixed alpine:latest
 ```
 
 #### Scan specific vulnerability types
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --scanners vuln,secret,config alpine:latest
+$ docker run --rm dhi.io/trivy:<tag> image --scanners vuln,secret,config alpine:latest
 ```
 
 ### Using Trivy in CI/CD
@@ -72,13 +82,13 @@ $ docker run --rm <your-namespace>/dhi-trivy:<tag> image --scanners vuln,secret,
 #### Fail on high/critical vulnerabilities
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --exit-code 1 --severity HIGH,CRITICAL myapp:latest
+$ docker run --rm dhi.io/trivy:<tag> image --exit-code 1 --severity HIGH,CRITICAL myapp:latest
 ```
 
 #### Generate reports for CI systems
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> image --format sarif --output /workspace/trivy-report.sarif myapp:latest
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> image --format sarif --output /workspace/trivy-report.sarif myapp:latest
 ```
 
 ### Kubernetes scanning
@@ -86,13 +96,13 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> image --
 #### Scan a running Kubernetes cluster
 
 ```
-$ docker run --rm -v ~/.kube:/root/.kube:ro <your-namespace>/dhi-trivy:<tag> k8s cluster
+$ docker run --rm -v ~/.kube:/root/.kube:ro dhi.io/trivy:<tag> k8s cluster
 ```
 
 #### Scan Kubernetes manifest files
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> k8s /workspace/deployment.yaml
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> k8s /workspace/deployment.yaml
 ```
 
 ## Image variants
@@ -172,7 +182,7 @@ Trivy can be easily integrated into your CI/CD pipeline to scan images before de
 ```yaml
 # GitHub Actions example
 - name: Run Trivy vulnerability scanner
-  uses: docker://your-namespace/dhi-trivy:latest
+  uses: docker://dhi.io/trivy:latest
   with:
     args: 'image --exit-code 1 --severity HIGH,CRITICAL myapp:${{ github.sha }}'
 ```
@@ -182,7 +192,7 @@ Trivy can be easily integrated into your CI/CD pipeline to scan images before de
 Deploy the Trivy Operator in your Kubernetes cluster for continuous vulnerability monitoring:
 
 ```
-$ docker run --rm -v ~/.kube:/root/.kube:ro <your-namespace>/dhi-trivy:<tag> k8s cluster --compliance k8s-cis
+$ docker run --rm -v ~/.kube:/root/.kube:ro dhi.io/trivy:<tag> k8s cluster --compliance k8s-cis
 ```
 
 #### Policy as Code
@@ -190,7 +200,7 @@ $ docker run --rm -v ~/.kube:/root/.kube:ro <your-namespace>/dhi-trivy:<tag> k8s
 Use custom policies with Trivy to enforce security standards:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> config --policy /workspace/custom-policy.rego /workspace
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> config --policy /workspace/custom-policy.rego /workspace
 ```
 
 ### Performance optimization
@@ -200,7 +210,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> config -
 For better performance in CI/CD environments, cache the vulnerability database:
 
 ```
-$ docker run --rm -v trivy-cache:/root/.cache/trivy <your-namespace>/dhi-trivy:<tag> image alpine:latest
+$ docker run --rm -v trivy-cache:/root/.cache/trivy dhi.io/trivy:<tag> image alpine:latest
 ```
 
 #### Offline mode
@@ -208,7 +218,7 @@ $ docker run --rm -v trivy-cache:/root/.cache/trivy <your-namespace>/dhi-trivy:<
 Use Trivy in air-gapped environments by pre-downloading the database:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> image --cache-dir /workspace/.trivy-cache alpine:latest
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> image --cache-dir /workspace/.trivy-cache alpine:latest
 ```
 
 ## Troubleshooting migration
@@ -261,7 +271,7 @@ to inspect entry points for Docker Hardened Images and update your Dockerfile if
 If Trivy reports outdated vulnerability information, ensure the database is updated:
 
 ```
-$ docker run --rm <your-namespace>/dhi-trivy:<tag> image --download-db-only
+$ docker run --rm dhi.io/trivy:<tag> image --download-db-only
 ```
 
 #### Network connectivity
@@ -269,7 +279,7 @@ $ docker run --rm <your-namespace>/dhi-trivy:<tag> image --download-db-only
 For air-gapped environments or restricted networks, Trivy may need offline databases:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> image --skip-db-update --offline-scan /workspace/image.tar
+$ docker run --rm -v $(pwd):/workspace dhi.io/trivy:<tag> image --skip-db-update --offline-scan /workspace/image.tar
 ```
 
 #### Memory usage
@@ -277,5 +287,5 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-trivy:<tag> image --
 For large scans, increase memory limits:
 
 ```
-$ docker run --rm --memory=2g <your-namespace>/dhi-trivy:<tag> image large-image:latest
+$ docker run --rm --memory=2g dhi.io/trivy:<tag> image large-image:latest
 ```

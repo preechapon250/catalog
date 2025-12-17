@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Jenkins Agent image
 
@@ -27,7 +31,7 @@ To start a Jenkins agent container, run the following command:
 
 ```bash
 $ docker run -i --rm --name jenkins-agent --init \
-  <your-namespace>/dhi-jenkins-agent:<tag>
+  dhi.io/jenkins-agent:<tag>
 ```
 
 This command:
@@ -42,7 +46,7 @@ can specify them:
 
 ```bash
 $ docker run -i --rm --name jenkins-agent --init \
-  <your-namespace>/dhi-jenkins-agent:<tag> \
+  dhi.io/jenkins-agent:<tag> \
   java -jar /usr/share/jenkins/agent.jar -workDir /home/jenkins/agent
 ```
 
@@ -63,7 +67,7 @@ behavior. Override the default command to specify the work directory:
 ```bash
 $ docker run -i --rm --name jenkins-agent --init \
   -v agent-workdir:/home/jenkins/agent \
-  <your-namespace>/dhi-jenkins-agent:<tag> \
+  dhi.io/jenkins-agent:<tag> \
   java -jar /usr/share/jenkins/agent.jar -workDir /home/jenkins/agent
 ```
 
@@ -85,7 +89,7 @@ Example with custom environment variables:
 $ docker run -i --rm --name jenkins-agent --init \
   -e TZ=America/New_York \
   -e AGENT_WORKDIR=/home/jenkins/agent \
-  <your-namespace>/dhi-jenkins-agent:<tag> \
+  dhi.io/jenkins-agent:<tag> \
   java -jar /usr/share/jenkins/agent.jar -workDir /home/jenkins/agent
 ```
 
@@ -97,7 +101,7 @@ Connect an agent to a Jenkins controller using the launch method configured on t
 
 ```bash
 $ docker run -i --rm --name jenkins-agent --init \
-  <your-namespace>/dhi-jenkins-agent:<tag> \
+  dhi.io/jenkins-agent:<tag> \
   java -jar /usr/share/jenkins/agent.jar \
   -url http://jenkins-controller:8080 \
   -workDir /home/jenkins/agent \
@@ -112,7 +116,7 @@ Use a named volume to persist the agent work directory across container restarts
 ```bash
 $ docker run -i --rm --name jenkins-agent --init \
   -v jenkins-agent-work:/home/jenkins/agent \
-  <your-namespace>/dhi-jenkins-agent:<tag> \
+  dhi.io/jenkins-agent:<tag> \
   java -jar /usr/share/jenkins/agent.jar -workDir /home/jenkins/agent
 ```
 
@@ -138,7 +142,7 @@ spec:
     spec:
       containers:
       - name: jenkins-agent
-        image: <your-namespace>/dhi-jenkins-agent:<tag>
+        image: dhi.io/jenkins-agent:<tag>
         command: ["java", "-jar", "/usr/share/jenkins/agent.jar"]
         args: ["-workDir", "/home/jenkins/agent"]
         volumeMounts:
@@ -159,7 +163,7 @@ Configure JVM options for the agent:
 ```bash
 $ docker run -i --rm --name jenkins-agent --init \
   -e JAVA_OPTS="-Xmx512m -Xms256m" \
-  <your-namespace>/dhi-jenkins-agent:<tag> \
+  dhi.io/jenkins-agent:<tag> \
   java $JAVA_OPTS -jar /usr/share/jenkins/agent.jar
 ```
 

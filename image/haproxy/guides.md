@@ -1,25 +1,31 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 Refer to the [upstream's documentation](https://docs.haproxy.org/)⁠ on the subject of configuring HAProxy for your
 needs.
 
 ## Start a HAProxy image
 
-Run a basic HAProxy container and output the version with the following command. Replace <your-namespace> with your
-organization's namespace and <tag> with the image variant you want to run.
+Run a basic HAProxy container and output the version with the following command. Replace <tag> with the image variant
+you want to run.
 
 ```bash
-docker run <your-namespace>/dhi-haproxy:<tag> -v
+docker run dhi.io/haproxy:<tag> -v
 ```
 
 Run a HAProxy container with a mounted configuration directory:
 
 ```bash
-docker run -v /path/to/haproxy:/usr/local/etc/haproxy:ro <your-namespace>/dhi-haproxy:<tag> -f /usr/local/etc/haproxy
+docker run -v /path/to/haproxy:/usr/local/etc/haproxy:ro dhi.io/haproxy:<tag> -f /usr/local/etc/haproxy
 ```
 
 Using Docker Compose:
@@ -27,7 +33,7 @@ Using Docker Compose:
 ```yaml
 services:
   haproxy:
-    image: <your-namespace>/dhi-haproxy:<tag>
+    image: dhi.io/haproxy:<tag>
     volumes:
       - ./haproxy:/usr/local/etc/haproxy:ro
     ports:
@@ -65,7 +71,7 @@ Mount and run with:
 
 ```bash
 docker run -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
-  -p 8080:8080 <your-namespace>/dhi-haproxy:<tag> \
+  -p 8080:8080 dhi.io/haproxy:<tag> \
   -f /usr/local/etc/haproxy
 ```
 
@@ -97,7 +103,7 @@ Mount certificates and configuration:
 ```bash
 docker run -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
   -v $(pwd)/certs:/usr/local/etc/haproxy/certs:ro \
-  -p 8443:8443 <your-namespace>/dhi-haproxy:<tag> \
+  -p 8443:8443 dhi.io/haproxy:<tag> \
   -f /usr/local/etc/haproxy
 ```
 
@@ -178,7 +184,7 @@ bind *:8443
 Use Docker's port mapping to expose these on privileged ports on the host:
 
 ```bash
-docker run -p 80:8080 -p 443:8443 <your-namespace>/dhi-haproxy:<tag>
+docker run -p 80:8080 -p 443:8443 dhi.io/haproxy:<tag>
 ```
 
 #### Configuration file permissions
@@ -188,7 +194,7 @@ Ensure configuration files are readable by the nonroot user. Mount configuration
 ```bash
 chmod 644 haproxy.cfg
 docker run -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
-  <your-namespace>/dhi-haproxy:<tag>
+  dhi.io/haproxy:<tag>
 ```
 
 #### Entry point differences
@@ -196,7 +202,7 @@ docker run -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
 Verify the entry point behavior matches your expectations. Use `docker inspect` to check:
 
 ```bash
-docker inspect <your-namespace>/dhi-haproxy:<tag>
+docker inspect dhi.io/haproxy:<tag>
 ```
 
 #### Stats socket location
@@ -205,7 +211,7 @@ If using the stats socket, ensure it's writable by the nonroot user. Consider us
 
 ```bash
 docker run -v haproxy-socket:/var/run/haproxy \
-  <your-namespace>/dhi-haproxy:<tag>
+  dhi.io/haproxy:<tag>
 ```
 
 ## Troubleshoot migration
@@ -218,7 +224,7 @@ Debug provides a shell, common debugging tools, and lets you install other tools
 only exists during the debugging session.
 
 ```bash
-docker debug <your-namespace>/dhi-haproxy:<tag>
+docker debug dhi.io/haproxy:<tag>
 ```
 
 ### HAProxy won't start - permission denied on port binding
@@ -260,8 +266,8 @@ To validate your HAProxy configuration before deploying, use a dev variant image
 
 ```bash
 docker run --rm -v $(pwd)/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
-  dhi-haproxy:<tag>-dev \
-  <your-namespace>/haproxy:<tag> -c -f /usr/local/etc/haproxy/haproxy.cfg
+  dhi.io/haproxy:<tag>-dev \
+  -c -f /usr/local/etc/haproxy/haproxy.cfg
 ```
 
 ### Additional documentation

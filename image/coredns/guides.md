@@ -1,12 +1,19 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a CoreDNS container with default configuration
 
-The following command runs the container with a default configuration. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
-
 ```
-$ docker run --rm -p 53:53/udp -p 53:53/tcp <your-namespace>/dhi-coredns:<tag>
+$ docker run --rm -p 53:53/udp -p 53:53/tcp dhi.io/coredns:<tag>
 ```
 
 ### Run with a custom Corefile
@@ -14,7 +21,7 @@ $ docker run --rm -p 53:53/udp -p 53:53/tcp <your-namespace>/dhi-coredns:<tag>
 CoreDNS uses a configuration file called Corefile. You can mount your own Corefile to customize the DNS server behavior:
 
 ```
-$ docker run --rm -p 53:53/udp -p 53:53/tcp -v /path/to/Corefile:/Corefile <your-namespace>/dhi-coredns:<tag> -conf /Corefile
+$ docker run --rm -p 53:53/udp -p 53:53/tcp -v /path/to/Corefile:/Corefile dhi.io/coredns:<tag> -conf /Corefile
 ```
 
 ## Image variants

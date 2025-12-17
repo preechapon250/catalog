@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this KServe Router Hardened Image
 
 This Docker Hardened KServe Router image includes the Router component from KServe. The Router provides intelligent
@@ -9,11 +19,10 @@ configurable inference graphs, supporting both sequential and switch-based routi
 
 ### Start a KServe Router instance
 
-To start a KServe Router instance, run the following command. Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+To start a KServe Router instance, run the following command. Replace `<tag>` with the image variant you want to run.
 
 ```bash
-$ docker run -d -p 8080:8080 <your-namespace>/dhi-kserve-router:<tag> --graph-json '{"nodes":{"root":{"routerType":"Sequence","steps":[{"stepName":"model1","serviceUrl":"http://localhost:8080/v1/models/model1:predict"}]}}}'
+$ docker run -d -p 8080:8080 dhi.io/kserve-router:<tag> --graph-json '{"nodes":{"root":{"routerType":"Sequence","steps":[{"stepName":"model1","serviceUrl":"http://localhost:8080/v1/models/model1:predict"}]}}}'
 ```
 
 ## Non-hardened images vs Docker Hardened Images
@@ -57,8 +66,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kserve-router:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kserve-router:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -93,7 +102,7 @@ are compatible.
    Replace the image reference in your Kubernetes manifests or Helm values, for example:
 
    - From: `kserve/kserve-router:<tag>`
-   - To: `<your-namespace>/dhi-kserve-router:<tag>`
+   - To: `dhi.io/kserve-router:<tag>`
 
 1. All your existing command-line arguments, environment variables, port mappings, and network settings remain the same.
 

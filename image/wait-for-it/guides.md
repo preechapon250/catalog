@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Basic usage - wait for a host and port
 
-The following command waits for a service to be available on a specific host and port. Replace `<your-namespace>` with
-your organization's namespace and `<tag>` with the image variant you want to run.
+The following command waits for a service to be available on a specific host and port. Replace `<tag>` with the image
+variant you want to run.
 
 ```
-$ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:5432
+$ docker run --rm dhi.io/wait-for-it:<tag> database.example.com:5432
 ```
 
 ### Wait with a timeout
@@ -14,7 +24,7 @@ $ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:54
 Specify a timeout in seconds:
 
 ```
-$ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:5432 -t 30
+$ docker run --rm dhi.io/wait-for-it:<tag> database.example.com:5432 -t 30
 ```
 
 ### Execute a command after the service is available
@@ -22,7 +32,7 @@ $ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:54
 Wait for a service and then execute a command:
 
 ```
-$ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:5432 -- echo "Database is up!"
+$ docker run --rm dhi.io/wait-for-it:<tag> database.example.com:5432 -- echo "Database is up!"
 ```
 
 ### Use with strict mode
@@ -30,7 +40,7 @@ $ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:54
 Only execute the subcommand if the test succeeds (exits with error if timeout is reached):
 
 ```
-$ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:5432 -s -t 15 -- echo "Connected!"
+$ docker run --rm dhi.io/wait-for-it:<tag> database.example.com:5432 -s -t 15 -- echo "Connected!"
 ```
 
 ### Quiet mode
@@ -38,13 +48,13 @@ $ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:54
 Suppress status messages:
 
 ```
-$ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> database.example.com:5432 -q
+$ docker run --rm dhi.io/wait-for-it:<tag> database.example.com:5432 -q
 ```
 
 ### Display help information
 
 ```
-$ docker run --rm <your-namespace>/dhi-wait-for-it:<tag> --help
+$ docker run --rm dhi.io/wait-for-it:<tag> --help
 ```
 
 ## Image variants

@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a Helm container and display help information
 
 The following command runs the container, displays the help information, and automatically removes the container when it
-exits. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+exits.
 
 ```
-$ docker run --rm <your-namespace>/dhi-helm:<tag>
+$ docker run --rm dhi.io/helm:<tag>
 ```
 
 ### Run Helm commands
@@ -14,7 +24,7 @@ $ docker run --rm <your-namespace>/dhi-helm:<tag>
 To run Helm commands, you'll typically need to mount your kubeconfig and any chart directories:
 
 ```
-$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace <your-namespace>/dhi-helm:<tag> version
+$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace dhi.io/helm:<tag> version
 ```
 
 ### Install a Helm chart
@@ -22,20 +32,20 @@ $ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace <your-n
 Mount your kubeconfig and the directory containing your chart:
 
 ```
-$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace <your-namespace>/dhi-helm:<tag> install my-release ./my-chart
+$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace dhi.io/helm:<tag> install my-release ./my-chart
 ```
 
 ### List installed releases
 
 ```
-$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro <your-namespace>/dhi-helm:<tag> list
+$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro dhi.io/helm:<tag> list
 ```
 
 ### Use Helm with a remote chart repository
 
 ```
-$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro <your-namespace>/dhi-helm:<tag> repo add stable https://charts.helm.sh/stable
-$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro <your-namespace>/dhi-helm:<tag> install my-release stable/nginx
+$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro dhi.io/helm:<tag> repo add stable https://charts.helm.sh/stable
+$ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro dhi.io/helm:<tag> install my-release stable/nginx
 ```
 
 ### Create an alias for easier usage
@@ -43,7 +53,7 @@ $ docker run --rm -v ~/.kube:/home/nonroot/.kube:ro <your-namespace>/dhi-helm:<t
 For frequent use, create an alias:
 
 ```
-$ alias helm='docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace <your-namespace>/dhi-helm:<tag>'
+$ alias helm='docker run --rm -v ~/.kube:/home/nonroot/.kube:ro -v $(pwd):/workspace dhi.io/helm:<tag>'
 $ helm version
 $ helm list
 ```

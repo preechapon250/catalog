@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Grafana Alloy container
 
@@ -10,15 +16,13 @@ The following example assumes there is a file named `config.alloy` in your curre
 configuration for Alloy.
 
 You can run the following command to start the container with a bind mount to the `config.alloy` file and a named volume
-for Alloy's data. At a minimum, replace `<your-namespace>` with your organization’s namespace and `<tag>` with the image
-variant you want to run. To confirm the correct namespace and repository name of the mirrored repository, select **View
-in repository**.
+for Alloy's data.
 
 ```
 $ docker run --rm \
   -v "$PWD/config.alloy:/etc/alloy/config.alloy:ro" \
   -v alloy-data:/var/lib/alloy/data \
-  <your-namespace>/dhi-alloy:<tag>
+  dhi.io/alloy:<tag>
 ```
 
 The container starts using the default entrypoint, `alloy`, and command,

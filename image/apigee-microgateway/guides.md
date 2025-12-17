@@ -1,18 +1,25 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run an apigee container and display help information
 
-Run the following command. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
-
 ```
-$ docker run <your-namespace>/dhi-apigee-microgateway:<tag>
+$ docker run dhi.io/apigee-microgateway:<tag>
 ```
 
 To run the container, display the help information, and automatically remove the container when it exits, run:
 
 ```
-$ docker run --rm <your-namespace>/dhi-apigee-microgateway:<tag> -h
+$ docker run --rm dhi.io/apigee-microgateway:<tag> -h
 ```
 
 ## Image variants

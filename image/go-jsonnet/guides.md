@@ -1,21 +1,27 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Jsonnet container and save output
 
 The following example runs the Jsonnet container and uses a bind mount to save output. By default, the entrypoint is
 `jsonnet`, and the default command is `--help`.
 
-At a minimum, replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want
-to run. To confirm the correct namespace and repository name of the mirrored repository, select **View in repository**.
+At a minimum, replace `<tag>` with the image variant you want to run. To confirm the correct namespace and repository
+name of the mirrored repository, select **View in repository**.
 
 ```
 $ docker run --rm \
   --mount type=bind,source="$(pwd)",target=/work --workdir /work \
-  <your-namespace>/dhi-jsonnet:<tag> \
+  dhi.io/jsonnet:<tag> \
   -e "{ x: 10, y: self.x + 1 } { x: 1 }" \
   -o output.json
 ```
@@ -34,7 +40,7 @@ To run one of the other included tools, override the entrypoint. For example, to
 ```
 $ docker run --rm --entrypoint jsonnetfmt \
    --mount type=bind,source="$(pwd)",target=/work --workdir /work \
-   <your-namespace>/dhi-jsonnet:<tag> \
+   dhi.io/jsonnet:<tag> \
    -o test_formatted.jsonnet test.jsonnet
 ```
 

@@ -1,8 +1,14 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Getting Started with Time MCP Server
 
@@ -24,7 +30,7 @@ Add to your `claude_desktop_config.json`:
         "run",
         "--rm",
         "-i",
-        "<your-namespace>/dhi-time-mcp"
+        "dhi.io/time-mcp"
       ]
     }
   }
@@ -43,14 +49,12 @@ With a custom timezone:
         "--rm",
         "-i",
         "-e", "LOCAL_TIMEZONE=America/New_York",
-        "<your-namespace>/dhi-time-mcp"
+        "dhi.io/time-mcp"
       ]
     }
   }
 }
 ```
-
-Replace `<your-namespace>` with your organization's namespace.
 
 #### Environment Variables
 
@@ -64,7 +68,7 @@ Using UTC (default):
 
 ```bash
 docker run --rm -i \
-  <your-namespace>/dhi-time-mcp
+  dhi.io/time-mcp
 ```
 
 With a specific timezone:
@@ -72,7 +76,7 @@ With a specific timezone:
 ```bash
 docker run --rm -i \
   -e LOCAL_TIMEZONE=America/Los_Angeles \
-  <your-namespace>/dhi-time-mcp
+  dhi.io/time-mcp
 ```
 
 ### Available Tools
@@ -323,9 +327,9 @@ docker debug <container-name>
 or mount debugging tools with the Image Mount feature:
 
 ```
-docker run --rm -it --pid container:my-argocd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-argocd:<tag> /dbg/bin/sh
+docker run --rm -it --pid container:my-time-mcp \
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/time-mcp:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

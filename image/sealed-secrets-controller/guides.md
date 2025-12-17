@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this sealed-secrets-controller Hardened image
 
 This image contains `sealed-secrets-controller`, which is able to decrypt and interact with secrets deployed as
@@ -8,11 +18,10 @@ with SealedSecrets.
 
 ## Start a sealed-secrets-controller instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-sealed-secrets-controller:<tag> --help
+docker run --rm -it dhi.io/sealed-secrets-controller:<tag> --help
 ```
 
 ## Common sealed-secrets-controller use cases
@@ -21,8 +30,8 @@ docker run --rm -it <your-namespace>/dhi-sealed-secrets-controller:<tag> --help
 
 Sealed Secrets is designed to run in a Kubernetes cluster, and is frequently used with GitOps workflows to securely
 manage Kubernetes Secrets. You can install Sealed Secrets using the official helm chart and replace the image. Replace
-`<your-namespace>` with your organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+`<your-registry-secret>` with your [Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>`
+with the desired image tag.
 
 ```bash
 helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
@@ -30,8 +39,8 @@ helm repo update
 
 helm install sealed-secrets sealed-secrets/sealed-secrets --namespace kube-system --create-namespace \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set image.registry=docker.io \
-  --set image.repository=<your-namespace>/dhi-sealed-secrets-controller \
+  --set image.registry=dhi.io \
+  --set image.repository=sealed-secrets-controller \
   --set image.tag=<tag> \
 ```
 
@@ -108,15 +117,15 @@ that only exists during the debugging session.
 For example, you can use Docker Debug:
 
 ```
-docker debug <your-namespace>/dhi-sealed-secrets-controller
+docker debug dhi.io/sealed-secrets-controller
 ```
 
 or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-sealed-secrets-controller:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/sealed-secrets-controller:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -164,10 +173,7 @@ The following steps outline the general migration process.
 
 1. **Update your CI/CD pipeline configurations.**
 
-   Update the image references in your CI/CD scripts, GitHub Actions, or other automation to use the hardened images:
-
-   - From: `ghcr.io/bitnami-labs/sealed-secrets-controller:<tag>`
-   - To: `<your-namespace>/dhi-sealed-secrets-controller:<tag>`
+   Update the image references in your CI/CD scripts, GitHub Actions, or other automation to use the hardened images.
 
 1. **For custom containers, update the base image in your Dockerfile.**
 

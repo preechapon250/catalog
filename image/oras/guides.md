@@ -1,15 +1,27 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 This guide provides practical examples for using the ORAS Docker Hardened Image to manage OCI artifacts in registries.
 
 ### Running ORAS Commands
 
+Run the following command and replace `<tag>` with the image variant you want to run.
+
 ```bash
 # Check ORAS version
-docker run --rm <your-namespace>/dhi-oras:1 version
+docker run --rm dhi.io/oras:<tag> version
 
 # Get help for ORAS commands
-docker run --rm <your-namespace>/dhi-oras:1 --help
+docker run --rm dhi.io/oras:<tag> --help
 ```
 
 ### Authentication
@@ -19,12 +31,12 @@ For operations requiring authentication, mount your Docker configuration:
 ```bash
 # Using Docker credentials
 docker run --rm -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-oras:1 version
+  dhi.io/oras:<tag> version
 
 # Using specific credential file
 docker run --rm \
   -v /path/to/config.json:/home/nonroot/.docker/config.json:ro \
-  <your-namespace>/dhi-oras:1 version
+  dhi.io/oras:<tag> version
 ```
 
 ## Pushing Artifacts
@@ -40,7 +52,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace:ro \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 push \
+  dhi.io/oras:<tag> push \
     registry.example.com/myrepo/hello:latest hello.txt
 ```
 
@@ -52,7 +64,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace:ro \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 push \
+  dhi.io/oras:<tag> push \
     registry.example.com/myrepo/config:v1.0 \
     config.yaml:application/yaml \
     docs.md:text/markdown
@@ -66,7 +78,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace:ro \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 push \
+  dhi.io/oras:<tag> push \
     registry.example.com/myrepo/artifact:latest \
     --annotation "version=1.0" \
     --annotation "environment=production" \
@@ -83,7 +95,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 pull \
+  dhi.io/oras:<tag> pull \
     registry.example.com/myrepo/hello:latest
 ```
 
@@ -95,7 +107,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 pull \
+  dhi.io/oras:<tag> pull \
     registry.example.com/myrepo/config:v1.0 \
     --include "*.yaml"
 ```
@@ -108,7 +120,7 @@ docker run --rm \
 # Copy artifact from one registry to another
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-oras:1 copy \
+  dhi.io/oras:<tag> copy \
     source-registry.com/myrepo/artifact:v1.0 \
     dest-registry.com/myrepo/artifact:v1.0
 ```
@@ -119,7 +131,7 @@ docker run --rm \
 # Copy and retag
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-oras:1 copy \
+  dhi.io/oras:<tag> copy \
     registry.example.com/myrepo/app:v1.0 \
     registry.example.com/myrepo/app:latest
 ```
@@ -132,7 +144,7 @@ docker run --rm \
 # List all tags in a repository
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-oras:1 repo tags \
+  dhi.io/oras:<tag> repo tags \
     registry.example.com/myrepo/artifact
 ```
 
@@ -142,7 +154,7 @@ docker run --rm \
 # Discover artifacts attached to an image
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-oras:1 discover \
+  dhi.io/oras:<tag> discover \
     registry.example.com/myrepo/app:latest
 ```
 
@@ -152,7 +164,7 @@ docker run --rm \
 # Show the manifest of an artifact
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-oras:1 manifest fetch \
+  dhi.io/oras:<tag> manifest fetch \
     registry.example.com/myrepo/artifact:latest
 ```
 
@@ -167,7 +179,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace:ro \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 push \
+  dhi.io/oras:<tag> push \
     registry.example.com/myrepo/charts/mychart:1.0.0 \
     mychart-1.0.0.tgz:application/vnd.cncf.helm.chart.content.v1.tar+gzip
 ```
@@ -180,7 +192,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-oras:1 pull \
+  dhi.io/oras:<tag> pull \
     registry.example.com/myrepo/charts/mychart:1.0.0
 ```
 
@@ -211,7 +223,7 @@ jobs:
             -v ~/.docker:/home/nonroot/.docker:ro \
             -v "${{ github.workspace }}":/workspace:ro \
             -w /workspace \
-            <your-namespace>/dhi-oras:1 push \
+            dhi.io/oras:<tag> push \
               ghcr.io/${{ github.repository }}/config:${{ github.sha }} \
               config.yaml:application/yaml \
               --annotation "git.sha=${{ github.sha }}" \
@@ -222,7 +234,7 @@ jobs:
 
 ```yaml
 push-artifact:
-  image: <your-namespace>/dhi-oras:1
+  image: dhi.io/oras:<tag>
   before_script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER \
         --password-stdin $CI_REGISTRY

@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run JMX Exporter
 
@@ -14,12 +20,10 @@ The image runs with the default entrypoint of `java -jar jmx_prometheus_standalo
 `5556 examples/standalone_sample_config.yml`. This configuration file is an example included with the image for
 demonstration.
 
-To run it, use the following command. At a minimum, replace `<your-namespace>` with your organization’s namespace and
-`<tag>` with the image variant you want to run. To confirm the correct namespace and repository name of the mirrored
-repository, select **View in repository**.
+To run it, use the following command.
 
 ```
-$ docker run --rm -p 5556:5556 <your-namespace>/dhi-jmx-exporter:<tag>
+$ docker run --rm -p 5556:5556 dhi.io/jmx-exporter:<tag>
 ```
 
 ### Run in standalone mode with a custom configuration
@@ -29,7 +33,7 @@ To run the JMX Exporter with your configuration, you can use the following comma
 ```
 $ docker run --rm -p 5556:5556 \
    -v /path/to/your/jmx_exporter_config.yaml:/etc/jmx_exporter_config.yaml \
-   <your-namespace>/dhi-jmx-exporter:<tag> \
+   dhi.io/jmx-exporter:<tag> \
    5556 /etc/jmx_exporter_config.yaml
 ```
 
@@ -54,7 +58,7 @@ To run the JMX Exporter with Docker Compose, you can use the following example `
 ```yaml
 services:
   jmx-exporter:
-    image: <your-namespace>/dhi-jmx-exporter:<tag>
+    image: dhi.io/jmx-exporter:<tag>
     container_name: jmx-exporter
     ports:
       - "5556:5556"

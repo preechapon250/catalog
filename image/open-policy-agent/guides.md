@@ -1,14 +1,23 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 Refer to the [upstream's documentation](https://www.openpolicyagent.org/docs)⁠ on the subject of running opa.
 
 ### Run an Open Policy Agent container
 
-Run the following command to run an open policy agent container. Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+Run the following command to run an open policy agent container. Replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run <your-namespace>/dhi-open-policy-agent:<tag>
+$ docker run dhi.io/open-policy-agent:<tag>
 ```
 
 ## Troubleshooting migration

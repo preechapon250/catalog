@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Pinniped CLI Hardened Image
 
 This Docker Hardened Pinniped CLI image includes the Pinniped command-line interface tool. Pinniped is a Kubernetes
@@ -13,7 +23,7 @@ The Pinniped CLI is typically used to authenticate to Kubernetes clusters. To di
 commands, run:
 
 ```bash
-docker run --rm <your-namespace>/dhi-pinniped-cli:<tag> --help
+docker run --rm dhi.io/pinniped-cli:<tag> --help
 ```
 
 ## Non-hardened images vs Docker Hardened Images
@@ -57,8 +67,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-pinniped-cli:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/pinniped-cli:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -93,7 +103,7 @@ compatible.
    Replace the image reference in your Dockerfiles, scripts, or CI/CD pipelines, for example:
 
    - From: `bitnami/pinniped-cli:<tag>`
-   - To: `<your-namespace>/dhi-pinniped-cli:<tag>`
+   - To: `dhi.io/pinniped-cli:<tag>`
 
 1. All your existing command-line arguments, environment variables, and configurations remain the same.
 

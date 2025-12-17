@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this cert-manager-controller image
 
 This Docker Hardened cert-manager-controller image includes the controller component of cert-manager in a single,
@@ -16,14 +26,13 @@ security-hardened package:
 > **Note:** The cert-manager-acmesolver image is primarily designed to run inside a Kubernetes cluster as part of a full
 > cert-manager deployment. The standalone Docker command below simply displays configuration options.
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 **Note:** cert-manager-controller is primarily designed to run within a Kubernetes cluster as part of the complete
 cert-manager deployment. The following standalone Docker command displays the available configuration options.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-cert-manager-controller:<tag> --help
+docker run --rm -it dhi.io/cert-manager-controller:<tag> --help
 ```
 
 ## Controller-specific flags
@@ -39,14 +48,14 @@ including certificates, orders, challenges, and issuers.
 You can limit which controllers run by providing a comma-separated list:
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-cert-manager-controller:<tag> \
+docker run --rm -it dhi.io/cert-manager-controller:<tag> \
   --controllers=certificates,issuers
 ```
 
 You can also disable specific controllers while keeping others enabled:
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-cert-manager-controller:<tag> \
+docker run --rm -it dhi.io/cert-manager-controller:<tag> \
   --controllers=*,-foo
 ```
 
@@ -63,7 +72,7 @@ manual cleanup.
 When enabled, Kubernetes automatically garbage-collects the corresponding Secret when a Certificate is deleted.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-cert-manager-controller:<tag> \
+docker run --rm -it dhi.io/cert-manager-controller:<tag> \
   --enable-certificate-owner-ref=true
 ```
 
@@ -79,7 +88,7 @@ The default namespace is `kube-system`. This configuration is necessary because 
 resources not bound to a single namespace, but their credential Secrets must still reside in a specific namespace.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-cert-manager-controller:<tag> \
+docker run --rm -it dhi.io/cert-manager-controller:<tag> \
   --cluster-resource-namespace=cert-manager
 ```
 
@@ -128,7 +137,7 @@ spec:
     spec:
       containers:
       - name: cert-manager-controller
-        image: <your-namespace>/dhi-cert-manager-controller:<tag>
+        image: dhi.io/cert-manager-controller:<tag>
         args:
         - --v=2
         - --cluster-resource-namespace=$(POD_NAMESPACE)

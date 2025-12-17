@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this node-exporter image
 
@@ -28,7 +32,7 @@ is to run the container with host networking and PID namespaces and bind-mount t
 $ docker run -d --name node-exporter \
   --net=host --pid=host \
   -v "/:/host:ro,rslave" \
-  <your-namespace>/dhi-node-exporter:<tag> \
+  dhi.io/node-exporter:<tag> \
   --path.rootfs=/host
 ```
 
@@ -44,7 +48,7 @@ no host mounts:
 
 ```bash
 $ docker run -d --name node-exporter -p 9100:9100 \
-  <your-namespace>/dhi-node-exporter:<tag>
+  dhi.io/node-exporter:<tag>
 ```
 
 ### Docker Compose (host monitoring example)
@@ -53,7 +57,7 @@ $ docker run -d --name node-exporter -p 9100:9100 \
 version: '3.8'
 services:
   node-exporter:
-    image: <your-namespace>/dhi-node-exporter:<tag>
+    image: dhi.io/node-exporter:<tag>
     container_name: node-exporter
     network_mode: host
     pid: host
@@ -85,7 +89,7 @@ Example: run with a custom listen address and disable the filesystem collector:
 
 ```bash
 $ docker run -d --name node-exporter -p 9180:9180 \
-  <your-namespace>/dhi-node-exporter:<tag> \
+  dhi.io/node-exporter:<tag> \
   --web.listen-address=":9180" \
   --no-collector.filesystem
 ```
@@ -131,7 +135,7 @@ spec:
       hostPID: true
       containers:
       - name: node-exporter
-        image: <your-namespace>/dhi-node-exporter:<tag>
+        image: dhi.io/node-exporter:<tag>
         args:
           - "--path.rootfs=/host"
         volumeMounts:

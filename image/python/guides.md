@@ -1,25 +1,30 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Build and run a Python application
 
 The recommended way to use this image is to use a multi-stage Dockerfile with the `-dev` version of the image as the
 build stage. For the runtime stage, simply remove the `-dev` suffix from the image tag. For example, use the image tag
-`<your-namespace>/dhi-python:3.9.23-debian13-fips-dev` for the build stage, and use
-`<your-namespace>/dhi-python:3.9.23-debian13-fips` for the runtime stage.
+`dhi.io/python:3.9.23-debian13-fips-dev` for the build stage, and use `dhi.io/python:3.9.23-debian13-fips` for the
+runtime stage.
 
-Create a new directory and use the following Dockerfile to get started. Replace `<your-namespace>` with your
-organization's namespace, and `<tag>` with the image variant.
+Create a new directory and use the following Dockerfile to get started. Replace `<tag>` with the image variant.
 
 ```
 # syntax=docker/dockerfile:1
 
 ## -----------------------------------------------------
 ## Build stage (use tag with -dev suffix: e.g. 3.9.23-debian13-fips-dev)
-FROM <your-namespace>/dhi-python:<tag> AS build-stage
+FROM dhi.io/python:<tag> AS build-stage
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -33,7 +38,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ## -----------------------------------------------------
 ## Final stage (use the same tag as above but without the -dev suffix e.g. 3.9.23-debian13-fips)
-FROM <your-namespace>/dhi-python:<tag> AS runtime-stage
+FROM dhi.io/python:<tag> AS runtime-stage
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1

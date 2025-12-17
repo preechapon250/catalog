@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What’s Included in the cert-manager-acmesolver Image
 
 The **Docker Hardened cert-manager-acmesolver** image provides the **ACME solver component** of
@@ -15,14 +25,13 @@ It includes:
 
 ## Start a cert-manager-acmesolver Image
 
-Run the following command, replacing `<your-namespace>` with your organization’s namespace and `<tag>` with the desired
-image variant:
+Run the following command, replacing `<tag>` with the desired image variant:
 
 > **Note:** The cert-manager-acmesolver image is primarily designed to run inside a Kubernetes cluster as part of a full
 > cert-manager deployment. The standalone Docker command below simply displays configuration options.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-cert-manager-acmesolver:<tag> --help
+docker run --rm -it dhi.io/cert-manager-acmesolver:<tag> --help
 ```
 
 ## Common cert-manager-acmesolver Use Cases
@@ -44,7 +53,7 @@ spec:
     spec:
       containers:
       - name: cert-manager-acmesolver
-        image: <your-namespace>/dhi-cert-manager-acmesolver:<tag>
+        image: dhi.io/cert-manager-acmesolver:<tag>
         args:
         - --domain=example.com # the domain name to verify
         - --token=my_token     # the challenge token to verify against

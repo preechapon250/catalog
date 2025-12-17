@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the onscreen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### What's included in this Hubble Proto Hardened image
 
@@ -26,9 +32,9 @@ as a tooling container during CI.
 Example: Check versions of the included plugins
 
 ```bash
-docker run --rm dhi/hubble-proto:<tag> /usr/local/bin/hubble-proto/protoc-gen-go --version
-docker run --rm dhi/hubble-proto:<tag> /usr/local/bin/hubble-proto/protoc-gen-go-grpc --version
-docker run --rm dhi/hubble-proto:<tag> /usr/local/bin/hubble-proto/protoc-gen-go-json --version
+docker run --rm dhi.io/hubble-proto:<tag> /usr/local/bin/hubble-proto/protoc-gen-go --version
+docker run --rm dhi.io/hubble-proto:<tag> /usr/local/bin/hubble-proto/protoc-gen-go-grpc --version
+docker run --rm dhi.io/hubble-proto:<tag> /usr/local/bin/hubble-proto/protoc-gen-go-json --version
 ```
 
 Note: This image contains only the protoc plugins, not `protoc` itself. You need to install `protoc` separately or use

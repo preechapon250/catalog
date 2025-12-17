@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Usage with `docker buildx b`
 
@@ -10,13 +16,11 @@ The Scout SBOM Indexer is indeeded to be used with `docker buildx build` using t
 
 ```
 docker buildx build . -f Dockerfile \
-  --sbom "generator=<your-namespace>/dhi-scout-sbom-indexer:<tag>" \
+  --sbom "generator=dhi.io/scout-sbom-indexer:<tag>" \
   --provenance=1
   -t <your-namespace>/<your-image>
   --push
 ```
-
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
 
 ### Configuring package catalogers
 
@@ -24,7 +28,7 @@ The package catalogers that are used can be configured using the following comma
 
 ```
 docker buildx build . -f Dockerfile \
-  --sbom "generator=<your-namespace>/dhi-scout-sbom-indexer:<tag>","select-catalogers=-binary-classifier-cataloger,-java-jvm-cataloger,-php-interpreter-cataloger"  \
+  --sbom "generator=dhi.io/scout-sbom-indexer:<tag>","select-catalogers=-binary-classifier-cataloger,-java-jvm-cataloger,-php-interpreter-cataloger"  \
   --provenance=1
   -t <your-namespace>/<your-image>
   --push

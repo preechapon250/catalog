@@ -1,18 +1,23 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Liquibase container
 
 The default entrypoint for the Liquibase image is `liquibase`. You can run the image with the following command to start
-a Liquibase container and view the help. At a minimum, replace `<your-namespace>` with your organization's namespace and
-`<tag>` with the image variant you want to run. To confirm the correct namespace and repository name of the mirrored
-repository, select **View in repository**.
+a Liquibase container and view the help. At a minimum, replace `<tag>` with the image variant you want to run. To
+confirm the correct namespace and repository name of the mirrored repository, select **View in repository**.
 
 ```
-$ docker run --rm <your-namespace>/dhi-liquibase:<tag> --help
+$ docker run --rm dhi.io/liquibase:<tag> --help
 ```
 
 ### Run a migration with a changelog file
@@ -24,7 +29,7 @@ from the host system:
 ```
 $ docker run --rm \
    -v /path/to/changelog.xml:/tmp/changelog.xml \
-   <your-namespace>/dhi-liquibase:<tag> \
+   dhi.io/liquibase:<tag> \
    --url=jdbc:postgresql://postgres-server:5432/postgres \
    --changeLogFile=/tmp/changelog.xml \
    --username=$POSTGRES_USER \
@@ -44,7 +49,7 @@ mysql or postgres driver, you can set the `INSTALL_MYSQL` and/or `INSTALL_POSTGR
 Otherwise, you can add drivers with lpm as follows:
 
 ```
-FROM <your-namespace>/dhi-liquibase:<tag>
+FROM dhi.io/liquibase:<tag>
 # Add database drivers as needed
 RUN lpm add mysql --global
 RUN lpm add postgresql --global

@@ -1,19 +1,25 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a curl DHI container
 
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+Replace `<tag>` with the image variant you want to run.
 
 ```
 # Using Alpine variant (recommended for minimal size)
-$ docker run --rm <your-namespace>/dhi-curl:<tag>-alpine3.22 --version
+$ docker run --rm dhi.io/curl:<tag>-alpine3.22 --version
 
 # Using Debian variant (for compatibility)
-$ docker run --rm <your-namespace>/dhi-curl:<tag> --version
+$ docker run --rm dhi.io/curl:<tag> --version
 ```
 
 ## Common curl DHI use cases
@@ -24,7 +30,7 @@ Execute simple HTTP requests:
 
 ```bash
 # GET request (Alpine variant recommended for CI/CD)
-$ docker run --rm <your-namespace>/dhi-curl:<tag> https://api.github.com/repos/docker/cagent
+$ docker run --rm dhi.io/curl:<tag> https://api.github.com/repos/docker/cagent
 ```
 
 ### File operations with volume mounts
@@ -37,7 +43,7 @@ mkdir -p /tmp/curl-dhi-file-test
 
 echo '{"project": "docker/cagent", "test": "upload", "timestamp": "'$(date)'"}' > /tmp/curl-dhi-file-test/upload-test.json
 
-docker run --rm -v /tmp/curl-dhi-file-test:/data <your-namespace>/dhi-curl:<tag> \
+docker run --rm -v /tmp/curl-dhi-file-test:/data dhi.io/curl:<tag> \
     -X POST \
     -H "Content-Type: application/json" \
     -T /data/upload-test.json \
@@ -75,7 +81,7 @@ RUN curl --fail --silent https://api.github.com/repos/docker/cagent > /dev/null 
 RUN echo '{"curl_config": "production", "endpoints": ["docker/cagent", "docker/mcp-gateway"]}' > config.json
 
 # Runtime stage - Curl DHI for production deployment
-FROM <your-namespace>/dhi-curl:<tag> AS runtime
+FROM dhi.io/curl:<tag> AS runtime
 
 WORKDIR /app
 

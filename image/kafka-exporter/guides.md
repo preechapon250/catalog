@@ -1,5 +1,15 @@
 ## How to use this Kafka Exporter image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 This guide provides practical examples for using the Kafka Exporter Hardened Image to send Kafka metrics to Prometheus.
 
 ### What's included in this Kafka Exporter image
@@ -10,7 +20,7 @@ look at the Docker Hardened JMX exporter image.
 ### Start a Kafka Exporter image
 
 ```bash
-docker run -ti --rm -p 9308:9308 <your-namespace>/dhi-kafka-exporter:<tag> --kafka.server=kafka:9092 [--kafka.server=kafka-2:9092 ...]
+docker run -ti --rm -p 9308:9308 dhi.io/kafka-exporter:<tag> --kafka.server=kafka:9092 [--kafka.server=kafka-2:9092 ...]
 ```
 
 ## Common use cases
@@ -20,7 +30,7 @@ docker run -ti --rm -p 9308:9308 <your-namespace>/dhi-kafka-exporter:<tag> --kaf
 ```yaml
 services:
   kafka-exporter:
-    image: <your-namespace>/dhi-kafka-exporter:<tag>
+    image: dhi.io/kafka-exporter:<tag>
     command: ["--kafka.server=kafka:9092"] #", ... --kafka.server=kafka-2:9092 ..."
     ports:
       - 9308:9308
@@ -30,8 +40,7 @@ services:
 
 To use the Kafka Exporter hardened image in Kubernetes, [set up authentication](https://docs.docker.com/dhi/how-to/k8s/)
 and update your Kubernetes deployment. For example, in your `kafka-exporter.yaml` file, replace the image reference in
-the container spec. In the following example replace `<your-namespace>` and `<tag>` with your organization's namespace
-and the desired tag.
+the container spec. In the following example, `<tag>` with the desired tag.
 
 ```yaml
 apiVersion: apps/v1
@@ -51,7 +60,7 @@ spec:
     spec:
       containers:
         - name: kafka-exporter
-          image: <your-namespace>/dhi-kafka-exporter:<tag>
+          image: dhi.io/kafka-exporter:<tag>
           args:
             - --kafka.server=kafka:9092
             - --kafka.server=kafka-2:9092
@@ -113,8 +122,8 @@ or mount debugging tools with the image mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -135,12 +144,7 @@ image uses the same port (9308) and accepts the same command-line arguments as t
 
 ### Migration steps
 
-1. Update your image reference.
-
-   Replace the image reference in your Docker run command or Compose file, for example:
-
-   - From: `danielqsj/kafka-exporter:<tag>`
-   - To: `<your-namespace>/dhi-kafka-exporter:<tag>`
+1. Replace the image reference in your Docker run command or Compose file.
 
 1. All your existing command-line arguments, environment variables, port mappings, and network settings remain the same.
 

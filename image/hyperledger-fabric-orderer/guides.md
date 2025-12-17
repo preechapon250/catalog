@@ -1,8 +1,14 @@
 ## How to use this image
 
-**Note:** Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### What's included in this Hyperledger Fabric Orderer Hardened image
 
@@ -13,9 +19,8 @@ functionality as upstream Hyperledger Fabric but runs with Docker Hardened Image
 
 ## Using Hyperledger Fabric Orderer
 
-Run commands using `docker run` with Hyperledger Fabric Orderer. Replace `<your-namespace>` with your repository
-namespace and `<tag>` with the desired version. Files provided in the example can be generated using teh cryptogen tool
-or fabric-ca.
+Run commands using `docker run` with Hyperledger Fabric Orderer. Replace `<tag>` with the desired version. Files
+provided in the example can be generated using teh cryptogen tool or fabric-ca.
 
 ```bash
 docker run -d --publish 7050:7050 \
@@ -23,7 +28,7 @@ docker run -d --publish 7050:7050 \
 -v /tmp/fabric/config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/etc/hyperledger/fabric/msp \
 -v /tmp/fabric/config/ordererOrganizations/example.com/orderers/orderer.example.com/tls:/etc/hyperledger/fabric/tls \
 -v /tmp/fabric/data/orderer.example.com:/var/hyperledger/production \
---name orderer.example.com <your-namespace>/dhi-hyperledger-fabric-orderer:<tag>
+--name orderer.example.com dhi.io/hyperledger-fabric-orderer:<tag>
 ```
 
 ## Common Hyperledger Fabric Orderer use cases
@@ -31,8 +36,8 @@ docker run -d --publish 7050:7050 \
 The https://github.com/hyperledger/fabric-samples repository includes samples that can be used to create Hyperledger
 Fabric networks. The test-network directory, for example includes materials and a script, network.sh that can be used to
 create a test network with docker-compose. To deploy a network using the hardened image, simply replace the image in the
-docker compose file, fot the test-network example located at `test-network/compose/compose-test-net.yaml`, from
-`hyperledger/fabric-orderer:latest` to `<your-namespace>/hyperledger-fabric-orderer:<tag>`.
+docker compose file, for the test-network example located at `test-network/compose/compose-test-net.yaml`, from
+`hyperledger/fabric-orderer:latest` to `dhi.io/hyperledger-fabric-orderer:<tag>`.
 
 See documentation at https://hyperledger-fabric.readthedocs.io/ and https://github.com/hyperledger/fabric-samples for
 further details on running Hyperledger Fabric and the provided examples.
@@ -83,7 +88,7 @@ examine network connections with `netstat`.
 Mount the container's filesystem to your host for inspection:
 
 ```bash
-docker image mount <your-namespace>/hyperledger-fabric-orderer:<tag> /mnt/inspect
+docker image mount dhi.io/hyperledger-fabric-orderer:<tag> /mnt/inspect
 ls -la /mnt/inspect/usr/local/bin/
 ```
 

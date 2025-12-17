@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Envoy image
 
@@ -29,14 +33,13 @@ binary.
 
 ## Start an Envoy instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 **Note**: Envoy requires a configuration file to define its behavior. The basic command below will fail without a
 configuration. See the use cases below for working examples.
 
 ```bash
-docker run -p 9902:9902 -p 10000:10000 <your-namespace>/dhi-envoy:<tag>
+docker run -p 9902:9902 -p 10000:10000 dhi.io/envoy:<tag>
 ```
 
 ## Common Envoy use cases
@@ -103,7 +106,7 @@ Now validate the configuration:
 
 ```bash
 docker run --rm -v $(pwd)/envoy.yaml:/tmp/envoy.yaml:ro \
-  <your-namespace>/dhi-envoy:<tag> \
+  dhi.io/envoy:<tag> \
   envoy --mode validate --config-path /tmp/envoy.yaml
 ```
 
@@ -114,7 +117,7 @@ Run Envoy with the validated configuration:
 ```bash
 # Run in background
 docker run -d --name my-envoy -p 9902:9902 -p 10000:10000 \
-  <your-namespace>/dhi-envoy:<tag> \
+  dhi.io/envoy:<tag> \
   envoy --config-yaml "$(cat envoy.yaml)"
 ```
 
@@ -202,12 +205,12 @@ Validate and run:
 ```bash
 # Validate configuration
 docker run --rm -v $(pwd)/envoy-lb.yaml:/tmp/envoy-lb.yaml:ro \
-  <your-namespace>/dhi-envoy:<tag> \
+  dhi.io/envoy:<tag> \
   envoy --mode validate --config-path /tmp/envoy-lb.yaml
 
 # Run in background
 docker run -d --name envoy-lb -p 9902:9902 -p 10000:10000 \
-  <your-namespace>/dhi-envoy:<tag> \
+  dhi.io/envoy:<tag> \
   envoy --config-yaml "$(cat envoy-lb.yaml)"
 
 # Check cluster status
@@ -229,7 +232,7 @@ services:
       - app-network
 
   envoy-sidecar:
-    image: <your-namespace>/dhi-envoy:<tag>
+    image: dhi.io/envoy:<tag>
     command: ["envoy", "--config-path", "/etc/envoy/envoy.yaml"]
     ports:
       - "8080:8080"
@@ -256,7 +259,7 @@ Access Envoy's built-in admin interface for monitoring:
 ```bash
 # Ensure Envoy is running
 docker run -d --name my-envoy -p 9902:9902 -p 10000:10000 \
-  <your-namespace>/dhi-envoy:<tag> \
+  dhi.io/envoy:<tag> \
   envoy --config-yaml "$(cat envoy.yaml)"
 
 # Check stats endpoint
@@ -318,8 +321,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-envoy \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-envoy:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/envoy:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -421,17 +424,17 @@ provide a configuration using one of these methods:
 
 ```bash
 # Method 1: Inline configuration (most reliable)
-docker run <your-namespace>/dhi-envoy:<tag> envoy --config-yaml "$(cat config.yaml)"
+docker run dhi.io/envoy:<tag> envoy --config-yaml "$(cat config.yaml)"
 
 # Method 2: Volume mounting
-docker run -v $(pwd)/config.yaml:/etc/envoy/envoy.yaml:ro <your-namespace>/dhi-envoy:<tag>
+docker run -v $(pwd)/config.yaml:/etc/envoy/envoy.yaml:ro dhi.io/envoy:<tag>
 ```
 
 **Configuration validation**: Always validate before deployment:
 
 ```bash
 docker run --rm -v $(pwd)/envoy.yaml:/tmp/envoy.yaml:ro \
-  <your-namespace>/dhi-envoy:<tag> \
+  dhi.io/envoy:<tag> \
   envoy --mode validate --config-path /tmp/envoy.yaml
 ```
 
@@ -440,7 +443,7 @@ docker run --rm -v $(pwd)/envoy.yaml:/tmp/envoy.yaml:ro \
 **Background execution**: For persistent deployments, use the `-d` flag and name your containers:
 
 ```bash
-docker run -d --name my-envoy <your-namespace>/dhi-envoy:<tag> [command]
+docker run -d --name my-envoy dhi.io/envoy:<tag> [command]
 
 # Stop and remove when done
 docker stop my-envoy && docker rm my-envoy
@@ -495,7 +498,7 @@ listeners:
 Then map to privileged ports externally:
 
 ```bash
-docker run -p 80:8080 -p 443:8443 <your-namespace>/dhi-envoy:<tag>
+docker run -p 80:8080 -p 443:8443 dhi.io/envoy:<tag>
 ```
 
 ### No shell
@@ -523,7 +526,7 @@ If volume mounting fails or configurations aren't loaded:
 docker run --rm -v $(pwd):/test alpine ls -la /test/envoy.yaml
 
 # Alternative: Use inline configuration
-docker run <your-namespace>/dhi-envoy:<tag> envoy --config-yaml "$(cat envoy.yaml)"
+docker run dhi.io/envoy:<tag> envoy --config-yaml "$(cat envoy.yaml)"
 ```
 
 ### Network connectivity issues

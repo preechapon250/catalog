@@ -1,14 +1,20 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Promtail instance
 
 Promtail is an agent which ships the contents of local logs to a Grafana Loki instance. To start a Promtail instance,
-you'll need to create a configuration file and run the container. Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+you'll need to create a configuration file and run the container. Replace `<tag>` with the image variant you want to
+run.
 
 #### Create Promtail configuration
 
@@ -56,7 +62,7 @@ docker network create logging-net 2>/dev/null || true
 docker run -d --name loki \
   --network logging-net \
   -p 3100:3100 \
-  <your-namespace>/dhi-loki:<tag> \
+  dhi.io/loki:<tag> \
   -config.file=/etc/loki/local-config.yaml
 
 # Start Promtail
@@ -65,7 +71,7 @@ docker run -d --name promtail \
   -p 9080:9080 \
   -v $PWD/promtail/config/promtail.yml:/etc/promtail/config.yml:ro \
   -v /var/log:/var/log:ro \
-  <your-namespace>/dhi-promtail:<tag> \
+  dhi.io/promtail:<tag> \
   -config.file=/etc/promtail/config.yml
 ```
 
@@ -227,7 +233,7 @@ EOF
 docker run -d --name loki \
   --network logging-net \
   -p 3100:3100 \
-  <your-namespace>/dhi-loki:<tag> \
+  dhi.io/loki:<tag> \
   -config.file=/etc/loki/local-config.yaml
 
 # Step 5: Start Promtail with multiple log directories
@@ -236,7 +242,7 @@ docker run -d --name promtail \
   -p 9080:9080 \
   -v $PWD/promtail/config/promtail.yml:/etc/promtail/config.yml:ro \
   -v $PWD/app-logs:/logs:ro \
-  <your-namespace>/dhi-promtail:<tag> \
+  dhi.io/promtail:<tag> \
   -config.file=/etc/promtail/config.yml
 
 # Step 6: Generate test logs
@@ -289,7 +295,7 @@ Then create the Dockerfile:
 ```dockerfile
 # syntax=docker/dockerfile:1
 # Build stage - Use a DHI base image for configuration preparation
-FROM <your-namespace>/dhi-busybox:<dev-tag> AS builder
+FROM dhi.io/busybox:<dev-tag> AS builder
 
 # Copy configuration files
 COPY promtail/config/promtail.yml /app/config/promtail.yml
@@ -298,7 +304,7 @@ COPY promtail/config/promtail.yml /app/config/promtail.yml
 RUN chown -R 65532:65532 /app/config
 
 # Runtime stage - Use Docker Hardened Promtail
-FROM <your-namespace>/dhi-promtail:<tag> AS runtime
+FROM dhi.io/promtail:<tag> AS runtime
 
 # Copy configuration from builder
 COPY --from=builder --chown=65532:65532 /app/config/promtail.yml /etc/promtail/config.yml
@@ -363,9 +369,8 @@ ______________________________________________________________________
 **Promtail Docker Hardened Images are only available as runtime variants.** There are no `dev` variants for Promtail
 since it's a pre-compiled binary application that doesn't require build-time dependencies.
 
-For configuration management in multi-stage builds, use a generic DHI dev image like
-`<your-namespace>/dhi-busybox:<dev-tag>` in the build stage, as shown in the
-[Multi-stage Dockerfile integration](#multi-stage-dockerfile-integration) example.
+For configuration management in multi-stage builds, use a generic DHI dev image like `dhi.io/busybox:<dev-tag>` in the
+build stage, as shown in the [Multi-stage Dockerfile integration](#multi-stage-dockerfile-integration) example.
 
 ### FIPS
 

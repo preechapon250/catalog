@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Vault image
 
@@ -38,7 +42,7 @@ server runs in-memory storage and automatically initializes and unseals Vault.
 $ docker run --rm --name vault-dev -p 8200:8200 \
   --cap-add=IPC_LOCK \
   -e VAULT_DEV_ROOT_TOKEN_ID=root \
-  <your-namespace>/dhi-vault:<tag> server -dev -dev-root-token-id=root -dev-listen-address=0.0.0.0:8200
+  dhi.io/vault:<tag> server -dev -dev-root-token-id=root -dev-listen-address=0.0.0.0:8200
 ```
 
 After the container starts, you can interact with Vault on http://localhost:8200 using the root token set above (here:
@@ -67,7 +71,7 @@ $ docker run -d --name vault -p 8200:8200 \
   --cap-add=IPC_LOCK \
   -v /path/on/host/vault-data:/vault/data \
   -v /path/on/host/vault.hcl:/vault/config/vault.hcl:ro \
-  <your-namespace>/dhi-vault:<tag> server -config=/vault/config/vault.hcl
+  dhi.io/vault:<tag> server -config=/vault/config/vault.hcl
 ```
 
 Notes:
@@ -92,7 +96,7 @@ services:
       - consul-data:/consul/data
 
   vault:
-    image: <your-namespace>/dhi-vault:<tag>
+    image: dhi.io/vault:<tag>
     ports:
       - "8200:8200"
     depends_on:
@@ -139,7 +143,7 @@ $ docker run -d --name vault -p 8200:8200 \
   --cap-add=IPC_LOCK \
   -e VAULT_LOCAL_CONFIG='{"listener":{"tcp":{"address":"0.0.0.0:8200","tls_disable":1}},"storage":{"file":{"path":"/vault/data"}},"ui":true}' \
   -v /path/on/host/vault-data:/vault/data \
-  <your-namespace>/dhi-vault:<tag> server -config=/vault/config
+  dhi.io/vault:<tag> server -config=/vault/config
 ```
 
 Using `VAULT_LOCAL_CONFIG` with the `server -config` flag instructs Vault to read the local config; when using complex
@@ -171,6 +175,13 @@ their tag.
   - Run as the root user
   - Include a shell and package manager
   - Are used to build or compile applications
+
+- Compat variants support more seamless usage of DHI as a drop-in replacement for upstream images, particularly for
+  circumstances that the ultra-minimal runtime variant may not fully support. These images typically:
+
+  - Run as a nonroot user
+  - Improve compatibility with upstream helm charts
+  - Include optional tools that are critical for certain use-cases
 
 To view the image variants and get more information about them, select the Tags tab for this repository, and then select
 a tag.

@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Kyverno Reports Controller Hardened image
 
 This image contains `kyverno-reports-controller`, a Kyverno component that generates and manages PolicyReports and
@@ -9,14 +19,13 @@ monitoring and violation tracking, and metrics and event generation for observab
 
 ## Start a kyverno-reports-controller instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 **Note:** `kyverno-reports-controller` is primarily designed to run within a Kubernetes cluster as part of the complete
 Kyverno deployment. The following standalone Docker command displays the available configuration options.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-kyverno-reports-controller:<tag> --help
+docker run --rm -it dhi.io/kyverno-reports-controller:<tag> --help
 ```
 
 ## Common kyverno-reports-controller use cases
@@ -63,7 +72,7 @@ spec:
     spec:
       containers:
       - name: kyverno-reports-controller
-        image: <your-namespace>/dhi-kyverno-reports-controller:<tag>
+        image: dhi.io/kyverno-reports-controller:<tag>
         args:
         - --metrics-bind-addr=:8000
         - --leader-elect
@@ -82,9 +91,8 @@ compliance trends.
 
 ### Install Kyverno using Helm
 
-You can install Kyverno using the official helm chart and replace the image. Replace `<your-namespace>` with your
-organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Kyverno using the official helm chart and replace the image. Replace `<your-registry-secret>` with your
+[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image tag.
 
 ```bash
 helm repo add kyverno https://kyverno.github.io/kyverno
@@ -93,8 +101,8 @@ helm repo update
 helm upgrade --install kyverno kyverno/kyverno \
   -n kyverno --create-namespace --wait \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set image.registry=docker.io \
-  --set reportsController.image.repository=<your-namespace>/dhi-kyverno-reports-controller \
+  --set image.registry=dhi.io \
+  --set reportsController.image.repository=kyverno-reports-controller \
   --set reportsController.image.tag=<tag> \
   --set reportsController.podSecurityContext.runAsUser=65532
 ```
@@ -142,8 +150,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kyverno-reports-controller:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kyverno-reports-controller:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -195,7 +203,7 @@ The following steps outline the general migration process.
    your values file accordingly:
 
    - From: `bitnami/kyverno-reports-controller:<tag>`
-   - To: `<your-namespace>/dhi-kyverno-reports-controller:<tag>`
+   - To: `dhi.io/kyverno-reports-controller:<tag>`
 
 1. **For custom deployments, update the runtime image in your Dockerfile.**
 

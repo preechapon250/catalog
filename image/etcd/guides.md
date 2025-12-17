@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What’s included in this etcd image
 
 This Docker Hardened etcd image includes a distributed key-value store and management tools in a single,
@@ -17,14 +27,13 @@ security-hardened package:
 
 ## Start an etcd image
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run
+Run the following command and replace `<tag>` with the image variant you want to run
 
 ```bash
 docker run \
   -p 2379:2379 \
   -p 2380:2380 \
-  --name etcd <your-namespace>/dhi-etcd:<tag> \
+  --name etcd dhi.io/etcd:<tag> \
   /usr/local/bin/etcd \
   --name node1
 ```
@@ -40,7 +49,7 @@ docker run -d \
   --name etcd-standalone \
   -p 2379:2379 \
   -p 2380:2380 \
-  <your-namespace>/dhi-etcd:<tag> \
+  dhi.io/etcd:<tag> \
   /usr/local/bin/etcd \
   --name node1 \
   --listen-client-urls http://0.0.0.0:2379 \
@@ -56,7 +65,7 @@ run on a single port)
 
 ```yaml
 x-common-etcd: &etcd-svc
-  image: <your-namespace>/dhi-etcd:<tag>
+  image: dhi.io/etcd:<tag>
   entrypoint: ["/usr/local/bin/etcd"]
   command:
     - --data-dir=/etcd-data
@@ -110,7 +119,7 @@ Check cluster health:
 
 ```bash
 docker run --rm -it --network host \
-  <your-namespace>/dhi-etcd:<tag>-dev \
+  dhi.io/etcd:<tag>-dev \
   etcdctl --endpoints=localhost:2379 endpoint health
 ```
 
@@ -118,11 +127,11 @@ Put and get key-value pairs:
 
 ```bash
 docker run --rm -it --network host \
-  <your-namespace>/dhi-etcd:<tag>-dev \
+  dhi.io/etcd:<tag>-dev \
   etcdctl --endpoints=localhost:2379 put mykey "Hello etcd"
 
 docker run --rm -it --network host \
-  <your-namespace>/dhi-etcd:<tag>-dev \
+  dhi.io/etcd:<tag>-dev \
   etcdctl --endpoints=localhost:2379 get mykey
 ```
 
@@ -130,7 +139,7 @@ Create a snapshot for backup:
 
 ```bash
 docker run --rm -it -v $(pwd):/backup --network host \
-  <your-namespace>/dhi-etcd:<tag>-dev \
+  dhi.io/etcd:<tag>-dev \
   etcdctl --endpoints=localhost:2379 snapshot save /backup/snapshot.db
 ```
 
@@ -144,7 +153,7 @@ docker run -d \
   -p 2379:2379 \
   -p 2380:2380 \
   -v etcd-data:/etcd-data \
-  <your-namespace>/dhi-etcd:<tag> \
+  dhi.io/etcd:<tag> \
   /usr/local/bin/etcd \
   --name node1 \
   --data-dir=/etcd-data \
@@ -186,15 +195,15 @@ that only exists during the debugging session.
 For example, you can use Docker Debug:
 
 ```bash
-docker debug <your-namespace>/dhi-etcd:<tag>
+docker debug dhi.io/etcd:<tag>
 ```
 
 or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-etcd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-etcd:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/etcd:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

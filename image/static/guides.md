@@ -1,16 +1,26 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Use as a runtime for binary executable
 
 Use this image in the final stage of a multi-stage Dockerfile where a binary executable is built. In your Dockerfile,
-writing something along the lines of the following will compile and run a simple Rust project. Replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+writing something along the lines of the following will compile and run a simple Rust project. Replace `<tag>` with the
+image variant you want to run.
 
 ```
 ################################################################################
 # Create a stage for building the application.
 
-FROM <your-namespace>/dhi-rust:<tag> AS build
+FROM dhi.io/rust:<tag> AS build
 WORKDIR /build
 
 RUN --mount=type=bind,source=src,target=src \
@@ -25,7 +35,7 @@ cargo build --locked --release
 # Create a new stage for running the application that contains the minimal
 # runtime dependencies for the application.
 
-FROM <your-namespace>/dhi-static:<tag> AS final
+FROM dhi.io/static:<tag> AS final
 
 # Copy the executable from the "build" stage.
 COPY --from=build /build/target/release/docker-rust-hello server

@@ -1,19 +1,29 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Hosting some simple static content
 
 To host some simple static content with this image, you can bind mount a directory of content to `/usr/share/nginx/html`
 in the container. For example:
 
 ```
-$ docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d <your-namespace>/dhi-nginx:<tag>
+$ docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d dhi.io/nginx:<tag>
 ```
 
 Alternatively, a simple Dockerfile can be used to generate a new image that includes the necessary content (which is a
 much cleaner solution than the bind mount):
 
 ```
-FROM <your-namespace>/dhi-nginx:<tag>
+FROM dhi.io/nginx:<tag>
 COPY static-html-directory /usr/share/nginx/html
 ```
 
@@ -43,19 +53,19 @@ You can mount your configuration file, or build a new image with it.
 If you wish to adapt the default configuration, you can use `cat` to output the default configuration file.
 
 ```
-$ docker run --rm --entrypoint cat <your-namespace>/dhi-nginx:<tag> /etc/nginx/nginx.conf > nginx.conf
+$ docker run --rm --entrypoint cat dhi.io/nginx:<tag> /etc/nginx/nginx.conf > nginx.conf
 ```
 
 Then you can edit the contents in the new local file, and mount it into a new container.
 
 ```
-$ docker run --name some-nginx -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro -d -p 8080:8080 <your-namespace>/dhi-nginx:<tag>
+$ docker run --name some-nginx -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro -d -p 8080:8080 dhi.io/nginx:<tag>
 ```
 
 Or, build a new image with your configuration file.
 
 ```
-FROM <your-namespace>/dhi-nginx:<tag>
+FROM dhi.io/nginx:<tag>
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
@@ -68,7 +78,7 @@ Here is an example using a Compose file.
 
 ```yaml
 web:
-  image: <your-namespace>/dhi-nginx:<tag>
+  image: dhi.io/nginx:<tag>
   volumes:
    - ./templates:/etc/nginx/templates
   ports:
@@ -114,7 +124,7 @@ The default Nginx configuration requires write access to `/var/cache/nginx` and 
 accomplished by running Nginx as follows:
 
 ```
-$ docker run -d -p 8080:8080 --read-only -v $(pwd)/nginx-cache:/var/cache/nginx -v $(pwd)/nginx-pid:/var/run <your-namespace>/dhi-nginx:<tag>
+$ docker run -d -p 8080:8080 --read-only -v $(pwd)/nginx-cache:/var/cache/nginx -v $(pwd)/nginx-pid:/var/run dhi.io/nginx:<tag>
 ```
 
 If you have a more advanced configuration that requires Nginx to write to other locations, simply add more volume mounts
@@ -126,14 +136,14 @@ to those locations.
 used with simple CMD substitution:
 
 ```
-$ docker run --name my-nginx -v /host/path/nginx.conf:/etc/nginx/nginx.conf:ro -d <your-namespace>/dhi-nginx:<tag>-dev nginx-debug -g 'daemon off;'
+$ docker run --name my-nginx -v /host/path/nginx.conf:/etc/nginx/nginx.conf:ro -d dhi.io/nginx:<tag>-dev nginx-debug -g 'daemon off;'
 ```
 
 Similar configuration in `compose.yaml` may look like this:
 
 ```yaml
 web:
-  image: <your-namespace>/dhi-nginx:<tag>-dev
+  image: dhi.io/nginx:<tag>-dev
   volumes:
     - ./nginx.conf:/etc/nginx/nginx.conf:ro
   command: [nginx-debug, '-g', 'daemon off;']
@@ -145,7 +155,7 @@ A verbose entrypoint was added to the image. It provides information on what's h
 can silence this output by setting environment variable `NGINX_ENTRYPOINT_QUIET_LOGS`:
 
 ```
-$ docker run -d -e NGINX_ENTRYPOINT_QUIET_LOGS=1 <your-namespace>/dhi-nginx:<tag>
+$ docker run -d -e NGINX_ENTRYPOINT_QUIET_LOGS=1 dhi.io/nginx:<tag>
 ```
 
 ## Non-hardened images vs Docker Hardened Images
@@ -189,8 +199,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -220,7 +230,7 @@ standard Nginx image in your existing workflows and configurations.
 
 1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
    - From: `nginx:<tag>`
-   - To: `<your-namespace>/dhi-nginx:<tag>`
+   - To: `dhi.io/nginx:<tag>`
 1. Update any necessary configuration. If you have custom configurations that rely on features not present in the
    hardened image (like running as root, exposing port 80, or using a shell), you will need to adjust them.
 

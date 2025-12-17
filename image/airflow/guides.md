@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### What's included in this Airflow image
 
@@ -65,12 +71,10 @@ includes:
 
 ### Start an Airflow container
 
-The following command will run the api-server using the core variant and expose the web interface on port 8080. At a
-minimum, replace `<your-namespace>` with your organization’s namespace and `<tag>` with the image variant you want to
-run. To confirm the correct namespace and repository name of the mirrored repository, select **View in repository**.
+The following command will run the api-server using the core variant and expose the web interface on port 8080.
 
 ```
-docker run -it --rm -p 8080:8080 -e AIRFLOW__API_AUTH__JWT_SECRET=test <your-namespace>/dhi-airflow:<tag> api-server
+docker run -it --rm -p 8080:8080 -e AIRFLOW__API_AUTH__JWT_SECRET=test dhi.io/airflow:<tag> api-server
 ```
 
 > [!NOTE]
@@ -96,7 +100,7 @@ Here's a complete example that installs common providers:
 # syntax=docker/dockerfile:1
 
 # Stage 1: Install providers using dev variant
-FROM <your-namespace>/dhi-airflow:<tag>-dev AS provider-build
+FROM dhi.io/airflow:<tag>-dev AS provider-build
 WORKDIR /opt/airflow
 # Install providers using pip
 RUN pip install \
@@ -108,7 +112,7 @@ RUN pip install \
     apache-airflow-providers-kubernetes
 
 # Stage 2: Runtime image with providers
-FROM <your-namespace>/dhi-airflow:<tag> AS runtime
+FROM dhi.io/airflow:<tag> AS runtime
 # Copy installed providers from build stage
 COPY --from=provider-build /opt/airflow-providers /opt/airflow
 # Copy your DAGs and configuration
@@ -120,7 +124,7 @@ COPY airflow.cfg /opt/airflow/airflow.cfg
 
 Some Airflow providers require system-level dependencies (installed via `apt`). For these cases, you'll need to:
 
-1. Create a DHI customization to install the required system dependencies
+1. Use a multi-stage build or a DHI customization (subscription required) to install the required system dependencies
 1. Use the dev variant to install the provider packages
 1. Copy the providers to your customized core image
 
@@ -130,7 +134,7 @@ Example workflow for a provider that needs system dependencies:
 # syntax=docker/dockerfile:1
 
 # Stage 1: Install providers using dev variant
-FROM <your-namespace>/dhi-airflow:<tag>-dev AS provider-build
+FROM dhi.io/airflow:<tag>-dev AS provider-build
 WORKDIR /opt/airflow
 # Install provider that requires system dependencies
 RUN pip install \
@@ -139,7 +143,7 @@ RUN pip install \
     apache-airflow-providers-oracle
 
 # Stage 2: Use your customized DHI image with system dependencies
-FROM <your-namespace>/dhi-airflow-custom:<tag> AS runtime
+FROM dhi.io/airflow-custom:<tag> AS runtime
 # Copy installed providers from build stage
 COPY --from=provider-build /opt/airflow-providers /opt/airflow
 # Copy your application files
@@ -164,6 +168,13 @@ their tag.
   - Run as the root user
   - Include a shell and package manager
   - Are used to build or compile applications
+
+- Compat variants support more seamless usage of DHI as a drop-in replacement for upstream images, particularly for
+  circumstances that the ultra-minimal runtime variant may not fully support. These images typically:
+
+  - Run as the nonroot user
+  - Improve compatibility with upstream helm charts
+  - Include optional tools that are critical for certain use-cases
 
 To view the image variants and get more information about them, select the **Tags** tab for this repository, and then
 select a tag.

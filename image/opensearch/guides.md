@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 For full documentation, see the
 [OpenSearch Docker documentation](https://docs.opensearch.org/docs/latest/install-and-configure/install-opensearch/docker).
@@ -16,11 +22,10 @@ Dashboards)):
 docker network create opensearch-net
 ```
 
-Run the following command to run an OpenSearch container. Replace `<your-namespace>` with your organization's namespace
-and `<tag>` with the image variant you want to run.
+Run the following command to run an OpenSearch container. Replace `<tag>` with the image variant you want to run.
 
 ```
-docker run -d --name opensearch --net opensearch-net -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" <your-namespace>/dhi-opensearch:<tag>
+docker run -d --name opensearch --net opensearch-net -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" dhi.io/opensearch:<tag>
 ```
 
 ### Basic single-node deployment
@@ -28,7 +33,7 @@ docker run -d --name opensearch --net opensearch-net -p 9200:9200 -p 9600:9600 -
 To start a single OpenSearch node for development:
 
 ```
-docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" <your-namespace>/dhi-opensearch:<tag>
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" dhi.io/opensearch:<tag>
 ```
 
 ### Disable security for development
@@ -36,7 +41,7 @@ docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "OPEN
 For development purposes, you can disable the security plugin:
 
 ```
-docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" -e "DISABLE_INSTALL_DEMO_CONFIG=true" <your-namespace>/dhi-opensearch:<tag>
+docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" -e "DISABLE_INSTALL_DEMO_CONFIG=true" dhi.io/opensearch:<tag>
 ```
 
 ### Test the deployment
@@ -91,7 +96,7 @@ The following environment variables are commonly used to configure OpenSearch:
 
 You can mount custom configuration files. For example, to use a custom `opensearch.yml` file, create a file and replace
 `/path/to/custom-opensearch.yml` with the path to your custom configuration file. And then run the following command
-(make sure to replace `<your-namespace>` and `<tag>` and `<custom-admin-password>` with your values):
+(make sure to replace `<tag>` and `<custom-admin-password>` with your values):
 
 ```
 docker run -d \
@@ -100,7 +105,7 @@ docker run -d \
   -v /path/to/custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml \
   -e "discovery.type=single-node" \
   -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>" \
-  <your-namespace>/dhi-opensearch:<tag>
+  dhi.io/opensearch:<tag>
 ```
 
 or the docker compose equivalent:
@@ -108,7 +113,7 @@ or the docker compose equivalent:
 ```yaml
 services:
   opensearch:
-    image: <your-namespace>/dhi-opensearch:<tag>
+    image: dhi.io/opensearch:<tag>
     container_name: opensearch
     environment:
       - discovery.type=single-node
@@ -123,13 +128,13 @@ services:
 ### Multi-node cluster with Docker Compose
 
 For production deployments, use Docker Compose to run a multi-node cluster. Create a `docker-compose.yml` file with the
-following content, replacing `<your-namespace>` and `<tag>` with your values, and set the
-`OPENSEARCH_INITIAL_ADMIN_PASSWORD` environment variable in your shell or `.env` file:
+following content, replacing `<tag>` with your values, and set the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` environment
+variable in your shell or `.env` file:
 
 ```yaml
 services:
   opensearch-node1:
-    image: <your-namespace>/dhi-opensearch:<tag>
+    image: dhi.io/opensearch:<tag>
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -154,7 +159,7 @@ services:
     networks:
       - opensearch-net
   opensearch-node2:
-    image: <your-namespace>/dhi-opensearch:<tag>
+    image: dhi.io/opensearch:<tag>
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
@@ -217,7 +222,7 @@ If you wish to use other plugins in addition to the ones included in the image, 
 To use custom plugins, create a Dockerfile:
 
 ```dockerfile
-FROM <your-namespace>/dhi-opensearch:<tag>
+FROM dhi.io/opensearch:<tag>
 RUN /usr/share/opensearch/bin/opensearch-plugin install --batch <plugin-id>
 ```
 

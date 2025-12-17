@@ -1,19 +1,24 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a kubectl instance
 
 The kubectl image provides the Kubernetes command-line tool for interacting with Kubernetes clusters. The default
 entrypoint displays help information.
 
-Run the following command and replace <your-namespace> with your organization's namespace and <tag> with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```
-docker run --rm <your-namespace>/dhi-kubectl:<tag>
+docker run --rm dhi.io/kubectl:<tag>
 ```
 
 ## Common kubectl use cases
@@ -25,7 +30,7 @@ To connect kubectl to your Kubernetes cluster, mount your kubeconfig file and ru
 ```
 docker run --rm \
   -v ~/.kube/config:/home/nonroot/.kube/config:ro \
-  <your-namespace>/dhi-kubectl:<tag> \
+  dhi.io/kubectl:<tag> \
   cluster-info
 ```
 
@@ -36,7 +41,7 @@ Check the status of pods in a specific namespace:
 ```
 docker run --rm \
   -v ~/.kube/config:/home/nonroot/.kube/config:ro \
-  <your-namespace>/dhi-kubectl:<tag> \
+  dhi.io/kubectl:<tag> \
   get pods -n default
 ```
 
@@ -48,7 +53,7 @@ Deploy resources to your cluster by mounting a directory with Kubernetes manifes
 docker run --rm \
   -v ~/.kube/config:/home/nonroot/.kube/config:ro \
   -v $(pwd)/manifests:/manifests:ro \
-  <your-namespace>/dhi-kubectl:<tag> \
+  dhi.io/kubectl:<tag> \
   apply -f /manifests/
 ```
 
@@ -57,7 +62,7 @@ docker run --rm \
 The kubectl image is commonly used in CI/CD pipelines for deploying applications to Kubernetes:
 
 ```dockerfile
-FROM <your-namespace>/dhi-kubectl:<tag>
+FROM dhi.io/kubectl:<tag>
 COPY deploy-script.sh /deploy-script.sh
 ENTRYPOINT ["/deploy-script.sh"]
 ```
@@ -103,8 +108,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-image \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kubectl:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kubectl:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

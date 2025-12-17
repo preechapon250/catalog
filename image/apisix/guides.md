@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this APISIX image
 
 This Docker Hardened APISIX image includes Apache APISIX in a single, security-hardened package. Apache APISIX is a
@@ -8,14 +18,13 @@ dynamic upstream, canary release, circuit breaking, authentication, observabilit
 
 ## Start a APISIX image
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
 docker run -d --name apisix \
   -p 9080:9080 \
   -e APISIX_STAND_ALONE=true \
-  <your-namespace>/dhi-apisix:<tag>
+  dhi.io/apisix:<tag>
 ```
 
 To configure APISIX with a basic route:
@@ -194,8 +203,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:apisix \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-apisix:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/apisix:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

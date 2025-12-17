@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What’s included in this Kafka image
 
 This Docker Hardened Kafka image includes the complete Apache Kafka toolkit in a single, security-hardened package:
@@ -20,13 +30,12 @@ making it easy to get started without complex configuration.
 
 ## Start a Kafka instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run:
+Run the following command and replace `<tag>` with the image variant you want to run:
 
 ```bash
 $ docker run --name some-kafka -d \
   -p 9092:9092 \
-  <your-namespace>/dhi-kafka:<tag>
+  dhi.io/kafka:<tag>
 ```
 
 ## Common Kafka use cases
@@ -49,10 +58,10 @@ This example demonstrates a complete Kafka setup with topic creation, a producer
 1. Create a `Dockerfile` for the Python services that need the Kafka client:
 
 ```dockerfile
-FROM <your-namespace>/dhi-python:3.11-debian12-dev AS build
+FROM dhi.io/python:3.11-debian12-dev AS build
 RUN pip install kafka-python
 
-FROM <your-namespace>/dhi-python:3.11-debian12
+FROM dhi.io/python:3.11-debian12
 
 COPY --from=build /opt/python/lib/ /opt/python/lib/
 ```
@@ -62,7 +71,7 @@ COPY --from=build /opt/python/lib/ /opt/python/lib/
 ```yaml
 services:
   kafka:
-    image: <your-namespace>/dhi-kafka:<tag>
+    image: dhi.io/kafka:<tag>
     container_name: kafka
     ports:
       - "9092:9092"
@@ -217,7 +226,7 @@ For quick testing with the built-in console tools:
 version: '3.8'
 services:
   kafka:
-    image: <your-namespace>/dhi-kafka:<tag>
+    image: dhi.io/kafka:<tag>
     container_name: kafka-test
     ports:
       - "9092:9092"
@@ -258,7 +267,7 @@ For production-like environments with multiple brokers:
 version: '3.8'
 services:
   kafka-1:
-    image: <your-namespace>/dhi-kafka:<tag>
+    image: dhi.io/kafka:<tag>
     container_name: kafka-1
     ports:
       - "9092:9092"
@@ -275,7 +284,7 @@ services:
       - kafka-net
 
   kafka-2:
-    image: <your-namespace>/dhi-kafka:<tag>
+    image: dhi.io/kafka:<tag>
     container_name: kafka-2
     ports:
       - "9093:9092"
@@ -292,7 +301,7 @@ services:
       - kafka-net
 
   kafka-3:
-    image: <your-namespace>/dhi-kafka:<tag>
+    image: dhi.io/kafka:<tag>
     container_name: kafka-3
     ports:
       - "9094:9092"
@@ -336,7 +345,7 @@ Ensure data persistence across container restarts:
 version: '3.8'
 services:
   kafka:
-    image: <your-namespace>/dhi-kafka:<tag>
+    image: dhi.io/kafka:<tag>
     container_name: kafka-persistent
     ports:
       - "9092:9092"
@@ -393,8 +402,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-kafka \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kafka:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kafka:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -442,7 +451,7 @@ regulated industries.
 ```yaml
 services:
   kafka:
-    image: <your-namespace>/dhi-kafka:4.1-fips-debian13
+    image: dhi.io/kafka:4.1-fips-debian13
     ports:
       - "9092:9092"
     environment:

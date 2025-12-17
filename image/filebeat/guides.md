@@ -1,16 +1,21 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a Filebeat instance
 
-Run the following command to run a Filebeat container. Replace `<your-namespace>` with your organization's namespace and
-`<tag>` with the image variant you want to run.
+Run the following command to run a Filebeat container. Replace `<tag>` with the image variant you want to run.
 
 ```console
-docker run --rm  <your-namespace>/dhi-filebeat:<tag> version
+docker run --rm  dhi.io/filebeat:<tag> version
 ```
 
 This command runs Filebeat and prints the version information. The entry point is `filebeat` so you can pass any
@@ -28,7 +33,7 @@ First, create a `compose.yaml` file:
 ```yaml
 services:
   elasticsearch:
-    image: <your-namespace>/dhi-elasticsearch:<tag>
+    image: dhi.io/elasticsearch:<tag>
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
@@ -36,7 +41,7 @@ services:
       - "9200:9200"
 
   kibana:
-    image: <your-namespace>/dhi-kibana:<tag>
+    image: dhi.io/kibana:<tag>
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
@@ -47,7 +52,7 @@ services:
       - kibana_conf:/opt/kibana/kibana-<tag>/config
 
   filebeat:
-    image: <your-namespace>/dhi-filebeat:<tag>
+    image: dhi.io/filebeat:<tag>
     volumes:
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./logs:/var/log:ro
@@ -90,8 +95,7 @@ For more configuration options see the
 
 To use the Filebeat hardened image in Kubernetes, [set up authentication](https://docs.docker.com/dhi/how-to/k8s/) and
 update your Kubernetes deployment. For example, in your `filebeat.yaml` file, replace the image reference in the
-container spec. In the following example replace `<your-namespace>` and `<tag>` with your organization's namespace and
-the desired tag.
+container spec. In the following example, replace `<tag>` with the desired tag.
 
 ```yaml
 apiVersion: apps/v1
@@ -104,7 +108,7 @@ spec:
     spec:
       containers:
         - name: filebeat
-          image: <your-namespace>/dhi-filebeat:<tag>
+          image: dhi.io/filebeat:<tag>
       imagePullSecrets:
         - name: <your-registry-secret>
 ```
@@ -168,8 +172,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Migrate to a Docker Hardened Image
@@ -185,7 +189,7 @@ hardened image.
    Replace the image reference in your Docker run command or Compose file:
 
    - From: `docker.elastic.co/beats/filebeat:<tag>`
-   - To: `<your-namespace>/dhi-filebeat:<tag>`
+   - To: `dhi.io/filebeat:<tag>`
 
 1. Adjust command arguments if needed.
 

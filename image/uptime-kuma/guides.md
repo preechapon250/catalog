@@ -1,16 +1,21 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start an Uptime Kuma instance
 
-To run an Uptime Kuma container, replace `<your-namespace>` with your organization's namespace and `<tag>` with the
-image variant you want to run:
+To run an Uptime Kuma container, replace `<tag>` with the image variant you want to run:
 
 ```
-$ docker run -p 3001:3001 <your-namespace>/dhi-uptimekuma:<tag>
+$ docker run -p 3001:3001 dhi.io/uptimekuma:<tag>
 ```
 
 #### Configuring Uptime Kuma
@@ -20,7 +25,7 @@ the host to mount to the `/app/data` directory inside the container, where Uptim
 history, and other application data.
 
 ```
-$ docker run -v <data-directory>:/app/data -p 3001:3001 <your-namespace>/dhi-uptimekuma:<tag>
+$ docker run -v <data-directory>:/app/data -p 3001:3001 dhi.io/uptimekuma:<tag>
 ```
 
 #### Monitoring HTTP(S) using a browser engine
@@ -28,8 +33,8 @@ $ docker run -v <data-directory>:/app/data -p 3001:3001 <your-namespace>/dhi-upt
 In v1.23, Uptime Kuma's beta support for monitoring HTTP(S) endpoints using a real browser engine relies on Chromium,
 which is not packaged in this image by default.
 
-If you require browser engine monitors, you can submit a request for a Chromium variant of this image or request an
-image customization for your needs.
+If you require browser engine monitors, you can add Chromium during a multi-stage build or create an image customization
+for your needs (which requires a subscription).
 
 ## Image variants
 

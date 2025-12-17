@@ -1,16 +1,22 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Scan a local git repository
 
-The following command runs TruffleHog to scan a local git repository for secrets. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+The following command runs TruffleHog to scan a local git repository for secrets. Replace `<tag>` with the image variant
+you want to run.
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /repo
+$ docker run --rm -v $(pwd):/repo dhi.io/trufflehog:<tag> git /repo
 ```
 
 ### Scan a filesystem directory
@@ -18,7 +24,7 @@ $ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /rep
 Scan a local filesystem directory for secrets:
 
 ```
-$ docker run --rm -v $(pwd):/data <your-namespace>/dhi-trufflehog:<tag> filesystem /data
+$ docker run --rm -v $(pwd):/data dhi.io/trufflehog:<tag> filesystem /data
 ```
 
 ### Scan a GitHub repository
@@ -26,13 +32,13 @@ $ docker run --rm -v $(pwd):/data <your-namespace>/dhi-trufflehog:<tag> filesyst
 Scan a public GitHub repository:
 
 ```
-$ docker run --rm <your-namespace>/dhi-trufflehog:<tag> github --repo https://github.com/owner/repo
+$ docker run --rm dhi.io/trufflehog:<tag> github --repo https://github.com/owner/repo
 ```
 
 For private repositories, you'll need to provide authentication:
 
 ```
-$ docker run --rm -e GITHUB_TOKEN=your_token <your-namespace>/dhi-trufflehog:<tag> github --repo https://github.com/owner/repo --token ${GITHUB_TOKEN}
+$ docker run --rm -e GITHUB_TOKEN=your_token dhi.io/trufflehog:<tag> github --repo https://github.com/owner/repo --token ${GITHUB_TOKEN}
 ```
 
 ### Scan with JSON output
@@ -40,7 +46,7 @@ $ docker run --rm -e GITHUB_TOKEN=your_token <your-namespace>/dhi-trufflehog:<ta
 Generate JSON output for integration with other tools:
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /repo --json
+$ docker run --rm -v $(pwd):/repo dhi.io/trufflehog:<tag> git /repo --json
 ```
 
 ### Scan only verified secrets
@@ -48,7 +54,7 @@ $ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /rep
 Only report secrets that have been verified as active:
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /repo --only-verified
+$ docker run --rm -v $(pwd):/repo dhi.io/trufflehog:<tag> git /repo --only-verified
 ```
 
 ### Scan specific commit range
@@ -56,13 +62,13 @@ $ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /rep
 Scan only a specific range of commits:
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-trufflehog:<tag> git /repo --since-commit abc123 --branch main
+$ docker run --rm -v $(pwd):/repo dhi.io/trufflehog:<tag> git /repo --since-commit abc123 --branch main
 ```
 
 ### Display help information
 
 ```
-$ docker run --rm <your-namespace>/dhi-trufflehog:<tag> --help
+$ docker run --rm dhi.io/trufflehog:<tag> --help
 ```
 
 ## Image variants

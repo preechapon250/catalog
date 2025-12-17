@@ -1,12 +1,19 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ## Start a ClamAV container
 
-Run the following command. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
-
 ```bash
-docker run --rm -it <your-namespace>/dhi-clamav:<tag>
+docker run --rm -it dhi.io/clamav:<tag>
 ```
 
 ## Common ClamAV use cases
@@ -18,10 +25,10 @@ The DHI ClamAV comes with two variants:
 - the regular that contains the virus database at the time of the creation of the image
 - the `-base` that does not contain the virus database.
 
-In order to use the `-base` or to have an up to date virus database, you will need to run `freshclam`:
+In order to use the `-base` or to have an up-to-date virus database, you will need to run `freshclam`:
 
 ```bash
-docker run -it --rm <you-namespace>/dhi-clamav:<tag> freshclam
+docker run -it --rm dhi.io/clamav:<tag> freshclam
 ```
 
 By default, the virus database is stored within the running container in `/var/lib/clamav`. You can either use a volume
@@ -34,7 +41,7 @@ docker volume create clam_db
 
 docker run -it --rm \
     --mount source=clam_db,target=/var/lib/clamav \
-    <you-namespace>/dhi-clamav:<tag>
+    dhi.io/clamav:<tag>
 ```
 
 With a bind mount, you will simply map a local directory to a path within the container
@@ -42,7 +49,7 @@ With a bind mount, you will simply map a local directory to a path within the co
 ```bash
 docker run -it --rm \
     --mount type=bind,source=/path/to/databases,target=/var/lib/clamav \
-    <you-namespace>/dhi-clamav:<tag>
+    dhi.io/clamav:<tag>
 ```
 
 ### Running Clam(D)Scan
@@ -55,7 +62,7 @@ the database first.
 ```bash
 docker run -it --rm \
     --mount type=bind,source=/path/to/scan,target=/scandir \
-    <you-namespace>/dhi-clamav:<tag> \
+    dhi.io/clamav:<tag> \
     clamscan /scandir
 ```
 
@@ -65,11 +72,10 @@ ClamDScan can be used by exposing a TCP/UDP port or unix socket.
 docker run -it --rm \
     --mount type=bind,source=/path/to/scan,target=/scandir \
     --mount type=bind,source=/var/lib/docker/data/clamav/sockets/,target=/run/clamav/ \
-    <you-namespace>/dhi-clamav:<tag>
+    dhi.io/clamav:<tag>
 ```
 
-You can find more documentation about using ClamAV at https://docs.clamav.net/manual/Installing/Docker.html. Simply
-replace the image name by `<you-namespace>/dhi-clamav:<tag>`.
+You can find more documentation about using ClamAV at https://docs.clamav.net/manual/Installing/Docker.html.
 
 ## Image variants
 

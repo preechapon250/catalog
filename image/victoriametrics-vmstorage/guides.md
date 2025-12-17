@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this VictoriaMetrics VMStorage Hardened Image
 
 This Docker Hardened VictoriaMetrics VMStorage image includes the `vmstorage` component of the VictoriaMetrics
@@ -10,16 +20,16 @@ data).
 ### Start a VictoriaMetrics VMStorage image
 
 ```bash
-docker run -d --name victoriametrics-vmstorage -p 8482:8482 -p 8400:8400 -p 8401:8401 <your-namespace>/dhi-victoriametrics-vmstorage:<tag>
+docker run -d --name victoriametrics-vmstorage -p 8482:8482 -p 8400:8400 -p 8401:8401 dhi.io/victoriametrics-vmstorage:<tag>
 ```
 
 ## Common use cases
 
 ### Install VictoriaMetrics using Helm
 
-You can install VictoriaMetrics using the official helm chart and replace the image. Replace `<your-namespace>` with
-your organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install VictoriaMetrics using the official helm chart and replace the image. Replace `<your-registry-secret>`
+with your [Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image
+tag.
 
 ```bash
 helm repo add victoriametrics https://victoriametrics.github.io/helm-charts
@@ -80,8 +90,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-victoriametrics-vmstorage:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/victoriametrics-vmstorage:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -111,12 +121,7 @@ ensure that your commands and arguments are compatible.
 
 ### Migration steps
 
-1. Update your image reference.
-
-   Replace the image reference in your Docker run command or Compose file, for example:
-
-   - From: `victoriametrics/vmstorage:<tag>`
-   - To: `<your-namespace>/dhi-victoriametrics-vmstorage:<tag>`
+1. Replace the image reference in your Docker run command or Compose file.
 
 1. All your existing command-line arguments, environment variables, port mappings, and network settings remain the same.
 

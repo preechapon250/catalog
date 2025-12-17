@@ -1,10 +1,14 @@
 ## How to use this image
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this cert-manager-webhook image
 
@@ -39,7 +43,7 @@ Then the webhook can be configured with either
 ```bash
 # Run the
 docker run --rm --name cert-manager-webhook \
-  <your-namespace>/dhi-cert-manager-webhook:<tag> help
+  dhi.io/cert-manager-webhook:<tag> help
 ```
 
 ### Environment variables
@@ -56,7 +60,7 @@ Example:
 
 ```bash
 $ docker run --rm -v ~/.kube/config:/kube/config:ro -e KUBECONFIG=/kube/config \
-  <your-namespace>/dhi-cert-manager-webhook:<tag>
+  dhi.io/cert-manager-webhook:<tag>
 ```
 
 ## Non-hardened images vs. Docker Hardened Images

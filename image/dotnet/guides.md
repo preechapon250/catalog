@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this .NET image
 
@@ -29,19 +33,19 @@ Run the following command:
 
 ```bash
 # Run a .NET application (runtime variant)
-docker run --rm <your-namespace>/dhi-dotnet:<tag>
+docker run --rm dhi.io/dotnet:<tag>
 
 # Start an interactive development container (SDK variant)
-docker run --rm -it --entrypoint bash <your-namespace>/dhi-dotnet:<tag>-sdk
+docker run --rm -it --entrypoint bash dhi.io/dotnet:<tag>-sdk
 ```
 
 To inspect the image configuration:
 
 ```bash
 # Check entry point and user configuration
-docker image inspect <your-namespace>/dhi-dotnet:8 --format='{{.Config.Entrypoint}}'
-docker image inspect <your-namespace>/dhi-dotnet:8 --format='{{.Config.Cmd}}'
-docker image inspect <your-namespace>/dhi-dotnet:8 --format='{{.Config.User}}'
+docker image inspect dhi.io/dotnet:8 --format='{{.Config.Entrypoint}}'
+docker image inspect dhi.io/dotnet:8 --format='{{.Config.Cmd}}'
+docker image inspect dhi.io/dotnet:8 --format='{{.Config.User}}'
 
 # Compare image sizes
 docker images | grep dotnet
@@ -55,7 +59,7 @@ Use a multi-stage Dockerfile to build your application with the SDK variant and 
 
 ```dockerfile
 # Build stage using SDK variant
-FROM <your-namespace>/dhi-dotnet:8-sdk AS build
+FROM dhi.io/dotnet:8-sdk AS build
 WORKDIR /src
 COPY *.csproj .
 RUN dotnet restore
@@ -63,7 +67,7 @@ COPY . .
 RUN dotnet publish -c Release -o /app
 
 # Runtime stage using minimal runtime variant
-FROM <your-namespace>/dhi-dotnet:8
+FROM dhi.io/dotnet:8
 WORKDIR /app
 COPY --from=build /app .
 ENTRYPOINT ["dotnet", "YourApp.dll"]
@@ -82,7 +86,7 @@ For web applications, use the ASP.NET Core runtime from the separate DHI ASP.NET
 
 ```dockerfile
 # Build stage
-FROM <your-namespace>/dhi-dotnet:8-sdk AS build
+FROM dhi.io/dotnet:8-sdk AS build
 WORKDIR /src
 COPY MyWebApp/*.csproj ./MyWebApp/
 RUN dotnet restore MyWebApp/MyWebApp.csproj
@@ -90,7 +94,7 @@ COPY . .
 RUN dotnet publish MyWebApp/MyWebApp.csproj -c Release -o /app
 
 # Runtime stage for web apps
-FROM <your-namespace>/dhi-aspnetcore:8
+FROM dhi.io/aspnetcore:8
 WORKDIR /app
 COPY --from=build /app .
 EXPOSE 8080
@@ -134,7 +138,7 @@ Mount your source code for live development:
 docker run --rm -it \
   -v $(pwd):/workspace \
   -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   bash
 ```
 
@@ -164,21 +168,21 @@ For quick development tasks without entering the container:
 ```bash
 # Create a new project from outside the container
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   dotnet new web -n MyWebApp
 
 # Build the project
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   dotnet build MyWebApp
 
 # Create and run a simple console application
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   dotnet new console -n HelloWorld
 
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   dotnet run --project HelloWorld
 ```
 
@@ -189,16 +193,16 @@ Execute .NET CLI commands to run pre-built applications:
 ```bash
 # Create and build a console application using SDK
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   dotnet new console -n MyApp
 
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8-sdk \
+  dhi.io/dotnet:8-sdk \
   dotnet build MyApp
 
 # Run the built application using runtime image (note the full path to the compiled DLL)
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-dotnet:8 \
+  dhi.io/dotnet:8 \
   dotnet MyApp/bin/Debug/net8.0/MyApp.dll
 ```
 
@@ -346,7 +350,7 @@ For example, you can use Docker Debug:
 
 ```bash
 # Start your application
-docker run -d --name my-app <your-namespace>/dhi-dotnet:8
+docker run -d --name my-app dhi.io/dotnet:8
 
 # Attach debugger
 docker debug my-app
@@ -356,8 +360,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-dotnet-app \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-dotnet:8 /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/dotnet:8 /dbg/bin/sh
 ```
 
 ## Image variants
@@ -388,8 +392,8 @@ Available variants include:
 
 For ASP.NET Core application, use the separate DHI ASP.NET Core repository:
 
-- `<your-namespace>/dhi-aspnetcore:8`: ASP.NET Core 8 runtime
-- `<your-namespace>/dhi-aspnetcore:9`: ASP.NET Core 9 runtime
+- `dhi.io/aspnetcore:8`: ASP.NET Core 8 runtime
+- `dhi.io/aspnetcore:9`: ASP.NET Core 9 runtime
 
 ## Migrate to a Docker Hardened Image
 
@@ -460,14 +464,14 @@ ENTRYPOINT ["dotnet", "MyApp.dll"]
 After (using DHI):
 
 ```dockerfile
-FROM <your-namespace>/dhi-dotnet:8-sdk AS build
+FROM dhi.io/dotnet:8-sdk AS build
 WORKDIR /src
 COPY *.csproj .
 RUN dotnet restore
 COPY . .
 RUN dotnet publish -c Release -o /app
 
-FROM <your-namespace>/dhi-aspnetcore:8
+FROM dhi.io/aspnetcore:8
 WORKDIR /app
 COPY --from=build /app .
 EXPOSE 8080

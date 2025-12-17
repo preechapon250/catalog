@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this pushgateway image
 
@@ -21,7 +25,7 @@ The Pushgateway listens on port 9091 by default. Use the following examples to r
 
 ```bash
 $ docker run -d --name pushgateway -p 9091:9091 \
-  <your-namespace>/dhi-pushgateway:<tag>
+  dhi.io/pushgateway:<tag>
 ```
 
 To pass command-line flags to the Pushgateway (for example to change the listen address or enable persistence), append
@@ -29,7 +33,7 @@ them after the image name:
 
 ```bash
 $ docker run -d --name pushgateway -p 9091:9091 \
-  <your-namespace>/dhi-pushgateway:<tag> --web.listen-address=":9091" --persistence.file=/data/pushgateway.snap
+  dhi.io/pushgateway:<tag> --web.listen-address=":9091" --persistence.file=/data/pushgateway.snap
 ```
 
 ### Docker Compose example
@@ -38,7 +42,7 @@ $ docker run -d --name pushgateway -p 9091:9091 \
 version: '3.8'
 services:
   pushgateway:
-    image: <your-namespace>/dhi-pushgateway:<tag>
+    image: dhi.io/pushgateway:<tag>
     container_name: pushgateway
     ports:
       - "9091:9091"
@@ -95,7 +99,7 @@ You can pass flags directly as arguments to the container (see examples above).
   ```bash
   docker run -d --name pushgateway -p 9091:9091 \
     -v /var/lib/pushgateway:/data \
-    <your-namespace>/dhi-pushgateway:<tag> --persistence.file=/data/pushgateway.snap
+    dhi.io/pushgateway:<tag> --persistence.file=/data/pushgateway.snap
   ```
 
 - Prometheus + Pushgateway in Compose: use the Compose example above and configure Prometheus to scrape the Pushgateway.

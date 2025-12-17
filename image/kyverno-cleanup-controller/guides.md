@@ -1,5 +1,15 @@
 ## How to use this Kyverno Cleanup Controller image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 This guide provides practical examples for using the Kyverno Cleanup Controller Hardened Image to cleanup policy
 resources in Kubernetes.
 
@@ -11,16 +21,15 @@ that is responsible for cleaning up resources that are no longer needed or are i
 ### Start a Kyverno Cleanup Controller image
 
 ```bash
-docker run -d --name kyverno -p 8443:443 <your-namespace>/dhi-kyverno-cleanup-controller:<tag>
+docker run -d --name kyverno -p 8443:443 dhi.io/kyverno-cleanup-controller:<tag>
 ```
 
 ## Common use cases
 
 ### Install Kyverno using Helm
 
-You can install Kyverno using the official helm chart and replace the image. Replace `<your-namespace>` with your
-organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Kyverno using the official helm chart and replace the image. Replace `<your-registry-secret>` with your
+[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image tag.
 
 ```bash
 helm repo add kyverno https://kyverno.github.io/kyverno
@@ -29,8 +38,8 @@ helm repo update
 helm upgrade --install kyverno kyverno/kyverno \
   -n kyverno --create-namespace --wait \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set .image.registry=docker.io \
-  --set cleanupController.image.repository=<your-namespace>/dhi-kyverno-cleanup-controller \
+  --set .image.registry=dhi.io \
+  --set cleanupController.image.repository=kyverno-cleanup-controller \
   --set cleanupController.image.tag=<tag> \
   --set cleanupController.podSecurityContext.runAsUser=65532
 ```
@@ -76,8 +85,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kyverno-cleanup-controller:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kyverno-cleanup-controller:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -112,7 +121,7 @@ arguments are compatible.
    Replace the image reference in your Docker run command or Compose file, for example:
 
    - From: `bitnami/kyverno-cleanup-controller:<tag>`
-   - To: `<your-namespace>/dhi-kyverno-cleanup-controller:<tag>`
+   - To: `dhi.io/kyverno-cleanup-controller:<tag>`
 
 1. All your existing command-line arguments, environment variables, port mappings, and network settings remain the same.
 

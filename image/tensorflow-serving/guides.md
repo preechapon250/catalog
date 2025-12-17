@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 This TensorFlow Serving image provides CPU-based model serving.
 
 > [!TIP]
@@ -9,13 +19,13 @@ This TensorFlow Serving image provides CPU-based model serving.
 ### Start a TensorFlow Serving instance
 
 To serve a machine learning model with TensorFlow Serving, you need to mount your trained model to the container. The
-default configuration serves a model named "model" from `/models/model`. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image tag you want to run.
+default configuration serves a model named "model" from `/models/model`. Replace `<tag>` with the image tag you want to
+run.
 
 ```bash
 docker run -p 8501:8501 \
   --mount type=bind,source=/path/to/my_model,target=/models/model \
-  <your-namespace>/dhi-tensorflow-serving:<tag>
+  dhi.io/tensorflow-serving:<tag>
 ```
 
 This command:
@@ -42,7 +52,7 @@ TensorFlow Serving also exposes a gRPC API on port 8500:
 ```bash
 docker run -p 8500:8500 \
   --mount type=bind,source=/path/to/my_model,target=/models/model \
-  <your-namespace>/dhi-tensorflow-serving:<tag>
+  dhi.io/tensorflow-serving:<tag>
 ```
 
 You can then connect to the gRPC endpoint at `localhost:8500` using a gRPC client library in your application.
@@ -54,7 +64,7 @@ To serve a model with a different name than the default "model", override the co
 ```bash
 docker run -p 8501:8501 \
   --mount type=bind,source=/path/to/my_model,target=/models/my_model \
-  <your-namespace>/dhi-tensorflow-serving:<tag> \
+  dhi.io/tensorflow-serving:<tag> \
   --model_name=my_model \
   --model_base_path=/models/my_model
 ```

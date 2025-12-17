@@ -1,18 +1,27 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ## Start a Rust instance
 
-Run the following command to run a Rust instance. Replace <your-namespace> with your organization's namespace and <tag>
-with the image variant you want to run.
+Run the following command to run a Rust instance.
 
 ```
-docker run --rm <your-namespace>/dhi-rust:<tag> rustc --version
+docker run --rm dhi.io/rust:<tag> rustc --version
 ```
 
 Create a simple Rust program and run it directly from the container:
 
 ```
-docker run -p 8000:8000 -v $(pwd):/app -w /app <your-namespace>/dhi-rust:<tag>-dev sh -c 'cat > main.rs << EOF
+docker run -p 8000:8000 -v $(pwd):/app -w /app dhi.io/rust:<tag>-dev sh -c 'cat > main.rs << EOF
 fn main() {
     println!("Hello from DHI Rust!");
 }
@@ -72,7 +81,7 @@ EOF
 #### Step 3: Generate the lock file
 
 ```
-docker run --rm -v $(pwd):/app -w /app <your-namespace>/dhi-rust:<tag>-dev cargo generate-lockfile
+docker run --rm -v $(pwd):/app -w /app dhi.io/rust:<tag>-dev cargo generate-lockfile
 ```
 
 #### Step 4. Create the Dockerfile
@@ -82,7 +91,7 @@ Create a Dockerfile with the following content to compile and run the project.
 ```Dockerfile
 ################################################################################
 # Create a stage for building the application.
-FROM <your-namespace>/dhi-rust:<tag>-dev AS build
+FROM dhi.io/rust:<tag>-dev AS build
 WORKDIR /build
 
 RUN --mount=type=bind,source=src,target=src \
@@ -97,7 +106,7 @@ RUN --mount=type=bind,source=src,target=src \
 ################################################################################
 # Create a new stage for running the application with security-hardened runtime environment
 
-FROM <your-namespace>/dhi-rust:<tag> AS final
+FROM dhi.io/rust:<tag> AS final
 
 # Copy the executable from the "build" stage.
 COPY --from=build /build/server ./server
@@ -176,7 +185,7 @@ following table of migration notes:
    Example:
 
    ```dockerfile
-   FROM <your-namespace>/dhi-rust:<version>-dev
+   FROM dhi.io/rust:<version>-dev
    ```
 
 1. **For multi-stage Dockerfiles, update the runtime image in your Dockerfile.** To ensure that your final image is as

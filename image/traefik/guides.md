@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a Traefik instance
 
@@ -65,7 +71,7 @@ docker run -d --name traefik \
   -p 443:443 \
   -v $PWD/traefik/traefik.yml:/etc/traefik/traefik.yml:ro \
   -v $PWD/traefik/config/dynamic:/config/dynamic:ro \
-  <your-namespace>/dhi-traefik:<tag>
+  dhi.io/traefik:<tag>
 ```
 
 ### Start a backend service
@@ -73,7 +79,7 @@ docker run -d --name traefik \
 ```
 docker run -d --name nginx \
 --network traefik-net \
-<your-namespace>/dhi-nginx:<tag>-alpine<tag>
+dhi.io/nginx:<tag>
 ```
 
 ### Verify the setup
@@ -167,16 +173,16 @@ docker run -d --name traefik \
   -p 8081:8080 \
   -v $PWD/traefik/traefik.yml:/etc/traefik/traefik.yml:ro \
   -v $PWD/traefik/config/dynamic:/config/dynamic:ro \
- <your-namespace>/dhi-traefik:<tag>
+ dhi.io/traefik:<tag>
 
 # Step 7: Start backend services
 docker run -d --name nginx-backend \
   --network traefik-net \
-  <your-namespace>/dhi-nginx:<tag>-alpine<tag>
+  dhi.io/nginx:<tag>-alpine<tag>
 
 docker run -d --name api-backend \
   --network traefik-net \
-  <your-namespace>/dhi-nginx:<tag>-alpine<tag>
+  dhi.io/nginx:<tag>-alpine<tag>
 
 # Step 8: Wait for containers to start
 sleep 3
@@ -252,7 +258,7 @@ docker run -d --name traefik \
   -p 8081:8080 \
   -v $PWD/traefik/traefik.yml:/etc/traefik/traefik.yml:ro \
   -v $PWD/traefik/config/dynamic:/config/dynamic:ro \
-  <your-namespace>/dhi-traefik:<tag>
+  dhi.io/traefik:<tag>
 
 # Step 5: Start multiple backend instances
 for i in 1 2 3; do
@@ -327,7 +333,7 @@ EOF
 RUN chown -R 65532:65532 /app
 
 # Runtime stage - Use Docker Hardened Traefik
-FROM <your-namespace>/dhi-traefik:<tag> AS runtime
+FROM dhi.io/traefik:<tag> AS runtime
 
 # Copy configuration from builder
 COPY --from=builder --chown=traefik:traefik /app/config/traefik.yml /etc/traefik/traefik.yml
@@ -373,8 +379,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-traefik \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-traefik:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/traefik:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

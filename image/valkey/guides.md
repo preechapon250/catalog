@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Valkey image
 
 This Docker Hardened Valkey image includes the complete Valkey toolkit in a single, security-hardened package:
@@ -22,11 +32,11 @@ names:
 
 ### Run a Valkey container
 
-Run the following command to run a Valkey container and output the help. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+Run the following command to run a Valkey container and output the help. Replace `<tag>` with the image variant you want
+to run.
 
 ```console
-$ docker run --rm <your-namespace>/dhi-valkey:<tag> valkey-server --help
+$ docker run --rm dhi.io/valkey:<tag> valkey-server --help
 ```
 
 ## Common Valkey use cases
@@ -36,7 +46,7 @@ $ docker run --rm <your-namespace>/dhi-valkey:<tag> valkey-server --help
 Start a Valkey server instance:
 
 ```console
-$ docker run --name my-valkey -d <your-namespace>/dhi-valkey:<tag> valkey-server
+$ docker run --name my-valkey -d dhi.io/valkey:<tag> valkey-server
 ```
 
 Connect to the server using the `valkey-cli`:
@@ -53,7 +63,7 @@ Run Valkey with data persistence using a Docker volume:
 ```console
 $ docker run --name valkey-persistent -d \
   -v valkey-data:/data \
-  <your-namespace>/dhi-valkey:<tag> sh -c "cd /data && valkey-server --appendonly yes"
+  dhi.io/valkey:<tag> sh -c "cd /data && valkey-server --appendonly yes"
 ```
 
 This enables AOF (Append-Only File) persistence, which logs every write operation to ensure data durability. The data
@@ -77,7 +87,7 @@ Create a `compose.yml` file:
 ```yaml
 services:
   valkey-custom:
-    image: <your-namespace>/dhi-valkey:<tag>
+    image: dhi.io/valkey:<tag>
     container_name: valkey-custom
     ports:
       - "6380:6380"
@@ -96,8 +106,7 @@ $ docker compose up -d
 
 To use the Valkey hardened image in Kubernetes, [set up authentication](https://docs.docker.com/dhi/how-to/k8s/) and
 update your Kubernetes deployment. For example, in your `valkey.yaml` file, replace the image reference in the container
-spec. In the following example replace `<your-namespace>` and `<tag>` with your organization's namespace and the desired
-tag.
+spec. In the following example, replace `<tag>` with your organization's namespace and the desired tag.
 
 ```yaml
 apiVersion: apps/v1
@@ -110,7 +119,7 @@ spec:
     spec:
       containers:
         - name: valkey
-          image: <your-namespace>/dhi-valkey:<tag>
+          image: dhi.io/valkey:<tag>
           ports:
             - containerPort: 6379
       imagePullSecrets:
@@ -165,8 +174,8 @@ or mount debugging tools with the image mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -185,10 +194,7 @@ Switching to the hardened Valkey image requires minimal changes for most use cas
 
 ### Migration steps
 
-1. Update your image reference. Replace the image reference in your configuration file or command:
-
-   - From: `valkey/valkey:<tag>` or `redis:<tag>`
-   - To: `<your-namespace>/dhi-valkey:<tag>`
+1. Replace the image reference in your configuration file or command.
 
 1. If using custom configuration files, update mount paths to writable locations for the nonroot user.
 

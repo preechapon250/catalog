@@ -1,18 +1,23 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Basic usage
 
-The Docker Scout CLI provides commands for analyzing container images and detecting vulnerabilities. Replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+The Docker Scout CLI provides commands for analyzing container images and detecting vulnerabilities.
 
 To get help and see available commands:
 
 ```
-docker run --rm <your-namespace>/dhi-scout-cli:<tag> --help
+docker run --rm dhi.io/scout-cli:<tag> --help
 ```
 
 ### Authentication
@@ -24,7 +29,7 @@ can use:
 docker run -it \
   -e DOCKER_SCOUT_HUB_USER=<your Docker Hub user name> \
   -e DOCKER_SCOUT_HUB_PASSWORD=<your Docker Hub PAT>  \
-  <your-namespace>/dhi-scout-cli:<tag> <command>
+  dhi.io/scout-cli:<tag> <command>
 ```
 
 ### Analyzing an image for vulnerabilities
@@ -33,7 +38,7 @@ To analyze a container image for CVEs (Common Vulnerabilities and Exposures):
 
 ```
 docker run --rm \
-  <your-namespace>/dhi-scout-cli:<tag> cves <image-name>:<tag>
+  dhi.io/scout-cli:<tag> cves <image-name>:<tag>
 ```
 
 ### Comparing images
@@ -42,7 +47,7 @@ To compare two images and see the difference in vulnerabilities:
 
 ```
 docker run --rm \
-  <your-namespace>/dhi-scout-cli:<tag> compare \
+  dhi.io/scout-cli:<tag> compare \
     --to <image-name>:<new-tag> \
     <image-name>:<old-tag>
 ```
@@ -53,7 +58,7 @@ To get recommendations for base image updates:
 
 ```
 docker run --rm \
-  <your-namespace>/dhi-scout-cli:<tag> recommendations <image-name>:<tag>
+  dhi.io/scout-cli:<tag> recommendations <image-name>:<tag>
 ```
 
 ### Generating SBOM
@@ -62,7 +67,7 @@ To generate and view the Software Bill of Materials (SBOM) for an image:
 
 ```
 docker run --rm \
-  <your-namespace>/dhi-scout-cli:<tag> sbom <image-name>:<tag>
+  dhi.io/scout-cli:<tag> sbom <image-name>:<tag>
 ```
 
 ### Checking policy compliance
@@ -71,7 +76,7 @@ To evaluate an image against Docker Scout policies:
 
 ```
 docker run --rm \
-  <your-namespace>/dhi-scout-cli:<tag> policy <image-name>:<tag>
+  dhi.io/scout-cli:<tag> policy <image-name>:<tag>
 ```
 
 ### Using with authentication
@@ -81,7 +86,7 @@ If you need to analyze images from private registries, you can mount your Docker
 ```
 docker run --rm \
   -v ~/.docker/config.json:/root/.docker/config.json:ro \
-  <your-namespace>/dhi-scout-cli:<tag> cves <private-registry>/<image>:<tag>
+  dhi.io/scout-cli:<tag> cves <private-registry>/<image>:<tag>
 ```
 
 ## Image variants

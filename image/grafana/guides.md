@@ -1,12 +1,19 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a Grafana container
 
-Run the following command. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
-
 ```console
-$ docker run -p 3000:3000 <your-namespace>/dhi-grafana:<tag>
+$ docker run -p 3000:3000 dhi.io/grafana:<tag>
 ```
 
 You can then access Grafana at `http://localhost:3000`. The default login is `admin` for both the username and password.
@@ -19,7 +26,7 @@ By default, Grafana stores dashboards, users, and settings in `/var/lib/grafana`
 across container restarts:
 
 ```console
-$ docker run -p 3000:3000 -v grafana-storage:/var/lib/grafana <your-namespace>/dhi-grafana:<tag>
+$ docker run -p 3000:3000 -v grafana-storage:/var/lib/grafana dhi.io/grafana:<tag>
 ```
 
 ### Configure Grafana with environment variables
@@ -30,7 +37,7 @@ You can configure Grafana without editing config files by overriding settings us
 $ docker run -d -p 3000:3000 \
   -e GF_SECURITY_ADMIN_USER=admin \
   -e GF_SECURITY_ADMIN_PASSWORD=strongpassword \
-  <your-namespace>/dhi-grafana:<tag>
+  dhi.io/grafana:<tag>
 ```
 
 The environment variables use the following format: `GF_<SECTION NAME>_<KEY>`.
@@ -48,7 +55,7 @@ If you have a custom `grafana.ini` file, mount it into the container:
 ```console
 docker run -d -p 3000:3000 \
   -v ./grafana.ini:/etc/grafana/grafana.ini \
-  <your-namespace>/dhi-grafana:<tag>
+  dhi.io/grafana:<tag>
 ```
 
 ### Run Grafana with Prometheus
@@ -59,12 +66,12 @@ Compose:
 ```yaml
 services:
   prometheus:
-    image: <your-namespace>/dhi-prometheus:<tag>
+    image: dhi.io/prometheus:<tag>
     ports:
       - "9090:9090"
 
   grafana:
-    image: <your-namespace>/dhi-grafana:<tag>
+    image: dhi.io/grafana:<tag>
     ports:
       - "3000:3000"
     volumes:
@@ -85,7 +92,7 @@ sources at startup:
 ```console
 $ docker run -d -p 3000:3000 \
   -v ./provisioning:/etc/grafana/provisioning \
-  <your-namespace>/dhi-grafana:<tag>
+  dhi.io/grafana:<tag>
 ```
 
 # Non-hardened images vs. Docker Hardened Images
@@ -131,8 +138,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -155,7 +162,7 @@ image may differ from the standard image, so ensure that your commands and argum
 
 1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
    - From: `grafana/grafana:<tag>`
-   - To: `<your-namespace>/dhi-grafana:<tag>`
+   - To: `dhi.io/grafana:<tag>`
 1. All your existing environment variables, volume mounts, and network settings remain the same.
 
 ### General migration considerations

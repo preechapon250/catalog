@@ -1,10 +1,22 @@
 ## How to use this image
 
-To pull a temporalio-admin-tools container, run the following command. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `dhi.io/<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
+### Pull a Stakater Reloader container
+
+To pull a temporalio-admin-tools container, run the following command. Replace `<tag>` with the image variant you want
+to run.
 
 ```
-$ docker pull <your-namespace>/dhi-temporalio-admin-tools:<tag>
+$ docker pull dhi.io/temporalio-admin-tools:<tag>
 ```
 
 ### Quick Start with Docker Compose
@@ -47,7 +59,7 @@ services:
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
-      #POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
+      POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
     image: ${POSTGRES_IMAGE}:${POSTGRES_VERSION}
     networks:
       - temporal-network
@@ -158,9 +170,9 @@ Use one of these env-files for DHI:
 **For hardened images (env-dhi):**
 
 ```
-TEMPORAL_IMAGE=<your-namespace>/dhi-temporalio-server
-TEMPORAL_UI_IMAGE=<your-namespace>/dhi-temporalio-ui
-TEMPORAL_ADMIN_TOOLS_IMAGE=<your-namespace>/dhi-temporalio-admin-tools
+TEMPORAL_IMAGE=dhi.io/temporalio-server
+TEMPORAL_UI_IMAGE=dhi.io/temporalio-ui
+TEMPORAL_ADMIN_TOOLS_IMAGE=dhi.io/temporalio-admin-tools
 POSTGRES_IMAGE=postgres
 
 TEMPORAL_VERSION=1.28
@@ -184,9 +196,9 @@ TEMPORAL_NETWORK=temporal-test_temporal-network
 **For hardened images that are FIPS and STIG compliant (env-dhi-fips):**
 
 ```
-TEMPORAL_IMAGE=<your-namespace>/dhi-temporalio-server
-TEMPORAL_UI_IMAGE=<your-namespace>/dhi-temporalio-ui
-TEMPORAL_ADMIN_TOOLS_IMAGE=<your-namespace>/dhi-temporalio-admin-tools
+TEMPORAL_IMAGE=dhi.io/temporalio-server
+TEMPORAL_UI_IMAGE=dhi.io/temporalio-ui
+TEMPORAL_ADMIN_TOOLS_IMAGE=dhi.io/temporalio-admin-tools
 POSTGRES_IMAGE=postgres
 
 TEMPORAL_VERSION=1.28-fips
@@ -302,7 +314,7 @@ spec:
     spec:
       containers:
       - name: admin-tools
-        image: <your-namespace>/dhi-temporalio-admin-tools:1.28
+        image: dhi.io/temporalio-admin-tools:1.28
         env:
         - name: TEMPORAL_ADDRESS
           value: "temporal-frontend:7233"

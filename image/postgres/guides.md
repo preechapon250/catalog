@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this PostgreSQL image
 
 This Docker Hardened PostgreSQL image includes the complete PostgreSQL database system in a single, security-hardened
@@ -21,11 +31,10 @@ binary.
 
 ## Start a PostgreSQL instance
 
-Run the following command to run a PostgreSQL container. Replace `<your-namespace>` with your organization's namespace
-and `<tag>` with the image variant you want to run.
+Run the following command to run a PostgreSQL container. Replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d <your-namespace>/dhi-postgres:<tag>
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d dhi.io/postgres:<tag>
 ```
 
 ## Common PostgreSQL use cases
@@ -35,7 +44,7 @@ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d <your-n
 Start the PostgreSQL:
 
 ```bash
-docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -d <your-namespace>/dhi-postgres:<tag>
+docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -d dhi.io/postgres:<tag>
 ```
 
 Connect using the bundled `psql`:
@@ -56,7 +65,7 @@ docker network create app-network
 docker run --name my-postgres -d \
   --network app-network \
   -e POSTGRES_PASSWORD=mysecretpassword \
-  <your-namespace>/dhi-postgres:<tag>
+  dhi.io/postgres:<tag>
 ```
 
 Applications running in Docker containers on the same network can now connect using 'my-postgres' as the hostname. For
@@ -124,7 +133,7 @@ docker run --name postgres-configured -d \
   -e POSTGRES_PASSWORD=mypassword \
   -e POSTGRES_DB=mydb \
   -e POSTGRES_INITDB_ARGS="--encoding=UTF8 --locale=C" \
-  <your-namespace>/dhi-postgres:<tag>
+  dhi.io/postgres:<tag>
 ```
 
 ## Stop PostgreSQL containers
@@ -213,8 +222,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-postgres \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-postgres:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/postgres:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -417,7 +426,7 @@ For existing data migration, choose an option:
   docker run --name new-postgres -d \
     -e POSTGRES_PASSWORD=mysecretpassword \
     -v new-postgres-data:/var/lib/postgresql/16/data \
-    <your-namespace>/dhi-postgres:16
+    dhi.io/postgres:16
   ```
 
   If your PostgreSQL container fails to start or you can't find your data, verify you're using the correct PGDATA path

@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Fluentd image
 
@@ -38,7 +42,7 @@ folder containing your `fluent.conf` file:
 ```bash
 $ docker run --rm --name my-fluentd -p 9880:9880 \
   -v <path-to-your-configuration-file>:/fluent \
-  <your-namespace>/dhi-fluentd:<tag> -c /fluent/fluent.conf
+  dhi.io/fluentd:<tag> -c /fluent/fluent.conf
 ```
 
 ## Common Fluentd use cases
@@ -66,7 +70,7 @@ Run Fluentd with the configuration:
 ```bash
 docker run --name fluentd-http -p 9880:9880 \
   -v $(pwd):/fluent \
-  <your-namespace>/dhi-fluentd:<tag> -c /fluent/fluent.conf
+  dhi.io/fluentd:<tag> -c /fluent/fluent.conf
 ```
 
 Send a test log:
@@ -107,7 +111,7 @@ Run with log file mounts:
 docker run --name fluentd-tail -d \
   -v /var/log/app:/var/log/app:ro \
   -v $(pwd):/fluent \
-  <your-namespace>/dhi-fluentd:<tag> -c /fluent/fluent-file.conf
+  dhi.io/fluentd:<tag> -c /fluent/fluent-file.conf
 ```
 
 ### Kubernetes DaemonSet log collection
@@ -147,12 +151,12 @@ To add Fluentd plugins, you need to create an image based on the development var
 
 ```dockerfile
 # Build stage - use dev variant for plugin installation
-FROM <your-namespace>/dhi-fluentd:<tag>-dev AS builder
+FROM dhi.io/fluentd:<tag>-dev AS builder
 
 RUN fluent-gem install fluent-plugin-s3 fluent-plugin-elasticsearch
 
 # Runtime stage - copy plugins to runtime image
-FROM <your-namespace>/dhi-fluentd:<tag>
+FROM dhi.io/fluentd:<tag>
 
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 ```
@@ -209,8 +213,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-fluentd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-fluentd:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/fluentd:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

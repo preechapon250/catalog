@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start an Istio Proxy v2 container
 
@@ -10,8 +16,8 @@ The Istio Proxy v2 image is designed as a **sidecar container** and requires the
 function. It cannot be run standalone. This image is typically deployed through automatic sidecar injection in
 Kubernetes environments with Istio installed.
 
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to use. To
-confirm the correct namespace and repository name of the mirrored repository, select **View in repository**.
+Replace `<tag>` with the image variant you want to use. To confirm the correct namespace and repository name of the
+mirrored repository, select **View in repository**.
 
 ## Common Istio Proxy v2 use cases
 
@@ -116,7 +122,7 @@ The following steps outline the migration process:
      values:
        global:
          proxy:
-           image: <your-namespace>/dhi-istio-proxyv2:<tag>
+           image: dhi.io/istio-proxyv2:<tag>
    ```
 
 1. **Verify security contexts**

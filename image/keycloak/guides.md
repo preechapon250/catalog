@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Keycloak instance
 
@@ -14,8 +20,7 @@ mkdir -p keycloak-certs
 openssl req -x509 -newkey rsa:4096 -keyout keycloak-certs/tls.key -out keycloak-certs/tls.crt -days 365 -nodes -subj "/CN=localhost"
 ```
 
-Next, run the following command to start the Keycloak instance. Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+Next, run the following command to start the Keycloak instance. Replace `<tag>` with the image variant you want to run.
 
 ```
 docker run -p 8443:8443 \
@@ -25,7 +30,7 @@ docker run -p 8443:8443 \
   -e KC_HTTPS_CERTIFICATE_KEY_FILE=/etc/x509/https/tls.key \
   -e KC_HOSTNAME=localhost \
   -v $(pwd)/keycloak-certs:/etc/x509/https \
-  <your-namespace>/dhi-keycloak:<tag> start
+  dhi.io/keycloak:<tag> start
 ```
 
 Go to **https://localhost:8443** and login using `admin` for both the username and password.

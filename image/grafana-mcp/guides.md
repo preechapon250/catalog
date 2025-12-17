@@ -1,8 +1,14 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Getting Started with Grafana MCP Server
 
@@ -31,7 +37,7 @@ Add to your `claude_desktop_config.json`:
         "-i",
         "-e", "GRAFANA_URL=https://your-grafana-instance.com",
         "-e", "GRAFANA_TOKEN=your-api-token",
-        "<your-namespace>/dhi-grafana-mcp"
+        "dhi.io/grafana-mcp"
       ]
     }
   }
@@ -55,7 +61,7 @@ The server supports multiple transport modes:
 docker run -i \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --transport stdio
 ```
 
@@ -65,7 +71,7 @@ docker run -i \
 docker run -p 8000:8000 \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --transport sse \
   --address localhost:8000
 ```
@@ -76,7 +82,7 @@ docker run -p 8000:8000 \
 docker run -p 8000:8000 \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --transport streamable-http \
   --address localhost:8000
 ```
@@ -91,7 +97,7 @@ Control which tool categories are enabled:
 docker run -i \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --enabled-tools search,datasource,prometheus
 ```
 
@@ -101,7 +107,7 @@ docker run -i \
 docker run -i \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --disable-write \
   --disable-admin
 ```
@@ -114,7 +120,7 @@ For safe, read-only access to your Grafana instance:
 docker run -i \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --disable-write
 ```
 
@@ -128,7 +134,7 @@ Enable detailed HTTP request/response logging:
 docker run -i \
   -e GRAFANA_URL=https://your-grafana.com \
   -e GRAFANA_TOKEN=your-token \
-  <your-namespace>/dhi-grafana-mcp \
+  dhi.io/grafana-mcp \
   --debug
 ```
 
@@ -232,9 +238,9 @@ docker debug <container-name>
 or mount debugging tools with the Image Mount feature:
 
 ```
-docker run --rm -it --pid container:my-argocd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-argocd:<tag> /dbg/bin/sh
+docker run --rm -it --pid container:my-grafana-mcp \
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/grafana-mcp:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

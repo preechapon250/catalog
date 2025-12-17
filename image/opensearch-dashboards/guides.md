@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this OpenSearch Dashboards image
 
@@ -27,7 +31,7 @@ Run the following command to run an OpenSearch Dashboards container:
 
 ```bash
 $ docker run -d --name opensearch-dashboards --net opensearch-net -p 5601:5601 \
-  <your-namespace>/dhi-opensearch-dashboards:<tag>
+  dhi.io/opensearch-dashboards:<tag>
 ```
 
 ### With Docker Compose (recommended for complex setups)
@@ -36,7 +40,7 @@ $ docker run -d --name opensearch-dashboards --net opensearch-net -p 5601:5601 \
 version: '3.8'
 services:
   opensearch-node1:
-    image: <your-namespace>/dhi-opensearch:<tag>
+    image: dhi.io/opensearch:<tag>
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -62,7 +66,7 @@ services:
       - opensearch-net
 
   opensearch-node2:
-    image: <your-namespace>/dhi-opensearch:<tag>
+    image: dhi.io/opensearch:<tag>
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
@@ -85,7 +89,7 @@ services:
       - opensearch-net
 
   opensearch-dashboards:
-    image: <your-namespace>/dhi-opensearch-dashboards:<tag>
+    image: dhi.io/opensearch-dashboards:<tag>
     container_name: opensearch-dashboards
     environment:
       - opensearch.hosts=http://opensearch-node1:9200
@@ -122,7 +126,7 @@ Example with environment variables:
 $ docker run -d --name opensearch-dashboards --net opensearch-net -p 5601:5601 \
   -e opensearch.hosts=http://opensearch-node1:9200 \
   -e server.name=my-dashboards \
-  <your-namespace>/dhi-opensearch-dashboards:<tag>
+  dhi.io/opensearch-dashboards:<tag>
 ```
 
 ### Test the deployment
@@ -146,7 +150,7 @@ $ docker run -d \
   -p 5601:5601 \
   -v opensearch-dashboards-config:/usr/share/opensearch-dashboards/config \
   -v opensearch-dashboards-data:/usr/share/opensearch-dashboards/data \
-  <your-namespace>/dhi-opensearch-dashboards:<tag>
+  dhi.io/opensearch-dashboards:<tag>
 ```
 
 ### OpenSearch Dashboards with custom configuration
@@ -176,7 +180,7 @@ Then mount the configuration file:
 $ docker run -d \
   -p 5601:5601 \
   -v /path/to/custom-opensearch-dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml \
-  <your-namespace>/dhi-opensearch-dashboards:<tag>
+  dhi.io/opensearch-dashboards:<tag>
 ```
 
 ### OpenSearch Dashboards with custom plugins
@@ -184,7 +188,7 @@ $ docker run -d \
 When you need additional plugins beyond the standard bundled ones:
 
 ```dockerfile
-FROM <your-namespace>/dhi-opensearch-dashboards:<tag>
+FROM dhi.io/opensearch-dashboards:<tag>
 RUN /usr/share/opensearch-dashboards/bin/opensearch-dashboards-plugin install --batch <plugin-id>
 ```
 

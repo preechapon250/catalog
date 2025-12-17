@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Using the OpenSCAP Docker Hardened Image
 
@@ -16,7 +22,7 @@ OpenSCAP can also be used to validate the STIG posture for all Docker Hardened I
 To test this image, you can run oscap and point it to the DHI GPOS SRG file:
 
 ```bash
-docker run --rm -it --entrypoint oscap <your-namespace>/dhi-openscap:<tag> info /opt/docker/gpos/xml/scap/ssg/content/ssg-dhi-gpos-ds.xml
+docker run --rm -it --entrypoint oscap dhi.io/openscap:<tag> info /opt/docker/gpos/xml/scap/ssg/content/ssg-dhi-gpos-ds.xml
 ```
 
 ```console
@@ -30,20 +36,20 @@ Stream: scap_org.open-scap_datastream_from_xccdf_all-resolved-xccdf-v3r2.xml
 Use the --profile option to obtain info about a given profile:
 
 ```console
-docker run --rm -it --entrypoint oscap <your-namespace>/dhi-openscap:<tag> info --profile <profile> <SCAP file>
+docker run --rm -it --entrypoint oscap dhi.io/openscap:<tag> info --profile <profile> <SCAP file>
 ```
 
 To validate an OVAL or XCCDF file against its schema, use the oscap validate command and examine the exit code, for
 example:
 
 ```console
-docker run --rm -it --entrypoint oscap <your-namespace>/dhi-openscap:<tag> oval validate <SCAP file> && echo "ok" || echo "exit code = $? validation failure"
+docker run --rm -it --entrypoint oscap dhi.io/openscap:<tag> oval validate <SCAP file> && echo "ok" || echo "exit code = $? validation failure"
 ```
 
 Use the eval command to scan a system against a given profile.
 
 ```console
-docker run --rm -it --entrypoint oscap <your-namespace>/dhi-openscap:<tag> \
+docker run --rm -it --entrypoint oscap dhi.io/openscap:<tag> \
   -v $(pwd)/out:/out \
   -v $(pwd)/stigs \
   xccdf eval --profile <profile> \
@@ -74,7 +80,7 @@ docker run --rm --name dhi_postgres_16-alpine3.22-fips -u 0:0 --mount type=image
 With the above command we have now the DHI image running sleep. We can now point DHI OpenSCAP to that container.
 
 ```bash
-docker run --rm --pid=host -v "$HOME/.docker/run/docker.sock:/var/run/docker.sock" -v $(pwd)/out:/out <your-namespace>/dhi-openscap:<dev-tag> dhi_postgres_16-alpine3.22-fips
+docker run --rm --pid=host -v "$HOME/.docker/run/docker.sock:/var/run/docker.sock" -v $(pwd)/out:/out dhi.io/openscap:<dev-tag> dhi_postgres_16-alpine3.22-fips
 ```
 
 ```console
@@ -104,7 +110,7 @@ against the `Docker Hardened Image - Alpine 3.22/Debian 12/13 GPOS STIG Profile`
 The DHI GPOS STIG Profile is inside the image at can be easily obtained by extracting it from the image:
 
 ```console
-docker create --name temp_container <your-namespace>/dhi-openscap:<tag>
+docker create --name temp_container dhi.io/openscap:<tag>
 docker cp temp_container:opt/docker/gpos/xml/scap/ssg/content/ssg-dhi-gpos-ds.xml ./ssg-dhi-gpos-ds.xml
 docker rm temp_container
 ```
@@ -113,7 +119,7 @@ Or much simpler by taking advantage of the shell in the dev variant:
 
 ```console
 mkdir stigs
-docker run --rm --entrypoint cat <your-namespace>dhi-openscap:<dev-tag> /opt/docker/gpos/xml/scap/ssg/content/ssg-dhi-gpos-ds.xml > stigs/ssg-dhi-gpos-ds.xml
+docker run --rm --entrypoint cat dhi.io/openscap:<dev-tag> /opt/docker/gpos/xml/scap/ssg/content/ssg-dhi-gpos-ds.xml > stigs/ssg-dhi-gpos-ds.xml
 ```
 
 #### Running a specific STIG profile against a container image
@@ -124,15 +130,14 @@ pass extra parameters so that oscap picks our local STIG profile (although in th
 
 To make the example complete, first we will build an application on top of DHI's Python FIPS.
 
-Create a new directory and use the following Dockerfile to get started. Replace `<your-namespace>` with your
-organization's namespace, and `<tag>` with the FIPS image variant.
+Create a new directory and use the following Dockerfile to get started.
 
 ```bash
 # syntax=docker/dockerfile:1
 
 ## -----------------------------------------------------
 ## Build stage (use tag with -dev suffix: e.g. 3.9.23-debian13-fips-dev)
-FROM <your-namespace>/dhi-python:<tag> AS build-stage
+FROM dhi.io/python:<tag> AS build-stage
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -146,7 +151,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ## -----------------------------------------------------
 ## Final stage (use the same tag as above but without the -dev suffix e.g. 3.9.23-debian13-fips)
-FROM <your-namespace>/dhi-python:<tag> AS runtime-stage
+FROM dhi.io/python:<tag> AS runtime-stage
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -204,7 +209,7 @@ docker run --rm --pid=host \
            -v $(pwd)/out:/out \
            -v $(pwd)/stigs:/stigs \
            --entrypoint oscap-docker \
-           <your-namespace>dhi-openscap:<dev-tag> \
+           dhi.io/openscap:<dev-tag> \
            container my-running-app \
            xccdf eval \
            --profile xccdf_dhi-gpos_profile_.check \
@@ -277,8 +282,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-openscap:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/openscap:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

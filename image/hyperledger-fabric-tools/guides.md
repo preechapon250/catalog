@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Hyperledger Fabric Tools Hardened image
 
 Hyperledger Fabric Tools is a collection of command-line utilities for managing and configuring Hyperledger Fabric
@@ -15,21 +25,16 @@ inspect and modify channel configurations, and perform administrative tasks on o
 
 ## Using Hyperledger Fabric Tools
 
-Run commands using `docker run` with Hyperledger Fabric Tools. Replace `<your-namespace>` with your repository namespace
-and `<tag>` with the desired version.
-
-**Note:** Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+Run commands using `docker run` with Hyperledger Fabric Tools. Replace `<tag>` with the desired version.
 
 ```bash
-docker run --rm <your-namespace>/hyperledger-fabric-tools:<tag> configtxgen -version
+docker run --rm dhi.io/hyperledger-fabric-tools:<tag> configtxgen -version
 ```
 
 Generate a sample cryptogen configuration template and save it to a file:
 
 ```bash
-docker run --rm <your-namespace>/hyperledger-fabric-tools:<tag> cryptogen showtemplate > crypto-config.yaml
+docker run --rm dhi.io/hyperledger-fabric-tools:<tag> cryptogen showtemplate > crypto-config.yaml
 ```
 
 To use tools with configuration files, mount directories and use volume mounts. For example, generate cryptographic
@@ -39,7 +44,7 @@ material with cryptogen:
 # Generate crypto material using the template
 docker run --rm \
   -v $(pwd):/work \
-  <your-namespace>/hyperledger-fabric-tools:<tag> \
+  dhi.io/hyperledger-fabric-tools:<tag> \
   cryptogen generate --config=/work/crypto-config.yaml --output=/work/crypto-config
 ```
 
@@ -96,7 +101,7 @@ examine network connections with `netstat`.
 Mount the container's filesystem to your host for inspection:
 
 ```bash
-docker image mount <your-namespace>/hyperledger-fabric-tools:<tag> /mnt/inspect
+docker image mount dhi.io/hyperledger-fabric-tools:<tag> /mnt/inspect
 ls -la /mnt/inspect/usr/local/bin/
 ```
 
@@ -107,7 +112,7 @@ Since the tools generate configuration files and cryptographic material, debug b
 ```bash
 # Generate crypto material
 docker run --rm -v $(pwd):/work \
-  <your-namespace>/hyperledger-fabric-tools:<tag> \
+  dhi.io/hyperledger-fabric-tools:<tag> \
   cryptogen generate --config=/work/crypto-config.yaml --output=/work/crypto-config
 
 # Inspect the generated certificates on your host

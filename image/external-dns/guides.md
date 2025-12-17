@@ -1,19 +1,24 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start an ExternalDNS instance
 
 ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers. The default entrypoint displays
 help information.
 
-Run the following command and replace <your-namespace> with your organization's namespace and <tag> with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```
-docker run --rm <your-namespace>/dhi-external-dns:<tag> --help
+docker run --rm dhi.io/external-dns:<tag> --help
 ```
 
 ## Common ExternalDNS use cases
@@ -34,7 +39,7 @@ Install the chart with the Docker Hardened Image:
 ```
 helm upgrade --install external-dns external-dns/external-dns \
   --version <helm_chart_version> \
-  --set image.repository=<your-namespace>/dhi-external-dns \
+  --set image.repository=dhi.io/external-dns \
   --set image.tag=<tag> \
   --set "imagePullSecrets[0].name=registry-credentials"
 ```
@@ -46,7 +51,7 @@ To use ExternalDNS with AWS Route53, add provider-specific configuration to your
 ```
 helm upgrade --install external-dns external-dns/external-dns \
   --version <helm_chart_version> \
-  --set image.repository=<your-namespace>/dhi-external-dns \
+  --set image.repository=dhi.io/external-dns \
   --set image.tag=<tag> \
   --set "imagePullSecrets[0].name=registry-credentials" \
   --set provider=aws \
@@ -61,7 +66,7 @@ To use ExternalDNS with Google Cloud DNS, configure the provider and credentials
 ```
 helm upgrade --install external-dns external-dns/external-dns \
   --version <helm_chart_version> \
-  --set image.repository=<your-namespace>/dhi-external-dns \
+  --set image.repository=dhi.io/external-dns \
   --set image.tag=<tag> \
   --set "imagePullSecrets[0].name=registry-credentials" \
   --set provider=google \
@@ -75,7 +80,7 @@ To use ExternalDNS with Azure DNS, specify Azure as the provider:
 ```
 helm upgrade --install external-dns external-dns/external-dns \
   --version <helm_chart_version> \
-  --set image.repository=<your-namespace>/dhi-external-dns \
+  --set image.repository=dhi.io/external-dns \
   --set image.tag=<tag> \
   --set "imagePullSecrets[0].name=registry-credentials" \
   --set provider=azure \
@@ -123,8 +128,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-image \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-external-dns:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/external-dns:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

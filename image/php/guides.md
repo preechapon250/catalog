@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What’s included in this PHP image
 
 This Docker Hardened PHP image includes PHP runtime and essential tools in a single, security-hardened package:
@@ -12,11 +22,10 @@ This Docker Hardened PHP image includes PHP runtime and essential tools in a sin
 
 ## Start a PHP image
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run <your-namespace>/dhi-php:<tag> --version
+docker run dhi.io/php:<tag> --version
 ```
 
 ## Common PHP use cases
@@ -26,7 +35,7 @@ docker run <your-namespace>/dhi-php:<tag> --version
 Execute PHP scripts directly from the command line.
 
 ```bash
-docker run --rm -v $(pwd):/app -w /app <your-namespace>/dhi-php:<tag> php script.php
+docker run --rm -v $(pwd):/app -w /app dhi.io/php:<tag> php script.php
 ```
 
 ### Serving a PHP application with PHP-FPM
@@ -34,7 +43,7 @@ docker run --rm -v $(pwd):/app -w /app <your-namespace>/dhi-php:<tag> php script
 Use the FPM variant to serve PHP applications through a FastCGI gateway like Nginx.
 
 ```dockerfile
-FROM <your-namespace>/dhi-php:<tag>-fpm
+FROM dhi.io/php:<tag>-fpm
 COPY . /var/www/html
 EXPOSE 9000
 ```
@@ -44,7 +53,7 @@ EXPOSE 9000
 Configure PHP settings by adding custom ini files to the PHP configuration directory.
 
 ```dockerfile
-FROM <your-namespace>/dhi-php:<tag>
+FROM dhi.io/php:<tag>
 COPY custom-php.ini $PHP_INI_DIR/conf.d/
 ```
 
@@ -55,7 +64,7 @@ Use the dev variant to compile and install additional PHP extensions.
 Multi-stage build:
 
 ```dockerfile
-FROM <your-namespace>/dhi-php:<tag>-dev AS builder
+FROM dhi.io/php:<tag>-dev AS builder
 WORKDIR /tmp
 ```
 
@@ -64,7 +73,7 @@ Example of building Redis extension manually:
 ```dockerfile
 RUN pecl install redis
 
-FROM <your-namespace>/dhi-php:<tag>-fpm
+FROM dhi.io/php:<tag>-fpm
 COPY --from=builder $PHP_PREFIX/lib/php/extensions $PHP_PREFIX/lib/php/extensions
 ```
 
@@ -118,8 +127,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-php \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-php:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/php:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -220,7 +229,7 @@ Example migration approach using Docker Compose:
 version: "3.8"
 services:
   php:
-    image: <your-namespace>/dhi-php:<tag>-fpm
+    image: dhi.io/php:<tag>-fpm
     volumes:
       - ./src:/var/www/html
 
@@ -275,7 +284,7 @@ Use a multi-stage build to compile extensions using the standard PHP build proce
 Building an extension from PECL:
 
 ```dockerfile
-FROM <your-namespace>/dhi-php:<tag>-dev AS builder
+FROM dhi.io/php:<tag>-dev AS builder
 WORKDIR /tmp
 RUN pecl download redis \
     && tar xzf redis-*.tgz \
@@ -285,7 +294,7 @@ RUN pecl download redis \
     && make \
     && make install
 
-FROM <your-namespace>/dhi-php:<tag>-fpm
+FROM dhi.io/php:<tag>-fpm
 COPY --from=builder /usr/local/lib/php/extensions /usr/local/lib/php/extensions
 RUN echo "extension=redis.so" > $PHP_INI_DIR/conf.d/redis.ini
 ```
@@ -293,7 +302,7 @@ RUN echo "extension=redis.so" > $PHP_INI_DIR/conf.d/redis.ini
 Building an extension from source:
 
 ```dockerfile
-FROM <your-namespace>/dhi-php:<tag>-dev AS builder
+FROM dhi.io/php:<tag>-dev AS builder
 WORKDIR /tmp
 RUN git clone https://github.com/phpredis/phpredis.git \
     && cd phpredis \
@@ -302,7 +311,7 @@ RUN git clone https://github.com/phpredis/phpredis.git \
     && make \
     && make install
 
-FROM <your-namespace>/dhi-php:<tag>-fpm
+FROM dhi.io/php:<tag>-fpm
 COPY --from=builder /usr/local/lib/php/extensions /usr/local/lib/php/extensions
 RUN echo "extension=redis.so" > $PHP_INI_DIR/conf.d/redis.ini
 ```

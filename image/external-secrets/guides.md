@@ -1,16 +1,22 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run an External Secrets Operator container
 
 Run the following command to run an External Secrets Operator container and view the External Secrets Operator flags.
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+Replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run --rm <your-namespace>/dhi-external-secrets:<tag> --help
+$ docker run --rm dhi.io/external-secrets:<tag> --help
 ```
 
 ## Deploy External Secrets Operator to a Kubernetes cluster using Helm
@@ -28,7 +34,7 @@ Install the chart (minimum supported chart version is 0.20.2)
 
 ```
 $ helm upgrade --install external-secrets external-secrets/external-secrets \
-   --version <helm_chart_version> --set image.repository=<your-namespace>/dhi-external-secrets \
+   --version <helm_chart_version> --set image.repository=dhi.io/external-secrets \
    --set "imagePullSecrets[0].name=registry-credentials"
 ```
 

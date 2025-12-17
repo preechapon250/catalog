@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Azul Platform Prime image
 
@@ -35,17 +39,16 @@ system utilities.
 
 ## Start an Azul Platform Prime instance
 
-Run the following command to display the Java help information. Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+Run the following command to display the Java help information. Replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run --rm <your-namespace>/dhi-azul:<tag>
+docker run --rm dhi.io/azul:<tag>
 ```
 
 To check the Java version:
 
 ```bash
-docker run --rm <your-namespace>/dhi-azul:<tag> java -version
+docker run --rm dhi.io/azul:<tag> java -version
 ```
 
 ## Common Azul Platform Prime use cases
@@ -55,7 +58,7 @@ docker run --rm <your-namespace>/dhi-azul:<tag> java -version
 Run your compiled Java application directly from the container. Mount your local JAR file and run it:
 
 ```bash
-docker run -v $(pwd):/app <your-namespace>/dhi-azul:<tag> java -jar /app/myapp.jar
+docker run -v $(pwd):/app dhi.io/azul:<tag> java -jar /app/myapp.jar
 ```
 
 ### Compile and run Java code
@@ -72,10 +75,10 @@ Compile and run:
 
 ```bash
 # Compile the Java file
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-azul:<tag> javac Hello.java
+docker run -v $(pwd):/app -w /app dhi.io/azul:<tag> javac Hello.java
 
 # Run the compiled class
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-azul:<tag> java Hello
+docker run -v $(pwd):/app -w /app dhi.io/azul:<tag> java Hello
 ```
 
 ### Create and run a JAR file
@@ -87,10 +90,10 @@ Build a JAR file using the included `jar` tool:
 echo "Main-Class: Hello" > Manifest.txt
 
 # Create the JAR
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-azul:<tag> jar cvfm hello.jar Manifest.txt Hello.class
+docker run -v $(pwd):/app -w /app dhi.io/azul:<tag> jar cvfm hello.jar Manifest.txt Hello.class
 
 # Run the JAR
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-azul:<tag> java -jar hello.jar
+docker run -v $(pwd):/app -w /app dhi.io/azul:<tag> java -jar hello.jar
 ```
 
 ### Multi-stage build for production
@@ -107,7 +110,7 @@ RUN javac *.java
 RUN jar cvf app.jar *.class
 
 # Runtime stage with DHI
-FROM <your-namespace>/dhi-azul:23-jdk-prime
+FROM dhi.io/azul:23-jdk-prime
 WORKDIR /app
 COPY --from=builder /app/app.jar .
 CMD ["java", "-cp", "app.jar", "Main"]
@@ -116,7 +119,7 @@ CMD ["java", "-cp", "app.jar", "Main"]
 Alternatively, compile locally and copy only the JAR:
 
 ```docker
-FROM <your-namespace>/dhi-azul:23-jdk-prime
+FROM dhi.io/azul:23-jdk-prime
 WORKDIR /app
 COPY app.jar .
 CMD ["java", "-jar", "app.jar"]
@@ -128,7 +131,7 @@ Azul Zing comes with the C4 garbage collector enabled by default for pauseless o
 
 ```bash
 # Run with specific heap size
-docker run -v $(pwd):/app <your-namespace>/dhi-azul:<tag> \
+docker run -v $(pwd):/app dhi.io/azul:<tag> \
   java -Xmx512m -Xms512m \
   -jar /app/myapp.jar
 ```
@@ -139,7 +142,7 @@ Use built-in monitoring tools to track application performance:
 
 ```bash
 # Start your application
-docker run -d --name my-app -v $(pwd):/app <your-namespace>/dhi-azul:<tag> java -jar /app/myapp.jar
+docker run -d --name my-app -v $(pwd):/app dhi.io/azul:<tag> java -jar /app/myapp.jar
 
 # List Java processes (note: limited without shell, but jps works)
 docker exec my-app jps
@@ -237,7 +240,7 @@ The following steps outline the general migration process.
    Update the base image in your application's Dockerfile to the hardened image:
 
    ```docker
-   FROM <your-namespace>/dhi-azul:23-jdk-prime
+   FROM dhi.io/azul:23-jdk-prime
    ```
 
 1. **Adjust for no shell.**
@@ -331,7 +334,7 @@ Azul Zing includes enhanced monitoring capabilities:
 
 ```bash
 # Enable detailed GC logging (note: no shell redirection available)
-docker run <your-namespace>/dhi-azul:<tag> \
+docker run dhi.io/azul:<tag> \
   java -Xlog:gc* \
   -jar /app/myapp.jar
 

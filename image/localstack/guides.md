@@ -1,14 +1,23 @@
 # How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 Refer to the LocalStack documentation for configuring LocalStack for your project's needs.
 
 ## Start a LocalStack instance
 
-To start a LocalStack instance, run the following command. Replace `<your-namespace>` with your organization's namespace
-and `<tag>` with the image variant you want to run.
+To start a LocalStack instance, run the following command. Replace `<tag>` with the image variant you want to run.
 
 ```bash
-$ docker run -d -p 4566:4566 -p 5678:5678 -p 4510-4559:4510-4559 <your-namespace>/dhi-localstack:<tag>
+$ docker run -d -p 4566:4566 -p 5678:5678 -p 4510-4559:4510-4559 dhi.io/localstack:<tag>
 ```
 
 **Test the LocalStack instance**: Use the health endpoint to verify LocalStack is running:
@@ -29,7 +38,7 @@ Start LocalStack with specific AWS services enabled:
 ```bash
 $ docker run -d -p 4566:4566 \
     -e SERVICES=s3,sqs,sns,sts,iam,secretsmanager,ssm \
-    <your-namespace>/dhi-localstack:<tag>
+    dhi.io/localstack:<tag>
 
 # Test that services are available
 $ curl -f http://localhost:4566/_localstack/health
@@ -52,7 +61,7 @@ $ docker run -d --name ls-persist-test \
     -p 4566:4566 \
     -e PERSISTENCE=1 \
     -v localstack-data:/var/lib/localstack \
-    <your-namespace>/dhi-localstack:<tag>
+    dhi.io/localstack:<tag>
 
 # Step 2: Verify LocalStack is running
 $ curl -f http://localhost:4566/_localstack/health
@@ -70,7 +79,7 @@ docker run -d --name ls-persist-test2 \
     -p 4566:4566 \
     -e PERSISTENCE=1 \
     -v localstack-data:/var/lib/localstack \
-    <your-namespace>/dhi-localstack:<tag>
+    dhi.io/localstack:<tag>
 
 
 # Verify data persisted
@@ -101,7 +110,7 @@ COPY test-scripts/ ./test-scripts/
 COPY localstack-config/ ./config/
 
 # Runtime stage - LocalStack DHI for production deployment
-FROM <your-namespace>/dhi-localstack:<tag> AS runtime
+FROM dhi.io/localstack:<tag> AS runtime
 
 WORKDIR /app
 COPY --from=test-setup /app/config/ /etc/localstack/

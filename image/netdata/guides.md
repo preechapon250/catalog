@@ -1,16 +1,23 @@
 ## How to use this image
 
-### Run a Netdata container
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
+### Run a Netdata container
 
 ```
 $ docker run -d --name=netdata \
   -p 19999:19999 \
   --cap-add SYS_PTRACE \
   --security-opt apparmor=unconfined \
-  <your-namespace>/dhi-netdata:<tag>
+  dhi.io/netdata:<tag>
 ```
 
 ### Monitor the host system
@@ -25,7 +32,7 @@ $ docker run -d --name=netdata \
   -v /proc:/host/proc:ro \
   -v /sys:/host/sys:ro \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  <your-namespace>/dhi-netdata:<tag>
+  dhi.io/netdata:<tag>
 ```
 
 ### Use with persistent storage
@@ -40,7 +47,7 @@ $ docker run -d --name=netdata \
   -v netdata-config:/etc/netdata \
   -v netdata-lib:/var/lib/netdata \
   -v netdata-cache:/var/cache/netdata \
-  <your-namespace>/dhi-netdata:<tag>
+  dhi.io/netdata:<tag>
 ```
 
 ## Image variants

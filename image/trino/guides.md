@@ -1,19 +1,24 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 This image runs trino server, a distributed SQL query engine, with `run-trino`, and `trino`, the trino CLI.
 
-For the following examples, replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run. To confirm the correct namespace and repository name of the mirrored repository, select **View
-in repository**.
+For the following examples, replace `<tag>` with the image variant you want to run. To confirm the correct namespace and
+repository name of the mirrored repository, select **View in repository**.
 
 Run the trino server.
 
 ```
-docker run -p 8080:8080 --rm --name trino <your-namespace>/dhi-trino:<tag>
+docker run -p 8080:8080 --rm --name trino dhi.io/trino:<tag>
 ```
 
 Run the trino CLI with the `--version` command to display version information.
@@ -52,6 +57,13 @@ their tag.
   - Run as the root user
   - Include a shell and package manager
   - Are used to build or compile applications
+
+- Compat variants support more seamless usage of DHI as a drop-in replacement for upstream images, particularly for
+  circumstances that the ultra-minimal runtime variant may not fully support. These images typically:
+
+  - Run as a nonroot user
+  - Improve compatibility with upstream helm charts
+  - Include optional tools that are critical for certain use-cases
 
 - FIPS variants include `fips` in the variant name and tag. They come in both runtime and build-time variants. These
   variants use cryptographic modules that have been validated under FIPS 140, a U.S. government standard for secure

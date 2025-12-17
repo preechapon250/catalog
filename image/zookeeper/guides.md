@@ -1,12 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Start a Zookeeper instance
 
-To start a Zookeeper instance, run the following command. Replace `<your-namespace>` with your organization's namespace
-and `<tag>` with the image variant you want to run.
+To start a Zookeeper instance, run the following command. Replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run -d <your-namespace>/dhi-zookeeper:<tag>
+$ docker run -d dhi.io/zookeeper:<tag>
 ```
 
 ## Image variants

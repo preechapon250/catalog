@@ -1,12 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a Flyway container
 
-Run the following `docker run` command to run a Flyway container. Replace <your-namespace> with your organization's
-namespace.
+Run the following `docker run` command to run a Flyway container.
 
 ```bash
-$ docker run --rm <your-namespace>/dhi-flyway:11.9-jre23 info
+$ docker run --rm dhi.io/flyway:11.9-jre23 info
 ```
 
 ### Basic database migration
@@ -16,7 +25,7 @@ To migrate a database, you need to provide database connection details and mount
 ```bash
 $ docker run --rm \
   -v $(pwd)/sql:/flyway/sql \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   -url=jdbc:postgresql://localhost:5432/mydb \
   -user=myuser \
   -password=mypassword \
@@ -42,7 +51,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:postgresql://localhost:5432/mydb \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -54,7 +63,7 @@ You can also mount a configuration file:
 $ docker run --rm \
   -v $(pwd)/conf:/flyway/conf \
   -v $(pwd)/sql:/flyway/sql \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -68,7 +77,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:mysql://localhost:3306/mydb \
   -e FLYWAY_USER=root \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -80,7 +89,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:sqlserver://localhost:1433;databaseName=mydb \
   -e FLYWAY_USER=sa \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -92,7 +101,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:oracle:thin:@localhost:1521:XE \
   -e FLYWAY_USER=system \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -103,7 +112,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:postgresql://localhost:5432/mydb \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   info
 ```
 
@@ -115,7 +124,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:postgresql://localhost:5432/mydb \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   validate
 ```
 
@@ -128,7 +137,7 @@ $ docker run --rm \
   -e FLYWAY_PASSWORD=mypassword \
   -e FLYWAY_BASELINE_VERSION=1.0 \
   -e FLYWAY_BASELINE_DESCRIPTION="Initial baseline" \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   baseline
 ```
 
@@ -140,7 +149,7 @@ Create a `docker-compose.yml` file:
 version: "3.8"
 services:
   postgres:
-    image: <your-namespace>/dhi-postgres
+    image: dhi.io/postgres
     environment:
       POSTGRES_DB: mydb
       POSTGRES_USER: myuser
@@ -151,7 +160,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   flyway:
-    image: <your-namespace>/dhi-flyway:11.9-jre23
+    image: dhi.io/flyway:11.9-jre23
     command: migrate
     volumes:
       - ./sql:/flyway/sql
@@ -183,7 +192,7 @@ $ docker run --rm \
   -e FLYWAY_PASSWORD=mypassword \
   -e FLYWAY_SCHEMAS=public,app,audit \
   -e FLYWAY_DEFAULT_SCHEMA=app \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -209,7 +218,7 @@ Run with configuration file:
 $ docker run --rm \
   -v $(pwd)/conf/flyway.conf:/flyway/conf/flyway.conf \
   -v $(pwd)/sql:/flyway/sql \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -220,7 +229,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:postgresql://localhost:5432/mydb \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD=mypassword \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   repair
 ```
 
@@ -232,7 +241,7 @@ $ docker run --rm \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD=mypassword \
   -e FLYWAY_CLEAN_DISABLED=false \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   clean
 ```
 
@@ -245,7 +254,7 @@ $ docker run --rm \
   -e FLYWAY_URL=jdbc:postgresql://localhost:5432/mydb \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD_FILE=/run/secrets/db-password \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -258,7 +267,7 @@ $ docker run --rm \
   -e FLYWAY_USER=myuser \
   -e FLYWAY_PASSWORD=mypassword \
   -e FLYWAY_LOCATIONS=filesystem:/flyway/custom-migrations \
-  <your-namespace>/dhi-flyway:11.9-jre23 \
+  dhi.io/flyway:11.9-jre23 \
   migrate
 ```
 
@@ -370,7 +379,7 @@ Flyway looks for migration files in the `/flyway/sql` directory by default. When
 your migration files to this directory:
 
 ```bash
-$ docker run --rm -v $(pwd)/migrations:/flyway/sql <your-namespace>/dhi-flyway:11.9-jre23 migrate
+$ docker run --rm -v $(pwd)/migrations:/flyway/sql dhi.io/flyway:11.9-jre23 migrate
 ```
 
 #### Configuration

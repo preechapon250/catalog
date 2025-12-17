@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Alertmanager image
 
@@ -21,7 +25,7 @@ The image includes a default configuration file, so you can start Alertmanager w
 
 ```bash
 $ docker run -d --name alertmanager -p 9093:9093 \
-  <your-namespace>/dhi-alertmanager:<tag>
+  dhi.io/alertmanager:<tag>
 ```
 
 This starts Alertmanager listening on the container port 9093 (web UI and API) using the default configuration.
@@ -33,7 +37,7 @@ For production use, mount a volume for persistent storage:
 ```bash
 $ docker run -d --name alertmanager -p 9093:9093 \
   -v alertmanager_data:/data \
-  <your-namespace>/dhi-alertmanager:<tag> \
+  dhi.io/alertmanager:<tag> \
   --storage.path=/data
 ```
 
@@ -45,7 +49,7 @@ Mount your Alertmanager configuration (YAML) and optional persistent storage:
 $ docker run -d --name alertmanager -p 9093:9093 \
   -v /path/to/config.yml:/etc/alertmanager/alertmanager.yml:ro \
   -v alertmanager_data:/data \
-  <your-namespace>/dhi-alertmanager:<tag>
+  dhi.io/alertmanager:<tag>
 ```
 
 - Configuration file path (container): /etc/alertmanager/alertmanager.yml
@@ -63,7 +67,7 @@ services:
     ports:
       - 9090:9090
   alertmanager:
-    image: <your-namespace>/dhi-alertmanager:<tag>
+    image: dhi.io/alertmanager:<tag>
     ports:
       - 9093:9093
     volumes:
@@ -153,7 +157,7 @@ amtool is provided alongside the Alertmanager binary and can be used to query st
 containers or CI environments. Example (run from container):
 
 ```bash
-$ docker run --rm --entrypoint amtool <your-namespace>/dhi-alertmanager:<tag> status --alertmanager.url=http://alertmanager:9093
+$ docker run --rm --entrypoint amtool dhi.io/alertmanager:<tag> status --alertmanager.url=http://alertmanager:9093
 ```
 
 ## Notes and limitations
@@ -235,5 +239,3 @@ The following steps outline the general migration process.
    Only images tagged as `dev` typically have package managers. You should use a multi-stage Dockerfile to install the
    packages. Install the packages in the build stage that uses a `dev` image. Then, if needed, copy any necessary
    artifacts to the runtime stage that uses a non-dev image.
-
-For the remainder of the file the boilerplate remains unchanged (omitted here for brevity).

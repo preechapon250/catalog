@@ -1,14 +1,20 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run StatsD Exporter
 
-Use the image directly with configuration passed as flags or environment variables. At a minimum, replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image tag you want to run. To confirm the
-correct namespace and repository name of the mirrored repository, select **View in repository**.
+Use the image directly with configuration passed as flags or environment variables. At a minimum, replace `<tag>` with
+the image tag you want to run. To confirm the correct namespace and repository name of the mirrored repository, select
+**View in repository**.
 
 To start StatsD Exporter with default settings:
 
@@ -17,7 +23,7 @@ $ docker run -d \
   --name statsd-exporter \
   -p 9102:9102 \
   -p 9125:9125/udp \
-  <your-namespace>/prometheus-statsd-exporter:<tag>
+  dhi.io/prometheus-statsd-exporter:<tag>
 ```
 
 This starts the exporter to listen for StatsD metrics on UDP port 9125 and expose Prometheus metrics at
@@ -30,7 +36,7 @@ $ docker run -d \
   --name statsd-exporter \
   -p 8080:8080 \
   -p 8125:8125/udp \
-  <your-namespace>/prometheus-statsd-exporter:<tag> \
+  dhi.io/prometheus-statsd-exporter:<tag> \
   --web.listen-address=0.0.0.0:8080 \
   --web.telemetry-path=/custom-metrics \
   --statsd.listen-udp=0.0.0.0:8125
@@ -44,7 +50,7 @@ $ docker run -d \
   -p 9102:9102 \
   -p 9125:9125/udp \
   -v /path/to/statsd-mapping.yml:/etc/statsd-mapping.yml:ro \
-  <your-namespace>/prometheus-statsd-exporter:<tag> \
+  dhi.io/prometheus-statsd-exporter:<tag> \
   --statsd.mapping-config=/etc/statsd-mapping.yml
 ```
 
@@ -72,7 +78,7 @@ $ docker run -d \
   --name statsd-exporter \
   -p 9102:9102 \
   -p 9125:9125/udp \
-  <your-namespace>/prometheus-statsd-exporter:<tag> \
+  dhi.io/prometheus-statsd-exporter:<tag> \
   --statsd.cache-size=2000 \
   --log.level=debug
 ```
@@ -87,7 +93,7 @@ $ docker run -d \
   -e STATSD_EXPORTER_WEB_LISTEN_ADDRESS=0.0.0.0:9102 \
   -e STATSD_EXPORTER_WEB_TELEMETRY_PATH=/metrics \
   -e STATSD_EXPORTER_STATSD_LISTEN_UDP=0.0.0.0:9125 \
-  <your-namespace>/prometheus-statsd-exporter:<tag>
+  dhi.io/prometheus-statsd-exporter:<tag>
 ```
 
 ### Sending StatsD metrics

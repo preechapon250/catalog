@@ -1,16 +1,22 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run gitleaks to scan a local directory
 
-The following command runs gitleaks to detect secrets in a local directory. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+The following command runs gitleaks to detect secrets in a local directory. Replace `<tag>` with the image variant you
+want to run.
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-gitleaks:<tag> dir /repo
+$ docker run --rm -v $(pwd):/repo dhi.io/gitleaks:<tag> dir /repo
 ```
 
 ### Run gitleaks with a custom config
@@ -19,7 +25,7 @@ You can provide a custom gitleaks configuration file:
 
 ```
 $ docker run --rm -v $(pwd):/repo -v $(pwd)/.gitleaks.toml:/config/.gitleaks.toml \
-   <your-namespace>/dhi-gitleaks:<tag> dir /repo --config /config/.gitleaks.toml
+   dhi.io/gitleaks:<tag> dir /repo --config /config/.gitleaks.toml
 ```
 
 ### Scan specific git log range
@@ -27,7 +33,7 @@ $ docker run --rm -v $(pwd):/repo -v $(pwd)/.gitleaks.toml:/config/.gitleaks.tom
 To scan only recent commits instead of the entire git history:
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-gitleaks:<tag> git /repo \
+$ docker run --rm -v $(pwd):/repo dhi.io/gitleaks:<tag> git /repo \
    --log-opts="--since=7days --all --full-history"
 ```
 
@@ -36,7 +42,7 @@ $ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-gitleaks:<tag> git /repo 
 Create a baseline report to ignore existing findings:
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-gitleaks:<tag> git /repo \
+$ docker run --rm -v $(pwd):/repo dhi.io/gitleaks:<tag> git /repo \
    --report-path /repo/gitleaks-report.json
 ```
 
@@ -45,14 +51,14 @@ $ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-gitleaks:<tag> git /repo 
 Use a baseline report to ignore existing findings:
 
 ```
-$ docker run --rm -v $(pwd):/repo <your-namespace>/dhi-gitleaks:<tag> git /repo \
+$ docker run --rm -v $(pwd):/repo dhi.io/gitleaks:<tag> git /repo \
    --baseline-path /repo/gitleaks-report.json --report-format json --report-path -
 ```
 
 ### Display help information
 
 ```
-$ docker run --rm <your-namespace>/dhi-gitleaks:<tag> --help
+$ docker run --rm dhi.io/gitleaks:<tag> --help
 ```
 
 ## Image variants

@@ -1,16 +1,19 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the onscreen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Prometheus instance
 
-Run the following command. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
-
 ```
-$ docker run -p 9090:9090 <your-namespace>/dhi-prometheus:<tag>
+$ docker run -p 9090:9090 dhi.io/prometheus:<tag>
 ```
 
 This will start Prometheus with the default configuration, exposing the web interface on http://localhost:9090.
@@ -25,7 +28,7 @@ configuration by mounting it as a volume:
 ```console
 $ docker run -p 9090:9090 \
   -v /path/to/your/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
-  <your-namespace>/dhi-prometheus:<tag>
+  dhi.io/prometheus:<tag>
 ```
 
 The following is a basic `prometheus.yml` configuration example:
@@ -72,7 +75,7 @@ To persist Prometheus data between container restarts, mount a volume to the dat
 $ docker run -p 9090:9090 \
   -v /path/to/your/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
   -v prometheus-data:/var/prometheus \
-  <your-namespace>/dhi-prometheus:<tag>
+  dhi.io/prometheus:<tag>
 ```
 
 ### Docker Compose setup
@@ -82,7 +85,7 @@ The following is a sample Docker Compose setup that includes Prometheus and Graf
 ```yaml
 services:
   prometheus:
-    image: <your-namespace>/dhi-prometheus:<tag>
+    image: dhi.io/prometheus:<tag>
     container_name: prometheus
     ports:
       - 9090:9090
@@ -91,7 +94,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - prom_data:/var/prometheus
   grafana:
-    image: <your-namespace>/dhi-grafana:<tag>
+    image: dhi.io/grafana:<tag>
     container_name: grafana
     ports:
       - 3000:3000
@@ -150,8 +153,7 @@ You can then access the Prometheus web interface at http://localhost:9090 and Gr
 
 To use the Prometheus hardened image in Kubernetes, [set up authentication](https://docs.docker.com/dhi/how-to/k8s/) and
 update your Kubernetes deployment. For example, in your `prometheus.yaml` file, replace the image reference in the
-container spec. In the following example replace `<your-namespace>` and `<tag>` with your organization's namespace and
-the desired tag.
+container spec. In the following example, replace `<tag>` the desired tag.
 
 ```yaml
 apiVersion: apps/v1
@@ -164,7 +166,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: <your-namespace>/dhi-prometheus:<tag>
+          image: dhi.io/prometheus:<tag>
           ports:
           - containerPort: 9090
       imagePullSecrets:
@@ -223,8 +225,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -249,7 +251,7 @@ volume mounts accordingly.
 1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
 
    - From: `prom/prometheus:<tag>`
-   - To: `<your-namespace>/dhi-prometheus:<tag>`
+   - To: `dhi.io/prometheus:<tag>`
 
 1. Update volume mount paths.
 

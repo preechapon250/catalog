@@ -1,8 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, mirror the image repository from the catalog to your organization and
-  replace `<your-namespace>` in examples with your mirrored namespace.
-- Replace `<tag>` with the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this openresty image
 
@@ -20,7 +26,7 @@ Basic docker run (map host 80 to container 8080 to avoid privileged ports inside
 
 ```bash
 $ docker run --rm --name openresty -p 80:8080 \
-  <your-namespace>/dhi-openresty:<tag> \
+  dhi.io/openresty:<tag> \
   -g "daemon off;" -c /opt/openresty/nginx/conf/nginx.conf
 ```
 
@@ -34,7 +40,7 @@ to it.
 version: '3.8'
 services:
   web:
-    image: <your-namespace>/dhi-openresty:<tag>
+    image: dhi.io/openresty:<tag>
     container_name: openresty
     ports:
       - "8080:8080"
@@ -70,7 +76,7 @@ Example: run with a custom configuration file and mounted TLS certs:
 $ docker run --rm --name openresty -p 443:8443 \
   -v $(pwd)/nginx.conf:/opt/openresty/nginx/conf/nginx.conf:ro \
   -v $(pwd)/certs:/etc/ssl/certs:ro \
-  <your-namespace>/dhi-openresty:<tag> \
+  dhi.io/openresty:<tag> \
   -g "daemon off;" -c /opt/openresty/nginx/conf/nginx.conf
 ```
 

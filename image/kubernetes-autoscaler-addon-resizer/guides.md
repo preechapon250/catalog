@@ -1,21 +1,26 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 This image runs the `pod_nanny` binary (also known as addon-resizer), a container that watches over another container in
 a deployment and vertically scales the dependent container up and down. It scales resources linearly based on the number
 of nodes in the cluster.
 
-For the following examples, replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run. To confirm the correct namespace and repository name of the mirrored repository, select **View
-in repository**.
+For the following examples, replace `<tag>` with the image variant you want to run. To confirm the correct namespace and
+repository name of the mirrored repository, select **View in repository**.
 
 Use `pod_nanny` with the `--help` flag to display usage information and validate that the image is working.
 
 ```
-$ docker run --rm <your-namespace>/dhi-addon-resizer:<tag> --help
+$ docker run --rm dhi.io/addon-resizer:<tag> --help
 ```
 
 Addon Resizer is typically deployed in Kubernetes as a sidecar container alongside addons that need dynamic resource

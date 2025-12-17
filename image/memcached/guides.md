@@ -1,16 +1,21 @@
 # How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a memcached instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run -d -p 127.0.0.1:11211:11211 <your-namespace>/dhi-memcached:<tag>
+docker run -d -p 127.0.0.1:11211:11211 dhi.io/memcached:<tag>
 ```
 
 ## Common memcached use cases
@@ -23,7 +28,7 @@ Run memcached as a standalone caching server with custom memory allocation.
 # Start memcached with 256MB memory and 2048 max connections
 docker run -d --name memcached-cache \
   -p 127.0.0.1:11211:11211 \
-  <your-namespace>/dhi-memcached:<tag> \
+  dhi.io/memcached:<tag> \
   -m 256 -c 2048 -v
 
 # Verify it's running and test basic operations
@@ -47,7 +52,7 @@ docker network create app-network
 # Start memcached for session storage
 docker run -d --name memcached-sessions \
   --network app-network \
-  <your-namespace>/dhi-memcached:<tag> \
+  dhi.io/memcached:<tag> \
   -m 512 -c 4096 -I 10m
 
 # Verify from another container on the same network
@@ -68,7 +73,7 @@ docker run -d --name memcached-db-cache \
   --network db-cache-network \
   --memory="1g" \
   --cpus="2.0" \
-  <your-namespace>/dhi-memcached:<tag> \
+  dhi.io/memcached:<tag> \
   -m 768 -c 8192 -I 5m
 
 # Verify memcached settings
@@ -97,7 +102,7 @@ RUN mkdir -p /app/config && \
     chown -R 11211:11211 /app
 
 # Runtime stage - Use Docker Hardened memcached
-FROM <your-namespace>/dhi-memcached:<tag> AS runtime
+FROM dhi.io/memcached:<tag> AS runtime
 
 # Copy configuration from builder
 COPY --from=builder --chown=memcached:memcached /app/config /app/config
@@ -159,8 +164,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-image \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-memcached:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/memcached:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

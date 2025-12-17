@@ -1,12 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a simple k6 load test
 
-The following command runs a basic k6 load test against a public HTTP endpoint. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+The following command runs a basic k6 load test against a public HTTP endpoint.
 
 ```
-cat <<'EOF' | docker run --rm -i <your-namespace>/dhi-k6:<tag> run --vus 10 --duration 30s -
+cat <<'EOF' | docker run --rm -i dhi.io/k6:<tag> run --vus 10 --duration 30s -
 import http from "k6/http";
 
 export default function() {
@@ -20,7 +29,7 @@ EOF
 Mount a local k6 script and execute it:
 
 ```
-$ docker run --rm -v $(pwd)/script.js:/script.js <your-namespace>/dhi-k6:<tag> run /script.js
+$ docker run --rm -v $(pwd)/script.js:/script.js dhi.io/k6:<tag> run /script.js
 ```
 
 Example `script.js`:
@@ -47,7 +56,7 @@ export default function() {
 ### Output results to file
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-k6:<tag> run --out json=/workspace/results.json /workspace/script.js
+$ docker run --rm -v $(pwd):/workspace dhi.io/k6:<tag> run --out json=/workspace/results.json /workspace/script.js
 ```
 
 ### CI/CD Integration
@@ -55,7 +64,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-k6:<tag> run --out j
 Fail builds on performance degradation:
 
 ```
-$ docker run --rm -v $(pwd)/script.js:/script.js <your-namespace>/dhi-k6:<tag> run --quiet /script.js
+$ docker run --rm -v $(pwd)/script.js:/script.js dhi.io/k6:<tag> run --quiet /script.js
 ```
 
 Using thresholds in your script:
@@ -197,5 +206,5 @@ Ensure output directories are writable by the nonroot user:
 ```bash
 # Create output directory with proper permissions
 mkdir -p results && chmod 755 results
-docker run --rm -v $(pwd)/results:/results -v $(pwd)/script.js:/script.js <your-namespace>/dhi-k6:<tag> run --out json=/results/test.json /script.js
+docker run --rm -v $(pwd)/results:/results -v $(pwd)/script.js:/script.js dhi.io/k6:<tag> run --out json=/results/test.json /script.js
 ```

@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Amazon Corretto image
 
 This Docker Hardened Amazon Corretto image includes the full Amazon Corretto JDK in a single, security-hardened package:
@@ -13,17 +23,14 @@ This Docker Hardened Amazon Corretto image includes the full Amazon Corretto JDK
 
 ## Start an Amazon Corretto instance
 
-Run the following command and replace <your-namespace> with your organization's namespace and <tag> with the image
-variant you want to run.
-
 ```bash
-docker run <your-namespace>/dhi-amazoncorretto:<tag>
+docker run dhi.io/amazoncorretto:<tag>
 ```
 
 To run a development container and get a shell, use a tag with the `-dev` suffix (e.g., `21-dev`) and run:
 
 ```bash
-docker run -it --entrypoint bash <your-namespace>/dhi-amazoncorretto:<tag>
+docker run -it --entrypoint bash dhi.io/amazoncorretto:<tag>
 ```
 
 ## Common Amazon Corretto use cases
@@ -33,7 +40,7 @@ docker run -it --entrypoint bash <your-namespace>/dhi-amazoncorretto:<tag>
 Run your compiled Java application directly from the container. Mount your local JAR file and run it:
 
 ```bash
-docker run -v $(pwd):/app <your-namespace>/dhi-amazoncorretto:<tag> java -jar /app/myapp.jar
+docker run -v $(pwd):/app dhi.io/amazoncorretto:<tag> java -jar /app/myapp.jar
 ```
 
 ### Compile and run Java code
@@ -49,7 +56,7 @@ echo 'public class Hello { public static void main(String[] args) { System.out.p
 Compile and run:
 
 ```bash
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-amazoncorretto:21-dev sh -c "javac Hello.java && java Hello"
+docker run -v $(pwd):/app -w /app dhi.io/amazoncorretto:21-dev sh -c "javac Hello.java && java Hello"
 ```
 
 ### Multi-stage build for production
@@ -58,13 +65,13 @@ Use a dev variant for building and a runtime variant for production.
 
 ```docker
 # Build stage
-FROM <your-namespace>/dhi-amazoncorretto:21-dev AS builder
+FROM dhi.io/amazoncorretto:21-dev AS builder
 WORKDIR /app
 COPY . .
 RUN javac MyApp.java
 
 # Runtime stage
-FROM <your-namespace>/dhi-amazoncorretto:21
+FROM dhi.io/amazoncorretto:21
 WORKDIR /app
 COPY --from=builder /app/*.class .
 CMD ["java", "MyApp"]
@@ -110,8 +117,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-java-app \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-amazoncorretto:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/amazoncorretto:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

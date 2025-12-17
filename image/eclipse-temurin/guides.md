@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this image
 
@@ -27,13 +31,13 @@ production deployment.
 Run the following command:
 
 ```
-$ docker run <your-namespace>/dhi-eclipse-temurin:<tag>
+$ docker run dhi.io/eclipse-temurin:<tag>
 ```
 
 To get a development container and get a shell use a JDK development tag (e.g., `17-jdk-debian13-dev`) and run:
 
 ```
-$ docker run -it --entrypoint bash <your-namespace>/dhi-eclipse-temurin:<tag>
+$ docker run -it --entrypoint bash dhi.io/eclipse-temurin:<tag>
 ```
 
 ## Common Java use cases
@@ -44,7 +48,7 @@ Run a standalone Java application:
 
 ```bash
 docker run --rm -v /path/to/myapp.jar:/app/myapp.jar \
-  <your-namespace>/dhi-eclipse-temurin:<tag> \
+  dhi.io/eclipse-temurin:<tag> \
   java -jar /app/myapp.jar
 ```
 
@@ -129,7 +133,7 @@ Create the Dockerfile:
 
 ```dockerfile
 # Multi-stage build for Spring Boot application
-FROM <your-namespace>/dhi-eclipse-temurin:<tag> as builder
+FROM dhi.io/eclipse-temurin:<tag> as builder
 WORKDIR /build
 
 # Install Maven (since DHI images don't include it by default)
@@ -142,7 +146,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime stage
-FROM <your-namespace>/dhi-eclipse-temurin:<tag>
+FROM dhi.io/eclipse-temurin:<tag>
 WORKDIR /app
 
 # Copy the built JAR from builder stage
@@ -188,7 +192,7 @@ docker run -it --rm \
   -v $(pwd):/workspace \
   -w /workspace \
   -p 8080:8080 \
-  <your-namespace>/dhi-eclipse-temurin:<tag> \
+  dhi.io/eclipse-temurin:<tag> \
   bash -c "apt-get update && apt-get install -y maven && mvn spring-boot:run"
 ```
 
@@ -196,13 +200,13 @@ docker run -it --rm \
 
 ```dockerfile
 # Build stage
-FROM <your-namespace>/dhi-eclipse-temurin:<tag> as builder
+FROM dhi.io/eclipse-temurin:<tag> as builder
 WORKDIR /build
 COPY *.java .
 RUN javac *.java && jar cfe myapp.jar MyMainClass *.class
 
 # Runtime stage
-FROM <your-namespace>/dhi-eclipse-temurin:<tag>
+FROM dhi.io/eclipse-temurin:<tag>
 WORKDIR /app
 COPY --from=builder /build/myapp.jar .
 USER nonroot
@@ -227,7 +231,7 @@ Compile the Java application:
 
 ```bash
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-eclipse-temurin:17-jdk-debian13-dev \
+  dhi.io/eclipse-temurin:17-jdk-debian13-dev \
   javac HelloWorld.java
 ```
 
@@ -235,7 +239,7 @@ Run the compiled application:
 
 ```bash
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-eclipse-temurin:<tag> \
+  dhi.io/eclipse-temurin:<tag> \
   java HelloWorld
 ```
 
@@ -244,12 +248,12 @@ For a complete development workflow, you can also create a package and run it as
 ```bash
 # Create a JAR file
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-eclipse-temurin:<tag> \
+  dhi.io/eclipse-temurin:<tag> \
   jar cfe hello.jar HelloWorld HelloWorld.class
 
 # Run the JAR
 docker run --rm -v $(pwd):/workspace -w /workspace \
-  <your-namespace>/dhi-eclipse-temurin:<tag> \
+  dhi.io/eclipse-temurin:<tag> \
   java -jar hello.jar
 ```
 

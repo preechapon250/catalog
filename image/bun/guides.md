@@ -1,15 +1,21 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the onscreen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Bun container
 
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+Replace `<tag>` with the image variant you want to run.
 
 ```console
-$ docker run -it --rm <your-namespace>/dhi-bun:<tag>
+$ docker run -it --rm dhi.io/bun:<tag>
 ```
 
 This will start an interactive Bun shell where you can run JavaScript code directly.
@@ -22,13 +28,13 @@ This will start an interactive Bun shell where you can run JavaScript code direc
 
    ```console
    $ mkdir my-bun-app && cd my-bun-app
-   $ docker run --rm -v "$(pwd):/app" -w /app <your-namespace>/dhi-bun:<tag>-dev bun init -y
+   $ docker run --rm -v "$(pwd):/app" -w /app dhi.io/bun:<tag>-dev bun init -y
    ```
 
 1. Install dependencies for a web server, again use the dev variant:
 
    ```console
-   $ docker run --rm -v "$(pwd):/app" -w /app <your-namespace>/dhi-bun:<tag>-dev bun add express
+   $ docker run --rm -v "$(pwd):/app" -w /app dhi.io/bun:<tag>-dev bun add express
    ```
 
 1. Create a simple Bun server by replacing the default `index.ts`:
@@ -49,7 +55,7 @@ This will start an interactive Bun shell where you can run JavaScript code direc
 1. Run your server, using the runtime variant:
 
    ```
-   $ docker run --rm -v "$(pwd):/app" -w /app -p 3000:3000 <your-namespace>/dhi-bun:<tag> bun run index.ts
+   $ docker run --rm -v "$(pwd):/app" -w /app -p 3000:3000 dhi.io/bun:<tag> bun run index.ts
    ```
 
 1. Open your browser and navigate to `http://localhost:3000` to see the message from your Bun server.
@@ -61,13 +67,13 @@ Building on the previous example, you can use Bun's package management capabilit
 1. Add additional dependencies to your project, using the dev variant:
 
    ```console
-   $ docker run --rm -v "$(pwd):/app" -w /app <your-namespace>/dhi-bun:<tag>-dev bun add @types/node
+   $ docker run --rm -v "$(pwd):/app" -w /app dhi.io/bun:<tag>-dev bun add @types/node
    ```
 
 1. View your project's dependencies, using the dev variant:
 
    ```console
-   $ docker run --rm -v "$(pwd):/app" -w /app <your-namespace>/dhi-bun:<tag>-dev bun install --dry-run
+   $ docker run --rm -v "$(pwd):/app" -w /app dhi.io/bun:<tag>-dev bun install --dry-run
    ```
 
 1. Update your `index.ts` to use the installed packages:
@@ -96,7 +102,7 @@ Building on the previous example, you can use Bun's package management capabilit
 1. Run your enhanced server:
 
    ```console
-   $ docker run --rm -v "$(pwd):/app" -w /app -p 3000:3000 <your-namespace>/dhi-bun:<tag> bun run index.ts
+   $ docker run --rm -v "$(pwd):/app" -w /app -p 3000:3000 dhi.io/bun:<tag> bun run index.ts
    ```
 
 1. Open your browser and navigate to `http://localhost:3000` to see the message from your Bun server.
@@ -105,14 +111,13 @@ Building on the previous example, you can use Bun's package management capabilit
 
 The recommended way to use this image is to use a Bun dev container as the build environment and the runtime image as
 the application runtime environment. In your Dockerfile, writing something along the lines of the following will compile
-and run your project. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant
-you want to run.
+and run your project. Replace `<tag>` with the image variant you want to run.
 
 Create a Dockerfile:
 
 ```dockerfile
 # Build stage
-FROM <your-namespace>/dhi-bun:<tag>-dev AS build
+FROM dhi.io/bun:<tag>-dev AS build
 
 WORKDIR /app
 COPY package.json bun.lock ./
@@ -122,7 +127,7 @@ COPY index.ts tsconfig.json ./
 RUN bun build ./index.ts --outdir ./dist --target bun
 
 # Runtime stage
-FROM <your-namespace>/dhi-bun:<tag>
+FROM dhi.io/bun:<tag>
 
 WORKDIR /app
 COPY --from=build /app/dist ./dist
@@ -184,8 +189,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -226,7 +231,7 @@ for package management and building.
    Replace the image reference in your Docker run command, Dockerfile, or Compose file:
 
    - From: `oven/bun:<tag>`
-   - To: `<your-namespace>/dhi-bun:<tag>` (runtime) or `<your-namespace>/dhi-bun:<tag>-dev` (development)
+   - To: `dhi.io/bun:<tag>` (runtime) or `dhi.io/bun:<tag>-dev` (development)
 
 1. Update multi-stage builds (if applicable).
 
@@ -234,11 +239,11 @@ for package management and building.
 
    ```dockerfile
    # Build stage - use dev variant
-   FROM <your-namespace>/dhi-bun:<tag>-dev AS build
+   FROM dhi.io/bun:<tag>-dev AS build
    # ... build steps ...
 
    # Runtime stage - use runtime variant
-   FROM <your-namespace>/dhi-bun:<tag>
+   FROM dhi.io/bun:<tag>
    # ... copy artifacts and run ...
    ```
 

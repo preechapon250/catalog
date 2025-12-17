@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this AWS CLI image
 
@@ -28,7 +32,7 @@ verification of all components.
 Run the following command to verify the AWS CLI installation:
 
 ```bash
-docker run --rm <your-namespace>/dhi-awscli:<tag> aws --version
+docker run --rm dhi.io/awscli:<tag> aws --version
 ```
 
 This command will print out the version of the AWS CLI being used in the container.
@@ -40,13 +44,13 @@ This command will print out the version of the AWS CLI being used in the contain
 For any AWS CLI command, you can run its help command to get help information about the command:
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-awscli:<tag> aws help
+docker run --rm -it dhi.io/awscli:<tag> aws help
 ```
 
 Get help for specific services:
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-awscli:<tag> aws s3 help
+docker run --rm -it dhi.io/awscli:<tag> aws s3 help
 ```
 
 ### Configure AWS credentials
@@ -60,7 +64,7 @@ docker run --rm \
   -e AWS_ACCESS_KEY_ID=your-access-key \
   -e AWS_SECRET_ACCESS_KEY=your-secret-key \
   -e AWS_DEFAULT_REGION=us-west-2 \
-  <your-namespace>/dhi-awscli:<tag> aws s3 ls
+  dhi.io/awscli:<tag> aws s3 ls
 ```
 
 Using AWS credentials file:
@@ -68,7 +72,7 @@ Using AWS credentials file:
 ```bash
 docker run --rm \
   -v ~/.aws:/home/nonroot/.aws:ro \
-  <your-namespace>/dhi-awscli:<tag> aws s3 ls
+  dhi.io/awscli:<tag> aws s3 ls
 ```
 
 ### List S3 buckets
@@ -78,7 +82,7 @@ docker run --rm \
   -e AWS_ACCESS_KEY_ID=your-access-key \
   -e AWS_SECRET_ACCESS_KEY=your-secret-key \
   -e AWS_DEFAULT_REGION=us-west-2 \
-  <your-namespace>/dhi-awscli:<tag> aws s3 ls
+  dhi.io/awscli:<tag> aws s3 ls
 ```
 
 ### Upload files to S3
@@ -91,7 +95,7 @@ docker run --rm \
   -e AWS_ACCESS_KEY_ID=your-access-key \
   -e AWS_SECRET_ACCESS_KEY=your-secret-key \
   -e AWS_DEFAULT_REGION=us-west-2 \
-  <your-namespace>/dhi-awscli:<tag> \
+  dhi.io/awscli:<tag> \
   aws s3 cp /tmp/myfile.txt s3://my-bucket/myfile.txt
 ```
 
@@ -105,7 +109,7 @@ docker run --rm \
   -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   -e AWS_DEFAULT_REGION=us-west-2 \
-  <your-namespace>/dhi-awscli:<tag> \
+  dhi.io/awscli:<tag> \
   aws ecs update-service --cluster my-cluster --service my-service --force-new-deployment
 ```
 
@@ -153,8 +157,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-awscli-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-awscli:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/awscli:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -247,7 +251,7 @@ When mounting AWS credentials or config files, ensure they're accessible to the 
 # Ensure proper permissions for mounted credentials
 docker run --rm \
   -v ~/.aws:/home/nonroot/.aws:ro \
-  <your-namespace>/dhi-awscli:<tag> aws configure list
+  dhi.io/awscli:<tag> aws configure list
 ```
 
 If you encounter permission errors, you may need to adjust file ownership or use environment variables:
@@ -258,7 +262,7 @@ docker run --rm \
   -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
-  <your-namespace>/dhi-awscli:<tag> aws sts get-caller-identity
+  dhi.io/awscli:<tag> aws sts get-caller-identity
 ```
 
 ### File operations
@@ -272,7 +276,7 @@ docker run --rm \
   -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   -e AWS_DEFAULT_REGION=us-west-2 \
-  <your-namespace>/dhi-awscli:<tag> \
+  dhi.io/awscli:<tag> \
   aws s3 cp /tmp/upload-file.txt s3://my-bucket/
 ```
 
@@ -289,7 +293,7 @@ that need shell access:
 
 ```bash
 # Start a container with AWS CLI
-docker run -d --name my-awscli <your-namespace>/dhi-awscli:<tag> aws help
+docker run -d --name my-awscli dhi.io/awscli:<tag> aws help
 
 # Use Docker Debug for shell access
 docker debug my-awscli
@@ -310,10 +314,10 @@ For AWS CLI, the entry point defaults to `aws help`, but you can override it as 
 
 ```bash
 # Override default command
-docker run --rm <your-namespace>/dhi-awscli:<tag> aws --version
+docker run --rm dhi.io/awscli:<tag> aws --version
 
 # For custom scripts that need AWS CLI, use Docker Debug or external scripting
-docker run -d --name aws-container <your-namespace>/dhi-awscli:<tag> aws help
+docker run -d --name aws-container dhi.io/awscli:<tag> aws help
 docker debug aws-container
 # Inside debug session: run your custom commands
 docker rm -f aws-container

@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this Jenkins image
 
@@ -25,7 +29,7 @@ To start a Jenkins container, run the following command:
 ```bash
 $ docker run -d --name jenkins-server -p 8080:8080 -p 50000:50000 \
   -v jenkins-data:/var/jenkins_home \
-  <your-namespace>/dhi-jenkins:<tag>
+  dhi.io/jenkins:<tag>
 ```
 
 This command:
@@ -43,7 +47,7 @@ Create a `compose.yml` file with the following content:
 version: '3.8'
 services:
   jenkins:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-server
     ports:
       - "8080:8080"
@@ -89,7 +93,7 @@ Example with custom environment variables:
 $ docker run -d --name jenkins-custom -p 8080:8080 \
   -e JAVA_OPTS="-Xmx512m -Xms512m" \
   -v jenkins-data:/var/jenkins_home \
-  <your-namespace>/dhi-jenkins:<tag>
+  dhi.io/jenkins:<tag>
 ```
 
 ## Common Jenkins use cases
@@ -101,7 +105,7 @@ This is the simplest Jenkins setup for small projects or testing:
 ```bash
 $ docker run -d --name jenkins-basic -p 8080:8080 -p 50000:50000 \
   -v jenkins-data:/var/jenkins_home \
-  <your-namespace>/dhi-jenkins:<tag>
+  dhi.io/jenkins:<tag>
 ```
 
 Access Jenkins at `http://localhost:8080`. On first run, retrieve the initial admin password:
@@ -118,7 +122,7 @@ Store Jenkins data on the host filesystem for easier backups and recovery:
 version: '3.8'
 services:
   jenkins:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-persistent
     ports:
       - "8080:8080"
@@ -145,7 +149,7 @@ This setup allows Jenkins agents to build Docker images:
 version: '3.8'
 services:
   jenkins:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-dind
     ports:
       - "8080:8080"
@@ -184,7 +188,7 @@ networks:
 Pre-install plugins and configure Jenkins without the setup wizard:
 
 ```dockerfile
-FROM <your-namespace>/dhi-jenkins:latest
+FROM dhi.io/jenkins:latest
 
 USER jenkins
 
@@ -218,7 +222,7 @@ Run Jenkins with multiple build agents for better scalability:
 version: '3.8'
 services:
   jenkins-master:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-master
     ports:
       - "8080:8080"
@@ -232,7 +236,7 @@ services:
       - jenkins-network
 
   jenkins-agent-1:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-agent-1
     environment:
       - JENKINS_URL=http://jenkins-master:8080/
@@ -249,7 +253,7 @@ services:
     command: java -jar /usr/share/jenkins/agent.jar
 
   jenkins-agent-2:
-    image: <your-namespace>/dhi-jenkins:<tag>
+    image: dhi.io/jenkins:<tag>
     container_name: jenkins-agent-2
     environment:
       - JENKINS_URL=http://jenkins-master:8080/
@@ -322,7 +326,7 @@ $ docker rm jenkins-server
 $ docker volume rm jenkins-data
 $ docker run -d --name jenkins-server -p 8080:8080 \
   -v jenkins-data:/var/jenkins_home \
-  <your-namespace>/dhi-jenkins:<tag>
+  dhi.io/jenkins:<tag>
 ```
 
 ## Image variants

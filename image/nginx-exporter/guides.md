@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Basic Nginx monitoring with stub_status
 
 The following command starts the NGINX Prometheus Exporter to monitor an Nginx server with stub_status enabled. Replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+`<tag>` with the image variant you want to run.
 
 ```
-$ docker run --rm -p 9113:9113 <your-namespace>/dhi-nginx-exporter:<tag> --nginx.scrape-uri=http://nginx-server:80/nginx_status
+$ docker run --rm -p 9113:9113 dhi.io/nginx-exporter:<tag> --nginx.scrape-uri=http://nginx-server:80/nginx_status
 ```
 
 ### Monitor Nginx Plus with API
@@ -14,7 +24,7 @@ $ docker run --rm -p 9113:9113 <your-namespace>/dhi-nginx-exporter:<tag> --nginx
 For Nginx Plus monitoring using the API endpoint:
 
 ```
-$ docker run --rm -p 9113:9113 <your-namespace>/dhi-nginx-exporter:<tag> --nginx.scrape-uri=http://nginx-plus:8080/api --nginx.plus
+$ docker run --rm -p 9113:9113 dhi.io/nginx-exporter:<tag> --nginx.scrape-uri=http://nginx-plus:8080/api --nginx.plus
 ```
 
 ### Configuration options
@@ -24,19 +34,19 @@ $ docker run --rm -p 9113:9113 <your-namespace>/dhi-nginx-exporter:<tag> --nginx
 Set scrape URI:
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> --nginx.scrape-uri=http://nginx:80/nginx_status
+$ docker run --rm dhi.io/nginx-exporter:<tag> --nginx.scrape-uri=http://nginx:80/nginx_status
 ```
 
 Enable Nginx Plus mode:
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> --nginx.plus --nginx.scrape-uri=http://nginx-plus:8080/api
+$ docker run --rm dhi.io/nginx-exporter:<tag> --nginx.plus --nginx.scrape-uri=http://nginx-plus:8080/api
 ```
 
 Configure listen address and port:
 
 ```
-$ docker run --rm -p 8080:8080 <your-namespace>/dhi-nginx-exporter:<tag> --web.listen-address=:8080
+$ docker run --rm -p 8080:8080 dhi.io/nginx-exporter:<tag> --web.listen-address=:8080
 ```
 
 #### SSL/TLS configuration
@@ -44,7 +54,7 @@ $ docker run --rm -p 8080:8080 <your-namespace>/dhi-nginx-exporter:<tag> --web.l
 Monitor Nginx Plus with SSL:
 
 ```
-$ docker run --rm -v $(pwd)/certs:/certs <your-namespace>/dhi-nginx-exporter:<tag> \
+$ docker run --rm -v $(pwd)/certs:/certs dhi.io/nginx-exporter:<tag> \
   --nginx.scrape-uri=https://nginx-plus:8443/api \
   --nginx.plus \
   --nginx.ssl-ca-cert=/certs/ca.crt \
@@ -55,7 +65,7 @@ $ docker run --rm -v $(pwd)/certs:/certs <your-namespace>/dhi-nginx-exporter:<ta
 Skip SSL verification (not recommended for production):
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> \
+$ docker run --rm dhi.io/nginx-exporter:<tag> \
   --nginx.scrape-uri=https://nginx-plus:8443/api \
   --nginx.plus \
   --nginx.ssl-skip-verify
@@ -66,25 +76,25 @@ $ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> \
 Set custom scrape timeout:
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> --nginx.timeout=10s
+$ docker run --rm dhi.io/nginx-exporter:<tag> --nginx.timeout=10s
 ```
 
 Configure retry attempts:
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> --nginx.retries=3
+$ docker run --rm dhi.io/nginx-exporter:<tag> --nginx.retries=3
 ```
 
 Set custom user agent:
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> --nginx.user-agent="Custom-Monitor/1.0"
+$ docker run --rm dhi.io/nginx-exporter:<tag> --nginx.user-agent="Custom-Monitor/1.0"
 ```
 
 Enable debug logging:
 
 ```
-$ docker run --rm <your-namespace>/dhi-nginx-exporter:<tag> --log.level=debug
+$ docker run --rm dhi.io/nginx-exporter:<tag> --log.level=debug
 ```
 
 ### Docker Compose setup
@@ -101,7 +111,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
   nginx-exporter:
-    image: <your-namespace>/dhi-nginx-exporter:<tag>
+    image: dhi.io/nginx-exporter:<tag>
     ports:
       - "9113:9113"
     command: ["-nginx.scrape-uri=http://nginx:80/nginx_status"]
@@ -151,7 +161,7 @@ services:
       - ./nginx-plus.conf:/etc/nginx/nginx.conf:ro
 
   nginx-exporter:
-    image: <your-namespace>/dhi-nginx-exporter:<tag>
+    image: dhi.io/nginx-exporter:<tag>
     ports:
       - "9113:9113"
     command:
@@ -184,7 +194,7 @@ spec:
     spec:
       containers:
       - name: nginx-exporter
-        image: <your-namespace>/dhi-nginx-exporter:<tag>
+        image: dhi.io/nginx-exporter:<tag>
         args:
           - "-nginx.scrape-uri=http://nginx-service:80/nginx_status"
         ports:
@@ -262,7 +272,7 @@ spec:
     spec:
       containers:
       - name: nginx-exporter
-        image: <your-namespace>/dhi-nginx-exporter:<tag>
+        image: dhi.io/nginx-exporter:<tag>
         args:
           - "--nginx.scrape-uri=http://127.0.0.1:10254/nginx_status"
         ports:
@@ -537,7 +547,7 @@ For NGINX Plus with SSL:
 
 ```bash
 # Verify certificates are readable
-docker run --rm -v $(pwd)/certs:/certs <your-namespace>/dhi-nginx-exporter:<tag> ls -la /certs
+docker run --rm -v $(pwd)/certs:/certs dhi.io/nginx-exporter:<tag> ls -la /certs
 
 # Test SSL connection manually
 openssl s_client -connect nginx-plus:8443 -cert client.crt -key client.key -CAfile ca.crt

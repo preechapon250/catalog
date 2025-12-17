@@ -1,12 +1,21 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Start a Tomcat instance
 
-Run the following command to run the Tomcat server. Replace `<your-namespace>` with your organization's namespace and
-`<tag>` with the image variant you want to run.
+Run the following command to run the Tomcat server. Replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run -p 8080:8080 -d <your-namespace>/dhi-tomcat:<tag>
+$ docker run -p 8080:8080 -d dhi.io/tomcat:<tag>
 ```
 
 Note that visiting http://localhost:8080 will return a 404 as no webapps are loaded by default.
@@ -20,13 +29,13 @@ The first way is to mount into `webapps/`:
 ```
 $ docker run -p 8080:8080 \
     -v $(pwd)/myapp.war:/usr/local/tomcat/webapps/myapp.war \
-    -d <your-namespace>/dhi-tomcat:<tag>
+    -d dhi.io/tomcat:<tag>
 ```
 
 The second way is to build a new image that adds the `.war` file to `webapps/`:
 
 ```Dockerfile
-FROM <your-namespace>/dhi-tomcat:<tag>
+FROM dhi.io/tomcat:<tag>
 COPY myapp.war /usr/local/tomcat/webapps/
 ```
 
@@ -40,7 +49,7 @@ To capture logs or provide your own Tomcat configuration files, mount a volume i
 $ docker run -p 8080:8080 \
     -v $(pwd)/logs:/usr/local/tomcat/logs \
     -v $(pwd)/server.xml:/usr/local/tomcat/conf/server.xml \
-    -d <your-namespace>/dhi-tomcat:<tag>
+    -d dhi.io/tomcat:<tag>
 ```
 
 ## Non-hardened images vs Docker Hardened Images
@@ -83,8 +92,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -122,7 +131,7 @@ the standard Tomcat image in your existing workflows and configurations.
 1. Update your image reference. For example:
 
    - From: `tomcat:<tag>`
-   - To: `<your-namespace>/dhi-tomcat:<tag>`
+   - To: `dhi.io/tomcat:<tag>`
 
 1. Review environment variables usage.
 

@@ -1,8 +1,14 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Getting Started with MongoDB MCP Server
 
@@ -33,14 +39,14 @@ Add to your `claude_desktop_config.json`:
         "--rm",
         "-i",
         "-e", "MONGODB_URI=mongodb://user:password@host:27017/database",
-        "<your-namespace>/dhi-mongodb-mcp"
+        "dhi.io/mongodb-mcp"
       ]
     }
   }
 }
 ```
 
-Replace `<your-namespace>` with your organization's namespace and update the MongoDB URI with your connection details.
+Update the MongoDB URI with your connection details.
 
 #### Environment Variables
 
@@ -56,7 +62,7 @@ Basic connection:
 ```bash
 docker run --rm -i \
   -e MONGODB_URI=mongodb://localhost:27017/mydb \
-  <your-namespace>/dhi-mongodb-mcp
+  dhi.io/mongodb-mcp
 ```
 
 With authentication:
@@ -64,7 +70,7 @@ With authentication:
 ```bash
 docker run --rm -i \
   -e MONGODB_URI=mongodb://user:password@host:27017/mydb?authSource=admin \
-  <your-namespace>/dhi-mongodb-mcp
+  dhi.io/mongodb-mcp
 ```
 
 With MongoDB Atlas:
@@ -72,7 +78,7 @@ With MongoDB Atlas:
 ```bash
 docker run --rm -i \
   -e MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/mydb \
-  <your-namespace>/dhi-mongodb-mcp
+  dhi.io/mongodb-mcp
 ```
 
 ### Connection String Formats
@@ -196,7 +202,7 @@ Use the read-only credentials in your connection string:
 ```bash
 docker run --rm -i \
   -e MONGODB_URI=mongodb://readonly:password@host:27017/mydb \
-  <your-namespace>/dhi-mongodb-mcp:<tag>
+  dhi.io/mongodb-mcp:<tag>
 ```
 
 ### Debug Mode
@@ -207,7 +213,7 @@ Enable debug logging to troubleshoot issues:
 docker run --rm -i \
   -e MONGODB_URI=mongodb://host:27017/mydb \
   -e MDB_MCP_LOGGERS=mongodb-mcp,mongodb \
-  <your-namespace>/dhi-mongodb-mcp:<tag>
+  dhi.io/mongodb-mcp:<tag>
 ```
 
 ### Performance Tips
@@ -229,7 +235,7 @@ When MongoDB runs on the host machine:
 docker run --rm -i \
   --network host \
   -e MONGODB_URI=mongodb://localhost:27017/mydb \
-  <your-namespace>/dhi-mongodb-mcp
+  dhi.io/mongodb-mcp
 ```
 
 **macOS/Windows:**
@@ -237,7 +243,7 @@ docker run --rm -i \
 ```bash
 docker run --rm -i \
   -e MONGODB_URI=mongodb://host.docker.internal:27017/mydb \
-  <your-namespace>/dhi-mongodb-mcp
+  dhi.io/mongodb-mcp
 ```
 
 ### Common Connection Issues
@@ -307,9 +313,9 @@ docker debug <container-name>
 or mount debugging tools with the Image Mount feature:
 
 ```
-docker run --rm -it --pid container:my-argocd \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-argocd:<tag> /dbg/bin/sh
+docker run --rm -it --pid container:my-mongodb-mcp \
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/mongodb-mcp:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

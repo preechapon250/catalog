@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this sealed-secrets-kubeseal Hardened image
 
 This image contains `sealed-secrets-kubeseal`, the client side tool used to encrypt Kubernetes secrets to create
@@ -7,11 +17,10 @@ SealedSecret resources. The entry point for the image is `kubeseal`, the client 
 
 ## Start a sealed-secrets-kubeseal instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-sealed-secrets-kubeseal:<tag> --help
+docker run --rm -it dhi.io/sealed-secrets-kubeseal:<tag> --help
 ```
 
 ## Common sealed-secrets-kubeseal use cases
@@ -45,7 +54,7 @@ Once the Kubernetes secret yaml or json is generated, create the SealedSecret re
 correctly.
 
 ```bash
-docker run <your-namespace>/dhi-sealed-secrets-kubeseal:<tag> \
+docker run dhi.io/sealed-secrets-kubeseal:<tag> \
   -v $KUBECONFIG:/.kube/config:ro \
   -e KUBECONFIG=/.kube/config \
   -o yaml \
@@ -58,7 +67,7 @@ kubectl get secrets mysecret
 A created sealed secret can also be validated using the --validate argument.
 
 ```bash
-docker run <your-namespace>/dhi-sealed-secrets-kubeseal:<tag> \
+docker run dhi.io/sealed-secrets-kubeseal:<tag> \
   -v $KUBECONFIG:/.kube/config:ro \
   -e KUBECONFIG=/.kube/config \
   --validate \
@@ -101,15 +110,15 @@ that only exists during the debugging session.
 For example, you can use Docker Debug:
 
 ```
-docker debug <your-namespace>/dhi-sealed-secrets-kubeseal
+docker debug dhi.io/sealed-secrets-kubeseal
 ```
 
 or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-sealed-secrets-kubeseal:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/sealed-secrets-kubeseal:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -159,7 +168,7 @@ The following steps outline the general migration process.
    Update the image references in your CI/CD scripts, GitHub Actions, or other automation to use the hardened images:
 
    - From: `ghcr.io/bitnami-labs/sealed-secrets-kubeseal:<tag>`
-   - To: `<your-namespace>/dhi-sealed-secrets-kubeseal:<tag>`
+   - To: `dhi.io/sealed-secrets-kubeseal:<tag>`
 
 1. **For custom containers, update the base image in your Dockerfile.**
 

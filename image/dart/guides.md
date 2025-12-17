@@ -1,22 +1,27 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a Dart instance
 
-Run the following command to run a Dart instance. Replace `<your-namespace>` with your organization's namespace and
-`<tag>` with the image variant you want to run.
+Run the following command to run a Dart instance. Replace `<tag>` with the image variant you want to run.
 
 ```
-docker run --rm <your-namespace>/dhi-dart:<tag> dart --version
+docker run --rm dhi.io/dart:<tag> dart --version
 ```
 
 Create a simple Dart program and run it directly from the container:
 
 ```
-docker run --rm -v $(pwd):/app -w /app <your-namespace>/dhi-dart:<tag> sh -c 'cat > hello.dart << EOF
+docker run --rm -v $(pwd):/app -w /app dhi.io/dart:<tag> sh -c 'cat > hello.dart << EOF
 void main() {
   print("Hello from DHI Dart!");
 }
@@ -68,15 +73,15 @@ EOF
 
 #### Step 3: Create the Dockerfile
 
-Create a Dockerfile with the following content to compile and run the project. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+Create a Dockerfile with the following content to compile and run the project. Replace `<tag>` with the image variant
+you want to run.
 
 ```Dockerfile
 # syntax=docker/dockerfile:1
 
 ## -----------------------------------------------------
 ## Build stage
-FROM <your-namespace>/dhi-dart:<tag> AS build-stage
+FROM dhi.io/dart:<tag> AS build-stage
 
 WORKDIR /app
 COPY pubspec.yaml ./
@@ -87,7 +92,7 @@ RUN dart compile exe bin/main.dart -o /app/server
 
 ## -----------------------------------------------------
 ## Runtime stage - use static or minimal image
-FROM <your-namespace>/dhi-dart:<tag> AS runtime-stage
+FROM dhi.io/dart:<tag> AS runtime-stage
 
 WORKDIR /app
 COPY --from=build-stage /app/server /app/server
@@ -118,7 +123,7 @@ inside the Docker instance, you can write something like:
 docker run --rm \
   -v "$PWD":/app \
   -w /app \
-  <your-namespace>/dhi-dart:<tag> \
+  dhi.io/dart:<tag> \
   dart compile exe bin/main.dart -o my-app
 ```
 
@@ -131,13 +136,13 @@ You can use the Dart package manager to install dependencies and run commands:
 
 ```
 # Get dependencies
-docker run --rm -v "$PWD":/app -w /app <your-namespace>/dhi-dart:<tag> dart pub get
+docker run --rm -v "$PWD":/app -w /app dhi.io/dart:<tag> dart pub get
 
 # Run tests
-docker run --rm -v "$PWD":/app -w /app <your-namespace>/dhi-dart:<tag> dart test
+docker run --rm -v "$PWD":/app -w /app dhi.io/dart:<tag> dart test
 
 # Analyze code
-docker run --rm -v "$PWD":/app -w /app <your-namespace>/dhi-dart:<tag> dart analyze
+docker run --rm -v "$PWD":/app -w /app dhi.io/dart:<tag> dart analyze
 ```
 
 ## Image variants

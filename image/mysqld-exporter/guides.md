@@ -1,14 +1,19 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either Mirror to repository or View in repository > Mirror to repository,
-and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run MySQL Server Exporter
 
 Use the image directly with configuration passed as flags, a MySQL client config file, or environment variables. Replace
-`<your-namespace>` with your organization’s namespace and `<tag>` with the image tag you want to run. To confirm the
-correct namespace and repository name of the mirrored repository, select View in repository.
+`<tag>` with the image tag you want to run.
 
 Create a dedicated MySQL user with minimal privileges (recommended):
 
@@ -24,7 +29,7 @@ $ docker run -d \
   --name mysqld-exporter \
   -p 9104:9104 \
   -e MYSQLD_EXPORTER_PASSWORD=strong-password \
-  <your-namespace>/dhi-mysqld-exporter:<tag> \
+  dhi.io/mysqld-exporter:<tag> \
   --mysqld.address=mysql:3306 \
   --mysqld.username=exporter
 ```
@@ -41,7 +46,7 @@ $ docker run -d \
   --name mysqld-exporter \
   -p 9104:9104 \
   -v $PWD/config.my-cnf:/config.my-cnf:ro \
-  <your-namespace>/dhi-mysqld-exporter:<tag> \
+  dhi.io/mysqld-exporter:<tag> \
   --config.my-cnf=/config.my-cnf \
   --mysqld.address=mysql:3306
 ```
@@ -58,7 +63,7 @@ $ docker run -d \
   --name mysqld-exporter \
   -p 9104:9104 \
   -v $PWD/config.my-cnf:/config.my-cnf:ro \
-  <your-namespace>/dhi-mysqld-exporter:<tag> \
+  dhi.io/mysqld-exporter:<tag> \
   --config.my-cnf=/config.my-cnf
 
 # Scrape different targets:
@@ -121,7 +126,7 @@ services:
     networks: [monitoring]
 
   mysqld-exporter:
-    image: <your-namespace>/dhi-mysqld-exporter:<tag>
+    image: dhi.io/mysqld-exporter:<tag>
     container_name: mysqld-exporter
     command:
       - --mysqld.address=mysql:3306

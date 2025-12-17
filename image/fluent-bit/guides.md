@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Fluent Bit Hardened image
 
 Fluent Bit is a lightweight and high performance log processor.
@@ -13,12 +23,12 @@ Run the following command to start a Fluent Bit container. The image contains th
 ```bash
 # default conf file
 $ docker run --rm --name my-fluentbit -p 24224:24224 \
-  <your-namespace>/dhi-fluent-bit:<tag>
+  dhi.io/fluent-bit:<tag>
 
 # custom conf file
 $ docker run --rm --name my-fluentbit -p 24224:24224 \
   -v <path-to-your-configuration-file>:/etc/fluent-bit/fluent-bit.conf \
-  <your-namespace>/dhi-fluent-bit:<tag> -c /etc/fluent-bit/fluent.conf
+  dhi.io/fluent-bit:<tag> -c /etc/fluent-bit/fluent.conf
 ```
 
 ## Common Fluent Bit use cases
@@ -46,7 +56,7 @@ Run Fluent Bit with the configuration:
 ```bash
 docker run --name fluentbit-http -p 9880:9880 \
   -v $(pwd):/etc/fluent-bit/fluent-bit.conf \
-  <your-namespace>/dhi-fluent-bit:<tag> -c /etc/fluent-bit/fluent-bit.conf
+  dhi.io/fluent-bit:<tag> -c /etc/fluent-bit/fluent-bit.conf
 ```
 
 Send a test log:
@@ -87,9 +97,8 @@ Create `fluent.conf`:
 
 ### Install Fluent Bit using Helm
 
-You can install Fluent Bit using the official helm chart and replace the image. Replace `<your-namespace>` with your
-organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Fluent Bit using the official helm chart and replace the image. Replace `<your-registry-secret>` with
+your [Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image tag.
 
 ```bash
 helm repo add fluent https://fluent.github.io/helm-charts
@@ -97,8 +106,8 @@ helm repo update
 
 helm upgrade --install fluent-bit fluent/fluent-bit \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set image.registry=docker.io \
-  --set image.repository=<your-namespace>/dhi-fluent-bit \
+  --set image.registry=dhi.io \
+  --set image.repository=fluent-bit \
   --set image.tag=<tag> \
   --set command=/usr/bin/fluent-bit
 ```
@@ -146,8 +155,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-fluent-bit \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-fluent-bit:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/fluent-bit:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

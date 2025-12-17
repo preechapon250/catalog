@@ -1,18 +1,24 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start an Istioctl image
 
 The Istioctl image provides the `istoctl` binary for managing Istio installations. It is designed as a client-side CLI
 tool.
 
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to use.
+Replace `<tag>` with the image variant you want to use.
 
 ```bash
-kubectl run istioctl --image=<your-namespace>/dhi-istioctl:<tag> \
+kubectl run istioctl --image=dhi.io/istioctl:<tag> \
   --rm -it --restart=Never -- --help
 ```
 
@@ -23,7 +29,7 @@ kubectl run istioctl --image=<your-namespace>/dhi-istioctl:<tag> \
 Use istioctl to generate Istio manifests for review before installation:
 
 ```bash
-kubectl run istioctl --image=<your-namespace>/dhi-istioctl:<tag> \
+kubectl run istioctl --image=dhi.io/istioctl:<tag> \
   --rm -it --restart=Never -- manifest generate
 ```
 
@@ -47,7 +53,7 @@ To view the image variants and get more information about them, select the **Tag
 To migrate to the Docker Hardened Istioctl image, update your image references:
 
 ```yaml
-image: <your-namespace>/dhi-istioctl:<tag>
+image: dhi.io/istioctl:<tag>
 ```
 
 ## Troubleshooting migration

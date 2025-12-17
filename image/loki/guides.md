@@ -1,16 +1,21 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a Loki instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run -d --name loki -p 3100:3100 <your-namespace>/dhi-loki:<tag>
+docker run -d --name loki -p 3100:3100 dhi.io/loki:<tag>
 ```
 
 Verify that Loki is running:
@@ -59,14 +64,14 @@ docker network create logging-net 2>/dev/null || true
 docker run -d --name loki \
   --network logging-net \
   -p 3100:3100 \
-  <your-namespace>/dhi-loki:<tag>
+  dhi.io/loki:<tag>
 
 docker run -d --name promtail \
   --network logging-net \
   -p 9080:9080 \
   -v $PWD/promtail/config/promtail.yml:/etc/promtail/config.yml:ro \
   -v /var/log:/var/log:ro \
-  <your-namespace>/dhi-promtail:<tag> \
+  dhi.io/promtail:<tag> \
   -config.file=/etc/promtail/config.yml
 
 echo "Waiting for services to start..."
@@ -99,14 +104,14 @@ docker run -d \
   --name loki \
   --network logging-net \
   -p 3100:3100 \
-  <your-namespace>/dhi-loki:<tag>
+  dhi.io/loki:<tag>
 
 docker run -d \
   --name grafana \
   --network logging-net \
   -p 3000:3000 \
   -e "GF_SECURITY_ADMIN_PASSWORD=admin" \
-  <your-namespace>/dhi-grafana:<tag>
+  dhi.io/grafana:<tag>
 
 sleep 10
 
@@ -169,7 +174,7 @@ docker run -d --name loki \
   -p 3100:3100 \
   -v $(pwd)/config/loki-config.yaml:/etc/loki/config.yaml:ro \
   -v loki-data:/loki \
-  <your-namespace>/dhi-loki:<tag> \
+  dhi.io/loki:<tag> \
   -config.file=/etc/loki/config.yaml
 
 sleep 10
@@ -286,8 +291,8 @@ docker run --rm -it \
   --pid container:loki \
   --network container:loki \
   --cap-add SYS_PTRACE \
-  --mount=type=image,source=<your_namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-loki:<tag>/dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/loki:<tag>/dbg/bin/sh
 ```
 
 ## Image variants
@@ -328,7 +333,7 @@ Since DHI images don't include a shell, use Docker Debug to verify FIPS mode:
 ```bash
 docker run -d --name loki-fips \
   -p 3100:3100 \
-  <your_namespace/dhi-loki:<tag>-fips
+  dhi.io/loki:<tag>-fips
 
 sleep 15
 

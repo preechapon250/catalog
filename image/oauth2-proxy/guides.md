@@ -1,16 +1,21 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start an OAuth2 Proxy instance
 
-Run the following command and replace <your-namespace> with your organization's namespace and <tag> with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run -d -p 4180:4180 <your-namespace>/dhi-oauth2-proxy:<tag> \
+$ docker run -d -p 4180:4180 dhi.io/oauth2-proxy:<tag> \
   --provider=google \
   --client-id=your-client-id \
   --client-secret=your-client-secret \
@@ -35,7 +40,7 @@ $ docker run -d -p 4180:4180 \
   -e OAUTH2_PROXY_PROVIDER=google \
   -e OAUTH2_PROXY_EMAIL_DOMAINS=* \
   -e OAUTH2_PROXY_UPSTREAMS=http://localhost:8080 \
-  <your-namespace>/dhi-oauth2-proxy:<tag>
+  dhi.io/oauth2-proxy:<tag>
 ```
 
 Key environment variables include:
@@ -56,7 +61,7 @@ version: '3.8'
 
 services:
   oauth2-proxy:
-    image: <your-namespace>/dhi-oauth2-proxy:<tag>
+    image: dhi.io/oauth2-proxy:<tag>
     container_name: oauth2-proxy
     ports:
       - "4180:4180"
@@ -86,7 +91,7 @@ services:
 OAuth2 Proxy supports multiple configuration options for fine-tuning authentication:
 
 ```
-$ docker run -d -p 4180:4180 <your-namespace>/dhi-oauth2-proxy:<tag> \
+$ docker run -d -p 4180:4180 dhi.io/oauth2-proxy:<tag> \
   --provider=github \
   --client-id=your-client-id \
   --client-secret=your-client-secret \
@@ -149,8 +154,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-image \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-oauth2-proxy:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/oauth2-proxy:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

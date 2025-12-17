@@ -1,10 +1,14 @@
 ## Prerequisites
 
-- Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-  organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-  repository**, and then follow the on-screen instructions.
-- To use the code snippets in this guide, replace `<your-namespace>` with your organization's namespace and `<tag>` with
-  the image variant you want to run.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## What's included in this CloudNativePG image
 
@@ -43,7 +47,7 @@ spec:
       serviceAccountName: cloudnative-pg-operator
       containers:
         - name: manager
-          image: <your-namespace>/dhi-cloudnative-pg:<tag>
+          image: dhi.io/cloudnative-pg:<tag>
           imagePullPolicy: Always
           command:
             - /manager
@@ -65,7 +69,7 @@ helm install cnpg \
   --namespace cloudnative-pg-system \
   --create-namespace \
   cnpg/cloudnative-pg \
-  --set image.repository=<your-namespace>/dhi-cloudnative-pg \
+  --set image.repository=dhi.io/cloudnative-pg \
   --set image.tag=<tag>
 ```
 
@@ -83,7 +87,7 @@ kubectl logs -n cloudnative-pg-system -l app=cloudnative-pg-operator
 The `kubectl-cnpg` binary is included in the image. To use it as a kubectl plugin, copy it to your PATH:
 
 ```bash
-docker run --rm <your-namespace>/dhi-cloudnative-pg:<tag> \
+docker run --rm dhi.io/cloudnative-pg:<tag> \
   cat /usr/local/bin/kubectl-cnpg > kubectl-cnpg
 chmod +x kubectl-cnpg
 sudo mv kubectl-cnpg /usr/local/bin/

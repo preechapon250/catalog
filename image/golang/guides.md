@@ -1,22 +1,28 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a Go instance in your app
 
 The recommended way to use this image is to use a Go container as the build environment and the static image as the
 binary runtime environment. In your Dockerfile, writing something along the lines of the following will compile and run
-your project (assuming it uses go.mod for dependency management). Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+your project (assuming it uses go.mod for dependency management). Replace `<tag>` with the image variant you want to
+run.
 
 ```
 # syntax=docker/dockerfile:1
 
 ## -----------------------------------------------------
 ## Using a dev image for the build stage (e.g., 1.22-dev)
-FROM <your-namespace>/dhi-golang:<tag> AS build-stage
+FROM dhi.io/golang:<tag> AS build-stage
 
 WORKDIR /app
 COPY go.mod go.sum ./
@@ -27,7 +33,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /my-app
 
 ## -----------------------------------------------------
 ## Using a dhi-static image for the runtime
-FROM <your-namespace>/dhi-static:<tag> AS runtime-stage
+FROM dhi.io/static:<tag> AS runtime-stage
 
 WORKDIR /
 COPY --from=build-stage /my-app /my-app
@@ -43,7 +49,7 @@ example:
 
 ## -----------------------------------------------------
 ## Using a dev image for the build stage (e.g., 1.22-dev)
-FROM <your-namespace>/dhi-golang:<tag>-dev AS build-stage
+FROM dhi.io/golang:<tag>-dev AS build-stage
 
 WORKDIR /app
 COPY go.mod go.sum ./
@@ -55,7 +61,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -o /my-app
 
 ## -----------------------------------------------------
 ## Using a non-dev Go variant (has shell & shared libs)
-FROM <your-namespace>/dhi-golang:<tag> AS runtime-stage
+FROM dhi.io/golang:<tag> AS runtime-stage
 
 WORKDIR /
 COPY --from=build-stage /my-app /my-app
@@ -78,7 +84,7 @@ inside the Docker instance, you can write something like:
 $ docker run --rm \
   -v "$PWD":/usr/src/myapp \
   -w /usr/src/myapp \
-  <your-namespace>/dhi-golang:<tag>-dev \
+  dhi.io/golang:<tag>-dev \
   go build -v
 ```
 
@@ -90,7 +96,7 @@ command `go build` which will tell go to compile the project in the working dire
 $ docker run --rm \
    -v "$PWD":/usr/src/myapp \
    -w /usr/src/myapp \
-   <your-namespace>/dhi-golang:<tag>-dev \
+   dhi.io/golang:<tag>-dev \
    make
 ```
 
@@ -104,7 +110,7 @@ $ docker run --rm -v \
    -w /usr/src/myapp \
    -e GOOS=windows \
    -e GOARCH=386 \
-   <your-namespace>/dhi-golang:<tag>-dev \
+   dhi.io/golang:<tag>-dev \
    go build -v
 ```
 

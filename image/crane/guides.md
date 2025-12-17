@@ -2,14 +2,24 @@
 
 This guide provides practical examples for using the Crane Docker Hardened Image to manage OCI artifacts in registries.
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Running Crane Commands
 
 ```bash
 # Check Crane version
-docker run --rm <your-namespace>/dhi-crane:<tag> version
+docker run --rm dhi.io/crane:<tag> version
 
 # Get help for Crane commands
-docker run --rm <your-namespace>/dhi-crane:<tag> --help
+docker run --rm dhi.io/crane:<tag> --help
 ```
 
 ### Authentication
@@ -19,12 +29,12 @@ For operations requiring authentication, mount your Docker configuration:
 ```bash
 # Using Docker credentials
 docker run --rm -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> version
+  dhi.io/crane:<tag> version
 
 # Using specific credential file
 docker run --rm \
   -v /path/to/config.json:/home/nonroot/.docker/config.json:ro \
-  <your-namespace>/dhi-crane:<tag> version
+  dhi.io/crane:<tag> version
 ```
 
 ## Discovery and Inspection
@@ -35,7 +45,7 @@ docker run --rm \
 # Obtain a container image manifest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> manifest \
+  dhi.io/crane:<tag> manifest \
     registry.example.com/myrepo/hello:latest
 ```
 
@@ -45,7 +55,7 @@ docker run --rm \
 # Obtain a container image config file
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> config \
+  dhi.io/crane:<tag> config \
     registry.example.com/myrepo/hello:latest
 ```
 
@@ -55,7 +65,7 @@ docker run --rm \
 # Obtains a container image digest
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> digest \
+  dhi.io/crane:<tag> digest \
     registry.example.com/myrepo/hello:latest
 ```
 
@@ -67,7 +77,7 @@ docker run --rm \
 # Copies efficiently a container image from one registry to another
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> copy \
+  dhi.io/crane:<tag> copy \
     registry.example.com/myrepo/foo:latest registry.example.com/myrepo/bar:latest
 ```
 
@@ -79,7 +89,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace \
   -w /workspace \
-  <your-namespace>/dhi-crane:<tag> pull \
+  dhi.io/crane:<tag> pull \
     registry.example.com/myrepo/hello:latest hello.tar
 ```
 
@@ -91,7 +101,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace:ro \
   -w /workspace \
-  <your-namespace>/dhi-crane:<tag> push \
+  dhi.io/crane:<tag> push \
     /workspace/hello.tar registry.example.com/myrepo/hello:latest
 ```
 
@@ -103,7 +113,7 @@ docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
   -v "$(pwd)":/workspace:ro \
   -w /workspace \
-  <your-namespace>/dhi-crane:<tag> flatten \
+  dhi.io/crane:<tag> flatten \
     registry.example.com/myrepo/hello:latest -t registry.example.com/myrepo/hello:flattened
 ```
 
@@ -115,7 +125,7 @@ docker run --rm \
 # Lists the repos in a registry
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> catalog \
+  dhi.io/crane:<tag> catalog \
     registry.example.com
 ```
 
@@ -125,7 +135,7 @@ docker run --rm \
 # List all tags in a repository
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> ls \
+  dhi.io/crane:<tag> ls \
     registry.example.com/myrepo/artifact
 ```
 
@@ -135,7 +145,7 @@ docker run --rm \
 # Validates that a container image is well-formed
 docker run --rm \
   -v ~/.docker:/home/nonroot/.docker:ro \
-  <your-namespace>/dhi-crane:<tag> validate \
+  dhi.io/crane:<tag> validate \
     --remote registry.example.com/myrepo/app:latest
 ```
 
@@ -166,7 +176,7 @@ jobs:
             -v ~/.docker:/home/nonroot/.docker:ro \
             -v "${{ github.workspace }}":/workspace:ro \
             -w /workspace \
-            <your-namespace>/dhi-crane:<tag> copy \
+            dhi.io/crane:<tag> copy \
               ghcr.io/${{ github.repository }}-stage:${{ github.sha }} \
               ghcr.io/${{ github.repository }}-prod:${{ github.sha }}
 ```
@@ -175,7 +185,7 @@ jobs:
 
 ```yaml
 push-artifact:
-  image: <your-namespace>/dhi-crane:<tag>
+  image: dhi.io/crane:<tag>
   before_script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER \
         --password-stdin $CI_REGISTRY

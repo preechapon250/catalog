@@ -1,13 +1,18 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a pyroscope instance
 
-Run the following commands. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following commands.
 
 ```bash
 # Create a Docker network for Pyroscope and related services
@@ -18,7 +23,7 @@ $ docker run -d \
   --name pyroscope \
   --network pyroscope-demo \
   -p 4040:4040 \
-  <your-namespace>/dhi-pyroscope:<tag>
+  dhi.io/pyroscope:<tag>
 
 # Verify Pyroscope is running
 $ curl http://localhost:4040/ready
@@ -50,7 +55,7 @@ $ docker run -d \
   --network pyroscope-demo \
   -p 4040:4040 \
   -v pyroscope-data:/data \
-  <your-namespace>/dhi-pyroscope:<tag>
+  dhi.io/pyroscope:<tag>
 
 # Clean up (keeps volume for data persistence)
 $ docker rm -f pyroscope
@@ -71,14 +76,14 @@ $ docker run -d \
   --name pyroscope \
   --network pyroscope-demo \
   -p 4040:4040 \
-  <your-namespace>/dhi-pyroscope:<tag>
+  dhi.io/pyroscope:<tag>
 
 # Start Grafana
 $ docker run -d \
   --name grafana \
   --network pyroscope-demo \
   -p 3000:3000 \
-  <your-namespace>/dhi-grafana:<tag>
+  dhi.io/grafana:<tag>
 
 # Access Grafana at http://localhost:3000 (admin/admin)
 # Add Data Source → Grafana Pyroscope → URL: http://pyroscope:4040
@@ -95,7 +100,7 @@ Complete monitoring stack with Pyroscope and Grafana:
 ```yaml
 services:
   pyroscope:
-    image: <your-namespace>/dhi-pyroscope:<tag>
+    image: dhi.io/pyroscope:<tag>
     container_name: pyroscope
     ports:
       - "4040:4040"
@@ -107,7 +112,7 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: <your-namespace>/dhi-grafana:<tag>
+    image: dhi.io/grafana:<tag>
     container_name: grafana
     ports:
       - "3000:3000"
@@ -186,8 +191,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 $ docker run --rm -it --pid container:pyroscope \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-pyroscope:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/pyroscope:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

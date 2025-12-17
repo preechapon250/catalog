@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Start a Spark instance
 
 By default, the security features on Spark are not enabled (see
@@ -10,13 +20,13 @@ off by setting the environment variable `SPARK_AUTHENTICATE` to `false`.
 ## Run Spark locally
 
 To run Spark locally with as many worker threads as logical cores on your machine, run the following command. Replace
-`<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+`<tag>` with the image variant you want to run.
 
 For PySpark examples, use a `-python` variant:
 
 ```console
 $ docker run --rm -it \
-  <your-namespace>/dhi-spark:<tag>-python \
+  dhi.io/spark:<tag>-python \
   driver --master "local[*]" \
   /opt/spark/examples/src/main/python/pi.py 10
 ```
@@ -25,7 +35,7 @@ For Scala/Java examples, use a standard variant:
 
 ```console
 $ docker run --rm -it \
-  <your-namespace>/dhi-spark:<tag> \
+  dhi.io/spark:<tag> \
   /opt/spark/bin/spark-submit --master "local[*]" \
   --class org.apache.spark.examples.SparkPi \
   /opt/spark/examples/jars/spark-examples-jar 10
@@ -61,7 +71,7 @@ Now use `docker compose up -d` to start master and workers
 ```yaml
 services:
   master:
-    image: <your-namespace>/dhi-spark:<tag>
+    image: dhi.io/spark:<tag>
     command: /opt/spark/sbin/start-master.sh
     ports:
       - "7077:7077"
@@ -71,7 +81,7 @@ services:
       - ./spark-custom.conf:/opt/spark/conf/spark-defaults.conf:ro
 
   worker-1:
-    image: <your-namespace>/dhi-spark:<tag>
+    image: dhi.io/spark:<tag>
     command: ["/opt/spark/sbin/start-worker.sh", "spark://master:7077"]
     depends_on: [master]
     environment:
@@ -83,7 +93,7 @@ services:
       - ./spark-custom.conf:/opt/spark/conf/spark-defaults.conf:ro
 
   worker-2:
-    image: <your-namespace>/dhi-spark:<tag>
+    image: dhi.io/spark:<tag>
     command: ["/opt/spark/sbin/start-worker.sh", "spark://master:7077"]
     depends_on: [master]
     environment:
@@ -142,8 +152,8 @@ or mount debugging tools with the image mount feature:
 
 ```console
 $ docker run --rm -it --pid container:my-container \
-    --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-    <your-namespace>/<image-name>:<tag> /dbg/bin/sh
+    --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+    dhi.io/<image-name>:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -175,7 +185,7 @@ include a package manager, which may require adjustments to your deployment if y
 1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
 
    - From: `apache/spark:<tag>` or similar
-   - To: `<your-namespace>/dhi-spark:<tag>`
+   - To: `dhi.io/spark:<tag>`
 
 1. Choose the appropriate variant. Select a variant based on your needs:
 

@@ -1,45 +1,50 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 This image runs the `vault-csi-provider` binary. You can invoke it with various command-line flags to check the version,
 display help, or configure runtime behavior.
 
-For the following examples, replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run. To confirm the correct namespace and repository name of the mirrored repository, select **View
-in repository**.
+For the following examples, replace `<tag>` with the image variant you want to run. To confirm the correct namespace and
+repository name of the mirrored repository, select **View in repository**.
 
 ### Run a Vault CSI Provider container and output the version
 
 ```
-$ docker run --rm <your-namespace>/dhi-vault-csi-provider:<tag> -version
+$ docker run --rm dhi.io/vault-csi-provider:<tag> -version
 ```
 
 ### Run a Vault CSI Provider container and output the help
 
 ```
-docker run --rm <your-namespace>/dhi-vault-csi-provider:<tag> -help
+docker run --rm dhi.io/vault-csi-provider:<tag> -help
 ```
 
 ### Run a Vault CSI Provider container with a custom endpoint
 
 ```
-$ docker run --rm -v /tmp:/tmp <your-namespace>/dhi-vault-csi-provider:<tag> -endpoint /tmp/vault-csi.sock
+$ docker run --rm -v /tmp:/tmp dhi.io/vault-csi-provider:<tag> -endpoint /tmp/vault-csi.sock
 ```
 
 ### Run a Vault CSI Provider container with health check
 
 ```
-$ docker run --rm -p 9999:9999 -v /tmp:/tmp <your-namespace>/dhi-vault-csi-provider:<tag> \
+$ docker run --rm -p 9999:9999 -v /tmp:/tmp dhi.io/vault-csi-provider:<tag> \
   -health-addr :9999 -endpoint /tmp/vault-csi.sock
 ```
 
 ### Run a Vault CSI Provider container with custom configuration
 
 ```
-$ docker run --rm -v /tmp:/tmp <your-namespace>/dhi-vault-csi-provider:<tag> \
+$ docker run --rm -v /tmp:/tmp dhi.io/vault-csi-provider:<tag> \
   -vault-addr https://vault.example.com:8200 \
   -vault-mount custom-auth \
   -endpoint /tmp/vault-csi.sock

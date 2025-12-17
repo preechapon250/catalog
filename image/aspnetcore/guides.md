@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this ASP.NET Core image
 
 This Docker Hardened ASP.NET Core image includes the ASP.NET Core runtime in a minimal, security-hardened package:
@@ -12,11 +22,10 @@ This Docker Hardened ASP.NET Core image includes the ASP.NET Core runtime in a m
 
 ## Start an ASP.NET Core instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run:
+Run the following command and replace `<tag>` with the image variant you want to run:
 
 ```bash
-docker run --rm <your-namespace>/dhi-aspnetcore:8 dotnet --info
+docker run --rm dhi.io/aspnetcore:<tag> dotnet --info
 ```
 
 ## Common ASP.NET Core use cases
@@ -27,7 +36,7 @@ Run your ASP.NET Core application directly from the container. Note that the def
 compatibility:
 
 ```bash
-docker run -p 8080:8080 <your-namespace>/dhi-aspnetcore:<tag> dotnet /app/myapp.dll
+docker run -p 8080:8080 dhi.io/aspnetcore:<tag> dotnet /app/myapp.dll
 ```
 
 ### Build and run a simple web API
@@ -36,15 +45,15 @@ Since DHI runtime images don't include build tools, use a multi-stage approach:
 
 ```bash
 # Create a new web API project using DHI's SDK
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-dotnet:8-sdk \
+docker run -v $(pwd):/app -w /app dhi.io/dotnet:8-sdk \
   dotnet new webapi -n MyApi --no-https
 
 # Build the application using DHI's SDK
-docker run -v $(pwd):/app -w /app <your-namespace>/dhi-dotnet:8-sdk \
+docker run -v $(pwd):/app -w /app dhi.io/dotnet:8-sdk \
   dotnet publish MyApi -c Release -o ./published
 
 # Run with DHI runtime (note: this is a web API, so it needs proper setup)
-docker run -v $(pwd)/published:/app -p 8080:8080 <your-namespace>/dhi-aspnetcore:8 \
+docker run -v $(pwd)/published:/app -p 8080:8080 dhi.io/aspnetcore:8 \
   dotnet /app/MyApi.dll
 ```
 
@@ -54,7 +63,7 @@ Use DHI's SDK for building and DHI runtime for production:
 
 ```docker
 # Build stage
-FROM <your-namespace>/dhi-dotnet:8-sdk AS builder
+FROM dhi.io/dotnet:8-sdk AS builder
 WORKDIR /src
 COPY ["MyApp.csproj", "."]
 RUN dotnet restore
@@ -62,7 +71,7 @@ COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
 # Runtime stage
-FROM <your-namespace>/dhi-aspnetcore:8
+FROM dhi.io/aspnetcore:8
 WORKDIR /app
 COPY --from=builder /app/publish .
 USER 1001
@@ -111,8 +120,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-aspnet-app \\
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \\
-  <your-namespace>/dhi-aspnetcore:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \\
+  dhi.io/aspnetcore:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

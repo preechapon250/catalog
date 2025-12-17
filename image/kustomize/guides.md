@@ -1,13 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a Kustomize container and display version information
 
 The following command runs the container, displays the version information, and automatically removes the container when
-it exits. Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to
-run.
+it exits.
 
 ```
-$ docker run --rm <your-namespace>/dhi-kustomize:<tag>
+$ docker run --rm dhi.io/kustomize:<tag>
 ```
 
 ### Run Kustomize commands
@@ -19,13 +28,13 @@ To run Kustomize commands, you'll typically need to mount your kubeconfig and an
 Mount the directory containing your kustomization:
 
 ```
-$ docker run --rm -v /path/to/app:/app <your-namespace>/dhi-kustomize:<tag> build /app
+$ docker run --rm -v /path/to/app:/app dhi.io/kustomize:<tag> build /app
 ```
 
 ### Use Kustomize with remote bases
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kustomize:<tag> build https://github.com/kubernetes-sigs/kustomize/examples/helloWorld
+$ docker run --rm -v $(pwd):/workspace dhi.io/kustomize:<tag> build https://github.com/kubernetes-sigs/kustomize/examples/helloWorld
 ```
 
 ## Image variants

@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Kyverno Reporter Policy Hardened image
 
 This image contains `kyverno-policy-reporter-ui`, a Kyverno component that adds a web based UI for the Kyverno Policy
@@ -7,24 +17,23 @@ Reporter component.
 
 ## Start a kyverno-policy-reporter-ui instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 **Note:** `kyverno-policy-reporter-ui` is primarily designed to run within a Kubernetes cluster as part of the complete
 Kyverno Policy Reporter deployment. The following standalone Docker command displays the available configuration
 options.
 
 ```bash
-docker run -d --name kyverno-policy-reporter-ui -p 8080:8080 <your-namespace>/dhi-kyverno-policy-reporter-ui:<tag>
+docker run -d --name kyverno-policy-reporter-ui -p 8080:8080 dhi.io/kyverno-policy-reporter-ui:<tag>
 ```
 
 ## Common kyverno-policy-reporter-ui use cases
 
 ### Install Kyverno Policy Reporter using Helm
 
-You can install Kyverno Policy Reporter using the official helm chart and replace the image. Replace `<your-namespace>`
-with your organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Kyverno Policy Reporter using the official helm chart and replace the image. Replace
+`<your-registry-secret>` with your [Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>`
+with the desired image tag.
 
 ```bash
 helm repo add policy-reporter https://kyverno.github.io/policy-reporter
@@ -36,11 +45,11 @@ helm upgrade --install policy-reporter policy-reporter/policy-reporter \
   --set api.enabled=true \
   --set ui.enabled=true \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set image.registry=docker.io \
-  --set image.repository=<your-namespace>/dhi-kyverno-policy-reporter \
+  --set image.registry=dhi.io \
+  --set image.repository=kyverno-policy-reporter \
   --set image.tag=<tag> \
-  --set ui.image.registry=docker.io \
-  --set ui.image.repository=<your-namespace>/dhi-kyverno-policy-reporter-ui \
+  --set ui.image.registry=dhi.io \
+  --set ui.image.repository=kyverno-policy-reporter-ui \
   --set ui.image.tag=<tag> \
 ```
 
@@ -95,8 +104,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kyverno-policy-reporter-ui:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kyverno-policy-reporter-ui:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -147,7 +156,7 @@ The following steps outline the general migration process.
    your values file accordingly:
 
    - From: `ghcr.io/kyverno/policy-reporter-ui:<tag>`
-   - To: `<your-namespace>/dhi-kyverno-policy-reporter-ui:<tag>`
+   - To: `dhi.io/kyverno-policy-reporter-ui:<tag>`
 
 1. **For custom deployments, update the runtime image in your Dockerfile.**
 

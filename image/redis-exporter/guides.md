@@ -1,28 +1,31 @@
-# Redis Exporter Docker Hardened Image Guide
-
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a redis-exporter instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
 # First, start a Redis instance
 $ docker run -d \
   --name redis-server \
   -p 6379:6379 \
-  <your-namespace>/dhi-redis:<tag>
+  dhi.io/redis:<tag>
 
 # Then start the redis-exporter
 $ docker run -d \
   --name redis-exporter \
   -p 9121:9121 \
-  <your-namespace>/dhi-redis-exporter:<tag> \
+  dhi.io/redis-exporter:<tag> \
   --redis.addr=redis://redis-server:6379
 
 # Verify it's working
@@ -43,13 +46,13 @@ Monitor a single Redis instance with default settings:
 $ docker run -d \
   --name redis-server \
   -p 6379:6379 \
-  <your-namespace>/dhi-redis:<tag>
+  dhi.io/redis:<tag>
 
 # Then start the exporter to monitor it
 $ docker run -d \
   --name redis-exporter \
   -p 9121:9121 \
-  <your-namespace>/dhi-redis-exporter:<tag> \
+  dhi.io/redis-exporter:<tag> \
   --redis.addr=redis://redis-server:6379
 ```
 
@@ -70,7 +73,7 @@ Run in multi-target mode to scrape multiple Redis instances via the `/scrape` en
 $ docker run -d \
   --name redis-exporter-multi \
   -p 9123:9121 \
-  <your-namespace>/dhi-redis-exporter:<tag> \
+  dhi.io/redis-exporter:<tag> \
   --redis.addr=
 ```
 
@@ -96,7 +99,7 @@ Configure using environment variables instead of command flags:
 $ docker run -d \
   --name redis-server-env \
   -p 6380:6379 \
-  <your-namespace>/dhi-redis:<tag>
+  dhi.io/redis:<tag>
 
 # Start exporter with environment variables
 $ docker run -d \
@@ -105,7 +108,7 @@ $ docker run -d \
   -e REDIS_ADDR=redis://redis-server-env:6379 \
   -e REDIS_EXPORTER_WEB_LISTEN_ADDRESS=0.0.0.0:9121 \
   -e REDIS_EXPORTER_WEB_TELEMETRY_PATH=/metrics \
-  <your-namespace>/dhi-redis-exporter:<tag>
+  dhi.io/redis-exporter:<tag>
 
 # Access metrics
 $ curl http://localhost:9122/metrics
@@ -123,13 +126,13 @@ Expose metrics on custom port/path and monitor specific keys:
 $ docker run -d \
   --name redis-server-custom \
   -p 6381:6379 \
-  <your-namespace>/dhi-redis:<tag>
+  dhi.io/redis:<tag>
 
 # Start exporter with custom configuration
 $ docker run -d \
   --name redis-exporter-custom \
   -p 8080:8080 \
-  <your-namespace>/dhi-redis-exporter:<tag> \
+  dhi.io/redis-exporter:<tag> \
   --redis.addr=redis://redis-server-custom:6379 \
   --web.listen-address=0.0.0.0:8080 \
   --web.telemetry-path=/custom-metrics \
@@ -152,7 +155,7 @@ Complete monitoring stack with Redis and Redis Exporter:
 
 services:
   redis:
-    image: <your-namespace>/dhi-redis:<tag>  # Use :8 for Redis
+    image: dhi.io/redis:<tag>  # Use :8 for Redis
     container_name: redis-server
     ports:
       - "6379:6379"
@@ -161,7 +164,7 @@ services:
     restart: unless-stopped
 
   redis-exporter:
-    image: <your-namespace>/dhi-redis-exporter:<tag>  # Use :1.80.1 for exporter
+    image: dhi.io/redis-exporter:<tag>  # Use :1.80.1 for exporter
     container_name: redis-exporter
     ports:
       - "9121:9121"
@@ -199,11 +202,11 @@ scrape_configs:
 
 services:
   redis:
-    image: <your-namespace>/dhi-redis:<tag>  # Use :8 for Redis
+    image: dhi.io/redis:<tag>  # Use :8 for Redis
     container_name: redis-server
 
   redis-exporter:
-    image: <your-namespace>/dhi-redis-exporter:<tag>  # Use :1.80.1 for exporter
+    image: dhi.io/redis-exporter:<tag>  # Use :1.80.1 for exporter
     container_name: redis-exporter
     command: --redis.addr=redis://redis:6379
     depends_on:
@@ -263,8 +266,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 $ docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-redis-exporter:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/redis-exporter:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -282,8 +285,8 @@ Docker Hardened Images come in different variants depending on their intended us
 
 **Tag selection guidance:**
 
-- Use `<your-namespace>/dhi-redis-exporter:1.80.1` for standard production deployments
-- Use `<your-namespace>/dhi-redis-exporter:1.80.1-fips` for FIPS-compliant environments
+- Use `dhi.io/redis-exporter:1.80.1` for standard production deployments
+- Use `dhi.io/redis-exporter:1.80.1-fips` for FIPS-compliant environments
 - Use major version tags (like `:1`) for automatic minor updates (not recommended for production)
 
 Runtime variants are designed to run your application in production. These images are intended to be used either
@@ -316,7 +319,7 @@ cryptographic operations.
 
 ```bash
 # Check if FIPS variant is being used
-$ docker inspect <your-namespace>/dhi-redis-exporter:<tag> | grep fips
+$ docker inspect dhi.io/redis-exporter:<tag> | grep fips
 
 # Verify FIPS mode in running container
 $ docker logs <container-name>

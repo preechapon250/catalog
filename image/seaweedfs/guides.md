@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Start a SeaweedFS instance
 
@@ -17,7 +23,7 @@ docker run -d --name seaweedfs \
   -p 8080:8080 \
   -p 8888:8888 \
   -v $(pwd)/data:/data \
-  <your-namespace>/dhi-seaweedfs:<tag> server
+  dhi.io/seaweedfs:<tag> server
 ```
 
 This starts a complete SeaweedFS instance with:
@@ -37,7 +43,7 @@ docker run -d --name seaweedfs-master \
   -p 9333:9333 \
   -p 19333:19333 \
   -v $(pwd)/master-data:/data \
-  <your-namespace>/dhi-seaweedfs:<tag> master
+  dhi.io/seaweedfs:<tag> master
 ```
 
 **Volume server:**
@@ -47,7 +53,7 @@ docker run -d --name seaweedfs-volume \
   -p 8080:8080 \
   -p 18080:18080 \
   -v $(pwd)/volume-data:/data \
-  <your-namespace>/dhi-seaweedfs:<tag> volume -mserver="master-host:9333"
+  dhi.io/seaweedfs:<tag> volume -mserver="master-host:9333"
 ```
 
 **Filer server:**
@@ -57,7 +63,7 @@ docker run -d --name seaweedfs-filer \
   -p 8888:8888 \
   -p 18888:18888 \
   -v $(pwd)/filer-data:/data \
-  <your-namespace>/dhi-seaweedfs:<tag> filer -master="master-host:9333"
+  dhi.io/seaweedfs:<tag> filer -master="master-host:9333"
 ```
 
 **S3 gateway:**
@@ -66,7 +72,7 @@ docker run -d --name seaweedfs-filer \
 docker run -d --name seaweedfs-s3 \
   -p 8333:8333 \
   -e S3_DOMAIN_NAME="s3.example.com" \
-  <your-namespace>/dhi-seaweedfs:<tag> s3 -filer="filer-host:8888"
+  dhi.io/seaweedfs:<tag> s3 -filer="filer-host:8888"
 ```
 
 ## Common SeaweedFS use cases
@@ -142,8 +148,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-seaweedfs:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/seaweedfs:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -164,6 +170,13 @@ their tag.
   - Run as the root user
   - Include a shell and package manager
   - Are used to build or compile applications
+
+- Compat variants support more seamless usage of DHI as a drop-in replacement for upstream images, particularly for
+  circumstances that the ultra-minimal runtime variant may not fully support. These images typically:
+
+  - Run as a non-root user (UID 65532)
+  - Improve compatibility with upstream helm charts
+  - Include optional tools that are critical for certain use-cases
 
 - FIPS variants include `fips` in the variant name and tag. They come in both runtime and build-time variants. These
   variants use cryptographic modules that have been validated under FIPS 140, a U.S. government standard for secure

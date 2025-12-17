@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What’s included in this Tailscale image
 
 This Docker Hardened Tailscale image includes the complete Tailscale networking toolkit in a single, security-hardened
@@ -27,8 +37,7 @@ For a complete list of environment variables and configuration options, refer to
 
 ## Connect to Tailscale using a container
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
 docker run -d \
@@ -38,7 +47,7 @@ docker run -d \
   --network=host \
   --cap-add=NET_ADMIN \
   --cap-add=NET_RAW \
-  <your-namespace>/tailscale:<tag>
+  dhi.io/tailscale:<tag>
 ```
 
 ## Common Tailscale use cases
@@ -57,7 +66,7 @@ docker run -d \
   --cap-add=NET_RAW \
   -e TS_AUTHKEY=tskey-auth-YOUR-AUTH-KEY \
   -e TS_STATE_DIR=/var/lib/tailscale \
-  <your-namespace>/tailscale:<tag>
+  dhi.io/tailscale:<tag>
 ```
 
 ### Sidecar container with Docker Compose
@@ -69,7 +78,7 @@ your Tailscale network using an OAuth client secret.
 version: "3.7"
 services:
   tailscale-nginx:
-    image: <your-namespace>/tailscale:<tag>
+    image: dhi.io/tailscale:<tag>
     hostname: tailscale-nginx
     environment:
       - TS_AUTHKEY=tskey-client-YOUR-OAUTH-SECRET
@@ -104,7 +113,7 @@ docker run -d \
   -e TS_AUTHKEY=tskey-auth-YOUR-AUTH-KEY \
   -e TS_ROUTES=192.168.0.0/24,10.0.0.0/8 \
   -e TS_STATE_DIR=/var/lib/tailscale \
-  <your-namespace>/tailscale:<tag>
+  dhi.io/tailscale:<tag>
 ```
 
 ### Exit node
@@ -121,7 +130,7 @@ docker run -d \
   -e TS_AUTHKEY=tskey-auth-YOUR-AUTH-KEY \
   -e TS_EXTRA_ARGS=--advertise-exit-node \
   -e TS_STATE_DIR=/var/lib/tailscale \
-  <your-namespace>/tailscale:<tag>
+  dhi.io/tailscale:<tag>
 ```
 
 For additional use cases and detailed configuration options, refer to the
@@ -167,8 +176,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:tailscaled \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/tailscale:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/tailscale:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -195,7 +204,7 @@ configuration. All environment variables and configuration options documented in
    Replace the image reference in your Docker run command or Compose file:
 
    - From: `tailscale/tailscale:<any-tag>` (e.g., `latest`, `v1.58.2`, `unstable`)
-   - To: `<your-namespace>/tailscale:<tag>`
+   - To: `dhi.io/tailscale:<tag>`
 
 1. **No configuration changes needed.**
 
@@ -226,7 +235,7 @@ docker run -d \
   --cap-add=NET_RAW \
   -e TS_AUTHKEY=tskey-auth-YOUR-AUTH-KEY \
   -e TS_STATE_DIR=/var/lib/tailscale \
-  <your-namespace>/tailscale:<tag>
+  dhi.io/tailscale:<tag>
 ```
 
 ### General migration considerations

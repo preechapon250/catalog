@@ -1,18 +1,24 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run a Logstash container
 
 To run the `logstash` binary with the `--version` flag, use the following command.
 
-At a minimum, replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want
-to run. To confirm the correct namespace and repository name of the mirrored repository, select **View in repository**.
+At a minimum, replace `<tag>` with the image variant you want to run. To confirm the correct namespace and repository
+name of the mirrored repository, select **View in repository**.
 
 ```
-$ docker run --rm <your-namespace>/dhi-logstash:<tag> --version
+$ docker run --rm dhi.io/logstash:<tag> --version
 ```
 
 ### Run with a custom pipeline
@@ -23,7 +29,7 @@ you can run Logstash with a custom pipeline.
 ```
 $ docker run --rm -p 5044:5044 \
   -v $(pwd)/logstash.conf:/usr/share/logstash/pipeline/logstash.conf \
-  <your-namespace>/dhi-logstash:<tag>
+  dhi.io/logstash:<tag>
 ```
 
 ### Override settings using environment variables
@@ -34,7 +40,7 @@ To override settings like `pipeline.workers`, you can pass them as environment v
 $ docker run --rm \
   -e pipeline.workers=6 \
   -p 5044:5044 \
-  <your-namespace>/dhi-logstash:<tag>
+  dhi.io/logstash:<tag>
 ```
 
 ## Image variants

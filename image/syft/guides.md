@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Generate an SBOM for a container image
 
 The following command generates a Software Bill of Materials for a container image and displays it in table format.
-Replace `<your-namespace>` with your organization's namespace and `<tag>` with the image variant you want to run.
+Replace `<tag>` with the image variant you want to run.
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest
 ```
 
 ### Generate an SBOM for a filesystem directory
@@ -14,7 +24,7 @@ $ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest
 To generate an SBOM for a local directory, mount it as a volume:
 
 ```
-$ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-syft:<tag> dir:/workspace
+$ docker run --rm -v $(pwd):/workspace dhi.io/syft:<tag> dir:/workspace
 ```
 
 ### Generate an SBOM for an archive
@@ -22,7 +32,7 @@ $ docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-syft:<tag> dir:/work
 Syft can analyze compressed archives directly:
 
 ```
-$ docker run --rm -v $(pwd)/app.tar.gz:/app.tar.gz <your-namespace>/dhi-syft:<tag> /app.tar.gz
+$ docker run --rm -v $(pwd)/app.tar.gz:/app.tar.gz dhi.io/syft:<tag> /app.tar.gz
 ```
 
 ### Output formats
@@ -30,7 +40,7 @@ $ docker run --rm -v $(pwd)/app.tar.gz:/app.tar.gz <your-namespace>/dhi-syft:<ta
 #### JSON format (Syft native)
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o syft-json
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o syft-json
 ```
 
 #### CycloneDX formats
@@ -38,19 +48,19 @@ $ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o syft-json
 CycloneDX XML (v1.6):
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o cyclonedx-xml
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o cyclonedx-xml
 ```
 
 CycloneDX JSON (v1.6):
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o cyclonedx-json
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o cyclonedx-json
 ```
 
 CycloneDX XML (v1.5):
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o cyclonedx-xml@1.5
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o cyclonedx-xml@1.5
 ```
 
 #### SPDX formats
@@ -58,31 +68,31 @@ $ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o cyclonedx-xml
 SPDX tag-value (v2.3):
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o spdx-tag-value
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o spdx-tag-value
 ```
 
 SPDX JSON (v2.3):
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o spdx-json
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o spdx-json
 ```
 
 SPDX tag-value (v2.2):
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o spdx-tag-value@2.2
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o spdx-tag-value@2.2
 ```
 
 #### GitHub dependency format
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o github-json
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o github-json
 ```
 
 #### Human-readable text format
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o syft-text
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest -o syft-text
 ```
 
 ### Advanced scanning options
@@ -92,7 +102,7 @@ $ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -o syft-text
 By default, Syft analyzes the squashed image. To include packages from all layers:
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --scope all-layers
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest --scope all-layers
 ```
 
 #### Select specific catalogers
@@ -101,10 +111,10 @@ Control which package detection methods to use:
 
 ```
 # Only analyze system packages
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --catalogers dpkg,rpm,apk
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest --catalogers dpkg,rpm,apk
 
 # Focus on language ecosystems
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --catalogers go-mod-file,npm-package-json,python-pip-requirements
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest --catalogers go-mod-file,npm-package-json,python-pip-requirements
 ```
 
 #### Exclude file paths
@@ -112,7 +122,7 @@ $ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --catalogers go-
 Exclude certain paths from analysis:
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --exclude './tests/**' --exclude '**/node_modules/**'
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest --exclude './tests/**' --exclude '**/node_modules/**'
 ```
 
 #### Select catalogers by platform
@@ -120,7 +130,7 @@ $ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --exclude './tes
 Only run catalogers appropriate for detected platforms:
 
 ```
-$ docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --platform-catalogers
+$ docker run --rm dhi.io/syft:<tag> ubuntu:latest --platform-catalogers
 ```
 
 ### SBOM Attestation with cosign
@@ -131,7 +141,7 @@ First, generate SBOM and pipe to cosign for attestation:
 
 ```bash
 # Generate SBOM and create signed attestation
-docker run --rm <your-namespace>/dhi-syft:<tag> myapp:latest -o spdx-json | \
+docker run --rm dhi.io/syft:<tag> myapp:latest -o spdx-json | \
 cosign attest --predicate-type https://spdx.dev/Document --stdin myapp:latest
 ```
 
@@ -154,7 +164,7 @@ Use Syft to convert existing SBOMs between formats:
 ```bash
 # Convert SPDX to CycloneDX
 docker run --rm -v $(pwd)/sbom.spdx.json:/input.json -v $(pwd):/output \
-  <your-namespace>/dhi-syft:<tag> convert /input.json -o cyclonedx-json > /output/sbom.cyclonedx.json
+  dhi.io/syft:<tag> convert /input.json -o cyclonedx-json > /output/sbom.cyclonedx.json
 ```
 
 ### Custom templates
@@ -162,7 +172,7 @@ docker run --rm -v $(pwd)/sbom.spdx.json:/input.json -v $(pwd):/output \
 #### Use Go templates for custom output
 
 ```
-$ docker run --rm -v $(pwd)/template.tmpl:/template <your-namespace>/dhi-syft:<tag> ubuntu:latest -o template -t /template
+$ docker run --rm -v $(pwd)/template.tmpl:/template dhi.io/syft:<tag> ubuntu:latest -o template -t /template
 ```
 
 Example template for CSV output:
@@ -181,7 +191,7 @@ name,version,type
 ```yaml
 - name: Generate SBOM
   run: |
-    docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-syft:<tag> \
+    docker run --rm -v $(pwd):/workspace dhi.io/syft:<tag> \
       myapp:${{ github.sha }} -o spdx-json > /workspace/sbom.spdx.json
 
 - name: Upload SBOM artifact
@@ -195,7 +205,7 @@ name,version,type
 
 ```yaml
 generate-sbom:
-  image: <your-namespace>/dhi-syft:<tag>
+  image: dhi.io/syft:<tag>
   script:
     - syft $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA -o cyclonedx-json > sbom.json
   artifacts:
@@ -215,7 +225,7 @@ images=("app:v1.0" "api:v2.1" "worker:v1.5")
 
 for image in "${images[@]}"; do
   echo "Generating SBOM for $image"
-  docker run --rm <your-namespace>/dhi-syft:<tag> "$image" -o cyclonedx-json > "sbom-${image//[:\/]/-}.json"
+  docker run --rm dhi.io/syft:<tag> "$image" -o cyclonedx-json > "sbom-${image//[:\/]/-}.json"
 done
 ```
 
@@ -226,10 +236,10 @@ Scan all images in a registry namespace:
 ```bash
 # List and scan images from registry
 registry_url="registry.company.com/myteam"
-images=$(docker run --rm <your-namespace>/dhi-syft:<tag> registry:"$registry_url" --catalogers registry)
+images=$(docker run --rm dhi.io/syft:<tag> registry:"$registry_url" --catalogers registry)
 
 for image in $images; do
-  docker run --rm <your-namespace>/dhi-syft:<tag> "$image" -o spdx-json > "$(basename $image)-sbom.json"
+  docker run --rm dhi.io/syft:<tag> "$image" -o spdx-json > "$(basename $image)-sbom.json"
 done
 ```
 
@@ -239,7 +249,7 @@ Generate compliance-ready SBOMs with comprehensive metadata:
 
 ```bash
 # Generate detailed SPDX SBOM with all metadata
-docker run --rm <your-namespace>/dhi-syft:<tag> myapp:latest \
+docker run --rm dhi.io/syft:<tag> myapp:latest \
   -o spdx-json \
   --scope all-layers \
   --select-catalogers \
@@ -254,7 +264,7 @@ docker run --rm <your-namespace>/dhi-syft:<tag> myapp:latest \
 Mount a custom configuration file to control Syft behavior:
 
 ```
-$ docker run --rm -v $(pwd)/.syft.yaml:/root/.syft.yaml <your-namespace>/dhi-syft:<tag> ubuntu:latest
+$ docker run --rm -v $(pwd)/.syft.yaml:/root/.syft.yaml dhi.io/syft:<tag> ubuntu:latest
 ```
 
 Example configuration:
@@ -293,7 +303,7 @@ Syft automatically uses parallel processing, but you can control resource usage:
 
 ```bash
 # Increase memory for large images
-docker run --rm --memory=4g <your-namespace>/dhi-syft:<tag> huge-image:latest
+docker run --rm --memory=4g dhi.io/syft:<tag> huge-image:latest
 
 # Control CPU usage in Kubernetes
 resources:
@@ -311,10 +321,10 @@ For faster scanning, limit catalogers to what you need:
 
 ```bash
 # Only scan for system packages (fastest)
-docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --catalogers dpkg,rpm,apk
+docker run --rm dhi.io/syft:<tag> ubuntu:latest --catalogers dpkg,rpm,apk
 
 # Only scan for vulnerabilities-relevant packages
-docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest --catalogers dpkg,rpm,go-mod-file,npm-package-json
+docker run --rm dhi.io/syft:<tag> ubuntu:latest --catalogers dpkg,rpm,go-mod-file,npm-package-json
 ```
 
 ## Image variants
@@ -391,15 +401,15 @@ The following steps outline the general migration process.
 
 ```bash
 # Generate SBOM and feed to Grype for vulnerability analysis
-docker run --rm <your-namespace>/dhi-syft:<tag> myapp:latest -o syft-json | \
-docker run --rm -i <your-namespace>/dhi-grype:<tag>
+docker run --rm dhi.io/syft:<tag> myapp:latest -o syft-json | \
+docker run --rm -i dhi.io/grype:<tag>
 ```
 
 #### License compliance automation
 
 ```bash
 # Extract license information for compliance review
-docker run --rm <your-namespace>/dhi-syft:<tag> myapp:latest -o syft-json | \
+docker run --rm dhi.io/syft:<tag> myapp:latest -o syft-json | \
 jq -r '.artifacts[] | select(.licenses != null) | {name: .name, version: .version, licenses: [.licenses[].value]}'
 ```
 
@@ -407,8 +417,8 @@ jq -r '.artifacts[] | select(.licenses != null) | {name: .name, version: .versio
 
 ```bash
 # Track dependencies across application lifecycle
-docker run --rm <your-namespace>/dhi-syft:<tag> myapp:v1.0 -o cyclonedx-json > v1.0-sbom.json
-docker run --rm <your-namespace>/dhi-syft:<tag> myapp:v2.0 -o cyclonedx-json > v2.0-sbom.json
+docker run --rm dhi.io/syft:<tag> myapp:v1.0 -o cyclonedx-json > v1.0-sbom.json
+docker run --rm dhi.io/syft:<tag> myapp:v2.0 -o cyclonedx-json > v2.0-sbom.json
 
 # Compare SBOMs to identify changes
 diff <(jq -S '.components[].name' v1.0-sbom.json) <(jq -S '.components[].name' v2.0-sbom.json)
@@ -431,7 +441,7 @@ spec:
         spec:
           containers:
           - name: syft
-            image: <your-namespace>/dhi-syft:<tag>
+            image: dhi.io/syft:<tag>
             command:
             - /bin/sh
             - -c
@@ -455,7 +465,7 @@ spec:
 
 ```bash
 # Generate SBOM and upload to Harbor registry
-SBOM=$(docker run --rm <your-namespace>/dhi-syft:<tag> myapp:latest -o spdx-json)
+SBOM=$(docker run --rm dhi.io/syft:<tag> myapp:latest -o spdx-json)
 echo "$SBOM" | curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Basic $HARBOR_CREDENTIALS" \
@@ -515,7 +525,7 @@ For scanning local images, ensure proper Docker socket access:
 
 ```bash
 # Mount Docker socket for local image scanning
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock <your-namespace>/dhi-syft:<tag> ubuntu:latest
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock dhi.io/syft:<tag> ubuntu:latest
 ```
 
 #### Large filesystem scanning
@@ -524,7 +534,7 @@ For very large directories, consider memory and performance implications:
 
 ```bash
 # Increase memory limits for large scans
-docker run --rm --memory=8g -v $(pwd):/workspace <your-namespace>/dhi-syft:<tag> dir:/workspace
+docker run --rm --memory=8g -v $(pwd):/workspace dhi.io/syft:<tag> dir:/workspace
 ```
 
 #### Private registry authentication
@@ -533,10 +543,10 @@ Configure registry credentials for private image scanning:
 
 ```bash
 # Use Docker credentials
-docker run --rm -v ~/.docker/config.json:/root/.docker/config.json <your-namespace>/dhi-syft:<tag> private.registry.com/myapp:latest
+docker run --rm -v ~/.docker/config.json:/root/.docker/config.json dhi.io/syft:<tag> private.registry.com/myapp:latest
 
 # Use environment variables
-docker run --rm -e REGISTRY_USERNAME=user -e REGISTRY_PASSWORD=pass <your-namespace>/dhi-syft:<tag> private.registry.com/myapp:latest
+docker run --rm -e REGISTRY_USERNAME=user -e REGISTRY_PASSWORD=pass dhi.io/syft:<tag> private.registry.com/myapp:latest
 ```
 
 #### Cataloger issues
@@ -545,10 +555,10 @@ If certain packages aren't detected, verify cataloger selection:
 
 ```bash
 # List available catalogers
-docker run --rm <your-namespace>/dhi-syft:<tag> catalogers
+docker run --rm dhi.io/syft:<tag> catalogers
 
 # Enable verbose logging for debugging
-docker run --rm <your-namespace>/dhi-syft:<tag> ubuntu:latest -vv
+docker run --rm dhi.io/syft:<tag> ubuntu:latest -vv
 ```
 
 #### Template rendering errors
@@ -557,5 +567,5 @@ For custom templates, validate template syntax and data structures:
 
 ```bash
 # Test template with verbose output
-docker run --rm -v $(pwd)/template.tmpl:/template <your-namespace>/dhi-syft:<tag> ubuntu:latest -o template -t /template -vv
+docker run --rm -v $(pwd)/template.tmpl:/template dhi.io/syft:<tag> ubuntu:latest -o template -t /template -vv
 ```

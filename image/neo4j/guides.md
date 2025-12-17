@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### What's included in this Neo4j Hardened image
 
@@ -10,20 +16,18 @@ This image contains `neo4j`, which can be run as a deployment using `docker run`
 
 ## Start a neo4j instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```bash
-docker run -d --name neo4j -e NEO4J_AUTH=neo4j/<password> -p 7474:7474 -p 7687:7687 <your-namespace>/dhi-neo4j:<tag>
+docker run -d --name neo4j -e NEO4J_AUTH=neo4j/<password> -p 7474:7474 -p 7687:7687 dhi.io/neo4j:<tag>
 ```
 
 ## Common neo4j use cases
 
 ### Install Neo4j using Helm
 
-You can install Neo4j using the official helm chart and replace the image. Replace `<your-namespace>` with your
-organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Neo4j using the official helm chart and replace the image. Replace `<your-registry-secret>` with your
+[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image tag.
 
 ```bash
 helm repo add neo4j https://neo4j.github.io/helm-charts
@@ -32,8 +36,8 @@ helm upgrade --install neo4j neo4j/neo4j \
   --set neo4j.name=neo4j \
   --set volumes.data.mode=defaultStorageClass \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set image.registry=docker.io \
-  --set image.repository=<your-namespace>/dhi-neo4j \
+  --set image.registry=dhi.io \
+  --set image.repository=neo4j \
   --set image.tag=<tag>
 
 kubectl port-forward svc/neo4j 7474:7474 7687:7687
@@ -75,15 +79,15 @@ that only exists during the debugging session.
 For example, you can use Docker Debug:
 
 ```
-docker debug dhi-neo4j
+docker debug neo4j
 ```
 
 or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-neo4j:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/neo4j:<tag> /dbg/bin/sh
 ```
 
 ### Image variants

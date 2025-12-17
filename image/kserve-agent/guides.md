@@ -1,13 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Start a kserve-agent container
 
 kserve-agent is typically deployed as a sidecar container in a Kubernetes pod alongside your model serving containers.
-However, you can run it standalone for testing. Replace `<your-namespace>` with your organization's namespace and
-`<tag>` with the image variant you want to run.
+However, you can run it standalone for testing. Replace `<tag>` with the image variant you want to run.
 
 ```bash
-$ docker run --rm <your-namespace>/dhi-kserve-agent:<tag>
+$ docker run --rm dhi.io/kserve-agent:<tag>
 ```
 
 For production deployment with custom configuration:
@@ -15,7 +24,7 @@ For production deployment with custom configuration:
 ```bash
 $ docker run --rm \
   -p 9081:9081 \
-  <your-namespace>/dhi-kserve-agent:<tag> \
+  dhi.io/kserve-agent:<tag> \
   --port=9081 --component-port=8080
 ```
 
@@ -47,7 +56,7 @@ For scenarios with custom ports and logging:
 ```bash
 $ docker run --rm \
   -p 9081:9081 \
-  <your-namespace>/dhi-kserve-agent:<tag> \
+  dhi.io/kserve-agent:<tag> \
   --port=9081 \
   --component-port=8000 \
   --log-url=http://logger:8080/logs \
@@ -71,7 +80,7 @@ spec:
     - containerPort: 8000
 
   - name: kserve-agent
-    image: <your-namespace>/dhi-kserve-agent:<tag>
+    image: dhi.io/kserve-agent:<tag>
     ports:
     - containerPort: 9081
     args:

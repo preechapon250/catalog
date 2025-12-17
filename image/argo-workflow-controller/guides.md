@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this Argo Workflow Controller Hardened Image
 
 This image contains the following tools:
@@ -12,8 +22,8 @@ The entry point for the image is `workflow-controller` and you must specify the 
 
 To use the Argo Workflows hardened image in Kubernetes, [set up authentication](https://docs.docker.com/dhi/how-to/k8s/)
 and update your Kubernetes deployment. For example, in your `workflow-controller.yaml` file, replace the image reference
-in the container spec. In the following example replace `<your-namespace>` and `<tag>` with your organization's
-namespace and the desired tag. Also, include the command to run the `workflow-controller`.
+in the container spec. In the following example replace `<tag>` with the desired tag. Also, include the command to run
+the `workflow-controller`.
 
 ```yaml
 apiVersion: apps/v1
@@ -26,7 +36,7 @@ spec:
     spec:
       containers:
         - name: workflow-controller
-          image: <your-namespace>/dhi-argo-workflow-controller:<tag>
+          image: dhi.io/argo-workflow-controller:<tag>
           command: ["workflow-controller"]
         imagePullSecrets:
           - name: <your-registry-secret>
@@ -44,9 +54,9 @@ For examples of how to use Argo Workflows itself, see the
 
 ### Install Argo Workflows using Helm
 
-You can install Argo Workflows using the official helm chart and replace the image. Replace `<your-namespace>` with your
-organization's namespace, `<your-registry-secret>` with your
-[Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/), and `<tag>` with the desired image tag.
+You can install Argo Workflows using the official helm chart and replace the image. Replace `<your-registry-secret>`
+with your [Kubernetes image pull secret](https://docs.docker.com/dhi/how-to/k8s/) and `<tag>` with the desired image
+tag.
 
 ```bash
 helm repo add argo https://argoproj.github.io/argo-helm
@@ -55,8 +65,8 @@ helm repo update
 helm upgrade --install argo-workflows argo/argo-workflows \
   -n argo-workflows --create-namespace --wait \
   --set "images.pullSecrets[0].name=<your-registry-secret>" \
-  --set controller.image.registry=docker.io \
-  --set controller.image.repository=<your-namespace>/dhi-argo-workflow-controller \
+  --set controller.image.registry=dhi.io \
+  --set controller.image.repository=argo-workflow-controller \
   --set controller.image.tag=<tag>
 ```
 
@@ -101,8 +111,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-argo-workflow-controller:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/argo-workflow-controller:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -134,7 +144,7 @@ commands and arguments are compatible.
 
 1. Update your image reference. Replace the image reference in your Docker run command or Compose file:
    - From: `argoproj/workflow-controller:<tag>`
-   - To: `<your-namespace>/dhi-argo-workflow-controller:<tag>`
+   - To: `dhi.io/argo-workflow-controller:<tag>`
 1. Specify the command to run `workflow-controller`. All your existing environment variables, volume mounts, and network
    settings remain the same.
 

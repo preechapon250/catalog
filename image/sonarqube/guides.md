@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Start a SonarQube image
 
-Start a SonarQube Community Build instance with the following command. Replace `<your-namespace>` with your
-organization's namespace and `<tag>` with the image variant you want to run.
+Start a SonarQube Community Build instance with the following command. Replace `<tag>` with the image variant you want
+to run.
 
 ```bash
-docker run -p 9000:9000 <your-namespace>/dhi-sonarqube:<tag>
+docker run -p 9000:9000 dhi.io/sonarqube:<tag>
 ```
 
 For production deployments with persistence:
@@ -16,7 +26,7 @@ docker run -p 9000:9000 \
   -v sonarqube_data:/opt/sonarqube/data \
   -v sonarqube_logs:/opt/sonarqube/logs \
   -v sonarqube_extensions:/opt/sonarqube/extensions \
-  <your-namespace>/dhi-sonarqube:<tag>
+  dhi.io/sonarqube:<tag>
 ```
 
 You can then browse to `http://localhost:9000` to access the SonarQube web interface.
@@ -34,7 +44,7 @@ docker run -d \
   --name sonarqube-dev \
   -p 9000:9000 \
   -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
-  <your-namespace>/dhi-sonarqube:<tag>
+  dhi.io/sonarqube:<tag>
 ```
 
 For development teams using Compose, the following is an example `compose.yaml`. It includes volume mounts for data
@@ -43,7 +53,7 @@ persistence.
 ```yaml
 services:
   sonarqube:
-    image: <your-namespace>/dhi-sonarqube:<tag>
+    image: dhi.io/sonarqube:<tag>
     container_name: sonarqube-dev
     ports:
       - "9000:9000"
@@ -68,7 +78,7 @@ volume mounts:
 ```yaml
 services:
   sonarqube:
-    image: <your-namespace>/dhi-sonarqube:<tag>
+    image: dhi.io/sonarqube:<tag>
     container_name: sonarqube-prod
     ports:
       - "9000:9000"
@@ -86,7 +96,7 @@ services:
       - sonarnet
 
   postgres:
-    image: <your-namespace>/dhi-postgres:<tag>
+    image: dhi.io/postgres:<tag>
     container_name: sonarqube-postgres
     environment:
       - POSTGRES_DB=sonarqube
@@ -144,7 +154,7 @@ jobs:
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/build" -w /build \
-            <your-namespace>/dhi-gradle:<tag> \
+            dhi.io/gradle:<tag> \
             ./gradlew clean build sonar \
               -Dsonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
               -Dsonar.token="${{ secrets.SONAR_TOKEN }}"
@@ -160,7 +170,7 @@ echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 # run the Gradle image with the SonarQube plugin
 docker run --rm -it \
   -v "$PWD":/build -w /build \
-  <your-namespace>/dhi-gradle:<tag> \
+  dhi.io/gradle:<tag> \
   ./gradlew build sonar -Dsonar.host.url="$SONAR_HOST_URL" -Dsonar.token="$SONAR_TOKEN"
 ```
 
@@ -170,7 +180,7 @@ To extend SonarQube with third-party plugins, you can build a custom image that 
 following is an example `Dockerfile` that adds a plugin:
 
 ```dockerfile
-FROM <your-namespace>/dhi-sonarqube:<tag>
+FROM dhi.io/sonarqube:<tag>
 
 COPY ./plugins/my-custom-plugin.jar /opt/sonarqube/extensions/plugins/
 ```
@@ -182,7 +192,7 @@ Alternatively, you can mount plugins at run time:
 ```bash
 docker run -d -p 9000:9000 \
   -v "$PWD/plugins:/opt/sonarqube/extensions/plugins" \
-  <your-namespace>/dhi-sonarqube:<tag>
+  dhi.io/sonarqube:<tag>
 ```
 
 ### Advanced configuration
@@ -190,7 +200,7 @@ docker run -d -p 9000:9000 \
 For graceful shutdown, configure `stop-timeout` to allow in-progress analysis tasks to complete:
 
 ```bash
-docker run --stop-timeout 3600 <your-namespace>/dhi-sonarqube:<tag>
+docker run --stop-timeout 3600 dhi.io/sonarqube:<tag>
 ```
 
 To customize Java memory settings, set the `SONAR_JAVA_OPTS` and `SONAR_WEB_JAVAADDITIONALOPTS` environment variables.
@@ -200,7 +210,7 @@ The following is an example:
 docker run -p 9000:9000 \
   -e SONAR_JAVA_OPTS="-Xmx2048m -Xms256m" \
   -e SONAR_WEB_JAVAADDITIONALOPTS="-Dmy.custom.property=value" \
-  <your-namespace>/dhi-sonarqube:<tag>
+  dhi.io/sonarqube:<tag>
 ```
 
 ## Non-hardened images vs. Docker Hardened Images
@@ -237,15 +247,15 @@ that only exists during the debugging session.
 For example, you can use Docker Debug:
 
 ```
-docker debug <your-namespace>/dhi-sonarqube:<tag>
+docker debug dhi.io/sonarqube:<tag>
 ```
 
 or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/<your-namespace>/dhi-sonarqube:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/sonarqube:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -287,7 +297,7 @@ Migration from the Docker Official SonarQube image to the DHI for SonarQube is s
    docker run -p 9000:9000 -v sonarqube_data:/opt/sonarqube/data sonarqube:community
 
    # To:
-   docker run -p 9000:9000 -v sonarqube_data:/opt/sonarqube/data <your-namespace>/dhi-sonarqube:<tag>
+   docker run -p 9000:9000 -v sonarqube_data:/opt/sonarqube/data dhi.io/sonarqube:<tag>
    ```
 
 1. Start the hardened image.
@@ -305,7 +315,7 @@ setup to use the DHI SonarQube image.
 services:
   sonarqube:
     # ONLY CHANGE: Update image reference
-    image: <your-namespace>/dhi-sonarqube:<tag>  # Was: sonarqube:community
+    image: dhi.io/sonarqube:<tag>  # Was: sonarqube:community
     ports:
       - "9000:9000"
     volumes:

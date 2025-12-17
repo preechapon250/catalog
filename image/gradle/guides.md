@@ -1,12 +1,22 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### Run a Gradle task
 
-Run this from the directory of the Gradle project you want to build. Replace `<your-namespace>` with your organization's
-namespace, `<tag>` with the image variant you want to run, and `<gradle-task>` with the Gradle task you want to run.
+Run this from the directory of the Gradle project you want to build. Replace `<gradle-task>` with the Gradle task you
+want to run.
 
 ```console
-$ docker run --rm -v "$(pwd)":/build <your-namespace>/dhi-gradle:<tag> <gradle-task>
+$ docker run --rm -v "$(pwd)":/build dhi.io/gradle:<tag> <gradle-task>
 ```
 
 ## Common Gradle use cases
@@ -25,7 +35,7 @@ $ mkdir gradle-demo && cd gradle-demo
 Then, initialize a new Gradle application project using the Docker image:
 
 ```console
-$ docker run --rm -v "$(pwd)":/build <your-namespace>/dhi-gradle:<tag> \
+$ docker run --rm -v "$(pwd)":/build dhi.io/gradle:<tag> \
   init --type java-application --dsl kotlin --test-framework junit \
   --project-name gradle-demo --package org.example
 ```
@@ -39,7 +49,7 @@ You can build a local project by bind mounting your project directory into the c
 ```console
 $ docker run --rm \
   -v "$(pwd)":/build \
-  <your-namespace>/dhi-gradle:<tag> \
+  dhi.io/gradle:<tag> \
   build
 ```
 
@@ -51,7 +61,7 @@ JAR or WAR files, depending on your project configuration.
 ```console
 $ docker run --rm \
   -v "$(pwd)":/build \
-  <your-namespace>/dhi-gradle:<tag> \
+  dhi.io/gradle:<tag> \
   clean assemble
 ```
 
@@ -66,7 +76,7 @@ The following example uses the Docker Hardened Image for Eclipse Temurin as the 
 ```dockerfile
 # syntax=docker/dockerfile:1
 # Build stage - Gradle DHI for building
-FROM <your-namespace>/dhi-gradle:<tag> AS build
+FROM dhi.io/gradle:<tag> AS build
 
 # Copy Gradle files for better caching (working directory is /build by default)
 COPY settings.gradle.kts ./
@@ -80,7 +90,7 @@ RUN --mount=type=cache,target=/home/gradle/.gradle \
     gradle clean assemble --no-daemon
 
 # Runtime stage - JRE for running the application
-FROM <your-namespace>/dhi-eclipse-temurin:<tag> AS runtime
+FROM dhi.io/eclipse-temurin:<tag> AS runtime
 
 WORKDIR /app
 COPY --from=build /build/app/build/libs/*.jar app.jar
@@ -118,7 +128,7 @@ image may differ from a standard image, so ensure that your commands and argumen
 
 1. Update your image reference. Replace the image reference in your Docker run command, Dockerfile, or Compose file:
    - From: `gradle:<tag>`
-   - To: `<your-namespace>/dhi-gradle:<tag>`
+   - To: `dhi.io/gradle:<tag>`
 1. All your existing environment variables, volume mounts, and network settings remain the same.
 
 ## Troubleshoot migration

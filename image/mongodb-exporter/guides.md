@@ -1,16 +1,24 @@
 ## Prerequisite
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a MongoDB Exporter instance
+
+Note: MongoDB Docker Hardened Images are AMD64-tagged images. When running on ARM-based systems using the
+`--platform linux/amd64` flag, the images will run under emulation, which can significantly impact performance.
 
 ### Basic MongoDB Exporter instance
 
 Before you run a MongoDB Exporter instance, ensure that you have MongoDB database instance up and running on your
-system. Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the
-image variant you want to run.
+system.
 
 ```
 # 1. Create network
@@ -21,7 +29,7 @@ docker run -d \
   --name mongodb \
   --platform linux/amd64 \
   --network mongo-monitoring \
-  <your-namespace>/dhi-mongodb:<tag>-dev \
+  dhi.io/mongodb:<tag>-dev \
   --bind_ip_all
 
 # Wait for MongoDB to be ready
@@ -36,7 +44,7 @@ docker run -d \
   --name mongodb-exporter \
   --network mongo-monitoring \
   -p 9216:9216 \
-  <your-namespace>/dhi-mongodb-exporter:<tag> \
+  dhi.io/mongodb-exporter:<tag> \
   --mongodb.uri=mongodb://mongodb:27017
 
 # Wait for exporter to connect
@@ -59,7 +67,7 @@ If your MongoDB instance requires authentication, provide credentials in the con
 docker run -d \
   --name mongodb-exporter \
   -p 9216:9216 \
-  <your-namespace>/dhi-mongodb-exporter:<tag> \
+  dhi.io/mongodb-exporter:<tag> \
   --mongodb.uri=mongodb://admin:secure_password@mongodb:27017/admin
 ```
 
@@ -72,7 +80,7 @@ docker run -d \
   --name mongodb-exporter \
   -p 9216:9216 \
   -e MONGODB_URI=mongodb://admin:secure_password@mongodb:27017/admin \
-  <your-namespace>/dhi-mongodb-exporter:<tag>
+  dhi.io/mongodb-exporter:<tag>
 ```
 
 Available environment variables:
@@ -100,7 +108,7 @@ docker run -d \
   --platform linux/amd64 \
   --network mongo-monitoring \
   -v mongodb_data:/data/db \
-  <your-namespace>/dhi-mongodb:<tag>-dev \
+  dhi.io/mongodb:<tag>-dev \
   --bind_ip_all
 
 # Wait for MongoDB to be ready
@@ -127,7 +135,7 @@ docker run -d \
   --network mongo-monitoring \
   -p 27017:27017 \
   -v mongodb_data:/data/db \
-  <your-namespace>/dhi-mongodb:<tag>-dev \
+  dhi.io/mongodb:<tag>-dev \
   --bind_ip_all \
   --auth
 
@@ -144,7 +152,7 @@ docker run -d \
   --name mongodb-exporter \
   --network mongo-monitoring \
   -p 9216:9216 \
-  <your-namespace>/dhi-mongodb-exporter:<tag> \
+  dhi.io/mongodb-exporter:<tag> \
   --mongodb.uri=mongodb://admin:secure_password@mongodb:27017/admin \
   --collector.dbstats \
   --collector.collstats
@@ -174,7 +182,7 @@ The MongoDB Exporter supports various command-line flags to customize its behavi
 docker run -d \
   --name mongodb-exporter \
   -p 9216:9216 \
-  <your-namespace>/dhi-mongodb-exporter:<tag> \
+  dhi.io/mongodb-exporter:<tag> \
   --mongodb.uri=mongodb://admin:secure_password@mongodb:27017/admin \
   --collector.dbstats \
   --collector.collstats \
@@ -198,7 +206,7 @@ Complete monitoring stack with MongoDB, MongoDB Exporter, and Prometheus:
 ```yaml
 services:
   mongodb:
-    image: <your-namespace>/dhi-mongodb:<tag>-dev
+    image: dhi.io/mongodb:<tag>-dev
     container_name: mongodb
     command: --bind_ip_all --auth
     ports:
@@ -218,7 +226,7 @@ services:
       start_period: 30s
 
   mongodb-exporter:
-    image: <your-namespace>/dhi-mongodb-exporter:<tag>
+    image: dhi.io/mongodb-exporter:<tag>
     container_name: mongodb-exporter
     ports:
       - "9216:9216"
@@ -337,8 +345,8 @@ Using Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:mongodb-exporter \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-mongodb-exporter:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/mongodb-exporter:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -397,7 +405,7 @@ base image in your existing Dockerfile to a Docker Hardened Image.
      --mongodb.uri=mongodb://localhost:27017
 
    # After
-   docker run -d -p 9216:9216 <your-namespace>/dhi-mongodb-exporter:0.47.1-debian13 \
+   docker run -d -p 9216:9216 dhi.io/mongodb-exporter:0.47.1-debian13 \
      --mongodb.uri=mongodb://localhost:27017
    ```
 

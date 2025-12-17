@@ -1,16 +1,21 @@
 ## Prerequisites
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository > Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ## Start a ClickHouse instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 ```
-docker run --name my-clickhouse-server -d --ulimit nofile=262144:262144 <your-namespace>/dhi-clickhouse-server:<tag>
+docker run --name my-clickhouse-server -d --ulimit nofile=262144:262144 dhi.io/clickhouse-server:<tag>
 ```
 
 Verify the server is running:
@@ -33,7 +38,7 @@ docker run -d \
   -v clickhouse-logs:/var/log/clickhouse-server \
   -p 8123:8123 \
   -p 9000:9000 \
-  <your-namespace>/dhi-clickhouse-server:<tag>
+  dhi.io/clickhouse-server:<tag>
 ```
 
 ### Run ClickHouse with custom configuration
@@ -57,7 +62,7 @@ docker run -d \
   -v $(pwd)/custom-config.xml:/etc/clickhouse-server/config.d/custom.xml:ro \
   -p 8123:8123 \
   -p 9000:9000 \
-  <your-namespace>/dhi-clickhouse-server:<tag>
+  dhi.io/clickhouse-server:<tag>
 ```
 
 ### Run ClickHouse with network authentication
@@ -72,7 +77,7 @@ docker run -d \
   -e CLICKHOUSE_PASSWORD=mysecretpassword \
   -p 8123:8123 \
   -p 9000:9000 \
-  <your-namespace>/dhi-clickhouse-server:<tag>
+  dhi.io/clickhouse-server:<tag>
 ```
 
 Test HTTP interface with authentication:
@@ -87,7 +92,7 @@ Use the ClickHouse client to connect to a running server instance.
 
 ```
 docker run --rm -it --link my-clickhouse-server:clickhouse-server \
-  <your-namespace>/dhi-clickhouse-server:<tag> \
+  dhi.io/clickhouse-server:<tag> \
   clickhouse-client --host clickhouse-server --password mysecretpassword
 ```
 
@@ -132,8 +137,8 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-clickhouse-server \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-clickhouse-server:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/clickhouse-server:<tag> /dbg/bin/sh
 ```
 
 ## Image variants

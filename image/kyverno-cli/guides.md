@@ -1,5 +1,15 @@
 ## How to use this image
 
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
+
 ### What's included in this kyverno-cli Hardened image
 
 This image contains `kyverno-cli`, the official Kyverno CLI tool for managing Kubernetes Native Policy Management. The
@@ -8,14 +18,13 @@ policies, policy application and management, and integration with CI/CD pipeline
 
 ## Start a kyverno-cli instance
 
-Run the following command and replace `<your-namespace>` with your organization's namespace and `<tag>` with the image
-variant you want to run.
+Run the following command and replace `<tag>` with the image variant you want to run.
 
 **Note:** `kyverno-cli` is designed as a CLI tool for policy management and can be used in CI/CD pipelines, local
 development, or as part of GitOps workflows.
 
 ```bash
-docker run --rm -it <your-namespace>/dhi-kyverno-cli:<tag> --help
+docker run --rm -it dhi.io/kyverno-cli:<tag> --help
 ```
 
 ## Common kyverno-cli use cases
@@ -27,11 +36,11 @@ cluster. This is especially useful in CI/CD pipelines for policy validation.
 
 ```bash
 # Validate a policy file
-docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kyverno-cli:<tag> \
+docker run --rm -v $(pwd):/workspace dhi.io/kyverno-cli:<tag> \
   validate /workspace/my-policy.yaml
 
 # Test a resource against policies (apply command)
-docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kyverno-cli:<tag> \
+docker run --rm -v $(pwd):/workspace dhi.io/kyverno-cli:<tag> \
   apply /workspace/my-policy.yaml --resource /workspace/my-resource.yaml
 ```
 
@@ -49,15 +58,15 @@ The kyverno-cli CLI provides several key commands:
 # version   - Show version information
 
 # Run policy tests from a test directory
-docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kyverno-cli:<tag> \
+docker run --rm -v $(pwd):/workspace dhi.io/kyverno-cli:<tag> \
   test /workspace/kyverno-tests/
 
 # Test JMESPath expressions (useful for policy development)
-docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kyverno-cli:<tag> \
+docker run --rm -v $(pwd):/workspace dhi.io/kyverno-cli:<tag> \
   jp query 'spec.containers[*].image' --input /workspace/resource.yaml
 
 # Create Kyverno resources
-docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kyverno-cli:<tag> \
+docker run --rm -v $(pwd):/workspace dhi.io/kyverno-cli:<tag> \
   create <resource-type>
 ```
 
@@ -79,19 +88,19 @@ jobs:
       - name: Validate Kyverno Policies
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace \
-            <your-namespace>/dhi-kyverno-cli:<tag> \
+            dhi.io/kyverno-cli:<tag> \
             validate /workspace/policies/
 
       - name: Test Resources Against Policies
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace \
-            <your-namespace>/dhi-kyverno-cli:<tag> \
+            dhi.io/kyverno-cli:<tag> \
             apply /workspace/policies/ --resource /workspace/manifests/
 
       - name: Run Policy Test Suite
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace \
-            <your-namespace>/dhi-kyverno-cli:<tag> \
+            dhi.io/kyverno-cli:<tag> \
             test /workspace/kyverno-tests/
 ```
 
@@ -101,7 +110,7 @@ Use `kyverno-cli` for local development and testing of Kyverno policies:
 
 ```bash
 # Create an alias for easier usage
-alias kyverno='docker run --rm -v $(pwd):/workspace <your-namespace>/dhi-kyverno-cli:<tag>'
+alias kyverno='docker run --rm -v $(pwd):/workspace dhi.io/kyverno-cli:<tag>'
 
 # Validate policies
 kyverno validate my-policy.yaml
@@ -127,7 +136,7 @@ Integrate `kyverno-cli` into your GitOps workflows for automated policy validati
 
 echo "Validating Kyverno policies..."
 docker run --rm -v $(pwd):/workspace \
-  <your-namespace>/dhi-kyverno-cli:<tag> \
+  dhi.io/kyverno-cli:<tag> \
   validate /workspace/k8s/policies/
 
 if [ $? -ne 0 ]; then
@@ -174,15 +183,15 @@ that only exists during the debugging session.
 For example, you can use Docker Debug:
 
 ```
-docker debug <your-namespace>/dhi-kyverno-cli
+docker debug dhi.io/kyverno-cli
 ```
 
 or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-container \
-  --mount=type=image,source=<your-namespace>/dhi-busybox,destination=/dbg,ro \
-  <your-namespace>/dhi-kyverno-cli:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
+  dhi.io/kyverno-cli:<tag> /dbg/bin/sh
 ```
 
 ## Image variants
@@ -233,7 +242,7 @@ The following steps outline the general migration process.
    Update the image references in your CI/CD scripts, GitHub Actions, or other automation to use the hardened images:
 
    - From: `kyverno/kyverno-cli:<tag>`
-   - To: `<your-namespace>/dhi-kyverno-cli:<tag>`
+   - To: `dhi.io/kyverno-cli:<tag>`
 
 1. **For custom containers, update the base image in your Dockerfile.**
 

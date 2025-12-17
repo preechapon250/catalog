@@ -1,8 +1,14 @@
 ## How to use this image
 
-Before you can use any Docker Hardened Image, you must mirror the image repository from the catalog to your
-organization. To mirror the repository, select either **Mirror to repository** or **View in repository** > **Mirror to
-repository**, and then follow the on-screen instructions.
+All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
+
+For example:
+
+- Public image: `dhi.io/<repository>:<tag>`
+- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+
+For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 ### Run Elasticsearch
 
@@ -13,11 +19,10 @@ network, like Kibana.
 docker network create somenetwork
 ```
 
-Run the following command to run an Elasticsearch container. Replace `<your-namespace>` with your organization's
-namespace and `<tag>` with the image variant you want to run.
+Run the following command to run an Elasticsearch container. Replace `<tag>` with the image variant you want to run.
 
 ```
-docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" <your-namespace>/dhi-elasticsearch:<tag>
+docker run -d --name elasticsearch --net somenetwork -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" dhi.io/elasticsearch:<tag>
 ```
 
 Next you need to reset the Elasticsearch password. Enter a bash shell for the container by running
@@ -102,7 +107,7 @@ Kibana to the environment, note that `<YOUR-ELASTIC-PASSWORD>` is included in th
 version: '3'
 services:
   elasticsearch:
-    image: <your-namespace>/dhi-elasticsearch:<tag>
+    image: dhi.io/elasticsearch:<tag>
     environment:
       - node.name=es01
       - discovery.type=single-node
@@ -110,7 +115,7 @@ services:
       - "9200:9200"
 
   kibana:
-    image: <your-namespace>/dhi-kibana:<tag>
+    image: dhi.io/kibana:<tag>
     ports:
       - "5601:5601"
     environment:
