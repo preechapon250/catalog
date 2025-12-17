@@ -22,7 +22,7 @@ vars:
     DOCKER_PY_VERSION: 7.1.0
     OPENSCAP_COMMIT_SHA: 24986066961363e24fcff83294995b3cfe4058ba
     OPENSCAP_VERSION: 1.4.3
-    PYTHON_REFERENCE: dhi/python:3.13.11-debian13-dev@sha256:0f3812f9995cc2947f614192c38b9d7d0836ebc16911e297d0c402c10ad1a843
+    PYTHON_REFERENCE: dhi/python:3.13.11-debian13-dev@sha256:e0935746f3e22b49620c156129fc411d9aa95cc5819bcff2828fb0de06376bd8
     SEMVER_MAJOR_MINOR_VERSION: "1.4"
     SEMVER_MAJOR_VERSION: "1"
     SEMVER_VERSION: 1.4.3
@@ -72,7 +72,7 @@ contents:
         - util-linux
     builds:
         - name: build openscap
-          uses: dhi/python:3.13.11-debian13-dev@sha256:0f3812f9995cc2947f614192c38b9d7d0836ebc16911e297d0c402c10ad1a843
+          uses: dhi/python:3.13.11-debian13-dev@sha256:e0935746f3e22b49620c156129fc411d9aa95cc5819bcff2828fb0de06376bd8
           contents:
             packages:
                 - bash
@@ -171,7 +171,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/python:3.13.11-debian13-dev@sha256:0f3812f9995cc2947f614192c38b9d7d0836ebc16911e297d0c402c10ad1a843
+        - name: dhi/python:3.13.11-debian13-dev@sha256:e0935746f3e22b49620c156129fc411d9aa95cc5819bcff2828fb0de06376bd8
           includes:
             - opt/**
             - var/**
