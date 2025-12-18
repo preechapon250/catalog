@@ -60,14 +60,10 @@ contents:
         - '!tar'
         - base-files
         - bash
-        - coreutils
-        - findutils
-        - grep
         - hostname
         - libc-bin
         - libpcre2-8-0
         - libssl3t64
-        - sed
         - tini
     builds:
         - name: valkey
@@ -86,6 +82,7 @@ contents:
                 - sed
             files:
                 - url: git+https://github.com/valkey-io/valkey.git#9.0.1
+                  checksum: ab3c953b80289d88991095f53c1235fc2f8b44d6
                   path: ${source.dir}/valkey
                   spdx:
                     name: valkey
@@ -97,16 +94,11 @@ contents:
                   uid: 0
                   gid: 0
           pipeline:
-            - name: verify
-              uses: git/checkout@v1
-              with:
-                dir: ${source.dir}/valkey
-                expected-commit: ab3c953b80289d88991095f53c1235fc2f8b44d6
             - name: build
+              work-dir: ${source.dir}/valkey
               runs: |
                 set -eux -o pipefail
 
-                cd "${source.dir}/valkey"
                 make BUILD_TLS=yes CC=clang
 
                 mkdir -p "${target.dir}/usr/local/bin"
@@ -118,14 +110,17 @@ contents:
               target: /usr/local/bin/valkey-server
               uid: 0
               gid: 0
+              mode: "0755"
             - source: ${target.dir}/usr/local/bin/valkey-cli
               target: /usr/local/bin/valkey-cli
               uid: 0
               gid: 0
+              mode: "0755"
             - source: ${target.dir}/usr/local/bin/valkey-benchmark
               target: /usr/local/bin/valkey-benchmark
               uid: 0
               gid: 0
+              mode: "0755"
 accounts:
     run-as: nonroot
     users:
