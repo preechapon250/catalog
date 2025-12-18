@@ -37,6 +37,7 @@ contents:
                 - grep
             files:
                 - url: git+https://github.com/istio/istio.git#1.26.7
+                  checksum: 4f578be02c1495c71e79860b2884fc726b2d01ec
                   path: /go/src/github.com/istio/istio
                   spdx:
                     name: istio-pilot
