@@ -9,23 +9,23 @@ variant: runtime
 tags:
     - "5"
     - "5.26"
-    - 5.26.18
+    - 5.26.19
     - 5-debian13
     - 5.26-debian13
-    - 5.26.18-debian13
+    - 5.26.19-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     ARCH: '#{ target.arch == "amd64" ? "x64" : "aarch64" }'
-    COMMIT_SHA: 54ec77c9c504c7fe2a49cbc7c4d4cfcf744e4179
+    COMMIT_SHA: d1858919462342e8d7852ecfe3edb152e501028d
     JRE_REF: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:8be38a5a3942a69d6ac8a6040c54fb588b6fc29499fa44fec189d2438be4d6a8
     MAVEN_REF: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:54dad2732e2c07f1377491e56c864c20635adf7ab2d60673a0e69455c3e1c947
     NEO4J_HOME: /var/lib/neo4j
     SEMVER_MAJOR_MINOR_VERSION: "5.26"
     SEMVER_MAJOR_VERSION: "5"
-    SEMVER_VERSION: 5.26.18
-    VERSION: 5.26.18
+    SEMVER_VERSION: 5.26.19
+    VERSION: 5.26.19
 contents:
     packages:
         - '!libelogind0'
@@ -46,15 +46,15 @@ contents:
                 - tar
                 - gzip
             files:
-                - url: git+https://github.com/neo4j/neo4j.git#5.26.18
-                  checksum: 54ec77c9c504c7fe2a49cbc7c4d4cfcf744e4179
+                - url: git+https://github.com/neo4j/neo4j.git#5.26.19
+                  checksum: d1858919462342e8d7852ecfe3edb152e501028d
                   path: ${source.dir}/neo4j
                   spdx:
                     name: neo4j
-                    version: 5.26.18
+                    version: 5.26.19
                     packages:
                         - name: neo4j
-                          purl: pkg:dhi/neo4j@5.26.18
+                          purl: pkg:dhi/neo4j@5.26.19
                           license: GPL-3.0
                   uid: 0
                   gid: 0
@@ -62,10 +62,10 @@ contents:
                   path: ${source.dir}/docker-neo4j-publish
                   spdx:
                     name: docker-neo4j-publish
-                    version: 5.26.18
+                    version: 5.26.19
                     packages:
                         - name: docker-neo4j-publish
-                          purl: pkg:dhi/docker-neo4j-publish@5.26.18
+                          purl: pkg:dhi/docker-neo4j-publish@5.26.19
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -75,7 +75,7 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                cp -R 5.26.18/bullseye/community/local-package ${target.dir}/startup
+                cp -R 5.26.19/bullseye/community/local-package ${target.dir}/startup
             - name: build
               work-dir: ${source.dir}/neo4j
               privileged: true
