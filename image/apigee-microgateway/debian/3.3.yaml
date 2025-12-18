@@ -8,23 +8,23 @@ image: dhi/apigee-microgateway
 variant: runtime
 tags:
     - "3.3"
-    - 3.3.7
+    - 3.3.8
     - 3.3-debian13
-    - 3.3.7-debian13
+    - 3.3.8-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     BASE_DIGEST: sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
     BASE_TAG: 20250419-debian13
-    COMMIT_SHA: 32bfb77ee4346192cee76d54667241f8e5534b5e
+    COMMIT_SHA: 899ab34fdc6f84ee69b232ab27e0ad4524ea42c8
     NODE_DEV_DIGEST: sha256:9f2cc2b28df3ddcbf95208b8bd18df85fdc2ef63fc89b2a8bd2e9ec31731f873
     NODE_DIGEST: sha256:0d6e73ed8ef32058056c3b26642622d8a04f551ed73f83e66dbd83ab046f9112
     NODE_VERSION: 22.21.1
     SEMVER_MAJOR_MINOR_VERSION: "3.3"
     SEMVER_MAJOR_VERSION: "3"
-    SEMVER_VERSION: 3.3.7
-    VERSION: 3.3.7
+    SEMVER_VERSION: 3.3.8
+    VERSION: 3.3.8
 contents:
     packages:
         - '!base-files'
@@ -35,15 +35,15 @@ contents:
             packages:
                 - bash
             files:
-                - url: git+https://github.com/apigee-internal/microgateway.git#v3.3.7
-                  checksum: 32bfb77ee4346192cee76d54667241f8e5534b5e
+                - url: git+https://github.com/apigee-internal/microgateway.git#v3.3.8
+                  checksum: 899ab34fdc6f84ee69b232ab27e0ad4524ea42c8
                   path: ${source.dir}/edgemicro
                   spdx:
                     name: edgemicro
-                    version: 3.3.7
+                    version: 3.3.8
                     packages:
                         - name: edgemicro
-                          purl: pkg:npm/edgemicro@3.3.7
+                          purl: pkg:npm/edgemicro@3.3.8
                           license: Apache-2.0
                   uid: 0
                   gid: 0
