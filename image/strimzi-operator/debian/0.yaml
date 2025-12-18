@@ -21,8 +21,8 @@ vars:
     JAVA_MAJOR_VERSION: "21"
     JAVA_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:8be38a5a3942a69d6ac8a6040c54fb588b6fc29499fa44fec189d2438be4d6a8
     JAVA_VERSION: 21.0.9.10
-    MAVEN_REFERENCE: dhi/maven:3.9.11-jdk21-debian13-dev@sha256:d32db03bcb4d85dd30c226ed791e3f661c12d3832be497518bc534694ab0fcb5
-    MAVEN_VERSION: 3.9.11
+    MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:54dad2732e2c07f1377491e56c864c20635adf7ab2d60673a0e69455c3e1c947
+    MAVEN_VERSION: 3.9.12
     SEMVER_MAJOR_MINOR_VERSION: "0.49"
     SEMVER_MAJOR_VERSION: "0"
     SEMVER_VERSION: 0.49.1
@@ -40,11 +40,11 @@ contents:
         - tini
     builds:
         - name: strimzi-kafka-operator
-          uses: dhi/maven:3.9.11-jdk21-debian13-dev@sha256:d32db03bcb4d85dd30c226ed791e3f661c12d3832be497518bc534694ab0fcb5
+          uses: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:54dad2732e2c07f1377491e56c864c20635adf7ab2d60673a0e69455c3e1c947
           environment:
             JAVA_HOME: /opt/java/openjdk/21
             MAVEN_ARGS: --batch-mode --no-transfer-progress
-            MAVEN_HOME: /opt/java/apache-maven-3.9.11
+            MAVEN_HOME: /opt/java/apache-maven-3.9.12
           contents:
             packages:
                 - bash
