@@ -7,28 +7,28 @@ name: Sealed Secrets Helm chart 0.x
 image: dhi/sealed-secrets-chart
 variant: helm
 tags:
-    - 0.33.1
+    - 0.34.0
 platforms:
     - linux/amd64
 vars:
-    CHART_COMMIT_SHA: 1e1ac9ecbc280ff4f9e15504bde2bda8d79906b2
+    CHART_COMMIT_SHA: fd30a3eb590170d99e5d62df254d097a2c131144
     DHI_NAMESPACE: dhi
     DHI_PREFIX: ""
     DHI_REGISTRY: dhi.io
     DHI_SKIP_CONTEXT_COPY: "true"
     HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
     SEALED_SECRETS_REFERENCE: dhi/sealed-secrets-controller:0.33.1-debian13@sha256:adea3dfa31ea05276ec9c411719b51bec653d31ce1cd28960bb81148faffc2ef
-    SEMVER_MAJOR_MINOR_VERSION: "0.33"
+    SEMVER_MAJOR_MINOR_VERSION: "0.34"
     SEMVER_MAJOR_VERSION: "0"
-    SEMVER_VERSION: 0.33.1
-    VERSION: 0.33.1
+    SEMVER_VERSION: 0.34.0
+    VERSION: 0.34.0
 contents:
     builds:
         - name: sealed-secrets-chart
           uses: dhi/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
           contents:
             files:
-                - url: git+https://github.com/bitnami-labs/sealed-secrets.git#v0.33.1
+                - url: git+https://github.com/bitnami-labs/sealed-secrets.git#v0.34.0
                   path: ${source.dir}/helm-charts
                   uid: 0
                   gid: 0
