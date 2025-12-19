@@ -9,17 +9,17 @@ variant: runtime
 tags:
     - "2"
     - "2.7"
-    - 2.7.1
+    - 2.7.2
     - 2-debian13
     - 2.7-debian13
-    - 2.7.1-debian13
+    - 2.7.2-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 dates:
     release: "2025-09-21"
 vars:
-    COMMIT_SHA: 034cf843c1e8d63d218871a1478e2eeaa3532dca
+    COMMIT_SHA: 098c97460988449ef4fba5508a83b20cc65ce9ab
     JAVA_DIGEST: sha256:8be38a5a3942a69d6ac8a6040c54fb588b6fc29499fa44fec189d2438be4d6a8
     JAVA_HOME: /opt/java/openjdk/21-jre
     JAVA_MAJOR_VERSION: "21"
@@ -37,10 +37,10 @@ vars:
     PYTHON_VERSION: 3.12.12
     SEMVER_MAJOR_MINOR_VERSION: "2.7"
     SEMVER_MAJOR_VERSION: "2"
-    SEMVER_VERSION: 2.7.1
+    SEMVER_VERSION: 2.7.2
     UV_ARCH: '#{ target.arch == "amd64" ? "x86_64-unknown-linux-gnu" : "aarch64-unknown-linux-gnu" }'
     UV_VERSION: 0.9.18
-    VERSION: 2.7.1
+    VERSION: 2.7.2
 contents:
     packages:
         - '!libelogind0'
@@ -77,14 +77,14 @@ contents:
                 - tar
                 - unzip
             files:
-                - url: git+https://github.com/apache/nifi.git#rel/nifi-2.7.1
+                - url: git+https://github.com/apache/nifi.git#rel/nifi-2.7.2
                   path: ${source.dir}/nifi-src
                   spdx:
                     name: nifi
-                    version: 2.7.1
+                    version: 2.7.2
                     packages:
                         - name: nifi
-                          purl: pkg:github/apache/nifi@2.7.1
+                          purl: pkg:github/apache/nifi@2.7.2
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -105,7 +105,7 @@ contents:
               uses: git/checkout@v1
               with:
                 dir: nifi-src
-                expected-commit: 034cf843c1e8d63d218871a1478e2eeaa3532dca
+                expected-commit: 098c97460988449ef4fba5508a83b20cc65ce9ab
             - name: setup uv
               runs: |
                 set -eux -o pipefail
