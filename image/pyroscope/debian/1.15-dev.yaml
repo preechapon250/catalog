@@ -8,21 +8,21 @@ image: dhi/pyroscope
 variant: dev
 tags:
     - 1.15-dev
-    - 1.15.1-dev
+    - 1.15.2-dev
     - 1.15-debian13-dev
-    - 1.15.1-debian13-dev
+    - 1.15.2-debian13-dev
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     BASE_DIGEST: sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
     BASE_TAG: 20250419-debian13
-    COMMIT_SHA: fbe50a3e81c34fbf0ee884fb2deb4a8f579d0635
+    COMMIT_SHA: aadf53baca8e7a63efdff9d7be6b923dad5eb561
     GO_REF: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
     SEMVER_MAJOR_MINOR_VERSION: "1.15"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.15.1
-    VERSION: 1.15.1
+    SEMVER_VERSION: 1.15.2
+    VERSION: 1.15.2
 contents:
     packages:
         - '!base-files'
@@ -47,15 +47,15 @@ contents:
           uses: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
           contents:
             files:
-                - url: git+https://github.com/grafana/pyroscope.git#v1.15.1
-                  checksum: fbe50a3e81c34fbf0ee884fb2deb4a8f579d0635
+                - url: git+https://github.com/grafana/pyroscope.git#v1.15.2
+                  checksum: aadf53baca8e7a63efdff9d7be6b923dad5eb561
                   path: /go/src/github.com/grafana/pyroscope
                   spdx:
                     name: pyroscope
-                    version: 1.15.1
+                    version: 1.15.2
                     packages:
                         - name: pyroscope
-                          purl: pkg:golang/github.com/grafana/pyroscope@1.15.1
+                          purl: pkg:golang/github.com/grafana/pyroscope@1.15.2
                           license: AGPL-3.0
                   uid: 0
                   gid: 0
