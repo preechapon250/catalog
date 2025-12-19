@@ -8,24 +8,24 @@ image: dhi/opensearch
 variant: runtime
 tags:
     - "3"
-    - "3.3"
-    - 3.3.2
+    - "3.4"
+    - 3.4.0
     - 3-debian13
-    - 3.3-debian13
-    - 3.3.2-debian13
+    - 3.4-debian13
+    - 3.4.0-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 dates:
     release: "2025-05-06"
 vars:
-    ALERTING_COMMIT_SHA: c3c7c635ed662cfba56e039de3b03d6f45f86b73
-    ALERTING_VERSION: 3.3.0.0
-    ANOMALY_DETECTION_COMMIT_SHA: d8cf8e8e4e2ce274df031a5c97da63f77d2364f3
-    ANOMALY_DETECTION_VERSION: 3.3.0.0
+    ALERTING_COMMIT_SHA: aaa1033eb69d81bb6beee613827f5f60c80b7d73
+    ALERTING_VERSION: 3.4.0.0
+    ANOMALY_DETECTION_COMMIT_SHA: 5972db4c67102cdfdd2db305224fcd9a5bab3cdf
+    ANOMALY_DETECTION_VERSION: 3.4.0.0
     ARCH: '#{ target.arch == "amd64" ? "amd64" : "arm64" }'
-    ASYNCHRONOUS_SEARCH_COMMIT_SHA: 3ae66d4a322d2ae8dbce3e69724aa69f9452abff
-    ASYNCHRONOUS_SEARCH_VERSION: 3.3.0.0
+    ASYNCHRONOUS_SEARCH_COMMIT_SHA: 718d20c4a4880307b4e373cd81d353308e264497
+    ASYNCHRONOUS_SEARCH_VERSION: 3.4.0.0
     BCFIPS_VERSION: 2.1.2
     BCPKIXFIPS_VERSION: 2.1.10
     BCRNGJENT_VERSION: 1.3.6
@@ -34,70 +34,70 @@ vars:
     BUILD_JDK_DIGEST: sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
     BUILD_JDK_REF: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:9f4cb75151d0ad1bd28cd545778149dcf84a9530767163c1964eef596c13b987
     BUILD_JDK_VERSION: 21.0.9.10
-    COMMON_UTILS_COMMIT_SHA: d75c4b1d5c68defcea1b59e98684f95458412070
-    COMMON_UTILS_VERSION: 3.3.0.0
-    CROSS_CLUSTER_REPLICATION_COMMIT_SHA: 4fd0a6874101cb71e18db8ce5ccccb2caa62493a
-    CROSS_CLUSTER_REPLICATION_VERSION: 3.3.0.0
-    CUSTOM_CODECS_COMMIT_SHA: abeca73da3f10ac6e765a4609ec743ca9908965d
-    CUSTOM_CODECS_VERSION: 3.3.0.0
-    FLOW_FRAMEWORK_COMMIT_SHA: c218e6d4f881ccaef94eaf5d8a4aecf20fc3d91d
-    FLOW_FRAMEWORK_VERSION: 3.3.2.0
-    GEOSPATIAL_COMMIT_SHA: 1bcfc238fa494e84ae079599ac4a52b30c2ef479
-    GEOSPATIAL_VERSION: 3.3.0.0
-    INDEX_MANAGEMENT_COMMIT_SHA: 792edf88fb28ee86538d03edf6cf016497fcbe28
-    INDEX_MANAGEMENT_VERSION: 3.3.0.0
+    COMMON_UTILS_COMMIT_SHA: 87149f431206352c3636535e6c041e66fdb73a06
+    COMMON_UTILS_VERSION: 3.4.0.0
+    CROSS_CLUSTER_REPLICATION_COMMIT_SHA: 31ede6fac3e6b1993a890493bca7811b356bc77d
+    CROSS_CLUSTER_REPLICATION_VERSION: 3.4.0.0
+    CUSTOM_CODECS_COMMIT_SHA: 9380d8a247ca26f6f9e7403a76c50cb6e2c343e7
+    CUSTOM_CODECS_VERSION: 3.4.0.0
+    FLOW_FRAMEWORK_COMMIT_SHA: 394946dbf9b405ad958c1011acd61d01566177a5
+    FLOW_FRAMEWORK_VERSION: 3.4.0.0
+    GEOSPATIAL_COMMIT_SHA: 5482b55fbeed67ed10c40b5bbe1275c59223c3ae
+    GEOSPATIAL_VERSION: 3.4.0.0
+    INDEX_MANAGEMENT_COMMIT_SHA: 198dd246b48097c40511fbb528d658a5c5751d7c
+    INDEX_MANAGEMENT_VERSION: 3.4.0.0
     JDK_DIGEST: sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
     JDK_MAJOR_VERSION: "21"
     JDK_REF: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:9f4cb75151d0ad1bd28cd545778149dcf84a9530767163c1964eef596c13b987
     JDK_VERSION: 21.0.9.10
-    JOB_SCHEDULER_COMMIT_SHA: fea93a296173f1b528301d6c65d34e7539ef3f2f
-    JOB_SCHEDULER_VERSION: 3.3.0.0
-    K_NN_COMMIT_SHA: a54abdf8557a45db675f25307d55fa028ad3b561
-    K_NN_VERSION: 3.3.2.0
-    ML_COMMONS_COMMIT_SHA: 0989c7308b2aa9e5ff88031d3c2677cefebc6ce3
-    ML_COMMONS_VERSION: 3.3.2.0
-    NETTY_PATCH_VERSION: 4.1.127.Final
-    NEURAL_SEARCH_COMMIT_SHA: 922bf3911a15b31d85660369e94116cd15a217f1
-    NEURAL_SEARCH_VERSION: 3.3.2.0
-    NOTIFICATIONS_COMMIT_SHA: 2e6d5cb7470d86de2056ad62032b0ed9c7e4018f
-    NOTIFICATIONS_CORE_COMMIT_SHA: 2e6d5cb7470d86de2056ad62032b0ed9c7e4018f
-    NOTIFICATIONS_VERSION: 3.3.2.0
+    JOB_SCHEDULER_COMMIT_SHA: 2efb3da9bc5cb89e63aa56163ddc66129eb2743d
+    JOB_SCHEDULER_VERSION: 3.4.0.0
+    K_NN_COMMIT_SHA: 88e369808a39669f8c0d0ff2f2aa2d1a487c6901
+    K_NN_VERSION: 3.4.0.0
+    ML_COMMONS_COMMIT_SHA: c05cebc4314b058f2d8117255d9d0270e50667e5
+    ML_COMMONS_VERSION: 3.4.0.0
+    NETTY_PATCH_VERSION: 4.2.8.Final
+    NEURAL_SEARCH_COMMIT_SHA: 6923b994109b1a4f5c207d67937f3797196882a3
+    NEURAL_SEARCH_VERSION: 3.4.0.0
+    NOTIFICATIONS_COMMIT_SHA: b9dd1ea87ec9fcab12d01dac0c33c5c728779b88
+    NOTIFICATIONS_CORE_COMMIT_SHA: b9dd1ea87ec9fcab12d01dac0c33c5c728779b88
+    NOTIFICATIONS_VERSION: 3.4.0.0
     OPEN_SEARCH_COMMIT_SHA: e972d15408320e6be84c64bb0fdc076ca7696ea2
     OPENSEARCH_ARCH: '#{ target.arch == "amd64" ? "x64" : "arm64" }'
-    OPENSEARCH_BUILD_COMMIT_SHA: 3bf47c80ec5a46dcf0b61b35b3d2b39ad06bbf5b
-    OPENSEARCH_BUILD_VERSION: 3.3.2
-    OPENSEARCH_COMMIT_SHA: 6564992150e26aaa62d4522a220dfff5188aeb88
-    OPENSEARCH_LEARNING_TO_RANK_BASE_COMMIT_SHA: 82fa460771b31840715ab541ae7bb3f1330729b7
-    OPENSEARCH_LEARNING_TO_RANK_BASE_VERSION: 3.3.0.0
-    OPENSEARCH_MAJOR_MINOR_VERSION: "3.3"
-    OPENSEARCH_OBSERVABILITY_COMMIT_SHA: 101a85a8706c535bdbe1707f73683e52adcc409c
-    OPENSEARCH_OBSERVABILITY_VERSION: 3.3.0.0
-    OPENSEARCH_REMOTE_METADATA_SDK_COMMIT_SHA: e9cb3d08f45b634c7c973d0b0b4b4c57c8e87452
-    OPENSEARCH_REMOTE_METADATA_SDK_VERSION: 3.3.2.0
-    OPENSEARCH_REPORTS_COMMIT_SHA: 7d0331a186fb38be8254454aa9fe0bbfc60fe79e
-    OPENSEARCH_REPORTS_VERSION: 3.3.0.0
-    OPENSEARCH_SYSTEM_TEMPLATES_COMMIT_SHA: e30abedc1ffb445e55ae4fc8100f4e91eb446aa8
-    OPENSEARCH_SYSTEM_TEMPLATES_VERSION: 3.3.0.0
-    PERFORMANCE_ANALYZER_COMMIT_SHA: 5f7a55bb24286af8375d0fc54ae16658e8d2ab6d
-    PERFORMANCE_ANALYZER_VERSION: 3.3.0.0
-    QUERY_INSIGHTS_COMMIT_SHA: 21206c0e5bf9a7cee8bb1aeb35d7c5a8a266db0e
-    QUERY_INSIGHTS_VERSION: 3.3.2.0
-    SEARCH_RELEVANCE_COMMIT_SHA: 61d9a51c402c659bbecc5757eec015a6df41da7c
-    SEARCH_RELEVANCE_VERSION: 3.3.0.0
-    SECURITY_ANALYTICS_COMMIT_SHA: 55384b3a7f4cbd60a19e392a40ace517775de853
-    SECURITY_ANALYTICS_VERSION: 3.3.2.0
-    SECURITY_COMMIT_SHA: 1e60bb57b5df0651fb9ad9e8c5fbff1c9552ecb3
-    SECURITY_VERSION: 3.3.2.0
-    SEMVER_MAJOR_MINOR_VERSION: "3.3"
+    OPENSEARCH_BUILD_COMMIT_SHA: 9917c3edf20efcd4db8328b732a6cfc4673675ca
+    OPENSEARCH_BUILD_VERSION: 3.4.0
+    OPENSEARCH_COMMIT_SHA: 00336141f90b2456d7aa35e9052fd6baf7147423
+    OPENSEARCH_LEARNING_TO_RANK_BASE_COMMIT_SHA: 3ce0630dc3cdf4b8569f35e768f5ca263b633a9b
+    OPENSEARCH_LEARNING_TO_RANK_BASE_VERSION: 3.4.0.0
+    OPENSEARCH_MAJOR_MINOR_VERSION: "3.4"
+    OPENSEARCH_OBSERVABILITY_COMMIT_SHA: 56f73660e15246ec588d7d685725e4adda0f65f1
+    OPENSEARCH_OBSERVABILITY_VERSION: 3.4.0.0
+    OPENSEARCH_REMOTE_METADATA_SDK_COMMIT_SHA: c5e8503b3b3b7fdfc1b4a1d925351e11d0cd721c
+    OPENSEARCH_REMOTE_METADATA_SDK_VERSION: 3.4.0.0
+    OPENSEARCH_REPORTS_COMMIT_SHA: e5868ebda1dec29b222aa3954fd83f4ef89f4387
+    OPENSEARCH_REPORTS_VERSION: 3.4.0.0
+    OPENSEARCH_SYSTEM_TEMPLATES_COMMIT_SHA: b25869c9da42d0efdfdbe5d140b45863ab46b346
+    OPENSEARCH_SYSTEM_TEMPLATES_VERSION: 3.4.0.0
+    PERFORMANCE_ANALYZER_COMMIT_SHA: 380901ff664a72717abfe145db2ec2c78cd36826
+    PERFORMANCE_ANALYZER_VERSION: 3.4.0.0
+    QUERY_INSIGHTS_COMMIT_SHA: f04f4a52597fb736705e64955f18a117ed7ead66
+    QUERY_INSIGHTS_VERSION: 3.4.0.0
+    SEARCH_RELEVANCE_COMMIT_SHA: 1ae04bfe3e07847990e0689d9d6a60cff813f480
+    SEARCH_RELEVANCE_VERSION: 3.4.0.0
+    SECURITY_ANALYTICS_COMMIT_SHA: c9e7457eacbed2082f349e53b42ac8fcf4d56442
+    SECURITY_ANALYTICS_VERSION: 3.4.0.0
+    SECURITY_COMMIT_SHA: b4293103b1c53d96e0e2bf40ec56a0468e3fdc8e
+    SECURITY_VERSION: 3.4.0.0
+    SEMVER_MAJOR_MINOR_VERSION: "3.4"
     SEMVER_MAJOR_VERSION: "3"
-    SEMVER_VERSION: 3.3.2
-    SKILLS_COMMIT_SHA: 7a8843905782745db6b5f6e120892ce5d59686b5
-    SKILLS_VERSION: 3.3.2.0
-    SQL_COMMIT_SHA: b0a6394679c998c1efc41a2b74307a92bec16f1d
-    SQL_VERSION: 3.3.0.0
-    USER_BEHAVIOR_INSIGHTS_COMMIT_SHA: df39f8abc5ab82a00690b09c2c216be57b7ad16f
-    USER_BEHAVIOR_INSIGHTS_VERSION: 3.3.0.0
-    VERSION: 3.3.2
+    SEMVER_VERSION: 3.4.0
+    SKILLS_COMMIT_SHA: 309c481eacde99ace02f28a870b631a57b0f3de3
+    SKILLS_VERSION: 3.4.0.0
+    SQL_COMMIT_SHA: 52fe8aa5bd19e8008e4c11bcbd2ea69946b5724e
+    SQL_VERSION: 3.4.0.0
+    USER_BEHAVIOR_INSIGHTS_COMMIT_SHA: 4e4fe30a97515bbde311c3902e68ab52172375f0
+    USER_BEHAVIOR_INSIGHTS_VERSION: 3.4.0.0
+    VERSION: 3.4.0
 contents:
     packages:
         - '!libelogind0'
@@ -128,345 +128,345 @@ contents:
                 - xz-utils
                 - zip
             files:
-                - url: git+https://github.com/opensearch-project/OpenSearch.git#3.3.2
-                  checksum: 6564992150e26aaa62d4522a220dfff5188aeb88
+                - url: git+https://github.com/opensearch-project/OpenSearch.git#3.4.0
+                  checksum: 00336141f90b2456d7aa35e9052fd6baf7147423
                   path: ${source.dir}/OpenSearch
                   spdx:
                     name: opensearch
-                    version: 3.3.2
+                    version: 3.4.0
                     packages:
                         - name: opensearch
-                          purl: pkg:dhi/opensearch@3.3.2
+                          purl: pkg:dhi/opensearch@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/common-utils.git#3.3.0.0
-                  checksum: d75c4b1d5c68defcea1b59e98684f95458412070
+                - url: git+https://github.com/opensearch-project/common-utils.git#3.4.0.0
+                  checksum: 87149f431206352c3636535e6c041e66fdb73a06
                   path: ${source.dir}/common-utils
                   spdx:
                     name: opensearch-common-utils
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-common-utils
-                          purl: pkg:dhi/opensearch-common-utils@3.3.2
+                          purl: pkg:dhi/opensearch-common-utils@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/opensearch-learning-to-rank-base.git#3.3.0.0
-                  checksum: 82fa460771b31840715ab541ae7bb3f1330729b7
+                - url: git+https://github.com/opensearch-project/opensearch-learning-to-rank-base.git#3.4.0.0
+                  checksum: 3ce0630dc3cdf4b8569f35e768f5ca263b633a9b
                   path: ${source.dir}/opensearch-learning-to-rank-base
                   spdx:
                     name: opensearch-ltr
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-ltr
-                          purl: pkg:dhi/opensearch-ltr@3.3.2
+                          purl: pkg:dhi/opensearch-ltr@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/opensearch-remote-metadata-sdk.git#3.3.2.0
-                  checksum: e9cb3d08f45b634c7c973d0b0b4b4c57c8e87452
+                - url: git+https://github.com/opensearch-project/opensearch-remote-metadata-sdk.git#3.4.0.0
+                  checksum: c5e8503b3b3b7fdfc1b4a1d925351e11d0cd721c
                   path: ${source.dir}/opensearch-remote-metadata-sdk
                   spdx:
                     name: opensearch-remote-metadata-sdk
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-remote-metadata-sdk
-                          purl: pkg:dhi/opensearch-remote-metadata-sdk@3.3.2
+                          purl: pkg:dhi/opensearch-remote-metadata-sdk@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/job-scheduler.git#3.3.0.0
-                  checksum: fea93a296173f1b528301d6c65d34e7539ef3f2f
+                - url: git+https://github.com/opensearch-project/job-scheduler.git#3.4.0.0
+                  checksum: 2efb3da9bc5cb89e63aa56163ddc66129eb2743d
                   path: ${source.dir}/job-scheduler
                   spdx:
                     name: opensearch-job-scheduler
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-job-scheduler
-                          purl: pkg:dhi/opensearch-job-scheduler@3.3.2
+                          purl: pkg:dhi/opensearch-job-scheduler@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/security.git#3.3.2.0
-                  checksum: 1e60bb57b5df0651fb9ad9e8c5fbff1c9552ecb3
+                - url: git+https://github.com/opensearch-project/security.git#3.4.0.0
+                  checksum: b4293103b1c53d96e0e2bf40ec56a0468e3fdc8e
                   path: ${source.dir}/security
                   spdx:
                     name: opensearch-security
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-security
-                          purl: pkg:dhi/opensearch-security@3.3.2
+                          purl: pkg:dhi/opensearch-security@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/k-NN.git#3.3.2.0
-                  checksum: a54abdf8557a45db675f25307d55fa028ad3b561
+                - url: git+https://github.com/opensearch-project/k-NN.git#3.4.0.0
+                  checksum: 88e369808a39669f8c0d0ff2f2aa2d1a487c6901
                   path: ${source.dir}/k-NN
                   spdx:
                     name: opensearch-knn
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-knn
-                          purl: pkg:dhi/opensearch-knn@3.3.2
+                          purl: pkg:dhi/opensearch-knn@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/geospatial.git#3.3.0.0
-                  checksum: 1bcfc238fa494e84ae079599ac4a52b30c2ef479
+                - url: git+https://github.com/opensearch-project/geospatial.git#3.4.0.0
+                  checksum: 5482b55fbeed67ed10c40b5bbe1275c59223c3ae
                   path: ${source.dir}/geospatial
                   spdx:
                     name: opensearch-geospatial
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-geospatial
-                          purl: pkg:dhi/opensearch-geospatial@3.3.2
+                          purl: pkg:dhi/opensearch-geospatial@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/cross-cluster-replication.git#3.3.0.0
-                  checksum: 4fd0a6874101cb71e18db8ce5ccccb2caa62493a
+                - url: git+https://github.com/opensearch-project/cross-cluster-replication.git#3.4.0.0
+                  checksum: 31ede6fac3e6b1993a890493bca7811b356bc77d
                   path: ${source.dir}/cross-cluster-replication
                   spdx:
                     name: opensearch-cross-cluster-replication
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-cross-cluster-replication
-                          purl: pkg:dhi/opensearch-cross-cluster-replication@3.3.2
+                          purl: pkg:dhi/opensearch-cross-cluster-replication@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/ml-commons.git#3.3.2.0
-                  checksum: 0989c7308b2aa9e5ff88031d3c2677cefebc6ce3
+                - url: git+https://github.com/opensearch-project/ml-commons.git#3.4.0.0
+                  checksum: c05cebc4314b058f2d8117255d9d0270e50667e5
                   path: ${source.dir}/ml-commons
                   spdx:
                     name: opensearch-ml
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-ml
-                          purl: pkg:dhi/opensearch-ml@3.3.2
+                          purl: pkg:dhi/opensearch-ml@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/neural-search.git#3.3.2.0
-                  checksum: 922bf3911a15b31d85660369e94116cd15a217f1
+                - url: git+https://github.com/opensearch-project/neural-search.git#3.4.0.0
+                  checksum: 6923b994109b1a4f5c207d67937f3797196882a3
                   path: ${source.dir}/neural-search
                   spdx:
                     name: opensearch-neural-search
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-neural-search
-                          purl: pkg:dhi/opensearch-neural-search@3.3.2
+                          purl: pkg:dhi/opensearch-neural-search@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/notifications.git#3.3.2.0
-                  checksum: 2e6d5cb7470d86de2056ad62032b0ed9c7e4018f
+                - url: git+https://github.com/opensearch-project/notifications.git#3.4.0.0
+                  checksum: b9dd1ea87ec9fcab12d01dac0c33c5c728779b88
                   path: ${source.dir}/notifications
                   spdx:
                     name: opensearch-notifications
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-notifications
-                          purl: pkg:dhi/opensearch-notifications@3.3.2
+                          purl: pkg:dhi/opensearch-notifications@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/observability.git#3.3.0.0
-                  checksum: 101a85a8706c535bdbe1707f73683e52adcc409c
+                - url: git+https://github.com/opensearch-project/observability.git#3.4.0.0
+                  checksum: 56f73660e15246ec588d7d685725e4adda0f65f1
                   path: ${source.dir}/opensearch-observability
                   spdx:
                     name: opensearch-observability
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-observability
-                          purl: pkg:dhi/opensearch-observability@3.3.2
+                          purl: pkg:dhi/opensearch-observability@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/reporting.git#3.3.0.0
-                  checksum: 7d0331a186fb38be8254454aa9fe0bbfc60fe79e
+                - url: git+https://github.com/opensearch-project/reporting.git#3.4.0.0
+                  checksum: e5868ebda1dec29b222aa3954fd83f4ef89f4387
                   path: ${source.dir}/opensearch-reports
                   spdx:
                     name: opensearch-reports-scheduler
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-reports-scheduler
-                          purl: pkg:dhi/opensearch-reports-scheduler@3.3.2
+                          purl: pkg:dhi/opensearch-reports-scheduler@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/sql.git#3.3.0.0
-                  checksum: b0a6394679c998c1efc41a2b74307a92bec16f1d
+                - url: git+https://github.com/opensearch-project/sql.git#3.4.0.0
+                  checksum: 52fe8aa5bd19e8008e4c11bcbd2ea69946b5724e
                   path: ${source.dir}/sql
                   spdx:
                     name: opensearch-sql
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-sql
-                          purl: pkg:dhi/opensearch-sql@3.3.2
+                          purl: pkg:dhi/opensearch-sql@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/asynchronous-search.git#3.3.0.0
-                  checksum: 3ae66d4a322d2ae8dbce3e69724aa69f9452abff
+                - url: git+https://github.com/opensearch-project/asynchronous-search.git#3.4.0.0
+                  checksum: 718d20c4a4880307b4e373cd81d353308e264497
                   path: ${source.dir}/asynchronous-search
                   spdx:
                     name: opensearch-asynchronous-search
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-asynchronous-search
-                          purl: pkg:dhi/opensearch-asynchronous-search@3.3.2
+                          purl: pkg:dhi/opensearch-asynchronous-search@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/anomaly-detection.git#3.3.0.0
-                  checksum: d8cf8e8e4e2ce274df031a5c97da63f77d2364f3
+                - url: git+https://github.com/opensearch-project/anomaly-detection.git#3.4.0.0
+                  checksum: 5972db4c67102cdfdd2db305224fcd9a5bab3cdf
                   path: ${source.dir}/anomaly-detection
                   spdx:
                     name: opensearch-anomaly-detection
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-anomaly-detection
-                          purl: pkg:dhi/opensearch-anomaly-detection@3.3.2
+                          purl: pkg:dhi/opensearch-anomaly-detection@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/alerting.git#3.3.0.0
-                  checksum: c3c7c635ed662cfba56e039de3b03d6f45f86b73
+                - url: git+https://github.com/opensearch-project/alerting.git#3.4.0.0
+                  checksum: aaa1033eb69d81bb6beee613827f5f60c80b7d73
                   path: ${source.dir}/alerting
                   spdx:
                     name: opensearch-alerting
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-alerting
-                          purl: pkg:dhi/opensearch-alerting@3.3.2
+                          purl: pkg:dhi/opensearch-alerting@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/security-analytics.git#3.3.2.0
-                  checksum: 55384b3a7f4cbd60a19e392a40ace517775de853
+                - url: git+https://github.com/opensearch-project/security-analytics.git#3.4.0.0
+                  checksum: c9e7457eacbed2082f349e53b42ac8fcf4d56442
                   path: ${source.dir}/security-analytics
                   spdx:
                     name: opensearch-security-analytics
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-security-analytics
-                          purl: pkg:dhi/opensearch-security-analytics@3.3.2
+                          purl: pkg:dhi/opensearch-security-analytics@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/index-management.git#3.3.0.0
-                  checksum: 792edf88fb28ee86538d03edf6cf016497fcbe28
+                - url: git+https://github.com/opensearch-project/index-management.git#3.4.0.0
+                  checksum: 198dd246b48097c40511fbb528d658a5c5751d7c
                   path: ${source.dir}/index-management
                   spdx:
                     name: opensearch-index-management
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-index-management
-                          purl: pkg:dhi/opensearch-index-management@3.3.2
+                          purl: pkg:dhi/opensearch-index-management@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/performance-analyzer.git#3.3.0.0
-                  checksum: 5f7a55bb24286af8375d0fc54ae16658e8d2ab6d
+                - url: git+https://github.com/opensearch-project/performance-analyzer.git#3.4.0.0
+                  checksum: 380901ff664a72717abfe145db2ec2c78cd36826
                   path: ${source.dir}/performance-analyzer
                   spdx:
                     name: opensearch-performance-analyzer
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-performance-analyzer
-                          purl: pkg:dhi/opensearch-performance-analyzer@3.3.2
+                          purl: pkg:dhi/opensearch-performance-analyzer@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/custom-codecs.git#3.3.0.0
-                  checksum: abeca73da3f10ac6e765a4609ec743ca9908965d
+                - url: git+https://github.com/opensearch-project/custom-codecs.git#3.4.0.0
+                  checksum: 9380d8a247ca26f6f9e7403a76c50cb6e2c343e7
                   path: ${source.dir}/custom-codecs
                   spdx:
                     name: opensearch-custom-codecs
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-custom-codecs
-                          purl: pkg:dhi/opensearch-custom-codecs@3.3.2
+                          purl: pkg:dhi/opensearch-custom-codecs@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/flow-framework.git#3.3.2.0
-                  checksum: c218e6d4f881ccaef94eaf5d8a4aecf20fc3d91d
+                - url: git+https://github.com/opensearch-project/flow-framework.git#3.4.0.0
+                  checksum: 394946dbf9b405ad958c1011acd61d01566177a5
                   path: ${source.dir}/flow-framework
                   spdx:
                     name: opensearch-flow-framework
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-flow-framework
-                          purl: pkg:dhi/opensearch-flow-framework@3.3.2
+                          purl: pkg:dhi/opensearch-flow-framework@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/skills.git#3.3.2.0
-                  checksum: 7a8843905782745db6b5f6e120892ce5d59686b5
+                - url: git+https://github.com/opensearch-project/skills.git#3.4.0.0
+                  checksum: 309c481eacde99ace02f28a870b631a57b0f3de3
                   path: ${source.dir}/skills
                   spdx:
                     name: opensearch-skills
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-skills
-                          purl: pkg:dhi/opensearch-skills@3.3.2
+                          purl: pkg:dhi/opensearch-skills@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/query-insights.git#3.3.2.0
-                  checksum: 21206c0e5bf9a7cee8bb1aeb35d7c5a8a266db0e
+                - url: git+https://github.com/opensearch-project/query-insights.git#3.4.0.0
+                  checksum: f04f4a52597fb736705e64955f18a117ed7ead66
                   path: ${source.dir}/query-insights
                   spdx:
                     name: opensearch-query-insights
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-query-insights
-                          purl: pkg:dhi/opensearch-query-insights@3.3.2
+                          purl: pkg:dhi/opensearch-query-insights@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/opensearch-system-templates.git#3.3.0.0
-                  checksum: e30abedc1ffb445e55ae4fc8100f4e91eb446aa8
+                - url: git+https://github.com/opensearch-project/opensearch-system-templates.git#3.4.0.0
+                  checksum: b25869c9da42d0efdfdbe5d140b45863ab46b346
                   path: ${source.dir}/opensearch-system-templates
                   spdx:
                     name: opensearch-system-templates
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-system-templates
-                          purl: pkg:dhi/opensearch-system-templates@3.3.2
+                          purl: pkg:dhi/opensearch-system-templates@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/user-behavior-insights.git#3.3.0.0
-                  checksum: df39f8abc5ab82a00690b09c2c216be57b7ad16f
+                - url: git+https://github.com/opensearch-project/user-behavior-insights.git#3.4.0.0
+                  checksum: 4e4fe30a97515bbde311c3902e68ab52172375f0
                   path: ${source.dir}/user-behavior-insights
                   spdx:
                     name: opensearch-user-behavior-insights
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-user-behavior-insights
-                          purl: pkg:dhi/opensearch-user-behavior-insights@3.3.2
+                          purl: pkg:dhi/opensearch-user-behavior-insights@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/search-relevance.git#3.3.0.0
-                  checksum: 61d9a51c402c659bbecc5757eec015a6df41da7c
+                - url: git+https://github.com/opensearch-project/search-relevance.git#3.4.0.0
+                  checksum: 1ae04bfe3e07847990e0689d9d6a60cff813f480
                   path: ${source.dir}/search-relevance
                   spdx:
                     name: opensearch-search-relevance
-                    version: 3.3.2.0
+                    version: 3.4.0.0
                     packages:
                         - name: opensearch-search-relevance
-                          purl: pkg:dhi/opensearch-search-relevance@3.3.2
+                          purl: pkg:dhi/opensearch-search-relevance@3.4.0
                           license: Apache-2.0
                   uid: 1000
                   gid: 1000
-                - url: git+https://github.com/opensearch-project/opensearch-build.git#3.3.2
-                  checksum: 3bf47c80ec5a46dcf0b61b35b3d2b39ad06bbf5b
-                  path: ${source.dir}/opensearch-build-3bf47c80ec5a46dcf0b61b35b3d2b39ad06bbf5b
+                - url: git+https://github.com/opensearch-project/opensearch-build.git#3.4.0
+                  checksum: 9917c3edf20efcd4db8328b732a6cfc4673675ca
+                  path: ${source.dir}/opensearch-build-9917c3edf20efcd4db8328b732a6cfc4673675ca
                   uid: 1000
                   gid: 1000
           pipeline:
@@ -476,8 +476,8 @@ contents:
 
                 cd ${source.dir}/OpenSearch
 
-                echo "Patching netty version to 4.1.127.Final"
-                sed -i 's/4.1.125.Final/4.1.127.Final/' gradle/libs.versions.toml
+                echo "Patching netty version to 4.2.8.Final"
+                sed -i 's/4.2.7.Final/4.2.8.Final/' gradle/libs.versions.toml
 
                 # ensure that the patch is applied
                 if [ -z "$(git diff gradle/libs.versions.toml)" ]; then
@@ -492,14 +492,14 @@ contents:
 
                 cd ${source.dir}/OpenSearch
 
-                ./gradlew build-tools:build -Dbuild.snapshot=false -Dopensearch.version=3.3.2 -PskipIntegTests=true -DskipIntegTests -x integTest
+                ./gradlew build-tools:build -Dbuild.snapshot=false -Dopensearch.version=3.4.0 -PskipIntegTests=true -DskipIntegTests -x integTest
             - name: publish OpenSearch build-tools to local maven repository
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/OpenSearch
 
-                ./gradlew publishToMavenLocal -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew publishToMavenLocal -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build OpenSearch core
               runs: |
                 set -eux -o pipefail
@@ -513,28 +513,28 @@ contents:
 
                 cd ${source.dir}/common-utils
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build opensearch-learning-to-rank-base plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/opensearch-learning-to-rank-base
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2 -PskipIntegTests=true -DskipIntegTests -x integTest
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0 -PskipIntegTests=true -DskipIntegTests -x integTest
             - name: build opensearch-remote-metadata-sdk plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/opensearch-remote-metadata-sdk
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build job-scheduler plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/job-scheduler
 
-                ./gradlew :bundlePlugin -Dbuild.snapshot=false -Dopensearch.version=3.3.2 -PskipIntegTests=true -DskipIntegTests -x integTest -x precommit -x check -x javaRestTest -x :integTest -x :precommit -x :check -x :javaRestTest
+                ./gradlew :bundlePlugin -Dbuild.snapshot=false -Dopensearch.version=3.4.0 -PskipIntegTests=true -DskipIntegTests -x integTest -x precommit -x check -x javaRestTest -x :integTest -x :precommit -x :check -x :javaRestTest
             - name: build security plugin
               runs: |
                 set -eux -o pipefail
@@ -544,74 +544,74 @@ contents:
                 # Patch dependencies
                 sed -i "s/org.lz4:lz4-java:1.8.0/org.lz4:lz4-java:1.8.1/" build.gradle # CVE-2025-12183
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build k-NN plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/k-NN
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build geospatial plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/geospatial
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build cross-cluster-replication plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/cross-cluster-replication
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build ml-commons plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/ml-commons
 
-                grep -q 'io.netty:netty-buffer:4.1.127.Final' build.gradle || awk '{
+                grep -q 'io.netty:netty-buffer:4.2.8.Final' build.gradle || awk '{
                   print;
                   if ($0 ~ /resolutionStrategy\.force .*commons-compress:1\.26\.0/) {
-                    print "    resolutionStrategy.force \"io.netty:netty-buffer:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-common:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-codec:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-codec-http:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-codec-http2:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-handler:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-transport:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-transport-native-unix-common:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-resolver:4.1.127.Final\"";
-                    print "    resolutionStrategy.force \"io.netty:netty-transport-classes-epoll:4.1.127.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-buffer:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-common:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-codec:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-codec-http:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-codec-http2:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-handler:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-transport:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-transport-native-unix-common:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-resolver:4.2.8.Final\"";
+                    print "    resolutionStrategy.force \"io.netty:netty-transport-classes-epoll:4.2.8.Final\"";
                   }
                 }' build.gradle > build.gradle.patched && mv build.gradle.patched build.gradle
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build notifications plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/notifications/notifications
 
-                grep -q 'io.netty:netty-buffer:4.1.127.Final' notifications/build.gradle || awk '{
+                grep -q 'io.netty:netty-buffer:4.2.8.Final' notifications/build.gradle || awk '{
                   print;
                   if ($0 ~ /opensearch-rest-client:\$\{opensearch_version\}/) {
-                    print "        force \"io.netty:netty-buffer:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-common:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-codec:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-codec-http:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-codec-http2:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-handler:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-transport:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-transport-native-unix-common:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-resolver:4.1.127.Final\"";
-                    print "        force \"io.netty:netty-transport-classes-epoll:4.1.127.Final\"";
+                    print "        force \"io.netty:netty-buffer:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-common:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-codec:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-codec-http:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-codec-http2:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-handler:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-transport:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-transport-native-unix-common:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-resolver:4.2.8.Final\"";
+                    print "        force \"io.netty:netty-transport-classes-epoll:4.2.8.Final\"";
                   }
                 }' notifications/build.gradle > notifications/build.gradle.patched && mv notifications/build.gradle.patched notifications/build.gradle
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build security-analytics plugin
               runs: |
                 set -eux -o pipefail
@@ -622,74 +622,74 @@ contents:
                 bash /src/fix-sa-commons-netty.sh \
                   ${source.dir}/security-analytics \
                   --bundle-netty \
-                  --netty-version 4.1.127.Final \
-                  --netty-from-zip ${source.dir}/notifications/notifications/notifications/build/distributions/opensearch-notifications-3.3.2.0.zip
+                  --netty-version 4.2.8.Final \
+                  --netty-from-zip ${source.dir}/notifications/notifications/notifications/build/distributions/opensearch-notifications-3.4.0.0.zip
             - name: build security plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/security
 
-                grep -q 'io.netty:netty-buffer:4.1.127.Final' build.gradle || awk '{
+                grep -q 'io.netty:netty-buffer:4.2.8.Final' build.gradle || awk '{
                   print;
                   if ($0 ~ /resolutionStrategy[[:space:]]*\{/) {
-                    print "        // force Netty 4.1.127.Final";
-                    print "        resolutionStrategy.force \"io.netty:netty-buffer:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-common:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-codec:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-codec-http:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-codec-http2:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-handler:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-transport:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-transport-native-unix-common:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-resolver:4.1.127.Final\"";
-                    print "        resolutionStrategy.force \"io.netty:netty-transport-classes-epoll:4.1.127.Final\"";
+                    print "        // force Netty 4.2.8.Final";
+                    print "        resolutionStrategy.force \"io.netty:netty-buffer:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-common:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-codec:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-codec-http:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-codec-http2:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-handler:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-transport:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-transport-native-unix-common:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-resolver:4.2.8.Final\"";
+                    print "        resolutionStrategy.force \"io.netty:netty-transport-classes-epoll:4.2.8.Final\"";
                   }
                 }' build.gradle > build.gradle.patched && mv build.gradle.patched build.gradle
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build performance-analyzer plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/performance-analyzer
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build custom-codecs plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/custom-codecs
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build flow-framework plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/flow-framework
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build skills plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/skills
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build query-insights plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/query-insights
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build opensearch-system-templates plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/opensearch-system-templates
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build user-behavior-insights plugin
               runs: |
                 set -eux -o pipefail
@@ -700,7 +700,7 @@ contents:
                 git remote set-branches --add origin main || true
                 git fetch --depth=1 origin main || true
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build search-relevance plugin
               runs: |
                 set -eux -o pipefail
@@ -711,55 +711,55 @@ contents:
                 git remote set-branches --add origin main || true
                 git fetch --depth=1 origin main || true
 
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build neural-search plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/neural-search
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build index-management plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/index-management
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build alerting plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/alerting
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build anomaly-detection plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/anomaly-detection
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build asynchronous-search plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/asynchronous-search
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build sql plugin (ensure opensearch-sql is built)
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/sql
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build opensearch-reports (scheduler) plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/opensearch-reports
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: build opensearch-observability plugin
               runs: |
                 set -eux -o pipefail
 
                 cd ${source.dir}/opensearch-observability
-                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.3.2
+                ./gradlew assemble -Dbuild.snapshot=false -Dopensearch.version=3.4.0
             - name: assemble opensearch distribution
               runs: |
                 set -eux -o pipefail
@@ -781,7 +781,7 @@ contents:
                   exit 1
                 fi
 
-                final_dir="${target.dir}/opensearch-3.3.2"
+                final_dir="${target.dir}/opensearch-3.4.0"
                 if [ "$extracted_dir" != "$final_dir" ]; then
                   rm -rf "$final_dir" || true
                   mv "$extracted_dir" "$final_dir"
@@ -858,21 +858,21 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                rm -rf "${target.dir}/opensearch-3.3.2/jdk"
-                ln -s /opt/java/openjdk/21 "${target.dir}/opensearch-3.3.2/jdk"
+                rm -rf "${target.dir}/opensearch-3.4.0/jdk"
+                ln -s /opt/java/openjdk/21 "${target.dir}/opensearch-3.4.0/jdk"
             - name: rm sample plugins
               runs: |
                 set -eux -o pipefail
 
-                rm -rf "${target.dir}/opensearch-3.3.2/plugins/sample-remote-monitor-plugin"
-                rm -rf "${target.dir}/opensearch-3.3.2/plugins/opensearch-sample-resource-plugin"
+                rm -rf "${target.dir}/opensearch-3.4.0/plugins/sample-remote-monitor-plugin"
+                rm -rf "${target.dir}/opensearch-3.4.0/plugins/opensearch-sample-resource-plugin"
             - name: copy config and entrypoint files
               runs: |
                 set -eux -o pipefail
 
-                cp "${source.dir}/opensearch-build-3bf47c80ec5a46dcf0b61b35b3d2b39ad06bbf5b/docker/release/config/opensearch/opensearch-docker-entrypoint-3.x.sh" "${target.dir}/docker-entrypoint.sh"
-                cp "${source.dir}/opensearch-build-3bf47c80ec5a46dcf0b61b35b3d2b39ad06bbf5b/config/opensearch.yml" "${target.dir}/opensearch.yml"
-                cp "${source.dir}/opensearch-build-3bf47c80ec5a46dcf0b61b35b3d2b39ad06bbf5b/docker/release/config/opensearch/log4j2.properties" "${target.dir}/log4j2.properties"
+                cp "${source.dir}/opensearch-build-9917c3edf20efcd4db8328b732a6cfc4673675ca/docker/release/config/opensearch/opensearch-docker-entrypoint-3.x.sh" "${target.dir}/docker-entrypoint.sh"
+                cp "${source.dir}/opensearch-build-9917c3edf20efcd4db8328b732a6cfc4673675ca/config/opensearch.yml" "${target.dir}/opensearch.yml"
+                cp "${source.dir}/opensearch-build-9917c3edf20efcd4db8328b732a6cfc4673675ca/docker/release/config/opensearch/log4j2.properties" "${target.dir}/log4j2.properties"
           paths:
             - type: file
               path: /src/fix-sa-commons-netty.sh
@@ -892,7 +892,7 @@ contents:
                   members:
                     - opensearch
           outputs:
-            - source: ${target.dir}/opensearch-3.3.2
+            - source: ${target.dir}/opensearch-3.4.0
               target: /usr/share/opensearch
               uid: 1000
               gid: 1000
