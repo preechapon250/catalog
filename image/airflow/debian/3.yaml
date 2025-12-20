@@ -167,6 +167,14 @@ contents:
                   $providers_only_binary_flags \
                   --prefix ${target.dir}/opt/airflow \
                   dist/*.whl
+            - name: remove non-critical packages
+              privileged: true
+              runs: |
+                set -eux -o pipefail
+
+                # fixes CVE-2025-62593 in ray
+                # also removes reports of retracted CVE-2025-34351 in ray
+                uv pip uninstall --system --prefix ${target.dir}/opt/airflow "ray"
             - name: create default config
               runs: |
                 set -eux -o pipefail
