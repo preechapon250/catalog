@@ -7,10 +7,8 @@ name: Spark 4.0.x (Scala 2.13.x, Java 21.x)
 image: dhi/spark
 variant: runtime
 tags:
-    - "4"
     - "4.0"
     - 4.0.1
-    - 4-debian13
     - 4.0-debian13
     - 4.0.1-debian13
 platforms:

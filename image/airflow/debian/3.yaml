@@ -172,9 +172,10 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                # fixes CVE-2025-62593 in ray
-                # also removes reports of retracted CVE-2025-34351 in ray
-                uv pip uninstall --system --prefix ${target.dir}/opt/airflow "ray"
+                # Fixes CVE-2025-62593 in ray.
+                # Note that patching dependencies with this causes some confusion to the uv resolver,
+                # so this is most cleanly done after the initial install.
+                uv pip install --prefix ${target.dir}/opt/airflow "ray>=2.52.0"
             - name: create default config
               runs: |
                 set -eux -o pipefail

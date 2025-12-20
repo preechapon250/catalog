@@ -8,10 +8,8 @@ image: dhi/spark
 variant: runtime
 flavor: python
 tags:
-    - 4-python
     - 4.0-python
     - 4.0.1-python
-    - 4-debian13-python
     - 4.0-debian13-python
     - 4.0.1-debian13-python
 platforms:
