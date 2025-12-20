@@ -21,7 +21,7 @@ vars:
     DEBIAN_EPOCH_MAJOR_MINOR_VERSION: "1.80"
     DEBIAN_EPOCH_MAJOR_VERSION: "1"
     DEBIAN_EPOCH_VERSION: 1.80.8
-    PYTHON_BUILD_DIGEST: sha256:e0935746f3e22b49620c156129fc411d9aa95cc5819bcff2828fb0de06376bd8
+    PYTHON_BUILD_DIGEST: sha256:173d4016d8c23e47d54b99df20bad8e118351905061c0a5cf049474e8e82988f
     PYTHON_BUILD_VERSION: 3.13.11
     PYTHON_DIGEST: sha256:72ff3ae0b3ea51a6349a519a5785fb6fd1d36bab32e8ef62dd713030a43ae471
     PYTHON_VERSION: 3.13.11
@@ -43,7 +43,7 @@ contents:
         - tzdata
     builds:
         - name: litellm-build
-          uses: dhi/python:3.13.11-debian13-dev@sha256:e0935746f3e22b49620c156129fc411d9aa95cc5819bcff2828fb0de06376bd8
+          uses: dhi/python:3.13.11-debian13-dev@sha256:173d4016d8c23e47d54b99df20bad8e118351905061c0a5cf049474e8e82988f
           privileged: true
           environment:
             VIRTUAL_ENV: /opt/litellm
