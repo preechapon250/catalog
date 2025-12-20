@@ -28,7 +28,7 @@ vars:
     COMMIT_SHA: a42f2fba5051645adfe56526d38db4e8155f5157
     NODE_DIGEST: sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
     NODE_VERSION: 22.21.1
-    PYTHON_BUILD_DIGEST: sha256:3f12acd68a12fd53aa6bb84ffa5d370a5a931023516ccfe42d4b9237d95e06c8
+    PYTHON_BUILD_DIGEST: sha256:10b864361d746f14c6ad3ba93beea14ec06e52ffd2be53684f9445c904de3ee3
     PYTHON_BUILD_VERSION: 3.12.12
     PYTHON_DIGEST: sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
     PYTHON_FIPS_TAG: ""
@@ -62,7 +62,7 @@ contents:
         - util-linux
     builds:
         - name: airflow
-          uses: dhi/python:3.12.12-debian13-dev@sha256:3f12acd68a12fd53aa6bb84ffa5d370a5a931023516ccfe42d4b9237d95e06c8
+          uses: dhi/python:3.12.12-debian13-dev@sha256:10b864361d746f14c6ad3ba93beea14ec06e52ffd2be53684f9445c904de3ee3
           environment:
             UV_NO_MANAGED_PYTHON: "true"
             UV_PYTHON_DOWNLOADS: never
@@ -295,7 +295,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/python:3.12.12-debian13-dev@sha256:3f12acd68a12fd53aa6bb84ffa5d370a5a931023516ccfe42d4b9237d95e06c8
+        - name: dhi/python:3.12.12-debian13-dev@sha256:10b864361d746f14c6ad3ba93beea14ec06e52ffd2be53684f9445c904de3ee3
           includes:
             - opt/**
             - usr/**
