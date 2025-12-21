@@ -22,8 +22,8 @@ vars:
     DEBIAN_EPOCH_MAJOR_VERSION: "1"
     DEBIAN_EPOCH_VERSION: 1.29.1
     DEBIAN_VERSION: "13"
-    PYTHON_DIGEST_BUILD: sha256:10b864361d746f14c6ad3ba93beea14ec06e52ffd2be53684f9445c904de3ee3
-    PYTHON_DIGEST_FINAL: sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
+    PYTHON_DIGEST_BUILD: sha256:3182f9f0ec2bea938af32387c1e7a367f57c7c1a09fa4df86ef880f99aae0eb8
+    PYTHON_DIGEST_FINAL: sha256:1269127ef2c19f4ebd94e95996ba085f5e8f36cf955163261ab735ff3ab779c2
     PYTHON_VERSION_BUILD: 3.12.12
     PYTHON_VERSION_FINAL: 3.12.12
     SEMVER_MAJOR_MINOR_VERSION: "1.29"
@@ -70,7 +70,7 @@ contents:
               uid: 0
               gid: 0
         - name: add cqlsh
-          uses: dhi/python:3.12.12-debian13-dev@sha256:10b864361d746f14c6ad3ba93beea14ec06e52ffd2be53684f9445c904de3ee3
+          uses: dhi/python:3.12.12-debian13-dev@sha256:3182f9f0ec2bea938af32387c1e7a367f57c7c1a09fa4df86ef880f99aae0eb8
           privileged: true
           contents:
             packages:
@@ -102,7 +102,7 @@ contents:
               uid: 0
               gid: 0
         - name: add yq
-          uses: dhi/python:3.12.12-debian13-dev@sha256:10b864361d746f14c6ad3ba93beea14ec06e52ffd2be53684f9445c904de3ee3
+          uses: dhi/python:3.12.12-debian13-dev@sha256:3182f9f0ec2bea938af32387c1e7a367f57c7c1a09fa4df86ef880f99aae0eb8
           privileged: true
           contents:
             packages:
@@ -143,7 +143,7 @@ contents:
             - usr/local/bin/temporal-sql-tool
           uid: 0
           gid: 0
-        - name: dhi/python:3.12.12-debian13@sha256:19caace8362d5d65d756e0ae66941d99d7eba0fe346f2e5b65c4ca04761ee132
+        - name: dhi/python:3.12.12-debian13@sha256:1269127ef2c19f4ebd94e95996ba085f5e8f36cf955163261ab735ff3ab779c2
           includes:
             - opt/**
             - usr/**
