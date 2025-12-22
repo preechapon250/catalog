@@ -17,7 +17,7 @@ vars:
     DHI_REGISTRY: dhi.io
     DHI_SKIP_CONTEXT_COPY: "true"
     HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
-    METRICS_SERVER_REFERENCE: dhi/metrics-server:0.8.0-debian13@sha256:9cf2216a43a121388da5d9b61f7af8e64b6206e5194a75887f91479e1e603978
+    METRICS_SERVER_REFERENCE: dhi/metrics-server:0.8.0-debian13@sha256:282e1a33b2ec3eb16a8a14d044471feae420fdd9adcde68fedc1888345ba071e
     SEMVER_MAJOR_MINOR_VERSION: "3.13"
     SEMVER_MAJOR_VERSION: "3"
     SEMVER_VERSION: 3.13.0
@@ -43,7 +43,7 @@ contents:
                     description: Docker Hardened Images Helm chart for Metrics Server
                     images:
                         - name: metrics-server
-                          ref: dhi/metrics-server:0.8.0-debian13@sha256:9cf2216a43a121388da5d9b61f7af8e64b6206e5194a75887f91479e1e603978
+                          ref: dhi/metrics-server:0.8.0-debian13@sha256:282e1a33b2ec3eb16a8a14d044471feae420fdd9adcde68fedc1888345ba071e
                     name: metrics-server-chart
                     notes: ${source.dir}/config/NOTES.txt
                     sourceUrl: https://github.com/kubernetes-sigs/metrics-server
