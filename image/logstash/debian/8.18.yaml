@@ -19,10 +19,12 @@ dates:
 vars:
     ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
     COMMIT_SHA: e1b101139286fed67fb694aa7dded21d140b564b
+    ENV2YAML_BUILDER: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
     GO_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
     GO_VERSION: 1.24.11
     GRADLE_REFERENCE: dhi/gradle:8.14.3-jdk21-debian13-dev@sha256:3e3429fa344bdb01a7df7c240038442a263060e1925d61e954e471edcab3ce47
     GRADLE_VERSION: 8.14.3
+    JAVA_MAJOR_VERSION: "21"
     JDK_REFERENCE: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
     JDK_VERSION: 21.0.9.10
     LOGSTASH_PATH: /usr/share/logstash
@@ -54,7 +56,7 @@ contents:
                   uid: 0
                   gid: 0
           pipeline:
-            - name: build env2yaml
+            - name: build env2yaml go
               privileged: true
               runs: |
                 set -eux -o pipefail
@@ -100,12 +102,6 @@ contents:
                   uid: 0
                   gid: 0
           pipeline:
-            - name: apply sinatra patch
-              uses: patch@v1
-              work-dir: ${source.dir}/logstash
-              with:
-                patches:
-                    - ${source.dir}/patch/sinatra.patch
             - name: apply rack patch
               uses: patch@v1
               work-dir: ${source.dir}/logstash
@@ -248,6 +244,11 @@ paths:
       uid: 0
       gid: 0
       source: /usr/share/logstash
+    - type: symlink
+      path: /usr/share/logstash/jdk
+      uid: 0
+      gid: 0
+      source: /opt/java/openjdk/21
 annotations:
     org.opencontainers.image.description: A minimal logstash image
     org.opencontainers.image.licenses: Elastic-License-2.0
