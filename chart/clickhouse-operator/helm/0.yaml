@@ -15,7 +15,7 @@ vars:
     CLICKHOUSE_METRICS_EXPORTER_REFERENCE: dhi/clickhouse-metrics-exporter:0.25.6-debian13@sha256:325abb75c3789fc102da4f62290dbf897c3f9ea8d80dafe2c910d457110c985d
     CLICKHOUSE_OPERATOR_IMAGE_TAG: 0.25.5
     CLICKHOUSE_OPERATOR_REFERENCE: dhi/clickhouse-operator:0.25.6-debian13@sha256:d2c02eb857cb4fc4b4585070ff0b1d94413c6931426770f23a8e8478c4a747a7
-    CLICKHOUSE_SERVER_REFERENCE: dhi/clickhouse-server:25.8.12-debian13@sha256:cf26063b035975e7aaf8719bfffc8af63c7e3a147015143fd33b911d9834e812
+    CLICKHOUSE_SERVER_REFERENCE: dhi/clickhouse-server:25.8.13-debian13@sha256:ed05eb558ba9f48807b37b4471c82e3b9b80463d44143a93c00a1f28ef9a6d40
     DHI_NAMESPACE: dhi
     DHI_PREFIX: ""
     DHI_REGISTRY: dhi.io
@@ -51,7 +51,7 @@ contents:
                         - name: clickhouse-metrics-exporter
                           ref: dhi/clickhouse-metrics-exporter:0.25.6-debian13@sha256:325abb75c3789fc102da4f62290dbf897c3f9ea8d80dafe2c910d457110c985d
                         - name: clickhouse-server
-                          ref: dhi/clickhouse-server:25.8.12-debian13@sha256:cf26063b035975e7aaf8719bfffc8af63c7e3a147015143fd33b911d9834e812
+                          ref: dhi/clickhouse-server:25.8.13-debian13@sha256:ed05eb558ba9f48807b37b4471c82e3b9b80463d44143a93c00a1f28ef9a6d40
                         - name: kubectl
                           ref: dhi/kubectl:1.34.3-alpine3.22-dev@sha256:ac375865ef32495b5bbdc3183396a8fc181d7641f0437b570beabede2d465337
                     name: clickhouse-operator-chart
