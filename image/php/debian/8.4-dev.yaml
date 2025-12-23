@@ -85,6 +85,7 @@ contents:
         - bison
         - ca-certificates
         - coreutils
+        - curl
         - diffutils
         - dpkg
         - dpkg-dev
@@ -93,6 +94,7 @@ contents:
         - g++
         - gcc
         - grep
+        - gzip
         - libargon2-1
         - libc-bin
         - libc6-dev
@@ -112,6 +114,7 @@ contents:
         - pkg-config
         - re2c
         - sed
+        - tar
         - util-linux
         - zlib1g
     builds:
@@ -212,7 +215,7 @@ contents:
                 set -eux -o pipefail
 
                 mkdir -p '${target.dir}//opt/php-8.4/src'
-                cp -a '/src/php-8.4.16/.' '${target.dir}//opt/php-8.4/src'
+                cp -a '${source.dir}/php-8.4.16/.' '${target.dir}//opt/php-8.4/src'
             - name: build and install
               work-dir: ${source.dir}/php-8.4.16
               runs: |
@@ -306,6 +309,10 @@ contents:
               gid: 0
             - source: ${target.dir}//opt/php-8.4/lib
               target: /opt/php-8.4/lib
+              uid: 0
+              gid: 0
+            - source: ${target.dir}//opt/php-8.4/src
+              target: /opt/php-8.4/src
               uid: 0
               gid: 0
             - source: /opt/docker/sbom/php

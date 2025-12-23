@@ -38,9 +38,11 @@ contents:
         - bison
         - busybox
         - ca-certificates-bundle
+        - curl
         - file
         - g++
         - gcc
+        - gzip
         - icu-data-full
         - icu-libs
         - libc-dev
@@ -57,6 +59,7 @@ contents:
         - re2c
         - readline
         - sqlite-libs
+        - tar
         - zlib
     builds:
         - name: php
@@ -166,7 +169,7 @@ contents:
                 set -eux -o pipefail
 
                 mkdir -p '${target.dir}//opt/php-8.5/src'
-                cp -a '/src/php-8.5.0/.' '${target.dir}//opt/php-8.5/src'
+                cp -a '${source.dir}/php-8.5.0/.' '${target.dir}//opt/php-8.5/src'
             - name: build and install
               work-dir: ${source.dir}/php-8.5.0
               runs: |
@@ -260,6 +263,10 @@ contents:
               gid: 0
             - source: ${target.dir}//opt/php-8.5/lib
               target: /opt/php-8.5/lib
+              uid: 0
+              gid: 0
+            - source: ${target.dir}//opt/php-8.5/src
+              target: /opt/php-8.5/src
               uid: 0
               gid: 0
             - source: /opt/docker/sbom/php
