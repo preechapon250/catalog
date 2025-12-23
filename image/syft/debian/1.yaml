@@ -8,23 +8,23 @@ image: dhi/syft
 variant: runtime
 tags:
     - "1"
-    - "1.38"
-    - 1.38.2
+    - "1.39"
+    - 1.39.0
     - 1-debian13
-    - 1.38-debian13
-    - 1.38.2-debian13
+    - 1.39-debian13
+    - 1.39.0-debian13
 platforms:
     - linux/amd64
     - linux/arm64
 vars:
     BASE_DIGEST: sha256:be441a641f2adb00fd4c0b05de4d919fffd8e791b8ac36f38a2018811d8d92cd
     BASE_TAG: 20250419-debian13
-    COMMIT_SHA: bfe63f83dbaea88e22a5cfcd7d704c034c953730
+    COMMIT_SHA: e9e34948534ab945c7e750376235cfe0c442f532
     GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
-    SEMVER_MAJOR_MINOR_VERSION: "1.38"
+    SEMVER_MAJOR_MINOR_VERSION: "1.39"
     SEMVER_MAJOR_VERSION: "1"
-    SEMVER_VERSION: 1.38.2
-    VERSION: 1.38.2
+    SEMVER_VERSION: 1.39.0
+    VERSION: 1.39.0
 contents:
     packages:
         - '!base-files'
@@ -33,15 +33,15 @@ contents:
           uses: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
           contents:
             files:
-                - url: git+https://github.com/anchore/syft.git#v1.38.2
-                  checksum: bfe63f83dbaea88e22a5cfcd7d704c034c953730
+                - url: git+https://github.com/anchore/syft.git#v1.39.0
+                  checksum: e9e34948534ab945c7e750376235cfe0c442f532
                   path: /go/src/github.com/anchore/syft
                   spdx:
                     name: syft
-                    version: 1.38.2
+                    version: 1.39.0
                     packages:
                         - name: syft
-                          purl: pkg:golang/github.com/anchore/syft@1.38.2
+                          purl: pkg:golang/github.com/anchore/syft@1.39.0
                           license: Apache-2.0
                   uid: 0
                   gid: 0
@@ -62,9 +62,9 @@ contents:
               work-dir: /go/src/github.com/anchore/syft
               with:
                 ldflags:
-                    - -X main.version=1.38.2
-                    - -X main.gitDescription=1.38.2
-                    - -X main.gitCommit=bfe63f83dbaea88e22a5cfcd7d704c034c953730
+                    - -X main.version=1.39.0
+                    - -X main.gitDescription=1.39.0
+                    - -X main.gitCommit=e9e34948534ab945c7e750376235cfe0c442f532
                     - -X main.buildDate=$(date -ud @${SOURCE_DATE_EPOCH} +'%Y-%m-%dT%H:%M:%SZ')
                 output: ${target.dir}/usr/local/bin/syft
                 packages: ./cmd/syft
