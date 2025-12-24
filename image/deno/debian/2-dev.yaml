@@ -19,7 +19,7 @@ platforms:
 dates:
     release: "2025-09-10"
 vars:
-    BASE_DIGEST: sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+    BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
     BASE_TAG: 20250419-glibc-debian13
     BINUTILS_DIGEST: sha256:48107c1824276349ccbddce3853299de8b7c6a554b775957864d44c7b9a6b5b4
     BINUTILS_VERSION: "2.45"
@@ -121,7 +121,7 @@ contents:
             - var/lib/dpkg/status
           uid: 0
           gid: 0
-        - name: dhi/static:20250419-glibc-debian13@sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+        - name: dhi/static:20250419-glibc-debian13@sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
           includes:
             - bin
             - etc

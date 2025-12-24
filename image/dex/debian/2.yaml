@@ -17,7 +17,7 @@ platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    BASE_DIGEST: sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+    BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
     BASE_TAG: 20250419-glibc-debian13
     COMMIT_SHA: 2dce75009acfcd9df77d57f2d144aae999a4c569
     GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
@@ -168,7 +168,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/static:20250419-glibc-debian13@sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+        - name: dhi/static:20250419-glibc-debian13@sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
           includes:
             - bin
             - etc

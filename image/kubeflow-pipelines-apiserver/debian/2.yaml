@@ -19,7 +19,7 @@ platforms:
 vars:
     ARCH: '#{ target.arch == "amd64" ? "amd64" : "arm64" }'
     ARGO_VERSION: 3.6.7
-    BASE_DIGEST: sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+    BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
     BASE_TAG: 20250419-glibc-debian13
     COMMIT_SHA: 8fe8d7bdd88f027bde080f619762a0b3294796db
     EXPAT_DIGEST: sha256:bf522255414eb53b8992e36dc64fde670d477c0b3be62c84209c4409de35e324
@@ -158,7 +158,7 @@ contents:
               uid: 0
               gid: 0
     artifacts:
-        - name: dhi/static:20250419-glibc-debian13@sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+        - name: dhi/static:20250419-glibc-debian13@sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
           includes:
             - bin
             - etc

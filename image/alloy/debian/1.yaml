@@ -17,7 +17,7 @@ platforms:
     - linux/amd64
     - linux/arm64
 vars:
-    BASE_DIGEST: sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+    BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
     BASE_TAG: 20250419-glibc-debian13
     COMMIT_SHA: 293b51497f572263b56ab1aec611703809f04c6f
     GOLANG_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
@@ -141,7 +141,7 @@ contents:
               gid: 0
               mode: "0755"
     artifacts:
-        - name: dhi/static:20250419-glibc-debian13@sha256:03672baa78d7e527dd6f46fea2f8bbaaf1799c3ee0d13ce2c14e75b1b3beea6e
+        - name: dhi/static:20250419-glibc-debian13@sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
           includes:
             - bin
             - etc
