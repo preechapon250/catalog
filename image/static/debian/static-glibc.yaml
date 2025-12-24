@@ -30,7 +30,6 @@ contents:
         - '!libdebian-installer'
         - '!libdebian-installer4'
         - '!libelogind0'
-        - '!libgcc-s1'
         - '!libgmp10'
         - '!liblzma5'
         - '!libmd'
