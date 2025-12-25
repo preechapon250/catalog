@@ -9,10 +9,10 @@ variant: runtime
 tags:
     - "2"
     - "2.8"
-    - 2.8.17
+    - 2.8.18
     - 2-debian13
     - 2.8-debian13
-    - 2.8.17-debian13
+    - 2.8.18-debian13
 platforms:
     - linux/amd64
     - linux/arm64
@@ -24,9 +24,9 @@ vars:
     BASE_TAG: 20250419-glibc-debian13
     SEMVER_MAJOR_MINOR_VERSION: "2.8"
     SEMVER_MAJOR_VERSION: "2"
-    SEMVER_VERSION: 2.8.17
-    SHA256: sha256:b21ce060098580d163f8c16b7bdb5b135a59c1092b1b6cc1f33eb961d89c573b
-    VERSION: 2.8.17
+    SEMVER_VERSION: 2.8.18
+    SHA256: sha256:5664a435f3e5f8c22bd97adc219de6a6e73aa6be68b8d17d7324286112cf88cf
+    VERSION: 2.8.18
 contents:
     packages:
         - libcrypt1
@@ -50,15 +50,15 @@ contents:
                 - make
                 - tar
             files:
-                - url: https://www.haproxy.org/download/2.8/src/haproxy-2.8.17.tar.gz
-                  checksum: sha256:b21ce060098580d163f8c16b7bdb5b135a59c1092b1b6cc1f33eb961d89c573b
+                - url: https://www.haproxy.org/download/2.8/src/haproxy-2.8.18.tar.gz
+                  checksum: sha256:5664a435f3e5f8c22bd97adc219de6a6e73aa6be68b8d17d7324286112cf88cf
                   path: ${source.dir}/haproxy.tar.gz
                   spdx:
                     name: haproxy
-                    version: 2.8.17
+                    version: 2.8.18
                     packages:
                         - name: haproxy
-                          purl: pkg:dhi/haproxy@2.8.17
+                          purl: pkg:dhi/haproxy@2.8.18
                           license: GPL-2.0-only
                   uid: 0
                   gid: 0
@@ -73,7 +73,7 @@ contents:
                 set -eux -o pipefail
 
                 nproc="$(nproc)"
-                make -C 'haproxy-2.8.17' -j "$nproc" \
+                make -C 'haproxy-2.8.18' -j "$nproc" \
                   TARGET=linux-glibc \
                   CC=gcc \
                   \
@@ -90,7 +90,7 @@ contents:
               runs: |
                 set -eux -o pipefail
 
-                make -C 'haproxy-2.8.17' \
+                make -C 'haproxy-2.8.18' \
                   \
                   PREFIX='${target.dir}/opt/haproxy' \
                   SBINDIR='${target.dir}/opt/haproxy/bin' \
@@ -145,7 +145,7 @@ os-release:
     home-url: https://docker.com/products/hardened-images/
     bug-report-url: https://docker.com/support/
 environment:
-    HAPROXY_VERSION: 2.8.17
+    HAPROXY_VERSION: 2.8.18
     PATH: /opt/haproxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 annotations:
     org.opencontainers.image.description: A minimal HAProxy image
