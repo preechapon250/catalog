@@ -53,6 +53,7 @@ contents:
         - libxml2
         - libxslt1.1
         - libzstd1
+        - llvm
         - locales
         - mawk
         - perl-base

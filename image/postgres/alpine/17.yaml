@@ -38,6 +38,7 @@ contents:
         - libxml2
         - libxslt
         - linux-pam
+        - llvm
         - lz4-libs
         - readline
         - tzdata
