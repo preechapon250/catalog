@@ -193,6 +193,7 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+work-dir: /workspace
 environment:
   CUDA_VERSION: 12.9.1
   DEBIAN_FRONTEND: noninteractive
