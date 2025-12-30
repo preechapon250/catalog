@@ -138,6 +138,7 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+work-dir: /data
 paths:
   - type: symlink
     path: /usr/local/bin/redis-sentinel
@@ -199,28 +200,20 @@ paths:
     uid: 65532
     gid: 65532
     mode: "0755"
-  - type: file
-    path: /etc/valkey/conf.d/docker.conf
-    content: |
-      daemonize no
-      bind 0.0.0.0 -::1
-      logfile ""
-    uid: 0
-    gid: 0
-    mode: "0444"
+  - type: directory
+    path: /data
+    uid: 65532
+    gid: 65532
+    mode: "0755"
   - type: file
     path: /usr/local/bin/docker-entrypoint.sh
     content: |
       #!/bin/sh
       set -e
 
-      if [ "${1#-}" != "$1" ]; then
-        # docker run dhi/valkey --flag
-        set -- /etc/valkey/valkey.conf "$@"
-      fi
-
-      if [ "${1%.conf}" != "$1" ]; then
-        # docker run dhi/valkey /path/to/custom/conf [optional flags]
+      # first arg is `-f` or `--some-option`
+      # or first arg is `something.conf`
+      if [ "${1#-}" != "$1" ] || [ "${1%.conf}" != "$1" ]; then
         set -- valkey-server "$@"
       fi
 
@@ -241,6 +234,10 @@ entrypoint:
   - /usr/bin/tini
   - --
   - /usr/local/bin/docker-entrypoint.sh
+cmd:
+  - valkey-server
+ports:
+  - 6379/tcp
 tests:
   - name: Run testcontainers tests
     directory: image/valkey/tests
