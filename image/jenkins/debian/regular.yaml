@@ -19,8 +19,8 @@ vars:
   BUILD_JDK_REF: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:99421ea725e0905500a94ed9b10b688071e6681002d06bd6869193f55111c366
   BUILD_JDK_VERSION: 21.0.9.10
   COMMIT_SHA: 909de8740d1034362ffa3928980f16932ce23186
-  DOCKER_REPO_COMMIT_SHA: 0d17e2f1fd20d95b1cc7bbb9605ab5e96782cd2d
-  DOCKER_REPO_VERSION: "2.543"
+  DOCKER_REPO_COMMIT_SHA: b8051c8cd22f6cdbbef8f4d581781b9395cc4827
+  DOCKER_REPO_VERSION: "2.544"
   JAVA_HOME_PATH: /opt/java/openjdk/21-jre
   JAVA_MAJOR_VERSION: "21"
   JDK_MAJOR_VERSION: "21"
@@ -79,8 +79,8 @@ contents:
                   license: MIT
             uid: 0
             gid: 0
-          - url: git+https://github.com/jenkinsci/docker.git#0d17e2f1fd20d95b1cc7bbb9605ab5e96782cd2d
-            checksum: 0d17e2f1fd20d95b1cc7bbb9605ab5e96782cd2d
+          - url: git+https://github.com/jenkinsci/docker.git#b8051c8cd22f6cdbbef8f4d581781b9395cc4827
+            checksum: b8051c8cd22f6cdbbef8f4d581781b9395cc4827
             path: ${source.dir}/docker-builds
             uid: 0
             gid: 0
