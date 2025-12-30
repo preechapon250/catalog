@@ -6,8 +6,8 @@ variant: runtime
 tags:
   - 1-debian12
   - 1.29-debian12
-  - 1.29.1-debian12
-  - 1.29.1-cli-1.5.1-debian12
+  - 1.29.2-debian12
+  - 1.29.2-cli-1.5.1-debian12
 platforms:
   - linux/amd64
   - linux/arm64
@@ -15,7 +15,7 @@ vars:
   ARCH: '#{ target.arch == "amd64" ? "amd64" : "arm64" }'
   CLI_COMMIT_SHA: 2445cdaeca0d2501a09837e388aa78ba1d65edaa
   CLI_VERSION: 1.5.1
-  COMMIT_SHA: 4c2403736409e6f38972df3be4de480026a5b6fa
+  COMMIT_SHA: dfc3c9ad65407c0f81e99c2db2d33fa0a52e8633
   DEBIAN_VERSION: "12"
   DOCKERIZE_COMMIT_SHA: 90dbb4fc2ef9098acd41e8c3ca98d2f730c741d6
   DOCKERIZE_VERSION: 0.9.5
@@ -24,8 +24,8 @@ vars:
   GO_VERSION: 1.25.5
   SEMVER_MAJOR_MINOR_VERSION: "1.29"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.29.1
-  VERSION: 1.29.1
+  SEMVER_VERSION: 1.29.2
+  VERSION: 1.29.2
 contents:
   packages:
     - bash
@@ -91,17 +91,17 @@ contents:
           - ca-certificates
           - sed
         files:
-          - url: git+https://github.com/temporalio/temporal.git#v1.29.1
+          - url: git+https://github.com/temporalio/temporal.git#v1.29.2
             path: /go/src/go.temporal.io/server
             spdx:
               name: temporalio-server
-              version: 1.29.1
+              version: 1.29.2
               packages:
                 - name: temporal-server
-                  purl: pkg:golang/go.temporal.io/server@1.29.1
+                  purl: pkg:golang/go.temporal.io/server@1.29.2
                   license: MIT
                 - name: tdbg
-                  purl: pkg:golang/go.temporal.io/server/cmd/tools/tdbg@1.29.1
+                  purl: pkg:golang/go.temporal.io/server/cmd/tools/tdbg@1.29.2
                   license: MIT
             uid: 0
             gid: 0
@@ -110,7 +110,7 @@ contents:
           uses: git/checkout@v1
           work-dir: /go/src/go.temporal.io/server
           with:
-            expected-commit: 4c2403736409e6f38972df3be4de480026a5b6fa
+            expected-commit: dfc3c9ad65407c0f81e99c2db2d33fa0a52e8633
         - name: go dependencies
           uses: go/bump@v1
           work-dir: /go/src/go.temporal.io/server
@@ -212,7 +212,7 @@ contents:
           - diffutils
           - grep
         files:
-          - url: git+https://github.com/temporalio/temporal.git#v1.29.1
+          - url: git+https://github.com/temporalio/temporal.git#v1.29.2
             path: ${source.dir}/temporal
             uid: 0
             gid: 0
@@ -276,14 +276,14 @@ contents:
         packages:
           - ca-certificates
         files:
-          - url: git+https://github.com/temporalio/temporal.git#v1.29.1
+          - url: git+https://github.com/temporalio/temporal.git#v1.29.2
             path: /go/src/go.temporal.io/server
             spdx:
               name: temporal-sql-tool
-              version: 1.29.1
+              version: 1.29.2
               packages:
                 - name: temporal-sql-tool
-                  purl: pkg:golang/go.temporal.io/server/cmd/tools/sql@1.29.1
+                  purl: pkg:golang/go.temporal.io/server/cmd/tools/sql@1.29.2
                   license: MIT
             uid: 0
             gid: 0
@@ -292,7 +292,7 @@ contents:
           uses: git/checkout@v1
           work-dir: /go/src/go.temporal.io/server
           with:
-            expected-commit: 4c2403736409e6f38972df3be4de480026a5b6fa
+            expected-commit: dfc3c9ad65407c0f81e99c2db2d33fa0a52e8633
         - name: patch uses of crypto/md5
           uses: git/patch@v1
           work-dir: /go/src/go.temporal.io/server
@@ -340,14 +340,14 @@ contents:
         packages:
           - ca-certificates
         files:
-          - url: git+https://github.com/temporalio/temporal.git#v1.29.1
+          - url: git+https://github.com/temporalio/temporal.git#v1.29.2
             path: /go/src/go.temporal.io/server
             spdx:
               name: temporal-cassandra-tool
-              version: 1.29.1
+              version: 1.29.2
               packages:
                 - name: temporal-cassandra-tool
-                  purl: pkg:golang/go.temporal.io/server/cmd/tools/cassandra@1.29.1
+                  purl: pkg:golang/go.temporal.io/server/cmd/tools/cassandra@1.29.2
                   license: MIT
             uid: 0
             gid: 0
@@ -356,7 +356,7 @@ contents:
           uses: git/checkout@v1
           work-dir: /go/src/go.temporal.io/server
           with:
-            expected-commit: 4c2403736409e6f38972df3be4de480026a5b6fa
+            expected-commit: dfc3c9ad65407c0f81e99c2db2d33fa0a52e8633
         - name: go dependencies
           uses: go/bump@v1
           work-dir: /go/src/go.temporal.io/server
