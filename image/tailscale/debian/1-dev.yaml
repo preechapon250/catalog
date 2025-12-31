@@ -1,15 +1,15 @@
 # syntax=dhi.io/build:1-debian13
 
-name: Tailscale 1.x
+name: Tailscale 1.x (dev)
 image: dhi.io/tailscale
-variant: runtime
+variant: dev
 tags:
-  - "1"
-  - "1.92"
-  - 1.92.3
-  - 1-debian13
-  - 1.92-debian13
-  - 1.92.3-debian13
+  - 1-dev
+  - 1.92-dev
+  - 1.92.3-dev
+  - 1-debian13-dev
+  - 1.92-debian13-dev
+  - 1.92.3-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -24,11 +24,26 @@ vars:
   VERSION: 1.92.3
 contents:
   packages:
+    - '!gawk'
+    - '!libelogind0'
+    - '!original-awk'
+    - apt
     - base-files
+    - bash
     - ca-certificates
+    - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
     - iproute2
     - iptables
     - iputils-ping
+    - libc-bin
+    - mawk
+    - perl-base
+    - sed
+    - util-linux
   builds:
     - name: tailscale
       uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
@@ -87,6 +102,9 @@ accounts:
     - name: nonroot
       uid: 65532
       gid: 65532
+    - name: _apt
+      uid: 42
+      gid: 65532
   groups:
     - name: nonroot
       gid: 65532
@@ -100,6 +118,8 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+environment:
+  DEBIAN_FRONTEND: noninteractive
 paths:
   - type: symlink
     path: /usr/sbin/iptables
@@ -120,6 +140,11 @@ entrypoint:
 tests:
   - name: Run Tailscale tests
     directory: image/tailscale/tests
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
+  - name: Run APT package manager tests
+    directory: test/go-testing/package_manager
     commands:
       - go test . -count=1 -v
     exit-code: 0

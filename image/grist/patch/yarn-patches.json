@@ -68,11 +68,15 @@
         "package": "jws",
         "dev": false,
         "version": "3.2.3"
-    }
-    ,
+    },
     {
         "package": "jws",
         "dev": false,
         "version": "4.0.1"
+    },
+    {
+        "package": "qs",
+        "dev": false,
+        "version": "6.14.1"
     }
 ]

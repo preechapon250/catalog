@@ -1,15 +1,15 @@
 # syntax=dhi.io/build:1-debian13
 
-name: LiteLLM 1.x
+name: LiteLLM 1.x (dev)
 image: dhi.io/litellm
-variant: runtime
+variant: dev
 tags:
-  - "1"
-  - "1.80"
-  - 1.80.8
-  - 1-debian13
-  - 1.80-debian13
-  - 1.80.8-debian13
+  - 1-dev
+  - 1.80-dev
+  - 1.80.8-dev
+  - 1-debian13-dev
+  - 1.80-debian13-dev
+  - 1.80.8-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -28,16 +28,27 @@ vars:
   VERSION: 1.80.8
 contents:
   packages:
+    - '!gawk'
     - '!libelogind0'
     - '!mawk'
     - '!original-awk'
+    - apt
     - base-files
     - bash
     - ca-certificates
     - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
+    - libc-bin
     - libstdc++6
+    - mawk
     - openssl
+    - perl-base
+    - sed
     - tzdata
+    - util-linux
   builds:
     - name: litellm-build
       uses: dhi.io/python:3.13.11-debian13-dev@sha256:afbe9dc3a5482aa5a10a1b3f6b169d71cfb0565d6ca223279af3c60696ae1cbe
@@ -199,10 +210,14 @@ contents:
       uid: 0
       gid: 0
 accounts:
-  run-as: nonroot
+  root: true
+  run-as: root
   users:
     - name: nonroot
       uid: 65532
+      gid: 65532
+    - name: _apt
+      uid: 42
       gid: 65532
   groups:
     - name: nonroot
@@ -219,6 +234,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
+  DEBIAN_FRONTEND: noninteractive
   PATH: /opt/litellm/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
   PYTHON_VERSION: 3.13.11
 paths:
@@ -245,6 +261,11 @@ tests:
     exit-code: 0
   - name: Run testcontainers basic tests
     directory: test/go-testing/base
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
+  - name: Run APT package manager tests
+    directory: test/go-testing/package_manager
     commands:
       - go test . -count=1 -v
     exit-code: 0

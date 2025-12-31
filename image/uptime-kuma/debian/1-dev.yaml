@@ -1,15 +1,15 @@
 # syntax=dhi.io/build:2-debian13
 
-name: Uptime Kuma 1.x
+name: Uptime Kuma 1.x (dev)
 image: dhi.io/uptime-kuma
-variant: runtime
+variant: dev
 tags:
-  - "1"
-  - "1.23"
-  - 1.23.17
-  - 1-debian13
-  - 1.23-debian13
-  - 1.23.17-debian13
+  - 1-dev
+  - 1.23-dev
+  - 1.23.17-dev
+  - 1-debian13-dev
+  - 1.23-debian13-dev
+  - 1.23.17-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -26,6 +26,22 @@ vars:
 contents:
   packages:
     - '!base-files'
+    - '!gawk'
+    - '!libelogind0'
+    - '!original-awk'
+    - apt
+    - bash
+    - ca-certificates
+    - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
+    - libc-bin
+    - mawk
+    - perl-base
+    - sed
+    - util-linux
   builds:
     - name: uptime-kuma
       uses: dhi.io/node:24.12.0-debian13-dev@sha256:0a90afadabdddcdd7e9eecef7048e5a0f1f45e6f165c2a035be091f1efd2255e
@@ -138,11 +154,14 @@ contents:
       gid: 0
 accounts:
   root: true
-  run-as: node
+  run-as: root
   users:
     - name: node
       uid: 1000
       gid: 1000
+    - name: _apt
+      uid: 42
+      gid: 65532
   groups:
     - name: node
       gid: 1000
@@ -157,6 +176,8 @@ os-release:
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
 work-dir: /app
+environment:
+  DEBIAN_FRONTEND: noninteractive
 paths:
   - type: directory
     path: /app
@@ -184,6 +205,11 @@ tests:
     exit-code: 0
   - name: Run common testcontainers tests
     directory: test/go-testing/base
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
+  - name: Run APT package manager tests
+    directory: test/go-testing/package_manager
     commands:
       - go test . -count=1 -v
     exit-code: 0

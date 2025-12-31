@@ -1,31 +1,47 @@
 # syntax=dhi.io/build:2-debian13
 
-name: Uptime Kuma 1.x
+name: Uptime Kuma 2.x (dev)
 image: dhi.io/uptime-kuma
-variant: runtime
+variant: dev
 tags:
-  - "1"
-  - "1.23"
-  - 1.23.17
-  - 1-debian13
-  - 1.23-debian13
-  - 1.23.17-debian13
+  - 2-dev
+  - 2.0-dev
+  - 2.0.2-dev
+  - 2-debian13-dev
+  - 2.0-debian13-dev
+  - 2.0.2-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: 40ec7158534a28e6f8b431a628c53133c327c539
+  COMMIT_SHA: c451db542d7c36c66d10a4218628bc6cc0d314a9
   NODE_BUILD_REFERENCE: dhi/node:24.12.0-debian13-dev@sha256:0a90afadabdddcdd7e9eecef7048e5a0f1f45e6f165c2a035be091f1efd2255e
   NODE_BUILD_VERSION: 24.12.0
   NODE_RUNTIME_REFERENCE: dhi/node:24.12.0-debian13@sha256:e805d972f53c2db92cab8c56242ba8609736e461ef16d4073d52d5404263bbc9
   NODE_RUNTIME_VERSION: 24.12.0
-  SEMVER_MAJOR_MINOR_VERSION: "1.23"
-  SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.23.17
-  VERSION: 1.23.17
+  SEMVER_MAJOR_MINOR_VERSION: "2.0"
+  SEMVER_MAJOR_VERSION: "2"
+  SEMVER_VERSION: 2.0.2
+  VERSION: 2.0.2
 contents:
   packages:
     - '!base-files'
+    - '!gawk'
+    - '!libelogind0'
+    - '!original-awk'
+    - apt
+    - bash
+    - ca-certificates
+    - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
+    - libc-bin
+    - mawk
+    - perl-base
+    - sed
+    - util-linux
   builds:
     - name: uptime-kuma
       uses: dhi.io/node:24.12.0-debian13-dev@sha256:0a90afadabdddcdd7e9eecef7048e5a0f1f45e6f165c2a035be091f1efd2255e
@@ -33,9 +49,9 @@ contents:
         packages:
           - jq
         files:
-          - url: git+https://github.com/louislam/uptime-kuma.git#1.23.17
-            checksum: 40ec7158534a28e6f8b431a628c53133c327c539
-            path: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539
+          - url: git+https://github.com/louislam/uptime-kuma.git#2.0.2
+            checksum: c451db542d7c36c66d10a4218628bc6cc0d314a9
+            path: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9
             uid: 0
             gid: 0
       pipeline:
@@ -43,16 +59,16 @@ contents:
           uses: npm/bump@v1
           privileged: true
           with:
-            bumps: ${source.dir}/patch/npm-bump.json
-            npm-root: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539
+            bumps: ${source.dir}/patch/npm-bump-v2.json
+            npm-root: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9
         - name: install and build
-          work-dir: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539
+          work-dir: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9
           privileged: true
           runs: |
             set -eux -o pipefail
 
             npm ci
-            if [ "1" = "1" ]; then
+            if [ "2" = "1" ]; then
               npm test # ensure our version bumps have not broken anything
             else
               npm run test-backend || true # Run backend tests only (skip E2E tests which require Playwright/browser dependencies)
@@ -61,7 +77,7 @@ contents:
             rm -r node_modules
             npm ci --omit=dev
         - name: copy app files
-          work-dir: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539
+          work-dir: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9
           runs: |
             set -eux -o pipefail
 
@@ -73,7 +89,7 @@ contents:
             cp -r package.json dist db server node_modules "${target.dir}"
             cp src/util.js "${target.dir}/src/util.js"
         - name: prepare frontend workspace
-          work-dir: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539
+          work-dir: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9
           runs: |
             set -eux -o pipefail
 
@@ -93,13 +109,13 @@ contents:
               from_entries |
               {
                 name: "frontend",
-                version: "1.23.17",
+                version: "2.0.2",
                 dependencies: .
               }' package.json ./hack/exclude-dev-dependencies.json > ./frontend/package.json
             cp package.json package.json.original
             jq '. | .workspaces = ["frontend"]' package.json.original > package.json
         - name: generate frontend sbom
-          work-dir: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539
+          work-dir: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9
           privileged: true
           runs: |
             set -eux -o pipefail
@@ -115,7 +131,7 @@ contents:
           gid: 0
           source: image/uptime-kuma/patch
         - type: file
-          path: ${source.dir}/uptime-kuma-40ec7158534a28e6f8b431a628c53133c327c539/hack/exclude-dev-dependencies.json
+          path: ${source.dir}/uptime-kuma-c451db542d7c36c66d10a4218628bc6cc0d314a9/hack/exclude-dev-dependencies.json
           uid: 0
           gid: 0
           source: image/uptime-kuma/patch/exclude-dev-dependencies.json
@@ -138,11 +154,14 @@ contents:
       gid: 0
 accounts:
   root: true
-  run-as: node
+  run-as: root
   users:
     - name: node
       uid: 1000
       gid: 1000
+    - name: _apt
+      uid: 42
+      gid: 65532
   groups:
     - name: node
       gid: 1000
@@ -157,6 +176,8 @@ os-release:
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
 work-dir: /app
+environment:
+  DEBIAN_FRONTEND: noninteractive
 paths:
   - type: directory
     path: /app
@@ -184,6 +205,11 @@ tests:
     exit-code: 0
   - name: Run common testcontainers tests
     directory: test/go-testing/base
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
+  - name: Run APT package manager tests
+    directory: test/go-testing/package_manager
     commands:
       - go test . -count=1 -v
     exit-code: 0

@@ -1,21 +1,21 @@
 # syntax=dhi.io/build:1-debian13
 
-name: LocalStack 4.12.x
+name: LocalStack 4.12.x (dev)
 image: dhi.io/localstack
-variant: runtime
+variant: dev
 tags:
-  - "4"
-  - "4.12"
-  - 4.12.0
-  - 4-debian13
-  - 4-python3.13
-  - 4.12-debian13
-  - 4.12-python3.13
-  - 4.12.0-debian13
-  - 4.12.0-python3.13
-  - 4-python3.13-debian13
-  - 4.12-python3.13-debian13
-  - 4.12.0-python3.13-debian13
+  - 4-dev
+  - 4.12-dev
+  - 4.12.0-dev
+  - 4-debian13-dev
+  - 4-python3.13-dev
+  - 4.12-debian13-dev
+  - 4.12-python3.13-dev
+  - 4.12.0-debian13-dev
+  - 4.12.0-python3.13-dev
+  - 4-python3.13-debian13-dev
+  - 4.12-python3.13-debian13-dev
+  - 4.12.0-python3.13-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -31,10 +31,25 @@ vars:
   VERSION: 4.12.0
 contents:
   packages:
+    - '!gawk'
+    - '!libelogind0'
+    - '!original-awk'
+    - apt
     - bash
+    - ca-certificates
+    - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
     - iproute2
     - iputils-ping
+    - libc-bin
+    - mawk
+    - perl-base
+    - sed
     - unzip
+    - util-linux
   builds:
     - name: localstack
       uses: dhi.io/python:3.13.11-debian13-dev@sha256:afbe9dc3a5482aa5a10a1b3f6b169d71cfb0565d6ca223279af3c60696ae1cbe
@@ -123,10 +138,14 @@ contents:
       uid: 0
       gid: 0
 accounts:
-  run-as: nonroot
+  root: true
+  run-as: root
   users:
     - name: nonroot
       uid: 65532
+      gid: 65532
+    - name: _apt
+      uid: 42
       gid: 65532
   groups:
     - name: nonroot
@@ -141,6 +160,8 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+environment:
+  DEBIAN_FRONTEND: noninteractive
 paths:
   - type: directory
     path: /var/lib/localstack
@@ -164,6 +185,11 @@ tests:
     exit-code: 0
   - name: Run base tests
     directory: test/go-testing/base
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
+  - name: Run APT package manager tests
+    directory: test/go-testing/package_manager
     commands:
       - go test . -count=1 -v
     exit-code: 0
