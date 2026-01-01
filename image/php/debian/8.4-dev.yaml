@@ -15,7 +15,7 @@ dates:
   release: "2024-11-21"
   end-of-life: "2028-12-31"
 vars:
-  BINUTILS_DIGEST: sha256:48107c1824276349ccbddce3853299de8b7c6a554b775957864d44c7b9a6b5b4
+  BINUTILS_DIGEST: sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
   BINUTILS_VERSION: "2.45"
   CFLAGS: -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
   CHECKSUM: f66f8f48db34e9e29f7bfd6901178e9cf4a1b163e6e497716dfcb8f88bcfae30
@@ -341,7 +341,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:48107c1824276349ccbddce3853299de8b7c6a554b775957864d44c7b9a6b5b4
+    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
       excludes:
         - etc/group
         - etc/os-release
