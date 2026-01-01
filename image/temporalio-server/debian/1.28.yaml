@@ -180,6 +180,7 @@ contents:
             deps:
               - github.com/golang-jwt/jwt/v4@v4.5.2
               - golang.org/x/crypto@v0.45.0
+              - go.temporal.io/server@v1.29.2
             download: true
         - name: build temporal CLI binary
           work-dir: /go/src/github.com/temporalio/cli
