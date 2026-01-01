@@ -13,7 +13,7 @@ platforms:
 dates:
   release: "2025-08-12"
 vars:
-  BINUTILS_DIGEST: sha256:bdd08925c29eeae4b392d3122929f4ac8776b23223a512a41b833990677d2517
+  BINUTILS_DIGEST: sha256:4ea659341b038dc65192c62796fe800e8ad0f002816081c54a23048f3dc977ce
   BINUTILS_VERSION: "2.45"
   DIGEST: sha256:7bb8f0cf212d987f48df408a44ffef7f4954eb224ed0bc4a13c8c04b69f32fc7
   EXPAT_DIGEST: sha256:0fb66ab56a761b0aa923b87a3a207d1df60fb692151d723ab7dc0fd6b7bc6c3c
@@ -59,7 +59,7 @@ contents:
     - tzdata
     - util-linux
   artifacts:
-    - name: dhi.io/pkg-binutils:2.45-debian12@sha256:bdd08925c29eeae4b392d3122929f4ac8776b23223a512a41b833990677d2517
+    - name: dhi.io/pkg-binutils:2.45-debian12@sha256:4ea659341b038dc65192c62796fe800e8ad0f002816081c54a23048f3dc977ce
       excludes:
         - etc/group
         - etc/os-release
@@ -153,7 +153,8 @@ annotations:
   org.opencontainers.image.description: A minimal Golang image
   org.opencontainers.image.licenses: BSD-3-Clause
 cmd:
-  - /bin/bash
+  - go
+  - help
 tests:
   - name: Run testcontainers tests
     directory: image/golang/tests
