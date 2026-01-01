@@ -20,7 +20,7 @@ vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 6fb0ce72daf624bfda04dbe6f9585ad24cc54820
-  RUST_REFERENCE: dhi/rust:1.92.0-debian13-dev@sha256:ea7885c5678e269ff060aee7a2b61ce08ff725bb16adc590a110b2a1bcd79849
+  RUST_REFERENCE: dhi/rust:1.92.0-debian13-dev@sha256:5c7f2cb196a2b47204a2e3456d1fe86d224b4e22cbf237c38202ed5f64460f4b
   RUST_VERSION: 1.92.0
   SEMVER_MAJOR_MINOR_VERSION: "1.28"
   SEMVER_MAJOR_VERSION: "1"
@@ -34,7 +34,7 @@ contents:
     - base-files
   builds:
     - name: ztunnel
-      uses: dhi.io/rust:1.92.0-debian13-dev@sha256:ea7885c5678e269ff060aee7a2b61ce08ff725bb16adc590a110b2a1bcd79849
+      uses: dhi.io/rust:1.92.0-debian13-dev@sha256:5c7f2cb196a2b47204a2e3456d1fe86d224b4e22cbf237c38202ed5f64460f4b
       environment:
         VERSION: 1.28.2
       contents:
