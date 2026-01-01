@@ -16,7 +16,7 @@ platforms:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  BINUTILS_REFERENCE: dhi/pkg-binutils:2.45-debian13@sha256:48107c1824276349ccbddce3853299de8b7c6a554b775957864d44c7b9a6b5b4
+  BINUTILS_REFERENCE: dhi/pkg-binutils:2.45-debian13@sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
   COMMIT_SHA: ef6e76c3c4023279497fab4721ffa071a722fd05
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
   SEMVER_MAJOR_MINOR_VERSION: "3.92"
@@ -96,7 +96,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:48107c1824276349ccbddce3853299de8b7c6a554b775957864d44c7b9a6b5b4
+    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
       excludes:
         - etc/group
         - etc/os-release
