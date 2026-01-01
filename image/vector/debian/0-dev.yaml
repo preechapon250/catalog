@@ -15,7 +15,7 @@ platforms:
   - linux/arm64
 vars:
   COMMIT_SHA: ca5bf2690ffcfc2c95d320cf7156b1df1b28a080
-  RUST_REFERENCE: dhi/rust:1.92.0-debian13-dev@sha256:ea7885c5678e269ff060aee7a2b61ce08ff725bb16adc590a110b2a1bcd79849
+  RUST_REFERENCE: dhi/rust:1.92.0-debian13-dev@sha256:5c7f2cb196a2b47204a2e3456d1fe86d224b4e22cbf237c38202ed5f64460f4b
   SEMVER_MAJOR_MINOR_VERSION: "0.52"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.52.0
@@ -42,7 +42,7 @@ contents:
     - util-linux
   builds:
     - name: vector
-      uses: dhi.io/rust:1.92.0-debian13-dev@sha256:ea7885c5678e269ff060aee7a2b61ce08ff725bb16adc590a110b2a1bcd79849
+      uses: dhi.io/rust:1.92.0-debian13-dev@sha256:5c7f2cb196a2b47204a2e3456d1fe86d224b4e22cbf237c38202ed5f64460f4b
       contents:
         packages:
           - build-essential
