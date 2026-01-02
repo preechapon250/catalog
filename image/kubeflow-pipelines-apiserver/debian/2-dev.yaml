@@ -21,7 +21,7 @@ vars:
   COMMIT_SHA: 8fe8d7bdd88f027bde080f619762a0b3294796db
   EXPAT_DIGEST: sha256:bf522255414eb53b8992e36dc64fde670d477c0b3be62c84209c4409de35e324
   EXPAT_VERSION: 2.7.3
-  GOLANG_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+  GOLANG_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   PYTHON_DEV_REFERENCE: dhi/python:3.9.25-debian13-dev@sha256:e62acf24bfd64d9e5e2820a038eec51d5d01427c8ce3a6beb866cb0fdc1491e7
   SEMVER_MAJOR_MINOR_VERSION: "2.15"
   SEMVER_MAJOR_VERSION: "2"
@@ -48,7 +48,7 @@ contents:
     - util-linux
   builds:
     - name: kubeflow-pipelines-apiserver
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       environment:
         GIT_BRANCH: 8fe8d7bdd88f027bde080f619762a0b3294796db
       contents:
