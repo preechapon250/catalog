@@ -17,7 +17,7 @@ vars:
   BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
   BASE_TAG: 20250419-glibc-debian13
   COMMIT_SHA: 2dce75009acfcd9df77d57f2d144aae999a4c569
-  GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+  GO_DIGEST: sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_TAG: 1.25.5-debian13-dev
   GO_VERSION: 1.25.5
   GOMPLATE_COMMIT_SHA: 3e4035cbb6f85df1a98dc9636fd4927a0b5ac00e
@@ -35,7 +35,7 @@ contents:
     - libsqlite3-0
   builds:
     - name: gomplate
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       privileged: true
       contents:
         files:
@@ -85,7 +85,7 @@ contents:
           uid: 0
           gid: 0
     - name: dex
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       privileged: true
       contents:
         packages:
