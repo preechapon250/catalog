@@ -20,7 +20,7 @@ vars:
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: ffcd570f815ccf0588bda305659d0d4e925e4ef1
   FIPS_SUFFIX: ""
-  GO_DIGEST: sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
+  GO_DIGEST: sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
   GO_VERSION: 1.24.11
   SEMVER_MAJOR_MINOR_VERSION: "2.9"
   SEMVER_MAJOR_VERSION: "2"
@@ -31,7 +31,7 @@ contents:
     - '!base-files'
   builds:
     - name: loki
-      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
+      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
       contents:
         packages:
           - make
