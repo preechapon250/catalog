@@ -16,7 +16,7 @@ vars:
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
-  PROMETHEUS_CONFIG_RELOADER_IMAGE_REFERENCE: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:f960fb3a029a5ce137bc6e8462d053a78ab0c2b5c437560b35bc5f5d62095255
+  PROMETHEUS_CONFIG_RELOADER_IMAGE_REFERENCE: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:b776b4895ce7171a1d9444c27baaead4fedf16995ed2b6ab282562ada3613cbd
   SEMVER_MAJOR_MINOR_VERSION: "1.9"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.9.0
@@ -51,7 +51,7 @@ contents:
                 - name: alertmanager
                   ref: dhi/alertmanager:0.30.0-debian13@sha256:343a69ae51c23b2bf2673ad10b166b97236f6f5a73b0a6d5e733101216f31f53
                 - name: prometheus-config-reloader
-                  ref: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:f960fb3a029a5ce137bc6e8462d053a78ab0c2b5c437560b35bc5f5d62095255
+                  ref: dhi/prometheus-config-reloader:0.87.1-debian13@sha256:b776b4895ce7171a1d9444c27baaead4fedf16995ed2b6ab282562ada3613cbd
                 - name: busybox
                   ref: dhi/busybox:1.37.0-alpine3.22@sha256:a1e4d4675dc1f8b4c9cdc0f62cb7e47623ca063c55665049a801d8d6d129f8b2
               name: alertmanager-chart
