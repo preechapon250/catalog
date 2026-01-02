@@ -4,28 +4,28 @@ name: External DNS Helm chart 1.x
 image: dhi.io/external-dns-chart
 variant: helm
 tags:
-  - 1.19.0
+  - 1.20.0
 platforms:
   - linux/amd64
 vars:
-  CHART_COMMIT_SHA: b740777701f0684cbc2ab664af3eaa7ec3f7576f
+  CHART_COMMIT_SHA: e951aab3d50cc348bdf1c2bd89baf951d49c573b
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   EXTERNAL_DNS_REFERENCE: dhi/external-dns:0.20.0-debian13@sha256:403ffefca5c45be1f1b47aa9afc00878cce179b4c9f24b5904acced3f9127068
   HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
-  SEMVER_MAJOR_MINOR_VERSION: "1.19"
+  SEMVER_MAJOR_MINOR_VERSION: "1.20"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.19.0
-  VERSION: 1.19.0
+  SEMVER_VERSION: 1.20.0
+  VERSION: 1.20.0
 contents:
   builds:
     - name: external-dns
       uses: dhi.io/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
       contents:
         files:
-          - url: git+https://github.com/kubernetes-sigs/external-dns.git#external-dns-helm-chart-1.19.0
+          - url: git+https://github.com/kubernetes-sigs/external-dns.git#external-dns-helm-chart-1.20.0
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
