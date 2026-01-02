@@ -21,7 +21,7 @@ vars:
   DEBIAN_EPOCH_MAJOR_VERSION: "2"
   DEBIAN_EPOCH_VERSION: 2.9.0
   FIPS_SUFFIX: ""
-  GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+  GO_DIGEST: sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_VERSION: 1.25.5
   VERSION: 2.9.0
 contents:
@@ -29,7 +29,7 @@ contents:
     - '!base-files'
   builds:
     - name: tempo
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       contents:
         packages:
           - bash
