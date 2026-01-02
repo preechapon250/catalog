@@ -10,13 +10,13 @@ platforms:
 vars:
   BUSYBOX_REFERENCE: dhi/busybox:1.37.0-alpine3.22@sha256:a1e4d4675dc1f8b4c9cdc0f62cb7e47623ca063c55665049a801d8d6d129f8b2
   CHART_COMMIT_SHA: 8749b0a79f6837523dc461a34a7c9ad286ee6857
-  CONFIGMAP_RELOAD_REFERENCE: dhi/configmap-reload:0.15.0-debian13@sha256:460342e1f209a4ec9f64e69b2393c2f83b4614e9f24ab3eea8abc321291e3be0
+  CONFIGMAP_RELOAD_REFERENCE: dhi/configmap-reload:0.15.0-debian13@sha256:7abb3e521c026504443320b4e2a4e427d5835c830f6ba85206eaa069c3dad4c7
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   FLUENT_BIT_REFERENCE: dhi/fluent-bit:4.2.2-debian13@sha256:6bd1be66eb4e2328caf843d9f3e046946ea8b87811c2764e2512f6d514e1dea5
-  HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
+  HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
   SEMVER_MAJOR_MINOR_VERSION: "0.54"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.54.0
@@ -24,7 +24,7 @@ vars:
 contents:
   builds:
     - name: fluent-bit
-      uses: dhi.io/helm:3.19.4-debian13-dev@sha256:705dc44463a159c5163cc790e19afd3ca2071d63a5c3c7951e4173e1cbb14f0a
+      uses: dhi.io/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
       contents:
         packages:
           - bash
@@ -51,7 +51,7 @@ contents:
                 - name: fluent-bit
                   ref: dhi/fluent-bit:4.2.2-debian13@sha256:6bd1be66eb4e2328caf843d9f3e046946ea8b87811c2764e2512f6d514e1dea5
                 - name: configmap-reload
-                  ref: dhi/configmap-reload:0.15.0-debian13@sha256:460342e1f209a4ec9f64e69b2393c2f83b4614e9f24ab3eea8abc321291e3be0
+                  ref: dhi/configmap-reload:0.15.0-debian13@sha256:7abb3e521c026504443320b4e2a4e427d5835c830f6ba85206eaa069c3dad4c7
                 - name: busybox
                   ref: dhi/busybox:1.37.0-alpine3.22@sha256:a1e4d4675dc1f8b4c9cdc0f62cb7e47623ca063c55665049a801d8d6d129f8b2
               name: fluent-bit-chart
