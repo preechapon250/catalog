@@ -17,8 +17,7 @@ vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 0c40a8d4b9b943f1b679a20f8ba3cb61c94831de
-  GO_DIGEST: sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
-  GO_VERSION: 1.25.5
+  GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   MAGE_VERSION: 1.15.0
   SEMVER_MAJOR_MINOR_VERSION: "0.68"
   SEMVER_MAJOR_VERSION: "0"
@@ -45,9 +44,13 @@ contents:
     - util-linux
   builds:
     - name: trivy
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       contents:
         files:
+          - url: https://github.com/aquasecurity/trivy/commit/2f3ae9346db5575a700e7e0e9c16ca8958528ef4.patch
+            path: ${source.dir}/patch/2f3ae9346db5575a700e7e0e9c16ca8958528ef4.patch
+            uid: 0
+            gid: 0
           - url: git+https://github.com/aquasecurity/trivy.git#v0.68.2
             checksum: 0c40a8d4b9b943f1b679a20f8ba3cb61c94831de
             path: /go/src/github.com/aquasecurity/trivy
@@ -63,14 +66,23 @@ contents:
       pipeline:
         - name: install mage
           privileged: true
+          caches:
+            - path: /go/pkg/mod
           runs: |
             set -eux -o pipefail
 
             go install "github.com/magefile/mage@v1.15.0"
             mage -init
+        - name: apply patch
+          uses: git/patch@v1
+          work-dir: /go/src/github.com/aquasecurity/trivy
+          with:
+            patch: ${source.dir}/patch/2f3ae9346db5575a700e7e0e9c16ca8958528ef4.patch
         - name: update go dependencies
           uses: go/bump@v1
           work-dir: /go/src/github.com/aquasecurity/trivy
+          caches:
+            - path: /go/pkg/mod
           with:
             deps:
               - github.com/containerd/containerd@v1.7.29
@@ -82,27 +94,26 @@ contents:
         - name: test
           work-dir: /go/src/github.com/aquasecurity/trivy
           privileged: true
+          caches:
+            - path: /go/pkg/mod
           runs: |
             set -eux -o pipefail
 
             CGO_ENABLED=0 mage test:unit
         - name: build
-          runs: |
-            set -eux -o pipefail
-
-            GOLDFLAGS="-X github.com/aquasecurity/trivy/pkg/version/app.ver=0.68.2
-                       -X main.version=0.68.2
-                       -X main.commit=0c40a8d4b9b943f1b679a20f8ba3cb61c94831de
-                       -X main.date=$(date -ud @${SOURCE_DATE_EPOCH} +'%Y-%m-%dT%H:%M:%SZ')"
-
-            if [ "${target.dev}" != "true" ]; then
-              GOLDFLAGS="-s -w $GOLDFLAGS"
-            fi
-
-            mkdir -p "${target.dir}/usr/local/bin"
-            GOEXPERIMENT=jsonv2 CGO_ENABLED=0 go build -C /go/src/github.com/aquasecurity/trivy \
-              -ldflags="$GOLDFLAGS" \
-              -o "${target.dir}/usr/local/bin/trivy" ./cmd/trivy
+          uses: go/build@v1
+          work-dir: /go/src/github.com/aquasecurity/trivy
+          caches:
+            - path: /go/pkg/mod
+          with:
+            experiments: jsonv2
+            ldflags:
+              - -X github.com/aquasecurity/trivy/pkg/version/app.ver=0.68.2
+              - -X main.version=0.68.2
+              - -X main.commit=0c40a8d4b9b943f1b679a20f8ba3cb61c94831de
+              - -X main.date=$(date -ud @${SOURCE_DATE_EPOCH} +'%Y-%m-%dT%H:%M:%SZ')
+            output: ${target.dir}/usr/local/bin/trivy
+            packages: ./cmd/trivy
       outputs:
         - source: ${target.dir}/usr/local/bin
           target: /usr/local/bin
