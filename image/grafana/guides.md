@@ -1,6 +1,6 @@
 ## How to use this image
 
-All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+All examples in this guide use the public image. If you've mirrored the repository for your own use (for example, to
 your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
 
 For example:
@@ -45,6 +45,18 @@ The environment variables use the following format: `GF_<SECTION NAME>_<KEY>`.
 Where `<SECTION NAME>` is the text within the square brackets in the configuration file. All letters must be uppercase,
 periods (.) and dashes (-) must replaced by underscores (\_).
 
+> **Note:** The following environment variables from the upstream Docker image do not work in DHI images because they
+> are processed by the upstream shell script entrypoint, which is not present in hardened images:
+>
+> - `GF_PATHS_CONFIG`, `GF_PATHS_DATA`, `GF_PATHS_HOME`, `GF_PATHS_LOGS`, `GF_PATHS_PLUGINS`, `GF_PATHS_PROVISIONING`
+>   - See [Override default paths](#override-default-paths) for how to accomplish this manually.
+> - `GF_AWS_PROFILES` (and related `GF_AWS_*_ACCESS_KEY_ID`, `GF_AWS_*_SECRET_ACCESS_KEY`, `GF_AWS_*_REGION`)
+>   - See [Configure AWS credentials](#configure-aws-credentials) for how to accomplish this manually.
+> - `GF_*__FILE` variables (Docker secrets expansion, e.g., `GF_SECURITY_ADMIN_PASSWORD__FILE`)
+>   - See [Use Docker secrets](#use-docker-secrets) for how to accomplish this manually.
+> - `GF_INSTALL_PLUGINS` (automatic plugin installation)
+>   - See [Install Grafana plugins](#install-grafana-plugins) for how to accomplish this manually.
+
 For more details about configuring Grafana, see the
 [Grafana configuration documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
 
@@ -57,6 +69,38 @@ docker run -d -p 3000:3000 \
   -v ./grafana.ini:/etc/grafana/grafana.ini \
   dhi.io/grafana:<tag>
 ```
+
+The DHI image automatically loads configuration from `/etc/grafana/grafana.ini`, just like the upstream image.
+
+### Override default paths
+
+The DHI Grafana image uses the following default paths:
+
+| Path                        | Purpose                |
+| --------------------------- | ---------------------- |
+| `/etc/grafana/grafana.ini`  | Configuration file     |
+| `/var/lib/grafana`          | Data directory         |
+| `/var/log/grafana`          | Log directory          |
+| `/var/lib/grafana/plugins`  | Plugins directory      |
+| `/etc/grafana/provisioning` | Provisioning directory |
+
+If you need to use custom paths, override the entrypoint command and modify only the paths you need to change:
+
+```console
+$ docker run -p 3000:3000 dhi.io/grafana:<tag> \
+  grafana server \
+    --homepath=/usr/share/grafana \
+    --config=/custom/path/grafana.ini \
+    --packaging=docker \
+    cfg:default.log.mode=console \
+    cfg:default.paths.data=/custom/data \
+    cfg:default.paths.logs=/var/log/grafana \
+    cfg:default.paths.plugins=/var/lib/grafana/plugins \
+    cfg:default.paths.provisioning=/etc/grafana/provisioning
+```
+
+In the above example, `--config` and `cfg:default.paths.data` are changed to custom values. Always include the full
+entrypoint command when overriding paths.
 
 ### Run Grafana with Prometheus
 
@@ -95,7 +139,164 @@ $ docker run -d -p 3000:3000 \
   dhi.io/grafana:<tag>
 ```
 
-# Non-hardened images vs. Docker Hardened Images
+### Install Grafana plugins
+
+The upstream Docker image supports `GF_INSTALL_PLUGINS` to install plugins at startup. Since DHI images don't include a
+shell, use a multi-stage Dockerfile with the dev variant to pre-install plugins:
+
+```dockerfile
+# syntax=docker/dockerfile:1
+
+# Stage 1: Install plugins using dev variant
+FROM dhi.io/grafana:<tag>-dev AS plugin-build
+
+# Install plugins using grafana cli (--homepath required to find config defaults)
+RUN grafana cli --homepath /usr/share/grafana --pluginsDir /var/lib/grafana/plugins plugins install grafana-clock-panel && \
+    grafana cli --homepath /usr/share/grafana --pluginsDir /var/lib/grafana/plugins plugins install grafana-piechart-panel
+
+# Stage 2: Runtime image with plugins
+FROM dhi.io/grafana:<tag>
+
+# Copy installed plugins from build stage
+COPY --from=plugin-build /var/lib/grafana/plugins /var/lib/grafana/plugins
+```
+
+To install a plugin from a custom URL:
+
+```dockerfile
+RUN grafana cli --homepath /usr/share/grafana --pluginsDir /var/lib/grafana/plugins \
+    --pluginUrl https://example.com/my-plugin.zip \
+    plugins install my-custom-plugin
+```
+
+**Alternative: Use provisioning** (no custom image required)
+
+Grafana 10.3+ supports
+[plugin provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/#plugins) via
+`GF_PLUGINS_PREINSTALL` or configuration files. This allows plugins to be installed at startup without a shell:
+
+```console
+$ docker run -d -p 3000:3000 \
+  -e GF_PLUGINS_PREINSTALL=grafana-clock-panel,grafana-piechart-panel \
+  dhi.io/grafana:<tag>
+```
+
+Or via provisioning file mounted at `/etc/grafana/provisioning/plugins/plugins.yaml`:
+
+```yaml
+apiVersion: 1
+apps:
+  - type: grafana-clock-panel
+  - type: grafana-piechart-panel
+```
+
+### Configure AWS credentials
+
+The upstream Docker image supports `GF_AWS_PROFILES` to automatically create AWS credentials from environment variables.
+For DHI images, mount your credentials file directly:
+
+```console
+$ docker run -d -p 3000:3000 \
+  -v ~/.aws/credentials:/usr/share/grafana/.aws/credentials:ro \
+  dhi.io/grafana:<tag>
+```
+
+Or use IAM roles for service accounts (IRSA) in Kubernetes, which is the recommended approach for production
+environments.
+
+For Docker Compose:
+
+```yaml
+services:
+  grafana:
+    image: dhi.io/grafana:<tag>
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./aws-credentials:/usr/share/grafana/.aws/credentials:ro
+    environment:
+      - AWS_SDK_LOAD_CONFIG=true
+```
+
+### Use Docker secrets
+
+The upstream Docker image supports `GF_*__FILE` variables to read secrets from files (Docker secrets). For DHI images,
+use one of these approaches:
+
+**Option 1: Mount secrets and use Grafana's native file support**
+
+Some Grafana settings support reading values from files directly. Configure these in `grafana.ini`:
+
+```ini
+[database]
+password = $__file{/run/secrets/db_password}
+
+[security]
+admin_password = $__file{/run/secrets/admin_password}
+```
+
+Then mount the secrets:
+
+```console
+$ docker run -d -p 3000:3000 \
+  -v ./secrets/db_password:/run/secrets/db_password:ro \
+  -v ./secrets/admin_password:/run/secrets/admin_password:ro \
+  -v ./grafana.ini:/etc/grafana/grafana.ini:ro \
+  dhi.io/grafana:<tag>
+```
+
+**Option 2: Use Kubernetes secrets**
+
+In Kubernetes, mount secrets as environment variables or files:
+
+```yaml
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - name: grafana
+      image: dhi.io/grafana:<tag>
+      env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: admin-password
+```
+
+**Option 3: Init container for complex secret handling**
+
+For cases requiring shell processing (like the `GF_*__FILE` pattern), use an init container:
+
+```yaml
+apiVersion: v1
+kind: Pod
+spec:
+  initContainers:
+    - name: secrets-init
+      image: dhi.io/busybox:<tag>
+      command:
+        - sh
+        - -c
+        - |
+          cat /secrets/admin-password > /shared/GF_SECURITY_ADMIN_PASSWORD
+      volumeMounts:
+        - name: secrets
+          mountPath: /secrets
+        - name: shared
+          mountPath: /shared
+  containers:
+    - name: grafana
+      image: dhi.io/grafana:<tag>
+      env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: admin-password
+```
+
+## Non-hardened images vs. Docker Hardened Images
 
 ### Key differences
 
@@ -144,13 +345,26 @@ docker run --rm -it --pid container:my-container \
 
 ## Image variants
 
-Docker Hardened Images come in different variants depending on their intended use. The Grafana image has only the
-runtime variants. Runtime variants are designed to run your application in production. These images are intended to be
-used either directly or as the `FROM` image in the final stage of a multi-stage build. These images typically:
+Docker Hardened Images come in different variants depending on their intended use. Image variants are identified by
+their tag.
 
-- Run as the nonroot user
-- Do not include a shell or a package manager
-- Contain only the minimal set of libraries needed to run the app
+- **Runtime variants** (default) are designed to run your application in production. These images are intended to be
+  used either directly or as the `FROM` image in the final stage of a multi-stage build. These images typically:
+
+  - Run as the nonroot user
+  - Do not include a shell or a package manager
+  - Contain only the minimal set of libraries needed to run the app
+
+- **Dev variants** (`-dev` suffix) are intended for use in the first stage of a multi-stage Dockerfile. These images
+  typically:
+
+  - Run as the root user
+  - Include a shell and package manager
+  - Include the `grafana cli` tool for plugin installation
+  - Are used to build custom images with pre-installed plugins
+
+To view the image variants and get more information about them, select the **Tags** tab for this repository, and then
+select a tag.
 
 ## Migrate to a Docker Hardened Image
 
@@ -207,3 +421,11 @@ with no shell.
 
 Docker Hardened Images may have different entry points than images such as Docker Official Images. Use `docker inspect`
 to inspect entry points for Docker Hardened Images and update your Dockerfile if necessary.
+
+The DHI Grafana image runs `grafana server` directly with explicit path arguments, rather than using a shell script like
+the upstream image. This means:
+
+- Standard usage works identically to upstream
+- `GF_<SECTION>_<KEY>` environment variables work normally
+- Some upstream environment variables have no effect (see the note in
+  [Configure Grafana with environment variables](#configure-grafana-with-environment-variables))

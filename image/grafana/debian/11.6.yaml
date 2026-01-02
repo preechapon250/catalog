@@ -176,12 +176,6 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /var/lib/grafana
 environment:
-  GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-  GF_PATHS_DATA: /var/lib/grafana
-  GF_PATHS_HOME: /usr/share/grafana
-  GF_PATHS_LOGS: /var/log/grafana
-  GF_PATHS_PLUGINS: /var/lib/grafana/plugins
-  GF_PATHS_PROVISIONING: /etc/grafana/provisioning
   GRAFANA_VERSION: 11.6.9
   PATH: /usr/share/grafana/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/local/bin
 paths:
@@ -247,6 +241,13 @@ entrypoint:
   - grafana
   - server
   - --homepath=/usr/share/grafana
+  - --config=/etc/grafana/grafana.ini
+  - --packaging=docker
+  - cfg:default.log.mode=console
+  - cfg:default.paths.data=/var/lib/grafana
+  - cfg:default.paths.logs=/var/log/grafana
+  - cfg:default.paths.plugins=/var/lib/grafana/plugins
+  - cfg:default.paths.provisioning=/etc/grafana/provisioning
 ports:
   - 3000/tcp
 tests:
