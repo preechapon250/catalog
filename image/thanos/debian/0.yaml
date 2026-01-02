@@ -20,14 +20,14 @@ vars:
   DEBIAN_EPOCH_MAJOR_MINOR_VERSION: "0.40"
   DEBIAN_EPOCH_MAJOR_VERSION: "0"
   DEBIAN_EPOCH_VERSION: 0.40.1
-  GOLANG_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+  GOLANG_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   VERSION: 0.40.1
 contents:
   packages:
     - '!base-files'
   builds:
     - name: thanos
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       contents:
         packages:
           - make
