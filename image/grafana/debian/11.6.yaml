@@ -18,7 +18,7 @@ dates:
   end-of-life: "2026-06-25"
 vars:
   COMMIT_SHA: 723a1642e8f43947a8e0c4621face5b3d985e1d2
-  GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+  GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_VERSION: 1.25.5
   NODE_REFERENCE: dhi/node:22.21.1-debian13-dev@sha256:9f2cc2b28df3ddcbf95208b8bd18df85fdc2ef63fc89b2a8bd2e9ec31731f873
   NODE_VERSION: 22.21.1
@@ -41,7 +41,7 @@ contents:
     - ca-certificates
   builds:
     - name: grafana
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:8c2284d70af13cb934da5f05f5fa58a776aa963e88ebf542970ba09f4e3a0bbf
+      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       contents:
         packages:
           - sed
