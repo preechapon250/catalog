@@ -17,7 +17,7 @@ vars:
   BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
   BASE_TAG: 20250419-glibc-debian13
   COMMIT_SHA: 0ad13d78133fcb1045f0b9f5fee11574a0d63bb2
-  GOLANG_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
+  GOLANG_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
   GRPC_HEALTH_PROBE_COMMIT_SHA: 569c97609025c2de9fc7c01fdcd3959f8c1d425e
   GRPC_HEALTH_PROBE_VERSION: 0.4.43
   SEMVER_MAJOR_MINOR_VERSION: "1.11"
@@ -29,7 +29,7 @@ contents:
     - '!base-files'
   builds:
     - name: grpc health probe
-      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
+      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
       contents:
         files:
           - url: git+https://github.com/grpc-ecosystem/grpc-health-probe.git#v0.4.43
@@ -72,7 +72,7 @@ contents:
           uid: 0
           gid: 0
     - name: openfga
-      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:3e717c75bdd2e547755fc90963578c5424b77243f4c35f97ac025ca783a41b6a
+      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
       contents:
         files:
           - url: git+https://github.com/openfga/openfga.git#v1.11.2
