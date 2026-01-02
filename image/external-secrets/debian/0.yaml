@@ -55,6 +55,7 @@ contents:
           work-dir: /go/src/github.com/external-secrets/external-secrets
           with:
             output: ${target.dir}/usr/local/bin/external-secrets
+            tags: all_providers
         - name: build esoctl
           uses: go/build@v1
           work-dir: /go/src/github.com/external-secrets/external-secrets
