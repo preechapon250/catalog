@@ -1,6 +1,6 @@
 ## How to use this image
 
-All examples in this guide use the public image. If you’ve mirrored the repository for your own use (for example, to
+All examples in this guide use the public image. If you've mirrored the repository for your own use (for example, to
 your Docker Hub namespace), update your commands to reference the mirrored image instead of the public one.
 
 For example:
@@ -14,9 +14,184 @@ For the examples, you must first use `docker login dhi.io` to authenticate to th
 
 Run the following command to run a MySQL container. Replace `<tag>` with the image variant you want to run.
 
+```bash
+$ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d dhi.io/mysql:<tag> mysqld
 ```
+
+**Note:** Unlike the official MySQL image, you must explicitly pass `mysqld` as the command to start the MySQL server.
+
+### Connect to MySQL from the command line client
+
+Run the MySQL command line client against your container:
+
+```bash
+$ docker exec -it some-mysql mysql -uroot -p
+```
+
+### Using Docker Compose
+
+Example `compose.yaml` for MySQL:
+
+```yaml
+services:
+  db:
+    image: dhi.io/mysql:<tag>
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    command: mysqld
+    volumes:
+      - mysql-data:/var/lib/data
+volumes:
+  mysql-data:
+```
+
+## Environment variables
+
+The MySQL image uses the following environment variables for configuration. These variables only take effect when
+initializing a new database. If you start the container with a data directory that already contains a database, these
+variables are ignored.
+
+### Required variables
+
+| Variable              | Description                                                                                                                    |
+| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| `MYSQL_ROOT_PASSWORD` | Sets the password for the MySQL `root` superuser account. This variable is required unless `MYSQL_ROOT_PASSWORD_FILE` is used. |
+
+### Optional variables
+
+| Variable                   | Description                                                                                                 |
+| :------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| `MYSQL_ROOT_PASSWORD_FILE` | Path to a file containing the root password. Use this instead of `MYSQL_ROOT_PASSWORD` for Docker secrets.  |
+| `MYSQL_OPTIONS`            | Additional command-line options to pass to `mysqld` (space-separated). For example: `--max-connections=50`. |
+
+### Read-only environment variables (set by the image)
+
+| Variable    | Description                                                                                |
+| :---------- | :----------------------------------------------------------------------------------------- |
+| `MYSQLDATA` | Path to the MySQL data directory. Defaults to `/var/lib/data`. Do not override this value. |
+
+### Using Docker secrets
+
+You can load the MySQL root password from a file using the `MYSQL_ROOT_PASSWORD_FILE` environment variable. This is
+useful for Docker secrets and other secret management systems.
+
+**Using Docker Compose with secrets:**
+
+```yaml
+services:
+  mysql:
+    image: dhi.io/mysql:<tag>
+    secrets:
+      - mysql_password
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_password
+    command: mysqld
+secrets:
+  mysql_password:
+    file: ./mysql-password.txt
+```
+
+**Using Docker run with a mounted file:**
+
+```bash
+$ docker run --name some-mysql \
+  -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_password \
+  -v /path/to/password-file:/run/secrets/mysql_password:ro \
+  -d dhi.io/mysql:<tag> mysqld
+```
+
+**Note:** `MYSQL_ROOT_PASSWORD` and `MYSQL_ROOT_PASSWORD_FILE` are mutually exclusive. If both are set, the container
+exits with an error.
+
+### Passing MySQL server options
+
+Use the `MYSQL_OPTIONS` environment variable to pass additional options to the MySQL server:
+
+```bash
+$ docker run --name some-mysql \
+  -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+  -e MYSQL_OPTIONS="--max-connections=50 --thread-cache-size=16" \
+  -d dhi.io/mysql:<tag> mysqld
+```
+
+Alternatively, pass options directly on the command line after `mysqld`:
+
+```bash
+$ docker run --name some-mysql \
+  -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+  -d dhi.io/mysql:<tag> mysqld --max-connections=50
+```
+
+## Differences from the official MySQL image
+
+The Docker Hardened MySQL image has a simplified entrypoint focused on security and minimal attack surface. The
+following features from the official MySQL image are **not supported**:
+
+| Feature                               | Official image | DHI image | Notes                                                      |
+| :------------------------------------ | :------------- | :-------- | :--------------------------------------------------------- |
+| `MYSQL_DATABASE`                      | ✅             | ❌        | Create databases manually after startup                    |
+| `MYSQL_USER` / `MYSQL_PASSWORD`       | ✅             | ❌        | Create users manually after startup                        |
+| `MYSQL_ALLOW_EMPTY_PASSWORD`          | ✅             | ❌        | Root password is always required for security              |
+| `MYSQL_RANDOM_ROOT_PASSWORD`          | ✅             | ❌        | Generate passwords externally and pass via env var or file |
+| `MYSQL_ONETIME_PASSWORD`              | ✅             | ❌        | Manage password expiration manually                        |
+| `MYSQL_INITDB_SKIP_TZINFO`            | ✅             | ❌        | Timezone data is not loaded by default                     |
+| `/docker-entrypoint-initdb.d` scripts | ✅             | ❌        | Run initialization scripts manually after startup          |
+| Implicit `mysqld` command             | ✅             | ❌        | Must explicitly pass `mysqld` as the command               |
+
+### Creating databases and users
+
+Since the DHI image does not support automatic database/user creation, create them manually after the container starts:
+
+```bash
+# Create a database
+$ docker exec -it some-mysql mysql -uroot -p -e "CREATE DATABASE mydb;"
+
+# Create a user with privileges
+$ docker exec -it some-mysql mysql -uroot -p -e \
+  "CREATE USER 'myuser'@'%' IDENTIFIED BY 'mypassword'; \
+   GRANT ALL PRIVILEGES ON mydb.* TO 'myuser'@'%';"
+```
+
+### Running initialization scripts
+
+To run SQL scripts on container startup, execute them after the container is ready:
+
+```bash
+# Start the container
 $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d dhi.io/mysql:<tag> mysqld
 
+# Wait for MySQL to be ready, then run scripts
+$ docker exec -i some-mysql mysql -uroot -pmy-secret-pw < /path/to/init.sql
+```
+
+## Data persistence
+
+Mount a volume to persist MySQL data across container restarts:
+
+```bash
+$ docker run --name some-mysql \
+  -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+  -v mysql-data:/var/lib/data \
+  -d dhi.io/mysql:<tag> mysqld
+```
+
+The MySQL data is stored in `/var/lib/data` inside the container.
+
+## Creating database dumps
+
+Use `mysqldump` to create backups:
+
+```bash
+$ docker exec some-mysql mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" --all-databases > backup.sql
+```
+
+## Restoring from dumps
+
+Restore a database from a SQL dump:
+
+```bash
+$ docker exec -i some-mysql mysql -uroot -p"$MYSQL_ROOT_PASSWORD" < backup.sql
 ```
 
 ## Image variants

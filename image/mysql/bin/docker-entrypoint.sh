@@ -7,12 +7,37 @@ if [ "$(id -u)" -eq 0 ]; then
 	exec gosu mysql docker-entrypoint.sh "$@"
 fi
 
+file_env() {
+	local var="$1"
+	local fileVar="${var}_FILE"
+	local default="${2:-}"
+
+	if [ -n "${!var:-}" ] && [ -n "${!fileVar:-}" ]; then
+		cat >&2 <<-EOE
+			ERROR: Both ${var} and ${fileVar} are set, but they are mutually exclusive options.
+		EOE
+		exit 1
+	fi
+
+	local value="$default"
+	if [ -n "${!fileVar:-}" ]; then
+		value="$(< "${!fileVar}")"
+	elif [ -n "${!var:-}" ]; then
+		value="${!var}"
+	fi
+	export "$var"="$value"
+	unset "$fileVar"
+}
+
 # Check if the first argument is mysqld (server mode)
 if [ "$1" = "mysqld" ]; then
+  # Process MYSQL_ROOT_PASSWORD_FILE if set
+  file_env 'MYSQL_ROOT_PASSWORD'
+
   # Server mode - check for password and initialize if needed
   if [ -z "$(ls -A "${MYSQLDATA}" 2>/dev/null)" ]; then
     if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
-      echo "MYSQL_ROOT_PASSWORD is not set. Exiting..."
+      echo "MYSQL_ROOT_PASSWORD or MYSQL_ROOT_PASSWORD_FILE is not set. Exiting..."
       exit 1
     fi
     echo "ROOT: $MYSQL_ROOT_PASSWORD"
