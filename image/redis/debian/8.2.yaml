@@ -97,6 +97,7 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+work-dir: /data
 environment:
   REDIS_VERSION: 8.2.3
 paths:
@@ -112,6 +113,11 @@ paths:
     mode: "0755"
   - type: directory
     path: /run/redis/
+    uid: 65532
+    gid: 65532
+    mode: "0755"
+  - type: directory
+    path: /data
     uid: 65532
     gid: 65532
     mode: "0755"
