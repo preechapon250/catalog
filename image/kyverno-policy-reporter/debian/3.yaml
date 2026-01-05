@@ -5,11 +5,11 @@ image: dhi.io/kyverno-policy-reporter
 variant: runtime
 tags:
   - "3"
-  - "3.6"
-  - 3.6.0
+  - "3.7"
+  - 3.7.0
   - 3-debian13
-  - 3.6-debian13
-  - 3.6.0-debian13
+  - 3.7-debian13
+  - 3.7.0-debian13
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,12 +18,12 @@ dates:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: b511c816b014cdd7601d032bc73b35b5215db931
+  COMMIT_SHA: af2f08fab0caf2b286d1871e45136fb3c258611b
   GOLANG_REFERENCE: dhi/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
-  SEMVER_MAJOR_MINOR_VERSION: "3.6"
+  SEMVER_MAJOR_MINOR_VERSION: "3.7"
   SEMVER_MAJOR_VERSION: "3"
-  SEMVER_VERSION: 3.6.0
-  VERSION: 3.6.0
+  SEMVER_VERSION: 3.7.0
+  VERSION: 3.7.0
 contents:
   packages:
     - '!base-files'
@@ -32,15 +32,15 @@ contents:
       uses: dhi.io/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
       contents:
         files:
-          - url: git+https://github.com/kyverno/policy-reporter.git#v3.6.0
-            checksum: b511c816b014cdd7601d032bc73b35b5215db931
+          - url: git+https://github.com/kyverno/policy-reporter.git#v3.7.0
+            checksum: af2f08fab0caf2b286d1871e45136fb3c258611b
             path: /go/src/github.com/kyverno/policy-reporter
             spdx:
               name: kyverno-policy-reporter
-              version: 3.6.0
+              version: 3.7.0
               packages:
                 - name: kyverno-policy-reporter
-                  purl: pkg:golang/github.com/kyverno/policy-reporter@3.6.0
+                  purl: pkg:golang/github.com/kyverno/policy-reporter@3.7.0
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -67,7 +67,7 @@ contents:
           with:
             ldflags:
               - -extldflags "-static"
-              - -X github.com/kyverno/policy-reporter/cmd/version.BuildVersion=3.6.0
+              - -X github.com/kyverno/policy-reporter/cmd/version.BuildVersion=3.7.0
             output: ${target.dir}/usr/local/bin/kyverno-policy-reporter
       outputs:
         - source: ${target.dir}/usr/local/bin/kyverno-policy-reporter
