@@ -6,10 +6,10 @@ variant: dev
 tags:
   - 2-dev
   - 2.6-dev
-  - 2.6.3-dev
+  - 2.6.4-dev
   - 2-debian13-dev
   - 2.6-debian13-dev
-  - 2.6.3-debian13-dev
+  - 2.6.4-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -20,13 +20,13 @@ vars:
   BASE_TAG: 20250419-glibc-debian13
   BINUTILS_DIGEST: sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
   BINUTILS_VERSION: "2.45"
-  COMMIT_SHA: 3fbb1daddbc9333cddf0d8c0735811717dd70f7a
+  COMMIT_SHA: 658638b3262a90c3e92fe96887fd898b5b1a78d7
   RUST_DIGEST: sha256:de9e1dabba33764dae5f447574172913a481823066268396bc4c4eed1d742baf
   RUST_VERSION: 1.91.1
   SEMVER_MAJOR_MINOR_VERSION: "2.6"
   SEMVER_MAJOR_VERSION: "2"
-  SEMVER_VERSION: 2.6.3
-  VERSION: 2.6.3
+  SEMVER_VERSION: 2.6.4
+  VERSION: 2.6.4
 contents:
   packages:
     - '!base-files'
@@ -70,38 +70,38 @@ contents:
           - protobuf-compiler
           - sed
         files:
-          - url: git+https://github.com/denoland/deno.git#v2.6.3
-            path: ${source.dir}/deno-3fbb1daddbc9333cddf0d8c0735811717dd70f7a
+          - url: git+https://github.com/denoland/deno.git#v2.6.4
+            path: ${source.dir}/deno-658638b3262a90c3e92fe96887fd898b5b1a78d7
             spdx:
               name: deno
-              version: 2.6.3
+              version: 2.6.4
               packages:
                 - name: deno
-                  purl: pkg:dhi/deno@2.6.3
+                  purl: pkg:dhi/deno@2.6.4
                   license: MIT
             uid: 0
             gid: 0
       pipeline:
         - name: verify
           uses: git/checkout@v1
-          work-dir: ${source.dir}/deno-3fbb1daddbc9333cddf0d8c0735811717dd70f7a
+          work-dir: ${source.dir}/deno-658638b3262a90c3e92fe96887fd898b5b1a78d7
           with:
-            expected-commit: 3fbb1daddbc9333cddf0d8c0735811717dd70f7a
+            expected-commit: 658638b3262a90c3e92fe96887fd898b5b1a78d7
         - name: build
-          work-dir: ${source.dir}/deno-3fbb1daddbc9333cddf0d8c0735811717dd70f7a
+          work-dir: ${source.dir}/deno-658638b3262a90c3e92fe96887fd898b5b1a78d7
           runs: |
             set -eux -o pipefail
 
             cargo build --release -vv
         - name: test
-          work-dir: ${source.dir}/deno-3fbb1daddbc9333cddf0d8c0735811717dd70f7a
+          work-dir: ${source.dir}/deno-658638b3262a90c3e92fe96887fd898b5b1a78d7
           runs: |
             set -eux -o pipefail
 
             # run smoke test as per deno documentation
             ./target/release/deno run tests/testdata/run/002_hello.ts
       outputs:
-        - source: ${source.dir}/deno-3fbb1daddbc9333cddf0d8c0735811717dd70f7a/target/release/deno
+        - source: ${source.dir}/deno-658638b3262a90c3e92fe96887fd898b5b1a78d7/target/release/deno
           target: /usr/local/bin/deno
           uid: 0
           gid: 0
@@ -167,7 +167,7 @@ environment:
   DENO_NO_PROMPT: "1"
   DENO_NO_UPDATE_CHECK: "1"
   DENO_USE_CGROUPS: "1"
-  DENO_VERSION: 2.6.3
+  DENO_VERSION: 2.6.4
 paths:
   - type: directory
     path: /deno-dir
