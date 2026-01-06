@@ -1,0 +1,81 @@
+# syntax=dhi.io/build:1-helm3
+
+name: Grafana Pyroscope Helm chart ${SEMVER_MAJOR_VERSION}.x
+image: dhi.io/pyroscope-chart
+variant: helm
+tags:
+  - 1.16.2
+platforms:
+  - linux/amd64
+vars:
+  CHART_COMMIT_SHA: 3f3d87b4629bccbd0b8a9fffa43a3aa03e4c20bf
+  DHI_NAMESPACE: dhi
+  DHI_PREFIX: ""
+  DHI_REGISTRY: dhi.io
+  DHI_SKIP_CONTEXT_COPY: "true"
+  GRAFANA_PYROSCOPE_REFERENCE: dhi/pyroscope:1.16.2-debian13@sha256:c36ca157dbf0db1aca1094256efc4aa0d8aa31af905d0d56dedadbb24c92c9c0
+  HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
+  VERSION: 1.16.2
+contents:
+  builds:
+    - name: pyroscope
+      uses: dhi.io/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
+      contents:
+        files:
+          - url: git+https://github.com/grafana/pyroscope.git#3f3d87b4629bccbd0b8a9fffa43a3aa03e4c20bf
+            checksum: 3f3d87b4629bccbd0b8a9fffa43a3aa03e4c20bf
+            path: ${source.dir}
+            uid: 0
+            gid: 0
+      pipeline:
+        - name: prepare
+          uses: helm/rudder@v1
+          work-dir: ${source.dir}/operations/pyroscope/helm/pyroscope
+          with:
+            chart:
+              appRef: pyroscope
+              description: Docker Hardened Images Helm chart for Grafana Pyroscope
+              images:
+                - name: pyroscope
+                  ref: dhi/pyroscope:1.16.2-debian13@sha256:c36ca157dbf0db1aca1094256efc4aa0d8aa31af905d0d56dedadbb24c92c9c0
+              name: pyroscope-chart
+              notes: ${source.dir}/config/NOTES.txt
+              sourceUrl: https://github.com/grafana/pyroscope
+            cmd: prepare
+            registry: dhi.io
+        - name: relocate chart
+          uses: helm/rudder@v1
+          work-dir: ${source.dir}/operations/pyroscope/helm/pyroscope
+          with:
+            cmd: patch
+            patches:
+              from: ${source.dir}/config
+            registry: dhi.io
+        - name: lint
+          uses: helm/cmd@v1
+          work-dir: ${source.dir}/operations/pyroscope/helm
+          with:
+            chart: pyroscope
+            cmd: lint .
+        - name: package
+          uses: helm/package@v1
+          with:
+            chart: ${source.dir}/operations/pyroscope/helm/pyroscope
+      paths:
+        - type: directory
+          path: ${source.dir}/config
+          uid: 0
+          gid: 0
+          mode: "0644"
+          source: chart/pyroscope/config
+tests:
+  - name: Run Grafana Pyroscope testcontainers helm tests
+    directory: chart/pyroscope/tests
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
+  - name: Run base helm tests
+    directory: test/go-testing/k8s/helm/base
+    commands:
+      - go test . -count=1 -v
+    exit-code: 0
