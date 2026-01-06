@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: external-dns 0.20.x
 image: dhi.io/external-dns
@@ -110,9 +110,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - external-dns
-tests:
-  - name: Run testcontainers tests
-    directory: image/external-dns/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

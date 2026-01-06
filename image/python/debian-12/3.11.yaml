@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian12
+# syntax=dhi.io/build:2-debian12
 
 name: Python 3.11.x
 image: dhi.io/python
@@ -75,14 +75,3 @@ annotations:
   org.opencontainers.image.licenses: PSF-2.0
 cmd:
   - python3
-tests:
-  - name: Run testcontainers tests
-    directory: image/python/tests
-    commands:
-      - go test . -count=1 -v -timeout 5m
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

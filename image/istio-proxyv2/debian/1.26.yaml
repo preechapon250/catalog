@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: istio-proxyv2 1.x
 image: dhi.io/istio-proxyv2
@@ -242,14 +242,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /usr/local/bin/pilot-agent
-tests:
-  - name: Run istio-proxyv2 tests
-    directory: image/istio-proxyv2/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

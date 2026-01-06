@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Bash 5.x (dev)
 image: dhi.io/bash
@@ -63,14 +63,3 @@ annotations:
   org.opencontainers.image.licenses: GPL-3.0-or-later
 cmd:
   - /bin/bash
-tests:
-  - name: Run testcontainers tests
-    directory: image/bash/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APK package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

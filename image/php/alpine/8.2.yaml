@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: PHP 8.2.x
 image: dhi.io/php
@@ -281,14 +281,3 @@ annotations:
   org.opencontainers.image.licenses: PHP-3.01
 entrypoint:
   - /opt/php-8.2/bin/php
-tests:
-  - name: Run PHP tests
-    directory: image/php/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

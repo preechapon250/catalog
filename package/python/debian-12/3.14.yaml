@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian12
+# syntax=dhi.io/build:2-debian12
 
 image: dhi.io/pkg-python
 variant: runtime
@@ -225,9 +225,3 @@ environment:
   PATH: /opt/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
   PYTHON_VERSION: 3.14.2
   SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
-tests:
-  - name: Comprehensive python test container tests
-    directory: package/python/tests
-    commands:
-      - go test . -count=1 -v -timeout 5m
-    exit-code: 0

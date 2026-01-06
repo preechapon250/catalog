@@ -50,14 +50,3 @@ annotations:
   org.opencontainers.image.description: A minimal Alpine base image
 cmd:
   - /bin/sh
-tests:
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests
-    directory: image/alpine-base/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

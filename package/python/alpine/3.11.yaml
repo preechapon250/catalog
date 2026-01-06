@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 image: dhi.io/pkg-python
 variant: runtime
@@ -227,9 +227,3 @@ environment:
   PYTHON_VERSION: 3.11.14
   SETUPTOOLS_VERSION: 80.9.0
   SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
-tests:
-  - name: Comprehensive python test container tests
-    directory: package/python/tests
-    commands:
-      - go test . -count=1 -v -timeout 5m
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Eclipse Temurin 25.x JRE
 image: dhi.io/eclipse-temurin
@@ -107,14 +107,3 @@ annotations:
 cmd:
   - java
   - --help
-tests:
-  - name: Run testcontainers tests
-    directory: image/eclipse-temurin/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

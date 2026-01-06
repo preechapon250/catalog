@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: .NET 9.x SDK
 image: dhi.io/dotnet
@@ -147,19 +147,3 @@ annotations:
 cmd:
   - dotnet
   - --help
-tests:
-  - name: Run testcontainers tests for .NET 9
-    directory: image/dotnet/tests/9
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

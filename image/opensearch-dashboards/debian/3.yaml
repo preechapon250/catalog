@@ -536,19 +536,3 @@ cmd:
   - opensearch-dashboards
 ports:
   - 5601/tcp
-tests:
-  - name: Run opensearch-dashboards testcontainers tests
-    directory: image/opensearch-dashboards/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared opensearch tests
-    directory: ecosystem/opensearch/test
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

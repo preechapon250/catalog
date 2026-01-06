@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Grafana MCP Server 0.x
 image: dhi.io/grafana-mcp
@@ -121,9 +121,3 @@ entrypoint:
 cmd:
   - --transport
   - stdio
-tests:
-  - name: Run testcontainers tests
-    directory: image/grafana-mcp/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

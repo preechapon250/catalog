@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Netdata 2.x
 image: dhi.io/netdata
@@ -269,14 +269,3 @@ cmd:
   - -D
 ports:
   - 19999/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/netdata/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: clickhouse-metrics-exporter 0.25.x
 image: dhi.io/clickhouse-metrics-exporter
@@ -107,14 +107,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /usr/local/bin/clickhouse-metrics-exporter
-tests:
-  - name: Run clickhouse-metrics-exporter testcontainers tests
-    directory: image/clickhouse-metrics-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

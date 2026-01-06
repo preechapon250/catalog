@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Neo4j Helm chart 5.x
 image: dhi.io/neo4j-chart
@@ -85,14 +85,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/neo4j/config
-tests:
-  - name: Run neo4j testcontainers helm tests
-    directory: chart/neo4j/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

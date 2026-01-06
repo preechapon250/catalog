@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: External DNS Helm chart 1.x
 image: dhi.io/external-dns-chart
@@ -75,14 +75,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/external-dns/config
-tests:
-  - name: Run external-dns testcontainers helm tests
-    directory: chart/external-dns/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

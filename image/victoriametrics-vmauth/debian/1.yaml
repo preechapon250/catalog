@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: VictoriaMetrics VMAuth 1.x
 image: dhi.io/victoriametrics-vmauth
@@ -124,14 +124,3 @@ entrypoint:
   - /usr/local/bin/vmauth
 ports:
   - 8427/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/victoriametrics-vmauth/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

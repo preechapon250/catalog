@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Tensorflow Serving 2.x
 image: dhi.io/tensorflow-serving
@@ -203,14 +203,3 @@ cmd:
 ports:
   - 8500/tcp
   - 8501/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/tensorflow-serving/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

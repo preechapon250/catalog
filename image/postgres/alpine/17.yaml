@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: PostgreSQL 17.x
 image: dhi.io/postgres
@@ -208,9 +208,3 @@ entrypoint:
   - /usr/local/bin/docker-entrypoint.sh
 ports:
   - 5432/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/postgres/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

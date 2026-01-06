@@ -257,14 +257,3 @@ cmd:
   - /grist/sandbox/supervisor.mjs
 ports:
   - 8484/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/grist/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

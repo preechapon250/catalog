@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: kafka-exporter 1.9.x
 image: dhi.io/kafka-exporter
@@ -126,14 +126,3 @@ entrypoint:
   - /usr/local/bin/kafka-exporter
 ports:
   - 9308/tcp
-tests:
-  - name: Run kafka-exporter testcontainers tests
-    directory: image/kafka-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

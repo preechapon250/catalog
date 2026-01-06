@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian12
+# syntax=dhi.io/build:2-debian12
 
 name: Nginx stable
 image: dhi.io/nginx
@@ -103,9 +103,3 @@ cmd:
   - daemon off;
 ports:
   - 8080/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/nginx/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

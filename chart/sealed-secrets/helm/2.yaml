@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Sealed Secrets Helm chart 0.x
 image: dhi.io/sealed-secrets-chart
@@ -80,14 +80,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/sealed-secrets/config
-tests:
-  - name: Run sealed-secrets testcontainers helm tests
-    directory: chart/sealed-secrets/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

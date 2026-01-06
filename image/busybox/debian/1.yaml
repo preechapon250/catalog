@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: BusyBox 1.x
 image: dhi.io/busybox
@@ -75,9 +75,3 @@ annotations:
   org.opencontainers.image.licenses: GPL-2.0-only
 cmd:
   - /bin/sh
-tests:
-  - name: Run testcontainers tests
-    directory: image/busybox/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

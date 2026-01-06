@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Curl 8.x (dev)
 image: dhi.io/curl
@@ -78,19 +78,3 @@ entrypoint:
   - curl
 cmd:
   - --help
-tests:
-  - name: Test version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} curl --version
-    exit-code: 0
-    output: curl 8.14.1
-  - name: Test https connection
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} curl -XHEAD https://www.google.com -v
-    exit-code: 0
-    output: < HTTP/2 200
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

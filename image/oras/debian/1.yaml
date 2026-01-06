@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: ORAS 1.x
 image: dhi.io/oras
@@ -113,14 +113,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - oras
-tests:
-  - name: Run testcontainers tests
-    directory: image/oras/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Memcached 1.x
 image: dhi.io/memcached
@@ -143,14 +143,3 @@ entrypoint:
   - memcached
 ports:
   - 11211/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/memcached/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

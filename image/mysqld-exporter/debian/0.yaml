@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: mysqld-exporter 0.18.x
 image: dhi.io/mysqld-exporter
@@ -122,14 +122,3 @@ entrypoint:
   - /usr/local/bin/mysqld-exporter
 ports:
   - 9104/tcp
-tests:
-  - name: Run mysqld-exporter testcontainers tests
-    directory: image/mysqld-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

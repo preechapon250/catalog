@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: VictoriaMetrics Cluster Helm chart 0.x
 image: dhi.io/victoriametrics-cluster-chart
@@ -109,14 +109,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/victoriametrics-cluster/config
-tests:
-  - name: Run victoriametrics-cluster testcontainers helm tests
-    directory: chart/victoriametrics-cluster/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

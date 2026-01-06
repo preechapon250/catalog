@@ -166,19 +166,3 @@ cmd:
   - -config.file=/etc/pyroscope/config.yaml
 ports:
   - 4040/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/pyroscope/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

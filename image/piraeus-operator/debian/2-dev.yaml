@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Piraeus Operator 2.x (dev)
 image: dhi.io/piraeus-operator
@@ -166,24 +166,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /manager
-tests:
-  - name: Run testcontainers tests
-    directory: image/piraeus-operator/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared piraeus integration tests
-    directory: ecosystem/piraeus/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: HAProxy 2.6.x
 image: dhi.io/haproxy
@@ -147,14 +147,3 @@ annotations:
   org.opencontainers.image.licenses: GPL-2.0-only
 entrypoint:
   - haproxy
-tests:
-  - name: Run testcontainers tests
-    directory: image/haproxy/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

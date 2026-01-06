@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Prometheus AlertManager Helm chart 1.x
 image: dhi.io/alertmanager-chart
@@ -99,14 +99,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/alertmanager/config
-tests:
-  - name: Run alertmanager testcontainers helm tests
-    directory: chart/alertmanager/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

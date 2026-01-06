@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Azure Functions 4.x for Node 22.x (node22.21)
 image: dhi.io/azure-functions-node
@@ -227,9 +227,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 entrypoint:
   - /azure-functions-host/Microsoft.Azure.WebJobs.Script.WebHost
-tests:
-  - name: Run testcontainers tests
-    directory: image/azure-functions-node/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

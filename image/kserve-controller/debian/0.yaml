@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: KServe Controller 0.16.x
 image: dhi.io/kserve-controller
@@ -123,9 +123,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /manager
-tests:
-  - name: Run testcontainers tests
-    directory: image/kserve-controller/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

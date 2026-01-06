@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Promtail 3.5.x
 image: dhi.io/promtail
@@ -129,14 +129,3 @@ entrypoint:
   - /usr/bin/promtail
 cmd:
   - -config.file=/etc/promtail/config.yaml
-tests:
-  - name: Run testcontainers tests
-    directory: image/promtail/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

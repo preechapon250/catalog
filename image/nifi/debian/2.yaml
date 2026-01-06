@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Apache NiFi 2.7
 image: dhi.io/nifi
@@ -387,19 +387,3 @@ ports:
   - "8443"
   - "10000"
   - "8000"
-tests:
-  - name: Run testcontainers tests
-    directory: image/nifi/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

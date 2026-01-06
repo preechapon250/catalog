@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Delve 1.26.x
 image: dhi.io/delve
@@ -110,14 +110,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 entrypoint:
   - dlv
-tests:
-  - name: Run testcontainer tests
-    directory: image/delve/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

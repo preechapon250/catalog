@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Strimzi Kafka 0.49.x (kafka-4.1.1, dev)
 image: dhi.io/strimzi-kafka
@@ -276,24 +276,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 cmd:
   - /bin/bash
-tests:
-  - name: Run testcontainers tests
-    directory: image/strimzi-kafka/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Prometheus 3.5.x LTS
 image: dhi.io/prometheus
@@ -192,9 +192,3 @@ cmd:
   - --storage.tsdb.path=/var/prometheus
 ports:
   - 9090/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/prometheus/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

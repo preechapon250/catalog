@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Dart 3.x
 image: dhi.io/dart
@@ -246,9 +246,3 @@ annotations:
 cmd:
   - dart
   - --version
-tests:
-  - name: Run testcontainers tests
-    directory: image/dart/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

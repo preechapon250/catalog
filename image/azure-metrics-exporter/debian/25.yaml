@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Azure Metrics Exporter 25.12.x
 image: dhi.io/azure-metrics-exporter
@@ -79,14 +79,3 @@ entrypoint:
   - /usr/local/bin/azure-metrics-exporter
 ports:
   - 8080/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/azure-metrics-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Spark 3.5.x (Scala 2.12.x, Java 17.x)
 image: dhi.io/spark
@@ -257,14 +257,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /opt/spark/bin/docker-entrypoint.sh
-tests:
-  - name: Run testcontainers tests
-    directory: image/spark/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

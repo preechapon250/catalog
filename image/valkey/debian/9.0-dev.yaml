@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Valkey 9.0.x (dev)
 image: dhi.io/valkey
@@ -225,14 +225,3 @@ cmd:
   - valkey-server
 ports:
   - 6379/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/valkey/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

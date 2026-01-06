@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Azure Functions 4.x for Python 3.12.x (python3.12)
 image: dhi.io/azure-functions-python
@@ -226,9 +226,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 entrypoint:
   - /azure-functions-host/Microsoft.Azure.WebJobs.Script.WebHost
-tests:
-  - name: Run testcontainers tests
-    directory: image/azure-functions-python/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

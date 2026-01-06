@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: openfga 1.x
 image: dhi.io/openfga
@@ -170,9 +170,3 @@ ports:
   - 8081/tcp
   - 8080/tcp
   - 3000/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/openfga/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

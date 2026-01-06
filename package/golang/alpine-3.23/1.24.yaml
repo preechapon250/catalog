@@ -96,19 +96,3 @@ paths:
     path: /tmp
     uid: 0
     gid: 0
-tests:
-  - name: Test golang version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} go version
-    exit-code: 0
-    output: go1.24.11
-  - name: Test golang version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} go env
-    exit-code: 0
-    output: GOPATH='/go'
-  - name: Test golang telemetry
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} go telemetry
-    exit-code: 0
-    output: local

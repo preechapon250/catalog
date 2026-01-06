@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Hyperledger Fabric Tools 3.x
 image: dhi.io/hyperledger-fabric-tools
@@ -134,14 +134,3 @@ annotations:
 cmd:
   - configtxgen
   - --help
-tests:
-  - name: Run testcontainers tests
-    directory: image/hyperledger-fabric-tools/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

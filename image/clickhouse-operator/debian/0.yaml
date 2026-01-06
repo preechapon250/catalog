@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: clickhouse-operator 0.x
 image: dhi.io/clickhouse-operator
@@ -113,14 +113,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /usr/local/bin/clickhouse-operator
-tests:
-  - name: Run clickhouse-operator testcontainers tests
-    directory: image/clickhouse-operator/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

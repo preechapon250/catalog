@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Harbor Job Service 2.x
 image: dhi.io/harbor-jobservice
@@ -147,14 +147,3 @@ cmd:
 ports:
   - 8080/tcp
   - 8443/tcp
-tests:
-  - name: Run Harbor Job Service testcontainers tests
-    directory: image/harbor-jobservice/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Jenkins 2.x (weekly) (dev)
 image: dhi.io/jenkins
@@ -206,19 +206,3 @@ entrypoint:
 ports:
   - 8080/tcp
   - 50000/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/jenkins/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared jenkins integration tests
-    directory: ecosystem/jenkins/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

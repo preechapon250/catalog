@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Python 3.12.x (dev)
 image: dhi.io/python
@@ -83,19 +83,3 @@ annotations:
   org.opencontainers.image.licenses: PSF-2.0
 cmd:
   - python3
-tests:
-  - name: Run testcontainers tests
-    directory: image/python/tests
-    commands:
-      - go test . -count=1 -v -timeout 5m
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APK package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

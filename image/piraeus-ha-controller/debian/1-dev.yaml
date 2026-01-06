@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Piraeus HA Controller 1.3.x (dev)
 image: dhi.io/piraeus-ha-controller
@@ -159,24 +159,3 @@ annotations:
 cmd:
   - /agent
   - -v=2
-tests:
-  - name: Run testcontainers tests
-    directory: image/piraeus-ha-controller/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared piraeus integration tests
-    directory: ecosystem/piraeus/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Prometheus Node Exporter Helm chart 4.x
 image: dhi.io/node-exporter-chart
@@ -82,14 +82,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/node-exporter/config
-tests:
-  - name: Run node-exporter testcontainers helm tests
-    directory: chart/node-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

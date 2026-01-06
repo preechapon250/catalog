@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Fluent Bit Helm chart 0.x
 image: dhi.io/fluent-bit-chart
@@ -85,14 +85,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/fluent-bit/config
-tests:
-  - name: Run fluent-bit testcontainers helm tests
-    directory: chart/fluent-bit/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

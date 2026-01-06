@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: VictoriaMetrics VMSelect 1.x
 image: dhi.io/victoriametrics-vmselect
@@ -126,14 +126,3 @@ entrypoint:
   - /usr/local/bin/vmselect
 ports:
   - 8481/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/victoriametrics-vmselect/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

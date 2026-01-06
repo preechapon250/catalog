@@ -87,19 +87,3 @@ environment:
   GOPATH: /go
   GOTOOLCHAIN: local
   PATH: /go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-tests:
-  - name: Test golang version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} go version
-    exit-code: 0
-    output: go1.26rc1
-  - name: Test golang version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} go env
-    exit-code: 0
-    output: GOPATH='/go'
-  - name: Test golang telemetry
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} go telemetry
-    exit-code: 0
-    output: local

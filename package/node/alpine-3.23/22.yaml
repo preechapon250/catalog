@@ -264,24 +264,3 @@ os-release:
   bug-report-url: https://docker.com/support/
 environment:
   NODE_VERSION: 22.21.1
-tests:
-  - name: Test node version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} node --version
-    exit-code: 0
-    output: v22.21.1
-  - name: Test npm version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} npm --version
-    exit-code: 0
-    output: 11.7.0
-  - name: Test corepack version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} corepack --version
-    exit-code: 0
-    output: 0.34.5
-  - name: Test yarn version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} yarn --version
-    exit-code: 0
-    output: 1.22.22

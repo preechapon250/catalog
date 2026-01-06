@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Bun 1.x (dev)
 image: dhi.io/bun
@@ -122,19 +122,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 cmd:
   - /bin/sh
-tests:
-  - name: Run testcontainers tests
-    directory: image/bun/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APK package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

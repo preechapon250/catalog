@@ -331,14 +331,3 @@ annotations:
 entrypoint:
   - /usr/bin/tini
   - --
-tests:
-  - name: Run testcontainers tests
-    directory: image/argocd/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

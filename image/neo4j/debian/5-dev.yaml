@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Neo4j 5.x (dev)
 image: dhi.io/neo4j
@@ -224,24 +224,3 @@ ports:
   - 7473/tcp
   - 7474/tcp
   - 7687/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/neo4j/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

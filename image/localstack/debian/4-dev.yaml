@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: LocalStack 4.12.x (dev)
 image: dhi.io/localstack
@@ -177,19 +177,3 @@ ports:
   - 4566/tcp
   - 5678/tcp
   - 4510-4559
-tests:
-  - name: Run testcontainers tests
-    directory: image/localstack/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

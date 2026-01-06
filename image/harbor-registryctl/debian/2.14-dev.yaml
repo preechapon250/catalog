@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Harbor Registry Control 2.14.x (dev)
 image: dhi.io/harbor-registryctl
@@ -150,19 +150,3 @@ cmd:
 ports:
   - 8080/tcp
   - 8443/tcp
-tests:
-  - name: Run Harbor Registry Control testcontainers tests
-    directory: image/harbor-registryctl/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Curl 8.x
 image: dhi.io/curl
@@ -48,14 +48,3 @@ entrypoint:
   - curl
 cmd:
   - --help
-tests:
-  - name: Test version
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} curl --version
-    exit-code: 0
-    output: curl 8.14.1
-  - name: Test https connection
-    commands:
-      - docker run --rm ${DHI_TEST_IMAGE} curl -XHEAD https://www.google.com -v
-    exit-code: 0
-    output: < HTTP/2 200

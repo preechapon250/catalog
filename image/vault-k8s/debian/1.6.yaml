@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: vault-k8s 1.6.x
 image: dhi.io/vault-k8s
@@ -107,14 +107,3 @@ annotations:
   org.opencontainers.image.licenses: MPL-2.0
 entrypoint:
   - /usr/local/bin/vault-k8s
-tests:
-  - name: Run vault-k8s testcontainers tests
-    directory: image/vault-k8s/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

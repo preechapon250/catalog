@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: mongodb-exporter 0.47.x
 image: dhi.io/mongodb-exporter
@@ -117,14 +117,3 @@ entrypoint:
   - /usr/local/bin/mongodb-exporter
 ports:
   - 9216/tcp
-tests:
-  - name: Run mongodb-exporter testcontainers tests
-    directory: image/mongodb-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

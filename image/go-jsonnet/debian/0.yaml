@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Jsonnet 0.21.x
 image: dhi.io/go-jsonnet
@@ -132,14 +132,3 @@ entrypoint:
   - /usr/local/bin/jsonnet
 cmd:
   - --help
-tests:
-  - name: Run jsonnet testcontainers tests
-    directory: image/go-jsonnet/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

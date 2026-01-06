@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Deno 2.x
 image: dhi.io/deno
@@ -162,14 +162,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 entrypoint:
   - /usr/local/bin/deno
-tests:
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests
-    directory: image/deno/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Kubeflow Pipelines API Server 2.x
 image: dhi.io/kubeflow-pipelines-apiserver
@@ -214,9 +214,3 @@ cmd:
   - --sampleconfig=/config/sample_config.json
 ports:
   - 8888/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/kubeflow-pipelines-apiserver/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

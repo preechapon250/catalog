@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Piraeus CSI 1.10.x (dev)
 image: dhi.io/piraeus-csi
@@ -187,24 +187,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /linstor-csi
-tests:
-  - name: Run testcontainers tests
-    directory: image/piraeus-csi/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared piraeus integration tests
-    directory: ecosystem/piraeus/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: OpenSearch Dashboards Helm chart 3.x
 image: dhi.io/opensearch-dashboards-chart
@@ -75,14 +75,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/opensearch-dashboards/config
-tests:
-  - name: Run opensearch-dashboards testcontainers helm tests
-    directory: chart/opensearch-dashboards/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

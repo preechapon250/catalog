@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Elasticsearch 9.1.x
 image: dhi.io/elasticsearch
@@ -161,9 +161,3 @@ cmd:
 ports:
   - 9200/tcp
   - 9300/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/elasticsearch/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

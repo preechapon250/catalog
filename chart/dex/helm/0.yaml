@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Dex Helm chart 0.x
 image: dhi.io/dex-chart
@@ -84,14 +84,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/dex/config
-tests:
-  - name: Run dex testcontainers helm tests
-    directory: chart/dex/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

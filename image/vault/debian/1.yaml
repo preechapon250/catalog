@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Vault 1.x
 image: dhi.io/vault
@@ -162,14 +162,3 @@ cmd:
   - -config=/vault/config
 ports:
   - 8200/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/vault/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

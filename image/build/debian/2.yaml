@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: DHI Build 2.x (dev)
 image: dhi.io/build
@@ -163,14 +163,3 @@ labels:
   moby.buildkit.frontend.network.none: "true"
 entrypoint:
   - /opt/docker/dhi/build
-tests:
-  - name: Test CLI
-    directory: image/build/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

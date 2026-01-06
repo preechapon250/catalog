@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Docker Scout SBOM Indexer 1.x (dev)
 image: dhi.io/scout-sbom-indexer
@@ -124,19 +124,3 @@ annotations:
   org.opencontainers.image.description: Docker Scout SBOM Indexer
 entrypoint:
   - /sbom-indexer
-tests:
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Test scanning
-    directory: image/scout-sbom-indexer/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

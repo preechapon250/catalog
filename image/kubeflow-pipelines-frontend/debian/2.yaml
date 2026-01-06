@@ -182,9 +182,3 @@ cmd:
   - /app/server/server.js
   - /app
   - "3000"
-tests:
-  - name: Run testcontainers tests
-    directory: image/kubeflow-pipelines-frontend/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

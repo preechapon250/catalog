@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian12
+# syntax=dhi.io/build:2-debian12
 
 name: Node.js 24.x
 image: dhi.io/node
@@ -143,14 +143,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 cmd:
   - node
-tests:
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests
-    directory: image/node/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

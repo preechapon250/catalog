@@ -221,14 +221,3 @@ entrypoint:
   - /home/ui-server/start-ui-server.sh
 ports:
   - 8080/tcp
-tests:
-  - name: Run testcontainers tests for the web service
-    directory: image/temporalio-ui/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -767,6 +767,36 @@
                           "const": "helm/annotations@v1",
                           "title": "Helm annotations",
                           "description": "Applies annotations to a Helm chart."
+                        },
+                        {
+                          "const": "abuild/setup@v1",
+                          "title": "abuild setup",
+                          "description": "Sets up abuild."
+                        },
+                        {
+                          "const": "abuild/build@v1",
+                          "title": "abuild build",
+                          "description": "Builds an Alpine package."
+                        },
+                        {
+                          "const": "abuild/upload@v1",
+                          "title": "abuild upload",
+                          "description": "Uploads an Alpine package to the registry."
+                        },
+                        {
+                          "const": "abuild/apk@v1",
+                          "title": "abuild newapk",
+                          "description": "Builds a new Alpine package."
+                        },
+                        {
+                          "const": "abuild/disable@v1",
+                          "title": "abuild disable",
+                          "description": "Disables a function in an Alpine package."
+                        },
+                        {
+                          "const": "abuild/bump@v1",
+                          "title": "abuild bump",
+                          "description": "Bumps the version of an Alpine package."
                         }
                       ],
                       "type": "string"

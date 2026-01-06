@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: DHI Build 2.x (dev)
 image: dhi.io/build
@@ -105,14 +105,3 @@ labels:
   moby.buildkit.frontend.network.none: "true"
 entrypoint:
   - /opt/docker/dhi/build
-tests:
-  - name: Test CLI
-    directory: image/build/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APK package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

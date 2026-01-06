@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Jenkins Inbound Agent (latest)
 image: dhi.io/jenkins-inbound-agent
@@ -140,29 +140,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 entrypoint:
   - /usr/local/bin/jenkins-agent
-tests:
-  - name: Run testcontainers tests
-    directory: image/jenkins-inbound-agent/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared jenkins integration tests
-    directory: ecosystem/jenkins/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run jenkins-agent tests
-    directory: image/jenkins-agent/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

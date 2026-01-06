@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Amazon Corretto 25.x
 image: dhi.io/amazoncorretto
@@ -230,19 +230,3 @@ annotations:
 cmd:
   - java
   - --help
-tests:
-  - name: Run testcontainers tests
-    directory: image/amazoncorretto/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

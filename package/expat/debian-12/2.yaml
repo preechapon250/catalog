@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian12
+# syntax=dhi.io/build:2-debian12
 
 image: dhi.io/pkg-expat
 variant: runtime

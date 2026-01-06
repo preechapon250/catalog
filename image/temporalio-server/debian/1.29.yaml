@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Temporal Server 1.29.x
 image: dhi.io/temporalio-server
@@ -438,17 +438,3 @@ ports:
   - 7234/tcp
   - 7235/tcp
   - 7239/tcp
-tests:
-  - name: Run testcontainers tests for app executables
-    directory: ecosystem/temporalio/tests/
-    commands:
-      - go test ./temporalio_general_test.go -count=1 -v
-      - go test ./temporalio_shared_binaries_test.go -count=1 -v
-      - go test ./temporalio_server_binary_test.go -count=1 -v
-      - go test ./temporalio_server_config_test.go -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests for a test GoLang client app
-    directory: ecosystem/temporalio/tests/golang-client
-    commands:
-      - go test -v ./temporalio_golang_client_test.go -run TestAppVsTemporalWithDHIImages
-    exit-code: 0

@@ -154,14 +154,3 @@ entrypoint:
   - /app/sidecar.py
 ports:
   - 8080/tcp
-tests:
-  - name: Run k8s-sidecar testcontainers tests
-    directory: image/k8s-sidecar/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

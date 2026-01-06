@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: OpenSearch 3.x
 image: dhi.io/opensearch
@@ -809,24 +809,3 @@ ports:
   - 9300/tcp
   - 9600/tcp
   - 9650/tcp
-tests:
-  - name: Run opensearch testcontainers tests
-    directory: image/opensearch/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run shared opensearch tests
-    directory: ecosystem/opensearch/test
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Alertmanager 0.x
 image: dhi.io/alertmanager
@@ -179,14 +179,3 @@ entrypoint:
 cmd:
   - --config.file=/etc/alertmanager/alertmanager.yml
   - --storage.path=/alertmanager
-tests:
-  - name: Run Alertmanager testcontainers tests
-    directory: image/alertmanager/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run basic testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

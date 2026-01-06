@@ -118,14 +118,3 @@ labels:
 entrypoint:
   - node
   - /app/dist/index.js
-tests:
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests
-    directory: image/firecrawl-mcp/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

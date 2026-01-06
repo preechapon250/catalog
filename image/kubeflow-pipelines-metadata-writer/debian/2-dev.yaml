@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Kubeflow Pipelines - Metadata Writer 2.15.x (dev)
 image: dhi.io/kubeflow-pipelines-metadata-writer
@@ -124,19 +124,3 @@ annotations:
 entrypoint:
   - /app/.venv/bin/python3
   - /app/metadata_writer.py
-tests:
-  - name: Run testcontainers tests
-    directory: image/kubeflow-pipelines-metadata-writer/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

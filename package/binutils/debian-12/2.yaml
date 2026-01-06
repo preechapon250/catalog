@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian12
+# syntax=dhi.io/build:2-debian12
 
 image: dhi.io/pkg-binutils
 variant: runtime
@@ -368,9 +368,3 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 12 (bookworm)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
-tests:
-  - name: Run testcontainers tests
-    directory: package/binutils/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

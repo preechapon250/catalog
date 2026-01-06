@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: PHP 8.3.x (fpm)
 image: dhi.io/php
@@ -339,14 +339,3 @@ entrypoint:
   - /opt/php-8.3/sbin/php-fpm
 ports:
   - 9000/tcp
-tests:
-  - name: Run PHP tests
-    directory: image/php/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

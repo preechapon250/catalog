@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Git MCP Server 2025.x
 image: dhi.io/git-mcp
@@ -141,9 +141,3 @@ labels:
   io.modelcontextprotocol.server.name: io.github.modelcontextprotocol/server-git
 entrypoint:
   - mcp-server-git
-tests:
-  - name: Run testcontainers tests
-    directory: image/git-mcp/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

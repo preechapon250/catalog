@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: csi-external-health-monitor-controller 0.16.x
 image: dhi.io/csi-external-health-monitor-controller
@@ -118,19 +118,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /usr/local/bin/csi-external-health-monitor-controller
-tests:
-  - name: Run csi-external-health-monitor-controller testcontainers tests
-    directory: image/csi-external-health-monitor-controller/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run CSI sidecars ecosystem integration test
-    directory: ecosystem/csi-sidecars/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

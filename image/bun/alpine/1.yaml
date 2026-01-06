@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: Bun 1.x
 image: dhi.io/bun
@@ -120,14 +120,3 @@ annotations:
 cmd:
   - /usr/local/bin/bun
   - repl
-tests:
-  - name: Run testcontainers tests
-    directory: image/bun/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

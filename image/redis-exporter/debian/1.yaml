@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: redis-exporter 1.80.x
 image: dhi.io/redis-exporter
@@ -110,14 +110,3 @@ entrypoint:
   - /usr/local/bin/redis-exporter
 ports:
   - 9121/tcp
-tests:
-  - name: Run redis-exporter testcontainers tests
-    directory: image/redis-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

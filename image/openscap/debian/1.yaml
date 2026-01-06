@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: OpenSCAP 1.x
 image: dhi.io/openscap
@@ -195,14 +195,3 @@ annotations:
   org.opencontainers.image.licenses: LGPL-2.1
 entrypoint:
   - /usr/bin/oscap
-tests:
-  - name: Run openscap testcontainers tests
-    directory: image/openscap/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

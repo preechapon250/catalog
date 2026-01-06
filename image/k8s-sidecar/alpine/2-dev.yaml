@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: k8s-sidecar 2.x (dev)
 image: dhi.io/k8s-sidecar
@@ -159,19 +159,3 @@ entrypoint:
   - /app/sidecar.py
 ports:
   - 8080/tcp
-tests:
-  - name: Run k8s-sidecar testcontainers tests
-    directory: image/k8s-sidecar/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APK package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

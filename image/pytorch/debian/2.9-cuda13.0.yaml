@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: PyTorch 2.9.x
 image: dhi.io/pytorch
@@ -205,14 +205,3 @@ annotations:
   org.opencontainers.image.licenses: BSD-3-Clause
 cmd:
   - python3
-tests:
-  - name: Run PyTorch tests
-    directory: image/pytorch/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

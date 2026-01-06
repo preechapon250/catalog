@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Velero Plugin for AWS 1.x (dev)
 image: dhi.io/velero-plugin-for-aws
@@ -132,19 +132,3 @@ entrypoint:
   - cp-plugin
   - /plugins/velero-plugin-for-aws
   - /target/velero-plugin-for-aws
-tests:
-  - name: Run testcontainers tests
-    directory: image/velero-plugin-for-aws/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

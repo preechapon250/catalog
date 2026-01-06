@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Prometheus Statsd Exporter 0.28.x
 image: dhi.io/prometheus-statsd-exporter
@@ -121,14 +121,3 @@ entrypoint:
   - /usr/local/bin/statsd_exporter
 ports:
   - 9102/tcp
-tests:
-  - name: Run statsd-exporter testcontainers tests
-    directory: image/prometheus-statsd-exporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

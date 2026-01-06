@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Redis 8.0.x (dev)
 image: dhi.io/redis
@@ -174,9 +174,3 @@ cmd:
   - /etc/redis/redis.conf
   - --include
   - /etc/redis/conf.d/*.conf
-tests:
-  - name: Run testcontainers tests
-    directory: image/redis/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

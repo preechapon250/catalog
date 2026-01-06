@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: APISIX 3.x
 image: dhi.io/apisix
@@ -451,14 +451,3 @@ entrypoint:
   - /usr/local/bin/docker-entrypoint.sh
 cmd:
   - docker-start
-tests:
-  - name: Run testcontainers tests
-    directory: image/apisix/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

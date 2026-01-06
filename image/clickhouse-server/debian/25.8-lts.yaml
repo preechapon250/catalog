@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: ClickHouse Server 25.8.x-lts
 image: dhi.io/clickhouse-server
@@ -157,14 +157,3 @@ ports:
   - 9000/tcp
   - 8123/tcp
   - 9009/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/clickhouse-server/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

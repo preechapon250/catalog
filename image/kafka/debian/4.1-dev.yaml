@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Apache Kafka 4.1.x (dev)
 image: dhi.io/kafka
@@ -231,24 +231,3 @@ entrypoint:
   - /usr/local/bin/docker-entrypoint.sh
 ports:
   - 9092/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/kafka/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

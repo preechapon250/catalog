@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: uv 0.x (dev)
 image: dhi.io/uv
@@ -161,19 +161,3 @@ annotations:
   org.opencontainers.image.licenses: MIT
 entrypoint:
   - /usr/local/bin/uv
-tests:
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests
-    directory: image/uv/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

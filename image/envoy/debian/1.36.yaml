@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Envoy 1.36.x
 image: dhi.io/envoy
@@ -138,14 +138,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 cmd:
   - envoy
-tests:
-  - name: Run testcontainers tests
-    directory: image/envoy/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

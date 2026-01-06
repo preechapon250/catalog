@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Polaris 10.x (compat)
 image: dhi.io/polaris
@@ -120,14 +120,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - polaris
-tests:
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests
-    directory: image/polaris/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

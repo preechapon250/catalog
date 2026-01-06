@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Memcached 1.x (dev)
 image: dhi.io/memcached
@@ -162,9 +162,3 @@ entrypoint:
   - memcached
 ports:
   - 11211/tcp
-tests:
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

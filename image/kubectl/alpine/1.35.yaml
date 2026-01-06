@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-alpine3.22
+# syntax=dhi.io/build:2-alpine3.22
 
 name: kubectl 1.35.x
 image: dhi.io/kubectl
@@ -120,14 +120,3 @@ entrypoint:
   - /usr/local/bin/kubectl
 cmd:
   - --help
-tests:
-  - name: Run testcontainers tests
-    directory: image/kubectl/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

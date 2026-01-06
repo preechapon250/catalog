@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Temporal Admin Tools 1.x
 image: dhi.io/temporalio-admin-tools
@@ -181,16 +181,3 @@ entrypoint:
   - --
   - sleep
   - infinity
-tests:
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers tests for shared binaries, cqlsh, and yq
-    directory: ecosystem/temporalio/tests/
-    commands:
-      - go test ./temporalio_shared_binaries_test.go -count=1 -v
-      - go test ./temporalio_cqlsh_test.go -count=1 -v
-      - go test ./temporalio_yq_test.go -count=1 -v
-    exit-code: 0

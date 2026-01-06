@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Airflow 3.x (dev)
 image: dhi.io/airflow
@@ -344,9 +344,3 @@ entrypoint:
   - /usr/bin/bash
 ports:
   - 8080/tcp
-tests:
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

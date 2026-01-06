@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Grafana Alloy 1.x
 image: dhi.io/alloy
@@ -200,14 +200,3 @@ cmd:
   - --storage.path=/var/lib/alloy/data
 ports:
   - 12345/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/alloy/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

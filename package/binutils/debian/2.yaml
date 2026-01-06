@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 image: dhi.io/pkg-binutils
 variant: runtime
@@ -370,9 +370,3 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
-tests:
-  - name: Run testcontainers tests
-    directory: package/binutils/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

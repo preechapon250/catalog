@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: vault-csi-provider 1.7.x
 image: dhi.io/vault-csi-provider
@@ -114,14 +114,3 @@ annotations:
   org.opencontainers.image.licenses: BUSL-1.1
 entrypoint:
   - /usr/local/bin/vault-csi-provider
-tests:
-  - name: Run vault-csi-provider testcontainers tests
-    directory: image/vault-csi-provider/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

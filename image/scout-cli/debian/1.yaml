@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Docker Scout CLI 1.x
 image: dhi.io/scout-cli
@@ -102,14 +102,3 @@ annotations:
   org.opencontainers.image.description: Docker Scout CLI
 entrypoint:
   - /docker-scout
-tests:
-  - name: Run testcontainers basic tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Test CLI
-    directory: image/scout-cli/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

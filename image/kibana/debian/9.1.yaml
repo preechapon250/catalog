@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Kibana 9.1.x
 image: dhi.io/kibana
@@ -248,9 +248,3 @@ cmd:
   - /usr/local/bin/kibana-docker
 ports:
   - 5601/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/kibana/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

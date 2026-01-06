@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Hyperledger Fabric Orderer 3.x
 image: dhi.io/hyperledger-fabric-orderer
@@ -143,14 +143,3 @@ cmd:
   - start
 ports:
   - 7050/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/hyperledger-fabric-orderer/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

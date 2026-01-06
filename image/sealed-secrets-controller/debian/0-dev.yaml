@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Sealed Secrets 0.x (dev)
 image: dhi.io/sealed-secrets-controller
@@ -143,19 +143,3 @@ entrypoint:
 ports:
   - 8080/tcp
   - 8081/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/sealed-secrets-controller/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

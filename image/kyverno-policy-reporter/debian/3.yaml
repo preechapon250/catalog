@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Kyverno Policy Reporter 3.x
 image: dhi.io/kyverno-policy-reporter
@@ -123,14 +123,3 @@ entrypoint:
   - run
 ports:
   - 8080/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/kyverno-policy-reporter/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

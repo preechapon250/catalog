@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Dart 3.x (dev)
 image: dhi.io/dart
@@ -187,14 +187,3 @@ annotations:
   org.opencontainers.image.licenses: BSD-3-Clause
 cmd:
   - /bin/bash
-tests:
-  - name: Run testcontainers tests
-    directory: image/dart/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

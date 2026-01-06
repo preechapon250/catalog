@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: VictoriaMetrics Alerts Helm chart 0.x
 image: dhi.io/victoriametrics-alert-chart
@@ -81,14 +81,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/victoriametrics-alert/config
-tests:
-  - name: Run victoriametrics-alert testcontainers helm tests
-    directory: chart/victoriametrics-alert/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

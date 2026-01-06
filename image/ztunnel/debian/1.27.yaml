@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Istio Ztunnel 1.27.x
 image: dhi.io/ztunnel
@@ -150,14 +150,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - ztunnel
-tests:
-  - name: Run ztunnel tests
-    directory: image/ztunnel/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: KServe LocalModelNode Agent 0.x
 image: dhi.io/kserve-localmodelnode-agent
@@ -121,14 +121,3 @@ ports:
   - 8080/tcp
   - 8081/tcp
   - 9443/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/kserve-localmodelnode-agent/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

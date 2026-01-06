@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Static (Debian)
 image: dhi.io/static
@@ -92,9 +92,3 @@ environment:
 annotations:
   org.opencontainers.image.description: A minimal static image
   org.opencontainers.image.licenses: MPL-2.0 AND MIT
-tests:
-  - name: Run testcontainers tests
-    directory: image/static/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

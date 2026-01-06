@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-helm3
+# syntax=dhi.io/build:2-helm3
 
 name: Clickhouse Operator Helm chart 0.x
 image: dhi.io/clickhouse-operator-chart
@@ -86,14 +86,3 @@ contents:
           gid: 0
           mode: "0644"
           source: chart/clickhouse-operator/config
-tests:
-  - name: Run clickhouse-operator testcontainers helm tests
-    directory: chart/clickhouse-operator/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run base helm tests
-    directory: test/go-testing/k8s/helm/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

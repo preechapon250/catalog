@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: KServe Storage Initializer 0.16.x (dev)
 image: dhi.io/kserve-storage-initializer
@@ -165,14 +165,3 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - /opt/kserve/storage-initializer-entrypoint
-tests:
-  - name: Run testcontainers tests
-    directory: image/kserve-storage-initializer/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run APT package manager tests
-    directory: test/go-testing/package_manager
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

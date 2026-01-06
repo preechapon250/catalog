@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: MySQL 9.5.x
 image: dhi.io/mysql
@@ -180,9 +180,3 @@ cmd:
 ports:
   - 3306/tcp
   - 33060/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/mysql/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

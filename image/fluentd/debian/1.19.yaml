@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Fluentd 1.19.x
 image: dhi.io/fluentd
@@ -201,9 +201,3 @@ cmd:
 ports:
   - 24224/tcp
   - 5140/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/fluentd/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

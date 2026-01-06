@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Caddy 2.10.x
 image: dhi.io/caddy
@@ -152,14 +152,3 @@ cmd:
   - run
   - --config
   - /etc/caddy/Caddyfile
-tests:
-  - name: Run testcontainers tests
-    directory: image/caddy/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

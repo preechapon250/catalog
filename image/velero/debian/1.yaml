@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Velero 1.x
 image: dhi.io/velero
@@ -194,14 +194,3 @@ paths:
 annotations:
   org.opencontainers.image.description: A minimal Velero image
   org.opencontainers.image.licenses: Apache-2.0
-tests:
-  - name: Run testcontainers tests
-    directory: image/velero/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run common testcontainers tests
-    directory: test/go-testing/base
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

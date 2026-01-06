@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Loki 2.9.x
 image: dhi.io/loki
@@ -151,9 +151,3 @@ cmd:
   - -config.file=/etc/loki/local-config.yaml
 ports:
   - 3100/tcp
-tests:
-  - name: Run testcontainers tests
-    directory: image/loki/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0

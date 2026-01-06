@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Zookeeper 3.9.x
 image: dhi.io/zookeeper
@@ -210,14 +210,3 @@ entrypoint:
 cmd:
   - zkServer.sh
   - start-foreground
-tests:
-  - name: Run testcontainers tests
-    directory: image/zookeeper/tests
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
-  - name: Run locales tests
-    directory: test/go-testing/locales
-    commands:
-      - go test . -count=1 -v
-    exit-code: 0
