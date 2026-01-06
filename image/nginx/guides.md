@@ -71,14 +71,16 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### Using environment variables in Nginx configuration
 
-Out-of-the-box, Nginx doesn't support environment variables inside most configuration blocks. But this image has a
-function, which will extract environment variables before Nginx starts.
+**Note:** This feature is only available in the `-dev` variant of the image.
+
+Out-of-the-box, Nginx doesn't support environment variables inside most configuration blocks. But the `-dev` variant of
+this image includes an entrypoint function that will extract environment variables before Nginx starts.
 
 Here is an example using a Compose file.
 
 ```yaml
 web:
-  image: dhi.io/nginx:<tag>
+  image: dhi.io/nginx:<tag>-dev
   volumes:
    - ./templates:/etc/nginx/templates
   ports:
@@ -151,11 +153,13 @@ web:
 
 ### Entrypoint quiet logs
 
-A verbose entrypoint was added to the image. It provides information on what's happening during container startup. You
-can silence this output by setting environment variable `NGINX_ENTRYPOINT_QUIET_LOGS`:
+**Note:** This feature is only available in the `-dev` variant of the image.
+
+A verbose entrypoint was added to the `-dev` variant. It provides information on what's happening during container
+startup. You can silence this output by setting environment variable `NGINX_ENTRYPOINT_QUIET_LOGS`:
 
 ```
-$ docker run -d -e NGINX_ENTRYPOINT_QUIET_LOGS=1 dhi.io/nginx:<tag>
+$ docker run -d -e NGINX_ENTRYPOINT_QUIET_LOGS=1 dhi.io/nginx:<tag>-dev
 ```
 
 ## Non-hardened images vs Docker Hardened Images
