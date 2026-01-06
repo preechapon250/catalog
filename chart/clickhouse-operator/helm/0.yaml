@@ -12,13 +12,13 @@ vars:
   CLICKHOUSE_METRICS_EXPORTER_REFERENCE: dhi/clickhouse-metrics-exporter:0.25.6-debian13@sha256:16616b5a3f5697e591f5502f23e29f32ca54a02e368571e7da964a8a48ed720a
   CLICKHOUSE_OPERATOR_IMAGE_TAG: 0.25.5
   CLICKHOUSE_OPERATOR_REFERENCE: dhi/clickhouse-operator:0.25.6-debian13@sha256:830ac54bee31fb988b4fe9697c36334fa9ae85824ca83dacfe8c80fa4069386c
-  CLICKHOUSE_SERVER_REFERENCE: dhi/clickhouse-server:25.8.13-debian13@sha256:ed05eb558ba9f48807b37b4471c82e3b9b80463d44143a93c00a1f28ef9a6d40
+  CLICKHOUSE_SERVER_REFERENCE: dhi/clickhouse-server:25.8.14-debian13@sha256:5e35fe2d3894248cfbfb042c75edd95e6938ca470a98a17cb19613660c588d66
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
-  KUBECTL_REFERENCE: dhi/kubectl:1.34.3-alpine3.22-dev@sha256:4ee6ac323cf2ac892f44fba7b83ad857dee8022c82ef191b317bd615cd901103
+  KUBECTL_REFERENCE: dhi/kubectl:1.34.3-alpine3.22-dev@sha256:12eeefe1e3b287e884ab5439e36a41f341131d44ea8aea8c764d32efba04c5fc
   SEMVER_MAJOR_MINOR_VERSION: "0.25"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.25.6
@@ -48,9 +48,9 @@ contents:
                 - name: clickhouse-metrics-exporter
                   ref: dhi/clickhouse-metrics-exporter:0.25.6-debian13@sha256:16616b5a3f5697e591f5502f23e29f32ca54a02e368571e7da964a8a48ed720a
                 - name: clickhouse-server
-                  ref: dhi/clickhouse-server:25.8.13-debian13@sha256:ed05eb558ba9f48807b37b4471c82e3b9b80463d44143a93c00a1f28ef9a6d40
+                  ref: dhi/clickhouse-server:25.8.14-debian13@sha256:5e35fe2d3894248cfbfb042c75edd95e6938ca470a98a17cb19613660c588d66
                 - name: kubectl
-                  ref: dhi/kubectl:1.34.3-alpine3.22-dev@sha256:4ee6ac323cf2ac892f44fba7b83ad857dee8022c82ef191b317bd615cd901103
+                  ref: dhi/kubectl:1.34.3-alpine3.22-dev@sha256:12eeefe1e3b287e884ab5439e36a41f341131d44ea8aea8c764d32efba04c5fc
               name: clickhouse-operator-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/cert-manager/cert-manager
