@@ -1,0 +1,158 @@
+# syntax=dhi.io/build:2-debian13
+
+name: Argo CLI 3.7.x (dev)
+image: dhi.io/argocli
+variant: dev
+tags:
+  - 3-dev
+  - 3.7-dev
+  - 3.7.6-dev
+  - 3-debian13-dev
+  - 3.7-debian13-dev
+  - 3.7.6-debian13-dev
+platforms:
+  - linux/amd64
+  - linux/arm64
+vars:
+  BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
+  BASE_TAG: 20250419-debian13
+  COMMIT_SHA: 9572e7b8243834b951385584c2a344378accb76d
+  GO_REF: dhi/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
+  NODE_REF: dhi/node:20.19.6-debian13-dev@sha256:b2e4556f0a42a43d0480cd03a56406bc2b97728cf0d6f90a3583dea09a033c56
+  SEMVER_MAJOR_MINOR_VERSION: "3.7"
+  SEMVER_MAJOR_VERSION: "3"
+  SEMVER_VERSION: 3.7.6
+  VERSION: 3.7.6
+contents:
+  packages:
+    - '!base-files'
+    - '!gawk'
+    - '!libelogind0'
+    - '!original-awk'
+    - apt
+    - bash
+    - ca-certificates
+    - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
+    - libc-bin
+    - mawk
+    - perl-base
+    - sed
+    - util-linux
+  builds:
+    - name: argocli
+      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
+      contents:
+        files:
+          - url: git+https://github.com/argoproj/argo-workflows.git#v3.7.6
+            checksum: 9572e7b8243834b951385584c2a344378accb76d
+            path: /go/src/github.com/argoproj/argo-workflows
+            spdx:
+              name: argocli
+              version: 3.7.6
+              packages:
+                - name: argocli
+                  purl: pkg:golang/github.com/argoproj/argo-workflows@3.7.6
+                  license: Apache-2.0
+            uid: 0
+            gid: 0
+        artifacts:
+          - name: dhi.io/node:20.19.6-debian13-dev@sha256:b2e4556f0a42a43d0480cd03a56406bc2b97728cf0d6f90a3583dea09a033c56
+            includes:
+              - opt/nodejs
+              - opt/yarn
+              - usr/local/bin/node
+              - usr/local/bin/yarn
+            uid: 0
+            gid: 0
+      pipeline:
+        - name: patch
+          uses: go/bump@v1
+          work-dir: /go/src/github.com/argoproj/argo-workflows
+          with:
+            deps:
+              - github.com/expr-lang/expr@v1.17.7
+            download: true
+        - name: build ui
+          work-dir: /go/src/github.com/argoproj/argo-workflows/ui
+          privileged: true
+          runs: |
+            set -eux -o pipefail
+
+            export JOBS=max
+            yarn install --network-timeout 1000000
+
+            export YARN_CACHE_FOLDER=/root/.yarn
+            export NODE_OPTIONS="--max-old-space-size=2048"
+            yarn build
+        - name: build
+          uses: go/build@v1
+          work-dir: /go/src/github.com/argoproj/argo-workflows
+          with:
+            ldflags:
+              - -X github.com/argoproj/argo-workflows/v3.version=3.7.6
+              - -X github.com/argoproj/argo-workflows/v3.gitCommit=9572e7b8243834b951385584c2a344378accb76d
+            output: ${target.dir}/usr/local/bin/argo
+            packages: ./cmd/argo
+      outputs:
+        - source: ${target.dir}/usr/local/bin/argo
+          target: /usr/local/bin/argo
+          uid: 0
+          gid: 0
+        - source: /opt/docker/sbom/argocli
+          target: /opt/docker/sbom/argocli
+          uid: 0
+          gid: 0
+  artifacts:
+    - name: dhi.io/static:20250419-debian13@sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
+      includes:
+        - bin
+        - etc
+        - home
+        - lib
+        - lib64
+        - opt
+        - sbin
+        - tmp
+        - usr
+        - var
+      excludes:
+        - etc/group
+        - etc/os-release
+        - etc/passwd
+        - var/lib/dpkg/status
+      uid: 0
+      gid: 0
+accounts:
+  root: true
+  run-as: root
+  users:
+    - name: argocli
+      uid: 8737
+      gid: 8737
+    - name: _apt
+      uid: 42
+      gid: 65532
+  groups:
+    - name: argocli
+      gid: 8737
+      members:
+        - argocli
+os-release:
+  name: Docker Hardened Images (Debian)
+  id: debian
+  version-id: "13"
+  version-codename: trixie
+  pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
+  home-url: https://docker.com/products/hardened-images/
+  bug-report-url: https://docker.com/support/
+environment:
+  DEBIAN_FRONTEND: noninteractive
+annotations:
+  org.opencontainers.image.description: A minimal Argo CLI image
+  org.opencontainers.image.licenses: Apache-2.0
+entrypoint:
+  - argo

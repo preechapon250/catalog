@@ -4,26 +4,26 @@ name: Prometheus 3.x
 image: dhi.io/prometheus
 variant: runtime
 tags:
-  - "3.9"
-  - 3.9.0
-  - 3.9-debian13
-  - 3.9.0-debian13
+  - "3.8"
+  - 3.8.1
+  - 3.8-debian13
+  - 3.8.1-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: cd875bd8c9211d7606981223d59ab3adf73432f2
-  DEBIAN_EPOCH_MAJOR_MINOR_VERSION: "3.9"
+  COMMIT_SHA: ed753444ffec98097399d0cfa9073c70a840b812
+  DEBIAN_EPOCH_MAJOR_MINOR_VERSION: "3.8"
   DEBIAN_EPOCH_MAJOR_VERSION: "3"
-  DEBIAN_EPOCH_VERSION: 3.9.0
+  DEBIAN_EPOCH_VERSION: 3.8.1
   GO_REF: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_VERSION: 1.25.5
   NODE_REF: dhi/node:22.21.1-debian13-dev@sha256:9f2cc2b28df3ddcbf95208b8bd18df85fdc2ef63fc89b2a8bd2e9ec31731f873
   NODE_VERSION: 22.21.1
   RELEASE_TYPE: stable
-  VERSION: 3.9.0
+  VERSION: 3.8.1
 contents:
   packages:
     - '!base-files'
@@ -39,15 +39,15 @@ contents:
           - bzip2
           - gzip
         files:
-          - url: git+https://github.com/prometheus/prometheus.git#v3.9.0
-            checksum: cd875bd8c9211d7606981223d59ab3adf73432f2
+          - url: git+https://github.com/prometheus/prometheus.git#v3.8.1
+            checksum: ed753444ffec98097399d0cfa9073c70a840b812
             path: /go/src/github.com/prometheus/prometheus
             spdx:
               name: prometheus
-              version: 3.9.0
+              version: 3.8.1
               packages:
                 - name: prometheus
-                  purl: pkg:dhi/prometheus@3.9.0
+                  purl: pkg:dhi/prometheus@3.8.1
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -75,7 +75,8 @@ contents:
           uses: go/bump@v1
           work-dir: /go/src/github.com/prometheus/prometheus
           with:
-            deps: []
+            deps:
+              - golang.org/x/crypto@v0.45.0
             download: true
         - name: go build
           work-dir: /go/src/github.com/prometheus/prometheus
@@ -85,12 +86,12 @@ contents:
             make plugins
 
             # Manually set version information used in "prometheus --version" output
-            GOLDFLAGS="-X github.com/prometheus/common/version.Version=3.9.0
-              -X github.com/prometheus/common/version.Revision=cd875bd8c9211d7606981223d59ab3adf73432f2
+            GOLDFLAGS="-X github.com/prometheus/common/version.Version=3.8.1
+              -X github.com/prometheus/common/version.Revision=ed753444ffec98097399d0cfa9073c70a840b812
               -X github.com/prometheus/common/version.Branch=HEAD
               -X github.com/prometheus/common/version.BuildUser=$USER@$HOSTNAME
               -X github.com/prometheus/common/version.BuildDate=$(date -u "+%Y%m%d-%H:%M:%S" ${SOURCE_DATE_EPOCH:+-d @$SOURCE_DATE_EPOCH})
-              -X github.com/prometheus/prometheus/version.Version=3.9.0
+              -X github.com/prometheus/prometheus/version.Version=3.8.1
             "
 
             # Prometheus does use their own build tool, published separately at https://github.com/prometheus/promu,
