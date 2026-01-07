@@ -7,10 +7,10 @@ flavor: compat
 tags:
   - 1-compat-dev
   - 1.21-compat-dev
-  - 1.21.1-compat-dev
+  - 1.21.2-compat-dev
   - 1-debian13-compat-dev
   - 1.21-debian13-compat-dev
-  - 1.21.1-debian13-compat-dev
+  - 1.21.2-debian13-compat-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -19,13 +19,13 @@ dates:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 2453aac2638a6ae243341b4e0657fd8aea1cbf18
+  COMMIT_SHA: 781ba452d731fe2d59ccbc1b37ca7c5a18edb998
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_VERSION: 1.25.5
   SEMVER_MAJOR_MINOR_VERSION: "1.21"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.21.1
-  VERSION: 1.21.1
+  SEMVER_VERSION: 1.21.2
+  VERSION: 1.21.2
 contents:
   packages:
     - '!gawk'
@@ -53,15 +53,15 @@ contents:
           - binutils
           - libcap2-bin
         files:
-          - url: git+https://github.com/hashicorp/vault.git#v1.21.1
-            checksum: 2453aac2638a6ae243341b4e0657fd8aea1cbf18
+          - url: git+https://github.com/hashicorp/vault.git#v1.21.2
+            checksum: 781ba452d731fe2d59ccbc1b37ca7c5a18edb998
             path: /go/src/github.com/hashicorp/vault
             spdx:
               name: vault
-              version: 1.21.1
+              version: 1.21.2
               packages:
                 - name: vault
-                  purl: pkg:dhi/vault@1.21.1
+                  purl: pkg:dhi/vault@1.21.2
                   license: BUSL-1.1
             uid: 0
             gid: 0
@@ -71,7 +71,6 @@ contents:
           work-dir: /go/src/github.com/hashicorp/vault
           with:
             deps:
-              - golang.org/x/crypto@v0.45.0
               - github.com/dvsekhvalnov/jose2go@v1.7.0
             download: true
         - name: bootstrap
@@ -86,8 +85,8 @@ contents:
           work-dir: /go/src/github.com/hashicorp/vault
           with:
             ldflags:
-              - -X github.com/hashicorp/vault/version.fullVersion=1.21.1
-              - -X github.com/hashicorp/vault/version.GitCommit=2453aac2638a6ae243341b4e0657fd8aea1cbf18
+              - -X github.com/hashicorp/vault/version.fullVersion=1.21.2
+              - -X github.com/hashicorp/vault/version.GitCommit=781ba452d731fe2d59ccbc1b37ca7c5a18edb998
               - -X github.com/hashicorp/vault/version.BuildDate=$(date -u -d @${SOURCE_DATE_EPOCH} +'%FT%TZ')
             output: ${target.dir}/usr/local/bin/vault
             tags: vault
