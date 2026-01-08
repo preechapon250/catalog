@@ -176,6 +176,10 @@ variants. These images:
 **Note**: Unlike some other DHI images, AWS CLI does not provide separate dev variants. For building or scripting that
 requires shell access, use Docker Debug or create custom images based on the runtime variant.
 
+**FIPS variants** include `fips` in the variant name and tag. These variants use cryptographic modules that have been
+validated under FIPS 140, a U.S. government standard for secure cryptographic operations. For example, usage of MD5
+fails in FIPS variants. FIPS variants are tagged with the `-fips` suffix (e.g., `1.44.12-fips`, `2.32.29-fips`).
+
 ## Migrate to a Docker Hardened Image
 
 To migrate your application to a Docker Hardened Image, you must update your Dockerfile. At minimum, you must update the
@@ -200,8 +204,8 @@ The following steps outline the general migration process.
 1. **Find hardened images for your app.**
 
    A hardened image may have several variants. Inspect the image tags and find the image variant that meets your needs.
-   AWS CLI images are available with tags like `2.31.1`, `2.31`, `2`, `2.31.1-debian13`, `2.31-debian13`, and
-   `2-debian13`.
+   AWS CLI images are available with tags like `2.31.1`, `2.31`, `2`, `2.31.1-debian13`, `2.31-debian13`, `2-debian13`,
+   and FIPS variants like `1.44.12-fips`, `2.32.29-fips`.
 
 1. **Update the base image in your Dockerfile.**
 
