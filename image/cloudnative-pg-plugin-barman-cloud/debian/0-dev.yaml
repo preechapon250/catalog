@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Cloudnative PG Plugin Barman Cloud 0.x (dev)
 image: dhi.io/cloudnative-pg-plugin-barman-cloud

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Cilium Operator Azure 1.16.x (dev)
 image: dhi.io/cilium-operator-azure

@@ -1,4 +1,4 @@
-# syntax=dhi.io/build:1-debian13
+# syntax=dhi.io/build:2-debian13
 
 name: Calico CNI 3.31.x
 image: dhi.io/calico-cni
