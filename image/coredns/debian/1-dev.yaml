@@ -5,23 +5,23 @@ image: dhi.io/coredns
 variant: dev
 tags:
   - 1-dev
-  - 1.13-dev
-  - 1.13.2-dev
+  - 1.14-dev
+  - 1.14.0-dev
   - 1-debian13-dev
-  - 1.13-debian13-dev
-  - 1.13.2-debian13-dev
+  - 1.14-debian13-dev
+  - 1.14.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 0233f3e7c600b730426628f2cf9c829d404a181f
+  COMMIT_SHA: 1c964f2f68bd04a875a41479822ec3da1f1e76ef
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
-  SEMVER_MAJOR_MINOR_VERSION: "1.13"
+  SEMVER_MAJOR_MINOR_VERSION: "1.14"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.13.2
-  VERSION: 1.13.2
+  SEMVER_VERSION: 1.14.0
+  VERSION: 1.14.0
 contents:
   packages:
     - '!base-files'
@@ -48,15 +48,15 @@ contents:
         packages:
           - libcap2-bin
         files:
-          - url: git+https://github.com/coredns/coredns.git#v1.13.2
-            checksum: 0233f3e7c600b730426628f2cf9c829d404a181f
+          - url: git+https://github.com/coredns/coredns.git#v1.14.0
+            checksum: 1c964f2f68bd04a875a41479822ec3da1f1e76ef
             path: /go/src/github.com/coredns/coredns
             spdx:
               name: coredns
-              version: 1.13.2
+              version: 1.14.0
               packages:
                 - name: coredns
-                  purl: pkg:golang/github.com/coredns/coredns@1.13.2
+                  purl: pkg:golang/github.com/coredns/coredns@1.14.0
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -65,7 +65,6 @@ contents:
           uses: go/bump@v1
           with:
             deps:
-              - golang.org/x/crypto@v0.45.0
               - github.com/expr-lang/expr@v1.17.7
             dir: /go/src/github.com/coredns/coredns
             download: true
@@ -74,8 +73,8 @@ contents:
           work-dir: /go/src/github.com/coredns/coredns
           with:
             ldflags:
-              - -X github.com/coredns/coredns/coremain.CoreVersion=1.13.2
-              - -X github.com/coredns/coredns/coremain.GitCommit=0233f3e7c600b730426628f2cf9c829d404a181f
+              - -X github.com/coredns/coredns/coremain.CoreVersion=1.14.0
+              - -X github.com/coredns/coredns/coremain.GitCommit=1c964f2f68bd04a875a41479822ec3da1f1e76ef
             output: ${target.dir}/usr/local/bin/coredns
             packages: .
         - name: set capabilities
