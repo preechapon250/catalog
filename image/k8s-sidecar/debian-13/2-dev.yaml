@@ -78,6 +78,8 @@ contents:
           runs: |
             set -eux -o pipefail
 
+            echo "urllib3==2.6.3" >> "requirements.txt" # CVE-2026-21441
+
             "${target.dir}/app/.venv/bin/python3" -m pip install --no-cache-dir -r requirements.txt
         - name: clean python cache and tests
           runs: |
