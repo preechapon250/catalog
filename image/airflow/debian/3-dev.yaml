@@ -125,12 +125,7 @@ contents:
             set -eux -o pipefail
 
             # Patch constraints file with targeted upgrades to remediate CVEs
-            sed -i 's/aiomysql==0\.2\.0/aiomysql==0.3.0/g' ${source.dir}/airflow/constraints.txt           # CVE-2025-62611
             sed -i 's/cryptography==42\.0\.8/cryptography==44.0.1/g' ${source.dir}/airflow/constraints.txt # GHSA-h4gh-qq45-vh27, CVE-2024-12797
-            sed -i 's/eventlet==0\.40\.2/eventlet==0.40.3/g' ${source.dir}/airflow/constraints.txt         # CVE-2025-58068
-            sed -i 's/h2==4\.2\.0/h2==4.3.0/g' ${source.dir}/airflow/constraints.txt                       # CVE-2025-57804
-            sed -i 's/Authlib==1\.6\.4/Authlib==1.6.5/g' ${source.dir}/airflow/constraints.txt             # CVE-2025-61920
-            sed -i 's/python-ldap==3\.4\.4/python-ldap==3.4.5/' ${source.dir}/airflow/constraints.txt      # CVE-2025-61911, CVE-2025-61912
             sed -i 's/aiohttp==3\.13\.2/aiohttp==3.13.3/' ${source.dir}/airflow/constraints.txt            # CVE-2025-69223, CVE-2025-69227, CVE-2025-69229, CVE-2025-69228, CVE-2025-68161
 
             # starlette 0.49.1 contains a fix for HIGH CVE-2025-62727
@@ -141,7 +136,7 @@ contents:
             sed -i 's/starlette==0\.48\.0/starlette==0.49.1/' ${source.dir}/airflow/constraints.txt # CVE-2025-62727
             echo "starlette==0.49.1" >> ${source.dir}/airflow/overrides.txt                         # CVE-2025-62727
 
-            sed -i 's/urllib3==2\.5\.0/urllib3==2.6.0/' ${source.dir}/airflow/constraints.txt     # CVE-2025-66418, CVE-2025-66471
+            sed -i 's/urllib3==2\.6\.2/urllib3==2.6.3/' ${source.dir}/airflow/constraints.txt     # CVE-2025-66418, CVE-2025-66471
             sed -i 's/filelock==3\.20\.0/filelock==3.20.1/' ${source.dir}/airflow/constraints.txt # CVE-2025-68146
         - name: build
           privileged: true
