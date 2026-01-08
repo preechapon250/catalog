@@ -7,7 +7,6 @@ tags:
   - "0"
   - "0.20"
   - 0.20.0
-  - v0.20.0
   - 0-debian13
   - 0.20-debian13
   - 0.20.0-debian13
@@ -19,7 +18,6 @@ vars:
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 5c2787321948e391ac188584855a7339eb8dd5e1
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
-  GO_VERSION: 1.25.5
   SEMVER_MAJOR_MINOR_VERSION: "0.20"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.20.0
