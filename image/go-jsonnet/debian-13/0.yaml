@@ -17,8 +17,7 @@ vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 67968688d9952f50662e979fab1bef889d0d3e57
-  GO_DIGEST: sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
-  GO_VERSION: 1.25.5
+  GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   SEMVER_MAJOR_MINOR_VERSION: "0.21"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.21.0
@@ -29,12 +28,12 @@ contents:
   builds:
     - name: go-jsonnet
       uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
-      privileged: true
       contents:
         packages:
           - sed
         files:
           - url: git+https://github.com/google/go-jsonnet.git#v0.21.0
+            checksum: 67968688d9952f50662e979fab1bef889d0d3e57
             path: ${source.dir}/go-jsonnet-67968688d9952f50662e979fab1bef889d0d3e57
             spdx:
               name: go-jsonnet
@@ -46,11 +45,6 @@ contents:
             uid: 0
             gid: 0
       pipeline:
-        - name: verify
-          uses: git/checkout@v1
-          with:
-            dir: go-jsonnet-67968688d9952f50662e979fab1bef889d0d3e57
-            expected-commit: 67968688d9952f50662e979fab1bef889d0d3e57
         - name: update go dependencies
           uses: go/bump@v1
           with:
