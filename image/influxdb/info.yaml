@@ -1,0 +1,13 @@
+metadata:
+  display-name: InfluxDB
+  short-description: Scalable datastore for metrics, events, and real-time analytics
+  featured: false
+  home-url: https://www.influxdata.com/
+  categories:
+    - databases-and-storage
+    - monitoring-and-observability
+  included-tools:
+    - name: influxdb
+      description: Primary InfluxDB server.
+    - name: influx-cli
+      description: Command-line client for administrating InfluxDB 2 (available in the v2 dev variant).
