@@ -5,16 +5,6 @@
         "version": "2.4.7"
     },
     {
-        "package": "@babel/runtime",
-        "dev": true,
-        "version": "7.26.10"
-    },
-    {
-        "package": "@babel/core",
-        "dev": true,
-        "version": "7.26.10"
-    },
-    {
         "package": "pbkdf2",
         "dev": false,
         "version": "3.1.3"
