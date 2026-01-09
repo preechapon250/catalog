@@ -94,8 +94,8 @@ contents:
             poetry install --no-interaction --extras 'storage' --project '${target.dir}/opt/kserve/kserve-python'
             pip install 'krbcontext==0.10' 'hdfs~=2.6.0' 'requests-kerberos==0.14.0'
 
-            # CVE remediation: Upgrade urllib3 to fix CVE-2025-66418
-            pip install --upgrade 'urllib3>=2.6.0' # CVE-2025-66418 (HIGH 8.9)
+            # CVE remediation
+            pip install --upgrade 'urllib3>=2.6.3' # CVE-2026-21441
         - name: pth and entrypoint
           runs: |
             set -eux -o pipefail
