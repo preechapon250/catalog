@@ -110,7 +110,7 @@ contents:
 
             sed -i 's/setuptools==75\.8\.2/setuptools==78.1.1/' requirements.txt               # fix CVE-2025-47273 (high)
             sed -i 's/python-json-logger==3\.2\.1/python-json-logger==3.3.0/' requirements.txt # fix CVE-2025-27607 (high)
-            sed -i 's/urllib3==2\.3\.0/urllib3==2.6.0/' requirements.txt                       # fix CVE-2025-50182, CVE-2025-50181, CVE-2025-66471, CVE-2025-66418
+            sed -i 's/urllib3==2\.3\.0/urllib3==2.6.3/' requirements.txt                       # fix CVE-2026-21441 (high)
             sed -i 's/requests==2\.32\.3/requests==2.32.4/' requirements.txt                   # fix CVE-2024-47081 (medium)
             sed -i 's/flask==3\.1\.0/flask==3.1.1/' requirements.txt                           # fix CVE-2025-47278 (low)
             sed -i 's/werkzeug==3\.1\.3/werkzeug==3.1.4/' requirements.txt                     # fix CVE-2025-66221
