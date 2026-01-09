@@ -10,12 +10,130 @@ For example:
 
 For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
-### Run an InfluxDB container
+Two versions of InfluxDB are available: InfluxDB v2 and InfluxDB v3 Core. They are significantly different. Please refer
+to the correct section for the version you are using.
 
-Run the following command.
+## InfluxDB v3 Core
+
+The OSS Core version of InfluxDB v3 is available with `3-core` tags. Run the following command to start an InfluxDB v3
+container:
 
 ```
-$ docker run -p 8086:8086 dhi.io/influxdb:<tag>
+$ docker run -p 8181:8181 dhi.io/influxdb:3-core
+```
+
+> [!WARNING]
+>
+> The above command will start `influxdb3` in
+> [Quick-start mode](https://docs.influxdata.com/influxdb3/core/reference/cli/influxdb3/#quick-start-mode). Quick-start
+> mode is designed for development and testing environments. For production deployments, use explicit configuration with
+> the `serve` subcommand and specify all required parameters as described in the
+> [documentation](https://docs.influxdata.com/influxdb3/core/reference/cli/influxdb3/serve/).
+
+### Setting up InfluxDB v3 Core
+
+Here's a complete example using Docker Compose to set up InfluxDB v3, initialize it, and write data:
+
+```yaml
+services:
+  influxdb3:
+    image: dhi.io/influxdb:3-core
+    environment:
+      INFLUXDB3_DISABLE_AUTHZ: health
+    command:
+      - serve
+      - --node-id
+      - node1
+    ports:
+      - "8181:8181"
+    networks:
+      - influx
+
+  influxdb3-ready-check:
+    image: dhi.io/curl:8
+    entrypoint:
+      - curl
+    command:
+      - http://influxdb3:8181/health
+    restart: on-failure
+    depends_on:
+      influxdb3:
+        condition: service_started
+    networks:
+      - influx
+
+  influxdb3-cli:
+    image: dhi.io/influxdb:3-core-dev
+    environment:
+      INFLUXDB3_HOST_URL: http://influxdb3:8181
+    entrypoint:
+      - bash
+      - -xc
+    command:
+      - |
+        apt update
+        apt install -y jq
+
+        export INFLUXDB3_AUTH_TOKEN=$(influxdb3 create token --admin --format json | jq -r '.token')
+
+        influxdb3 create database test
+
+        influxdb3 write --database test --precision s \
+        'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+        home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+        home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+        home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+        home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+        home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+        home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+        home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+        home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+        home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+        home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+        home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+        home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+        home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+        home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+        home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+        home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+        home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+        home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+        home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+        home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+        home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+        home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+        home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+        home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+        home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
+
+        influxdb3 query --database test "SELECT avg(temp) AS avg_temp FROM home WHERE room = 'Kitchen'"
+        influxdb3 query --database test --language=influxql "SELECT MEAN(temp) AS avg_temp FROM home WHERE room = 'Living Room'"
+    depends_on:
+      influxdb3-ready-check:
+        condition: service_completed_successfully
+    networks:
+      - influx
+
+networks:
+  influx:
+    driver: bridge
+```
+
+This example demonstrates:
+
+- Starting an InfluxDB v3 server with explicit configuration
+- Waiting for the server to be ready
+- Creating an authentication token
+- Creating a database
+- Writing sample time-series data
+- Querying the data using both SQL and InfluxQL
+
+## InfluxDB v2
+
+Run the following command to start an InfluxDB v2 container:
+
+```
+$ docker run -p 8086:8086 dhi.io/influxdb:2
 ```
 
 ### Configuration

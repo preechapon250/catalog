@@ -7,7 +7,9 @@ metadata:
     - databases-and-storage
     - monitoring-and-observability
   included-tools:
-    - name: influxdb
-      description: Primary InfluxDB server.
+    - name: influxdb3
+      description: InfluxDB v3 Core server and CLI.
+    - name: influxd
+      description: InfluxDB v2 server.
     - name: influx-cli
-      description: Command-line client for administrating InfluxDB 2 (available in the v2 dev variant).
+      description: CLI for administrating InfluxDB v2 (available in the v2 dev variant).
