@@ -41,26 +41,29 @@ Then the webhook can be configured with either
 ### Basic usage
 
 ```bash
-# Run the
+# Display help information
 docker run --rm --name cert-manager-webhook \
-  dhi.io/cert-manager-webhook:<tag> help
+  dhi.io/cert-manager-webhook:<tag> --help
 ```
 
-### Environment variables
+### Command-line flags
 
-The upstream utility accepts configuration via command-line flags and commonly uses the Kubernetes client configuration.
-When running via Docker, the following environment variables and mounts are commonly used to provide cluster access.
+The webhook binary accepts configuration via command-line flags. When running via Docker, commonly used flags include:
 
-| Variable   | Description                                                                      | Default | Required                                                         |
-| ---------- | -------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------- |
-| KUBECONFIG | Path inside container to a kubeconfig file used to connect to the target cluster | none    | No (either provide KUBECONFIG or rely on in-cluster credentials) |
-| VERBOSE    | Enable verbose logging output (if supported by binary)                           | false   | No                                                               |
+| Flag           | Description                                                                      | Default | Required                                                           |
+| -------------- | -------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------ |
+| `--kubeconfig` | Path inside container to a kubeconfig file used to connect to the target cluster | none    | No (either provide --kubeconfig or rely on in-cluster credentials) |
+| `-v`, `--v`    | Log level verbosity (number)                                                     | 0       | No                                                                 |
 
 Example:
 
 ```bash
-$ docker run --rm -v ~/.kube/config:/kube/config:ro -e KUBECONFIG=/kube/config \
-  dhi.io/cert-manager-webhook:<tag>
+# Mount kubeconfig and use --kubeconfig flag
+$ docker run --rm -v ~/.kube/config:/kube/config:ro \
+  dhi.io/cert-manager-webhook:<tag> --kubeconfig /kube/config
+
+# Enable verbose logging
+$ docker run --rm dhi.io/cert-manager-webhook:<tag> -v 2
 ```
 
 ## Non-hardened images vs. Docker Hardened Images
