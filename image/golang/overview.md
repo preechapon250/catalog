@@ -8,12 +8,6 @@ For more details, visit https://golang.org
 
 ## About Socket Firewall
 
-The `sfw-dev` variant comes with Socket Firewall Free preinstalled and configured. Socket Firewall Free is a lightweight
-tool that protects developer machines in real time, blocking malicious dependencies before they ever reach your laptop
-or build system. It works out of the box — no API key and no configuration required.
-
-For more details, visit https://github.com/SocketDev/sfw-free.
-
 The `sfw-ent-dev` variant has the Socket Firewall Enterprise preconfigured. This version requires an API key from
 Socket.
 
