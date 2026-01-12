@@ -16,7 +16,7 @@ dates:
   release: "2023-10-02"
   end-of-life: "2028-10-31"
 vars:
-  PKG_PYTHON_REFERENCE: dhi/pkg-python:3.12.12-debian13@sha256:3db1e6e8f0d900600344acdd15a8ae08c7cb01116c3974196b65a6a9df1d44c4
+  PKG_PYTHON_REFERENCE: dhi/pkg-python:3.12.12-debian13@sha256:78d8ea4f3c707352348278ce8d3a4e8f99abb4410713c3190fb7e3c7c6e7a345
   PYTHON_MAJOR_MINOR_VERSION: "3.12"
   PYTHON_MAJOR_VERSION: "3"
   PYTHON_VERSION: 3.12.12
@@ -123,7 +123,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-python:3.12.12-debian13@sha256:3db1e6e8f0d900600344acdd15a8ae08c7cb01116c3974196b65a6a9df1d44c4
+    - name: dhi.io/pkg-python:3.12.12-debian13@sha256:78d8ea4f3c707352348278ce8d3a4e8f99abb4410713c3190fb7e3c7c6e7a345
       includes:
         - opt/**
       uid: 0
