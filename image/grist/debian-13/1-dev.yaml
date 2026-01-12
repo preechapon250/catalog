@@ -6,28 +6,28 @@ variant: dev
 tags:
   - 1-dev
   - 1.7-dev
-  - 1.7.9-dev
+  - 1.7.10-dev
   - 1-debian13-dev
   - 1.7-debian13-dev
-  - 1.7.9-debian13-dev
+  - 1.7.10-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: 71c7e1e5132d934ab96bef8feb63b53d6507c7a3
+  COMMIT_SHA: fd80abacf2924fa33311d133c441558d297c5ce7
   NODE_BUILD_REFERENCE: dhi/node:22.21.1-debian13-dev@sha256:9f2cc2b28df3ddcbf95208b8bd18df85fdc2ef63fc89b2a8bd2e9ec31731f873
   NODE_BUILD_VERSION: 22.21.1
   NODE_REFERENCE: dhi/node:22.21.1-debian13@sha256:0d6e73ed8ef32058056c3b26642622d8a04f551ed73f83e66dbd83ab046f9112
   NODE_VERSION: 22.21.1
   PYTHON_BUILD_MAJOR_MINOR: "3.11"
-  PYTHON_BUILD_REFERENCE: dhi/python:3.11.14-debian13-dev@sha256:26d347ab41bf525ead393378d476376a4b0ff74c8617faa92d71e1c72799a102
+  PYTHON_BUILD_REFERENCE: dhi/python:3.11.14-debian13-dev@sha256:dc57f7a2061f7689be5a66aa1a16c44c830b668962e165865a7f58954cb4b1d8
   PYTHON_BUILD_VERSION: 3.11.14
-  PYTHON_REFERENCE: dhi/python:3.11.14-debian13@sha256:04a0800899b60ef39a724eddbf105f2985e575fc1663644450efc1cc86f0eca3
+  PYTHON_REFERENCE: dhi/python:3.11.14-debian13@sha256:19b5990f98f09afe959f961123ce2a9cd87168ecf30ffcc718c51b74a6a4de95
   PYTHON_VERSION: 3.11.14
   SEMVER_MAJOR_MINOR_VERSION: "1.7"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.7.9
-  VERSION: 1.7.9
+  SEMVER_VERSION: 1.7.10
+  VERSION: 1.7.10
 contents:
   packages:
     - '!gawk'
@@ -62,20 +62,20 @@ contents:
           - gcc
           - g++
         files:
-          - url: git+https://github.com/gristlabs/grist-core.git#v1.7.9
-            checksum: 71c7e1e5132d934ab96bef8feb63b53d6507c7a3
+          - url: git+https://github.com/gristlabs/grist-core.git#v1.7.10
+            checksum: fd80abacf2924fa33311d133c441558d297c5ce7
             path: ${source.dir}/grist
             spdx:
               name: grist
-              version: 1.7.9
+              version: 1.7.10
               packages:
                 - name: grist
-                  purl: pkg:dhi/grist@1.7.9
+                  purl: pkg:dhi/grist@1.7.10
                   license: Apache-2.0
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/python:3.11.14-debian13-dev@sha256:26d347ab41bf525ead393378d476376a4b0ff74c8617faa92d71e1c72799a102
+          - name: dhi.io/python:3.11.14-debian13-dev@sha256:dc57f7a2061f7689be5a66aa1a16c44c830b668962e165865a7f58954cb4b1d8
             includes:
               - opt/**
             uid: 0
@@ -140,21 +140,21 @@ contents:
           uid: 0
           gid: 0
     - name: grist-python
-      uses: dhi.io/python:3.11.14-debian13-dev@sha256:26d347ab41bf525ead393378d476376a4b0ff74c8617faa92d71e1c72799a102
+      uses: dhi.io/python:3.11.14-debian13-dev@sha256:dc57f7a2061f7689be5a66aa1a16c44c830b668962e165865a7f58954cb4b1d8
       contents:
         packages:
           - coreutils
           - bash
         files:
-          - url: git+https://github.com/gristlabs/grist-core.git#v1.7.9
-            checksum: 71c7e1e5132d934ab96bef8feb63b53d6507c7a3
+          - url: git+https://github.com/gristlabs/grist-core.git#v1.7.10
+            checksum: fd80abacf2924fa33311d133c441558d297c5ce7
             path: ${source.dir}/grist
             spdx:
               name: grist
-              version: 1.7.9
+              version: 1.7.10
               packages:
                 - name: grist
-                  purl: pkg:dhi/grist@1.7.9
+                  purl: pkg:dhi/grist@1.7.10
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -183,7 +183,7 @@ contents:
         - usr/local/bin/**
       uid: 0
       gid: 0
-    - name: dhi.io/python:3.11.14-debian13@sha256:04a0800899b60ef39a724eddbf105f2985e575fc1663644450efc1cc86f0eca3
+    - name: dhi.io/python:3.11.14-debian13@sha256:19b5990f98f09afe959f961123ce2a9cd87168ecf30ffcc718c51b74a6a4de95
       includes:
         - opt/**
         - usr/**
