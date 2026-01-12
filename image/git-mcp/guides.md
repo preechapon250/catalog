@@ -32,6 +32,7 @@ Add to your `claude_desktop_config.json`:
         "-i",
         "-v", "/path/to/repository:/repo:rw",
         "dhi.io/git-mcp",
+        "--repository",
         "/repo"
       ]
     }
@@ -49,17 +50,7 @@ Basic usage with a mounted repository:
 docker run --rm -i \
   -v "$PWD:/repo:rw" \
   dhi.io/git-mcp \
-  /repo
-```
-
-With multiple repositories:
-
-```bash
-docker run --rm -i \
-  -v "$HOME/project1:/repo1:rw" \
-  -v "$HOME/project2:/repo2:rw" \
-  dhi.io/git-mcp \
-  /repo1 /repo2
+  --repository /repo
 ```
 
 Read-only access:
@@ -68,7 +59,7 @@ Read-only access:
 docker run --rm -i \
   -v "$PWD:/repo:ro" \
   dhi.io/git-mcp \
-  /repo
+  --repository /repo
 ```
 
 ### Available Tools
@@ -143,7 +134,7 @@ docker run --rm -i \
   -v "$PWD:/repo:rw" \
   -v "$HOME/.ssh:/home/nonroot/.ssh:ro" \
   dhi.io/git-mcp \
-  /repo
+  --repository /repo
 ```
 
 **Git Config:**
@@ -153,7 +144,7 @@ docker run --rm -i \
   -v "$PWD:/repo:rw" \
   -v "$HOME/.gitconfig:/home/nonroot/.gitconfig:ro" \
   dhi.io/git-mcp \
-  /repo
+  --repository /repo
 ```
 
 ### Performance Tips
@@ -173,7 +164,7 @@ docker run --rm -i \
 
 ### Key differences
 
-| Feature         | Non-hardened Argo CD                | Docker Hardened Argo CD                             |
+| Feature         | Non-hardened Git MCP                | Docker Hardened Git MCP                             |
 | --------------- | ----------------------------------- | --------------------------------------------------- |
 | Security        | Standard base with common utilities | Minimal, hardened base with security patches        |
 | Shell access    | Full shell (bash/sh) available      | No shell in runtime variants                        |
@@ -210,8 +201,9 @@ or mount debugging tools with the Image Mount feature:
 
 ```
 docker run --rm -it --pid container:my-git-mcp \
-  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
-  dhi.io/git-mcp:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox:1,destination=/dbg,ro \
+  --entrypoint /dbg/bin/sh \
+  dhi.io/git-mcp:<tag>
 ```
 
 ## Image variants
@@ -239,7 +231,7 @@ variants use cryptographic modules that have been validated under FIPS 140, a U.
 cryptographic operations.
 
 For example, usage of MD5 fails in FIPS variants. To verify FIPS compliance, check the cryptographic module version in
-use by your Argo CD instance.
+use by your Git MCP instance.
 
 ## Migrate to a Docker Hardened Image
 
@@ -254,7 +246,7 @@ following table of migration notes:
 | Non-root user      | By default, non-dev images, intended for runtime, run as the nonroot user. Ensure that necessary files and directories are accessible to the nonroot user.                                                                                                           |
 | Multi-stage build  | Utilize images with a dev tag for build stages and non-dev images for runtime. For binary executables, use a static image for runtime.                                                                                                                               |
 | TLS certificates   | Docker Hardened Images contain standard TLS certificates by default. There is no need to install TLS certificates.                                                                                                                                                   |
-| Ports              | Non-dev hardened images run as a nonroot user by default. As a result, applications in these images can't bind to privileged ports (below 1024) when running in Kubernetes or in Docker Engine versions older than 20.10. Argo CD default ports work without issues. |
+| Ports              | Non-dev hardened images run as a nonroot user by default. As a result, applications in these images can't bind to privileged ports (below 1024) when running in Kubernetes or in Docker Engine versions older than 20.10. Git MCP default ports work without issues. |
 | Entry point        | Docker Hardened Images may have different entry points than images such as Docker Official Images. Inspect entry points for Docker Hardened Images and update your Dockerfile if necessary.                                                                          |
 | No shell           | By default, non-dev images, intended for runtime, don't contain a shell. Use dev images in build stages to run shell commands and then copy artifacts to the runtime stage.                                                                                          |
 
