@@ -18,7 +18,7 @@ Fluent Bit is a lightweight and high performance log processor.
 
 Run the following command to start a Fluent Bit container. The image contains the default configuration at
 /etc/fluent-bit/fluent-bit.conf, which can be replaced with a custom `fluent-bit.conf` by replacing
-`<path-to-your-configuration-file>` with the path to the folder containing your `fluent.conf`
+`<path-to-your-configuration-file>` with the path to your `fluent-bit.conf` file
 
 ```bash
 # default conf file
@@ -28,7 +28,7 @@ $ docker run --rm --name my-fluentbit -p 24224:24224 \
 # custom conf file
 $ docker run --rm --name my-fluentbit -p 24224:24224 \
   -v <path-to-your-configuration-file>:/etc/fluent-bit/fluent-bit.conf \
-  dhi.io/fluent-bit:<tag> -c /etc/fluent-bit/fluent.conf
+  dhi.io/fluent-bit:<tag> -c /etc/fluent-bit/fluent-bit.conf
 ```
 
 ## Common Fluent Bit use cases
@@ -37,25 +37,29 @@ $ docker run --rm --name my-fluentbit -p 24224:24224 \
 
 Create a simple configuration to receive logs via HTTP and output to stdout:
 
-Create `fluent.conf`:
+Create `fluent-bit.conf`:
 
 ```conf
-<source>
-  @type http
-  port 9880
-  bind 0.0.0.0
-</source>
+[SERVICE]
+    Flush        1
+    Daemon       Off
+    Log_Level    info
 
-<match **>
-  @type stdout
-</match>
+[INPUT]
+    Name http
+    Port 9880
+    Host 0.0.0.0
+
+[OUTPUT]
+    Name stdout
+    Match *
 ```
 
 Run Fluent Bit with the configuration:
 
 ```bash
 docker run --name fluentbit-http -p 9880:9880 \
-  -v $(pwd):/etc/fluent-bit/fluent-bit.conf \
+  -v $(pwd)/fluent-bit.conf:/etc/fluent-bit/fluent-bit.conf \
   dhi.io/fluent-bit:<tag> -c /etc/fluent-bit/fluent-bit.conf
 ```
 
@@ -69,30 +73,38 @@ curl -X POST -d 'json={"message":"hello world"}' http://localhost:9880/test.log
 
 Deploy Fluent Bit as a DaemonSet to collect container logs:
 
-Create `fluent.conf`:
+Create `fluent-bit.conf`:
 
 ```conf
-<source>
-  @type tail
-  path /var/log/containers/*.log
-  pos_file /tmp/fluent-bit-containers.log.pos
-  tag kubernetes.*
-  <parse>
-    @type json
-    time_format %Y-%m-%dT%H:%M:%S.%NZ
-  </parse>
-</source>
+[SERVICE]
+    Flush        1
+    Daemon       Off
+    Log_Level    info
 
-<filter kubernetes.**>
-  @type kubernetes_metadata
-</filter>
+[INPUT]
+    Name tail
+    Path /var/log/containers/*.log
+    multiline.parser docker, cri
+    Tag kubernetes.*
+    DB /tmp/fluent-bit-containers.log.pos
+    Mem_Buf_Limit 5MB
+    Skip_Long_Lines On
 
-<match **>
-  @type elasticsearch
-  host elasticsearch.logging.svc.cluster.local
-  port 9200
-  index_name fluent-bit-k8s
-</match>
+[FILTER]
+    Name kubernetes
+    Match kubernetes.*
+    Merge_Log On
+    Keep_Log Off
+    K8S-Logging.Parser On
+    K8S-Logging.Exclude Off
+
+[OUTPUT]
+    Name es
+    Match *
+    Host elasticsearch.logging.svc.cluster.local
+    Port 9200
+    Index fluent-bit-k8s
+    Type _doc
 ```
 
 ### Install Fluent Bit using Helm
@@ -109,21 +121,21 @@ helm upgrade --install fluent-bit fluent/fluent-bit \
   --set image.registry=dhi.io \
   --set image.repository=fluent-bit \
   --set image.tag=<tag> \
-  --set command=/usr/bin/fluent-bit
+  --set command=/usr/local/bin/fluent-bit
 ```
 
 ## Docker Official Images vs Docker Hardened Images
 
 ### Key differences
 
-| Feature             | Docker Official Fluentd             | Docker Hardened Fluentd                             |
+| Feature             | Docker Official Fluent Bit          | Docker Hardened Fluent Bit                          |
 | ------------------- | ----------------------------------- | --------------------------------------------------- |
 | Security            | Standard base with common utilities | Minimal, hardened base with security patches        |
-| Shell access        | Full shell (bash/sh) available      | No shell in runtime variants                        |
+| Shell access        | Full shell (bash/sh) available      | Shell available but not recommended for production  |
 | Package manager     | apt/apk available                   | No package manager in runtime variants              |
 | User                | Runs as root by default             | Runs as nonroot user for enhanced security          |
 | Attack surface      | Larger due to additional utilities  | Minimal, only essential components                  |
-| Plugin installation | Direct gem install in runtime       | Multi-stage build required for plugins              |
+| Plugin installation | Direct plugin install in runtime    | Multi-stage build required for plugins              |
 | Debugging           | Traditional shell debugging         | Use Docker Debug or Image Mount for troubleshooting |
 | Base OS             | Various Alpine/Debian versions      | Hardened Debian 13 base                             |
 
@@ -155,8 +167,9 @@ or mount debugging tools with the Image Mount feature:
 
 ```bash
 docker run --rm -it --pid container:my-fluent-bit \
-  --mount=type=image,source=dhi.io/busybox,destination=/dbg,ro \
-  dhi.io/fluent-bit:<tag> /dbg/bin/sh
+  --mount=type=image,source=dhi.io/busybox:1,destination=/dbg,ro \
+  --entrypoint /dbg/bin/sh \
+  dhi.io/fluent-bit:<tag>
 ```
 
 ## Image variants
@@ -186,7 +199,7 @@ cryptographic operations. For example, usage of MD5 fails in FIPS variants.
 - **Runtime variants** (e.g., `4.1`, `4.1.1`, `4.1-debian13`): Minimal images for production use running as nonroot user
   (65532)
 
-All variants are based on hardened Debian 13 and include Fluentd version 4.1.x
+All variants are based on hardened Debian 13 and include Fluent Bit version 4.1.x
 
 ## Migrate to a Docker Hardened Image
 
@@ -194,17 +207,17 @@ To migrate your application to a Docker Hardened Image, you must update your Doc
 base image in your existing Dockerfile to a Docker Hardened Image. This and a few other common changes are listed in the
 following table of migration notes.
 
-| Item                | Migration note                                                                                                                                                                                                                                                |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Base image          | Replace your base images in your Dockerfile with a Docker Hardened Image.                                                                                                                                                                                     |
-| Package management  | Runtime variants don't contain package managers. Use package managers only in images with a `dev` tag.                                                                                                                                                        |
-| Non-root user       | By default, runtime variants run as the nonroot user (65532). Ensure that necessary files and directories are accessible to the nonroot user.                                                                                                                 |
-| Multi-stage build   | Utilize images with a `dev` tag for build stages and runtime variants for runtime.                                                                                                                                                                            |
-| TLS certificates    | Docker Hardened Images contain standard TLS certificates by default. There is no need to install TLS certificates.                                                                                                                                            |
-| Ports               | Runtime variants run as a nonroot user by default. As a result, applications in these images can't bind to privileged ports (below 1024) when running in Kubernetes or in Docker Engine versions older than 20.10. Configure Fluentd to use ports above 1024. |
-| Entry point         | Docker Hardened Images may have different entry points than images such as Docker Official Images. Inspect entry points for Docker Hardened Images and update your Dockerfile if necessary.                                                                   |
-| No shell            | By default, runtime variants, intended for runtime, don't contain a shell. Use dev images in build stages to run shell commands and then copy artifacts to the runtime stage.                                                                                 |
-| Plugin installation | Plugins must be installed in development variants during build stage and copied to runtime images.                                                                                                                                                            |
+| Item                | Migration note                                                                                                                                                                                                                                                   |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Base image          | Replace your base images in your Dockerfile with a Docker Hardened Image.                                                                                                                                                                                        |
+| Package management  | Runtime variants don't contain package managers. Use package managers only in images with a `dev` tag.                                                                                                                                                           |
+| Non-root user       | By default, runtime variants run as the nonroot user (65532). Ensure that necessary files and directories are accessible to the nonroot user.                                                                                                                    |
+| Multi-stage build   | Utilize images with a `dev` tag for build stages and runtime variants for runtime.                                                                                                                                                                               |
+| TLS certificates    | Docker Hardened Images contain standard TLS certificates by default. There is no need to install TLS certificates.                                                                                                                                               |
+| Ports               | Runtime variants run as a nonroot user by default. As a result, applications in these images can't bind to privileged ports (below 1024) when running in Kubernetes or in Docker Engine versions older than 20.10. Configure Fluent Bit to use ports above 1024. |
+| Entry point         | Docker Hardened Images may have different entry points than images such as Docker Official Images. Inspect entry points for Docker Hardened Images and update your Dockerfile if necessary.                                                                      |
+| No shell            | By default, runtime variants, intended for runtime, don't contain a shell. Use dev images in build stages to run shell commands and then copy artifacts to the runtime stage.                                                                                    |
+| Plugin installation | Plugins must be installed in development variants during build stage and copied to runtime images.                                                                                                                                                               |
 
 The following steps outline the general migration process.
 
@@ -280,7 +293,7 @@ to inspect entry points for Docker Hardened Images and update your Dockerfile if
 
 When migrating custom plugins or configurations:
 
-- Test plugin compatibility with Ruby version in DHI Fluent Bit
+- Test plugin compatibility with Fluent Bit version in DHI image
 - Verify plugin dependencies are included in build stage
 - Ensure file permissions are correct after copying plugins
 - Use multi-stage builds to keep runtime image minimal

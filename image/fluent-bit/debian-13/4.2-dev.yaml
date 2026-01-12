@@ -159,6 +159,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 environment:
   DEBIAN_FRONTEND: noninteractive
+  FLUENT_BIT_VERSION: 4.2.2
 paths:
   - type: symlink
     path: /fluent-bit/bin/fluent-bit
