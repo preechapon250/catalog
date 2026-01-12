@@ -1,15 +1,16 @@
 # syntax=dhi.io/build:2-debian13
 
-name: Vault 1.x (dev)
+name: Vault 1.x (helm)
 image: dhi.io/vault
-variant: dev
+variant: runtime
+flavor: helm
 tags:
-  - 1-dev
-  - 1.21-dev
-  - 1.21.2-dev
-  - 1-debian13-dev
-  - 1.21-debian13-dev
-  - 1.21.2-debian13-dev
+  - 1-helm
+  - 1.21-helm
+  - 1.21.2-helm
+  - 1-debian13-helm
+  - 1.21-debian13-helm
+  - 1.21.2-debian13-helm
 platforms:
   - linux/amd64
   - linux/arm64
@@ -27,24 +28,11 @@ vars:
   VERSION: 1.21.2
 contents:
   packages:
-    - '!base-files'
-    - '!gawk'
-    - '!libelogind0'
-    - '!original-awk'
-    - apt
     - bash
-    - ca-certificates
     - coreutils
-    - diffutils
-    - dpkg
     - findutils
-    - grep
-    - libc-bin
-    - mawk
-    - perl-base
     - sed
     - tini
-    - util-linux
   builds:
     - name: vault
       uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
@@ -129,15 +117,11 @@ contents:
       uid: 0
       gid: 0
 accounts:
-  root: true
-  run-as: root
+  run-as: vault
   users:
     - name: vault
       uid: 1000
       gid: 1000
-    - name: _apt
-      uid: 42
-      gid: 65532
   groups:
     - name: vault
       gid: 1000
@@ -151,11 +135,20 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
-environment:
-  DEBIAN_FRONTEND: noninteractive
 paths:
+  - type: file
+    path: /usr/local/bin/docker-entrypoint.sh
+    uid: 0
+    gid: 0
+    mode: "0755"
+    source: image/vault/bin/docker-entrypoint-helm.sh
   - type: directory
-    path: /vault
+    path: /vault/data
+    uid: 1000
+    gid: 1000
+    mode: "0755"
+  - type: directory
+    path: /vault/config
     uid: 1000
     gid: 1000
     mode: "0755"
@@ -169,18 +162,11 @@ paths:
     uid: 1000
     gid: 1000
     mode: "0755"
-  - type: directory
-    path: /vault/config
-    uid: 1000
-    gid: 1000
-    mode: "0755"
 annotations:
   org.opencontainers.image.description: A minimal Vault image
   org.opencontainers.image.licenses: BUSL-1.1
 entrypoint:
-  - tini
-  - --
-  - vault
+  - /usr/local/bin/docker-entrypoint.sh
 cmd:
   - server
   - -config=/vault/config

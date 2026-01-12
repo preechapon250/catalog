@@ -28,6 +28,7 @@ vars:
 contents:
   packages:
     - '!base-files'
+    - tini
   builds:
     - name: vault
       uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
@@ -155,6 +156,8 @@ annotations:
   org.opencontainers.image.description: A minimal Vault image
   org.opencontainers.image.licenses: BUSL-1.1
 entrypoint:
+  - tini
+  - --
   - vault
 cmd:
   - server

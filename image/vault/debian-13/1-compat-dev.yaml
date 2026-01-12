@@ -22,6 +22,8 @@ vars:
   COMMIT_SHA: 781ba452d731fe2d59ccbc1b37ca7c5a18edb998
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_VERSION: 1.25.5
+  GOSU_REFERENCE: dhi/pkg-gosu:1.19-debian13@sha256:70bdd23b79275347618c96e0b88afbacf136378886d3932deeca323f5d180f95
+  GOSU_VERSION: "1.19"
   SEMVER_MAJOR_MINOR_VERSION: "1.21"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.21.2
@@ -37,13 +39,14 @@ contents:
     - coreutils
     - diffutils
     - dpkg
-    - dumb-init
     - findutils
     - grep
     - libc-bin
+    - libcap2-bin
     - mawk
     - perl-base
     - sed
+    - tini
     - util-linux
   builds:
     - name: vault
@@ -90,15 +93,6 @@ contents:
               - -X github.com/hashicorp/vault/version.BuildDate=$(date -u -d @${SOURCE_DATE_EPOCH} +'%FT%TZ')
             output: ${target.dir}/usr/local/bin/vault
             tags: vault
-        - name: setcap
-          runs: |
-            set -eux -o pipefail
-
-            # Grants the binary the CAP_IPC_LOCK capability
-            # This process requires root access and was being done in the live
-            # environment in the upstream image file but does lock us into the
-            # production variant
-            setcap cap_ipc_lock=+ep '${target.dir}/usr/local/bin/vault'
       outputs:
         - source: ${target.dir}/usr/local/bin
           target: /usr/local/bin
@@ -109,23 +103,10 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/static:20250419-debian13@sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
+    - name: dhi.io/pkg-gosu:1.19-debian13@sha256:70bdd23b79275347618c96e0b88afbacf136378886d3932deeca323f5d180f95
       includes:
-        - bin
-        - etc
-        - home
-        - lib
-        - lib64
-        - opt
-        - sbin
-        - tmp
-        - usr
-        - var
-      excludes:
-        - etc/group
-        - etc/os-release
-        - etc/passwd
-        - var/lib/dpkg/status
+        - opt/docker/sbom/gosu
+        - usr/local/sbin/gosu
       uid: 0
       gid: 0
 accounts:
@@ -153,14 +134,13 @@ os-release:
   bug-report-url: https://docker.com/support/
 environment:
   DEBIAN_FRONTEND: noninteractive
-  SKIP_SETCAP: "true"
 paths:
   - type: file
     path: /usr/local/bin/docker-entrypoint.sh
-    uid: 1000
-    gid: 1000
+    uid: 0
+    gid: 0
     mode: "0755"
-    source: image/vault/bin/docker-entrypoint.sh
+    source: image/vault/bin/docker-entrypoint-compat.sh
   - type: directory
     path: /vault/data
     uid: 1000
@@ -187,7 +167,6 @@ annotations:
 entrypoint:
   - /usr/local/bin/docker-entrypoint.sh
 cmd:
-  - vault
   - server
   - -config=/vault/config
 ports:

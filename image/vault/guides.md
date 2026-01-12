@@ -33,6 +33,8 @@ environments where security and compliance matter.
 This is explained in the [Hashicorp Vault](https://developer.hashicorp.com/vault/docs/configuration#disable_mlock)
 documentation further.
 
+To run without the `mlock` capability, use the `compat` variant.
+
 ### Basic (dev) usage — quick local testing only
 
 The Vault "dev" mode is useful for local testing and CI but is insecure and should never be used in production. The dev
