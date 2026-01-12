@@ -212,6 +212,8 @@ contents:
               "prismjs@1.27.0": "1.30.0"  # CVE-2024-53382
               "axios@1.11.0": "1.12.0"    # CVE-2025-58754
               "mdast-util-to-hast@13.2.0": "13.2.1"    # CVE-2025-66400
+              "@remix-run/router": "1.23.2" # CVE-2026-22029
+              "react-router-dom@6.30.0": "6.30.3"
             EOF
 
             /opt/nodejs/node-v22.21.1/bin/corepack pnpm install
