@@ -11,7 +11,7 @@ platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  BINUTILS_REFERENCE: dhi/pkg-binutils:2.45-debian12@sha256:4ea659341b038dc65192c62796fe800e8ad0f002816081c54a23048f3dc977ce
+  BINUTILS_REFERENCE: dhi/pkg-binutils:2.45-debian12@sha256:84e2b257f650047d79895d79e3becead653a915923c3aa1a03a525387bb5517d
   COMMIT_SHA: cfd0913912c3975a96940300429d35fb6cce2bfb
   DEBIAN_REFERENCE: dhi/debian-base:bookworm-debian12@sha256:78460c20e2974580c3c7b2e3572be57f31fd1b7b3cea7c55ecd6d563c0cb15bb
   DHI_TAGS_OVERWRITE: "true"
@@ -118,7 +118,7 @@ contents:
           gid: 0
           mode: "0644"
   artifacts:
-    - name: dhi.io/pkg-binutils:2.45-debian12@sha256:4ea659341b038dc65192c62796fe800e8ad0f002816081c54a23048f3dc977ce
+    - name: dhi.io/pkg-binutils:2.45-debian12@sha256:84e2b257f650047d79895d79e3becead653a915923c3aa1a03a525387bb5517d
       excludes:
         - etc/group
         - etc/os-release
