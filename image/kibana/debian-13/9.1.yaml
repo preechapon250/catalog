@@ -5,9 +5,9 @@ image: dhi.io/kibana
 variant: runtime
 tags:
   - "9.1"
-  - 9.1.9
+  - 9.1.10
   - 9.1-debian13
-  - 9.1.9-debian13
+  - 9.1.10-debian13
 platforms:
   - linux/amd64
   - linux/arm64
@@ -15,7 +15,7 @@ dates:
   release: "2025-07-23"
 vars:
   ARCH: '#{ target.arch == "amd64" ? "amd64" : "arm64" }'
-  COMMIT_SHA: 126c439648663caa7554075ebc3d1e9a6f8ad93c
+  COMMIT_SHA: 3c5e7066866006c39ba40861ab0c05b6406ed357
   GO_ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
   NODE_ARCH: '#{ target.arch == "amd64" ? "x64" : "arm64" }'
   NODE_DIGEST: sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
@@ -23,8 +23,8 @@ vars:
   NODE_VERSION: 22.21.1
   SEMVER_MAJOR_MINOR_VERSION: "9.1"
   SEMVER_MAJOR_VERSION: "9"
-  SEMVER_VERSION: 9.1.9
-  VERSION: 9.1.9
+  SEMVER_VERSION: 9.1.10
+  VERSION: 9.1.10
 contents:
   packages:
     - '!libelogind0'
@@ -45,15 +45,15 @@ contents:
           - bash
           - jq
         files:
-          - url: git+https://github.com/elastic/kibana.git#v9.1.9
-            checksum: 126c439648663caa7554075ebc3d1e9a6f8ad93c
+          - url: git+https://github.com/elastic/kibana.git#v9.1.10
+            checksum: 3c5e7066866006c39ba40861ab0c05b6406ed357
             path: ${source.dir}/kibana
             spdx:
               name: kibana
-              version: 9.1.9
+              version: 9.1.10
               packages:
                 - name: kibana
-                  purl: pkg:dhi/kibana@9.1.9
+                  purl: pkg:dhi/kibana@9.1.10
                   license: Apache-2.0
             uid: 65532
             gid: 65532
@@ -145,11 +145,11 @@ contents:
               --skip-docker-wolfi --skip-docker-cloud --skip-docker-cloud-fips \
               --skip-docker-serverless --skip-docker-fips
 
-            mkdir -p "${target.dir}/opt/kibana/kibana-9.1.9"
+            mkdir -p "${target.dir}/opt/kibana/kibana-9.1.10"
 
-            cp -r "${source.dir}/kibana/build/default/kibana-9.1.9-SNAPSHOT-linux-${GO_ARCH}"/* "${target.dir}/opt/kibana/kibana-9.1.9"
+            cp -r "${source.dir}/kibana/build/default/kibana-9.1.10-SNAPSHOT-linux-${GO_ARCH}"/* "${target.dir}/opt/kibana/kibana-9.1.10"
 
-            cd "${target.dir}/opt/kibana/kibana-9.1.9"
+            cd "${target.dir}/opt/kibana/kibana-9.1.10"
             rm -rf data
       paths:
         - type: file
@@ -177,8 +177,8 @@ contents:
             uid: 65532
             gid: 65532
       outputs:
-        - source: ${target.dir}/opt/kibana/kibana-9.1.9
-          target: /opt/kibana/kibana-9.1.9
+        - source: ${target.dir}/opt/kibana/kibana-9.1.10
+          target: /opt/kibana/kibana-9.1.10
           uid: 0
           gid: 0
         - source: /opt/docker/sbom/kibana
@@ -206,8 +206,8 @@ os-release:
   bug-report-url: https://docker.com/support/
 environment:
   ELASTIC_CONTAINER: "true"
-  KIBANA_VERSION: 9.1.9
-  PATH: /opt/kibana/kibana-9.1.9/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  KIBANA_VERSION: 9.1.10
+  PATH: /opt/kibana/kibana-9.1.10/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 paths:
   - type: directory
     path: /usr/share
@@ -218,9 +218,9 @@ paths:
     path: /usr/share/kibana
     uid: 0
     gid: 0
-    source: /opt/kibana/kibana-9.1.9
+    source: /opt/kibana/kibana-9.1.10
   - type: directory
-    path: /opt/kibana/kibana-9.1.9/data
+    path: /opt/kibana/kibana-9.1.10/data
     uid: 65532
     gid: 65532
     mode: "0755"
@@ -231,7 +231,7 @@ paths:
     mode: "0755"
     source: image/kibana/bin/kibana-docker
   - type: file
-    path: /opt/kibana/kibana-9.1.9/config/kibana.yml
+    path: /opt/kibana/kibana-9.1.10/config/kibana.yml
     uid: 65532
     gid: 65532
     mode: "0644"
