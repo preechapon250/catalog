@@ -57,9 +57,16 @@ docker run --rm -v /path/to/myapp.jar:/app/myapp.jar \
 This example shows how to create, build, and run a complete Spring Boot application using Docker Hardened Eclipse
 Temurin images.
 
-First, create the application files:
+First create the project structure:
+
+```console
+mkdir -p src/main/java/com/example
+```
+
+Next, create the application files:
 
 ```java
+// ./src/main/java/com/example/Application.java
 package com.example;
 
 import org.springframework.boot.SpringApplication;
@@ -88,6 +95,7 @@ public class Application {
 ```
 
 ```xml
+<!-- ./pom.xml -->
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -123,6 +131,9 @@ public class Application {
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.example.Application</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -132,8 +143,10 @@ public class Application {
 Create the Dockerfile:
 
 ```dockerfile
+# ./Dockerfile
+
 # Multi-stage build for Spring Boot application
-FROM dhi.io/eclipse-temurin:<tag> as builder
+FROM dhi.io/eclipse-temurin:<tag>-dev as builder
 WORKDIR /build
 
 # Install Maven (since DHI images don't include it by default)
