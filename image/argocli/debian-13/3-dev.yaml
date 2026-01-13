@@ -18,7 +18,7 @@ vars:
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 26c24fd5909b1eca470cfaad76d48cb24af27433
   GO_REF: dhi/golang:1.24.11-debian13-dev@sha256:ceccc68aa29c03c808090dc4c6156bebc6d4efaea357281ecde306d6451b7428
-  NODE_REF: dhi/node:20.19.6-debian13-dev@sha256:b2e4556f0a42a43d0480cd03a56406bc2b97728cf0d6f90a3583dea09a033c56
+  NODE_REF: dhi/node:20.19.6-debian13-dev@sha256:19d8e0cc9dc874862a8506feb450945ca103c96c3aed97041cf11494f9553907
   SEMVER_MAJOR_MINOR_VERSION: "3.7"
   SEMVER_MAJOR_VERSION: "3"
   SEMVER_VERSION: 3.7.7
@@ -60,7 +60,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:20.19.6-debian13-dev@sha256:b2e4556f0a42a43d0480cd03a56406bc2b97728cf0d6f90a3583dea09a033c56
+          - name: dhi.io/node:20.19.6-debian13-dev@sha256:19d8e0cc9dc874862a8506feb450945ca103c96c3aed97041cf11494f9553907
             includes:
               - opt/nodejs
               - opt/yarn
