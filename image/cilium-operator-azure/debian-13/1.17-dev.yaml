@@ -5,20 +5,20 @@ image: dhi.io/cilium-operator-azure
 variant: dev
 tags:
   - 1.17-dev
-  - 1.17.11-dev
+  - 1.17.12-dev
   - 1.17-debian13-dev
-  - 1.17.11-debian13-dev
+  - 1.17.12-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: b832d4f4745651f187f84be9bcdbc31512ebc559
+  COMMIT_SHA: 7533de6dc6366c5504b394a090ac7d1680dc54ee
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GOPS_REFERENCE: dhi/pkg-gops:0.3.29@sha256:b1944190b275d12105c8e87cc0ab88f3965a8afdcc33a9ba48b0c96ef9622ed0
   SEMVER_MAJOR_MINOR_VERSION: "1.17"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.17.11
-  VERSION: 1.17.11
+  SEMVER_VERSION: 1.17.12
+  VERSION: 1.17.12
 contents:
   packages:
     - '!base-files'
@@ -44,15 +44,15 @@ contents:
       uses: dhi.io/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
       contents:
         files:
-          - url: git+https://github.com/cilium/cilium.git#v1.17.11
-            checksum: b832d4f4745651f187f84be9bcdbc31512ebc559
+          - url: git+https://github.com/cilium/cilium.git#v1.17.12
+            checksum: 7533de6dc6366c5504b394a090ac7d1680dc54ee
             path: /go/src/github.com/cilium/cilium
             spdx:
               name: cilium-operator-azure
-              version: 1.17.11
+              version: 1.17.12
               packages:
                 - name: cilium-operator-azure
-                  purl: pkg:golang/github.com/cilium/cilium@1.17.11
+                  purl: pkg:golang/github.com/cilium/cilium@1.17.12
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -82,7 +82,7 @@ contents:
           with:
             extra-args: -mod=vendor
             ldflags:
-              - -X github.com/cilium/cilium/pkg/version.ciliumVersion=v1.17.11
+              - -X github.com/cilium/cilium/pkg/version.ciliumVersion=v1.17.12
             output: ${target.dir}/usr/local/bin/cilium-operator-azure
             tags: osusergo,ipam_provider_azure
       outputs:
