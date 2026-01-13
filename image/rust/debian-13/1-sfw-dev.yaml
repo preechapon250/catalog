@@ -18,7 +18,7 @@ dates:
   release: "2025-09-18"
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
-  BINUTILS_DIGEST: sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
+  BINUTILS_DIGEST: sha256:ec7e4a2bd685757646c09915f5d71be3613d0bec266926caceccbb5da84e6916
   BINUTILS_VERSION: "2.45"
   SEMVER_MAJOR_MINOR_VERSION: "1.92"
   SEMVER_MAJOR_VERSION: "1"
@@ -137,7 +137,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
+    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:ec7e4a2bd685757646c09915f5d71be3613d0bec266926caceccbb5da84e6916
       excludes:
         - etc/group
         - etc/os-release
