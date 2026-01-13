@@ -20,11 +20,11 @@ vars:
   COMMIT_SHA: 0d1a5b4420a5e4579b91c239ecb240ea2b247fba
   GO_REFERENCE: dhi/golang:1.25.5-debian13-dev@sha256:a45faad20adc1286eef26b1f30e170b54791c217ce69457784de66b0a13d1fe6
   GO_VERSION: 1.25.5
-  NODE_REFERENCE: dhi/node:22.21.1-debian13-dev@sha256:9f2cc2b28df3ddcbf95208b8bd18df85fdc2ef63fc89b2a8bd2e9ec31731f873
+  NODE_REFERENCE: dhi/node:22.21.1-debian13-dev@sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
   NODE_VERSION: 22.21.1
   PYTHON_REFERENCE: dhi/python:3.13.11-debian13-dev@sha256:e164c5c87a60cffa6fa14cc81c90b0414e0e4455137bfe41ae403fa9f7205118
   PYTHON_VERSION: 3.13.11
-  RUST_REFERENCE: dhi/rust:1.92.0-debian13@sha256:2fea67b3346112547b7860567465a18046a53f3183be893caed8fee3139c3644
+  RUST_REFERENCE: dhi/rust:1.92.0-debian13@sha256:7cfae5cf29c2d25155618749fb9bde3db0e37c1accfbbb86a7194f5fddca9ac1
   RUST_VERSION: 1.92.0
   SEMVER_MAJOR_MINOR_VERSION: "12.3"
   SEMVER_MAJOR_VERSION: "12"
@@ -78,7 +78,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:22.21.1-debian13-dev@sha256:9f2cc2b28df3ddcbf95208b8bd18df85fdc2ef63fc89b2a8bd2e9ec31731f873
+          - name: dhi.io/node:22.21.1-debian13-dev@sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
             includes:
               - opt/**
               - usr/local/bin
@@ -90,7 +90,7 @@ contents:
               - usr/local/bin
             uid: 0
             gid: 0
-          - name: dhi.io/rust:1.92.0-debian13@sha256:2fea67b3346112547b7860567465a18046a53f3183be893caed8fee3139c3644
+          - name: dhi.io/rust:1.92.0-debian13@sha256:7cfae5cf29c2d25155618749fb9bde3db0e37c1accfbbb86a7194f5fddca9ac1
             includes:
               - opt/**
               - usr/local/bin
