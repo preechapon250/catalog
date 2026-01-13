@@ -6,23 +6,23 @@ variant: runtime
 tags:
   - "3"
   - "3.1"
-  - 3.1.5
+  - 3.1.6
   - 3-debian13
   - 3-python3.12
   - 3.1-debian13
   - 3.1-python3.12
-  - 3.1.5-debian13
-  - 3.1.5-python3.12
+  - 3.1.6-debian13
+  - 3.1.6-python3.12
   - 3-python3.12-debian13
   - 3.1-python3.12-debian13
-  - 3.1.5-python3.12-debian13
+  - 3.1.6-python3.12-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 dates:
   release: "2025-04-22"
 vars:
-  COMMIT_SHA: a42f2fba5051645adfe56526d38db4e8155f5157
+  COMMIT_SHA: d6a009b6dfa1802930f514a2429cc56f5b4c2f12
   NODE_DIGEST: sha256:3b834f27bae6cccc45f254e1837ed21b9b550708d6c87449e1be3189b8fa46ad
   NODE_VERSION: 22.21.1
   PYTHON_BUILD_DIGEST: sha256:fd33523fb93638c415da4de962d54f8e63bc3c2e0f835e90a06a43d5e29dfdfa
@@ -31,12 +31,12 @@ vars:
   PYTHON_FIPS_TAG: ""
   PYTHON_MAJOR_MINOR_VERSION: "3.12"
   PYTHON_VERSION: 3.12.12
-  RUST_DIGEST: sha256:2fea67b3346112547b7860567465a18046a53f3183be893caed8fee3139c3644
+  RUST_DIGEST: sha256:7cfae5cf29c2d25155618749fb9bde3db0e37c1accfbbb86a7194f5fddca9ac1
   RUST_VERSION: 1.92.0
   SEMVER_MAJOR_MINOR_VERSION: "3.1"
   SEMVER_MAJOR_VERSION: "3"
-  SEMVER_VERSION: 3.1.5
-  VERSION: 3.1.5
+  SEMVER_VERSION: 3.1.6
+  VERSION: 3.1.6
 contents:
   packages:
     - '!libelogind0'
@@ -71,19 +71,19 @@ contents:
           - patchelf
           - unixodbc-dev
         files:
-          - url: git+https://github.com/apache/airflow.git#3.1.5
-            checksum: a42f2fba5051645adfe56526d38db4e8155f5157
+          - url: git+https://github.com/apache/airflow.git#3.1.6
+            checksum: d6a009b6dfa1802930f514a2429cc56f5b4c2f12
             path: ${source.dir}/airflow
             spdx:
               name: airflow
-              version: 3.1.5
+              version: 3.1.6
               packages:
                 - name: airflow
-                  purl: pkg:dhi/airflow@3.1.5
+                  purl: pkg:dhi/airflow@3.1.6
                   license: Apache-2.0
             uid: 0
             gid: 0
-          - url: https://raw.githubusercontent.com/apache/airflow/constraints-3.1.5/constraints-3.12.txt
+          - url: https://raw.githubusercontent.com/apache/airflow/constraints-3.1.6/constraints-3.12.txt
             path: ${source.dir}/airflow/constraints.txt
             uid: 0
             gid: 0
@@ -95,7 +95,7 @@ contents:
               - usr/local/bin/npm
             uid: 0
             gid: 0
-          - name: dhi.io/rust:1.92.0-debian13@sha256:2fea67b3346112547b7860567465a18046a53f3183be893caed8fee3139c3644
+          - name: dhi.io/rust:1.92.0-debian13@sha256:7cfae5cf29c2d25155618749fb9bde3db0e37c1accfbbb86a7194f5fddca9ac1
             includes:
               - usr/local/bin/cargo
               - usr/local/bin/rustc
@@ -186,7 +186,7 @@ contents:
 
             # Previous build steps checked out tags for different providers
             cd "${source.dir}/airflow"
-            git checkout "a42f2fba5051645adfe56526d38db4e8155f5157"
+            git checkout "d6a009b6dfa1802930f514a2429cc56f5b4c2f12"
 
             # pkg-node currently does not contain corepack
             npm install -g corepack
