@@ -16,14 +16,14 @@ vars:
   DEBIAN_EPOCH_MAJOR_VERSION: "1"
   DEBIAN_EPOCH_VERSION: 1.29.2
   DEBIAN_VERSION: "12"
-  PYTHON_DIGEST_BUILD: sha256:f302438a6cbc2feae2fb5eb1dce24ac7514829ba60d0fe2e36bfadf902bfc8e5
-  PYTHON_DIGEST_FINAL: sha256:fff3aae074d58e1d4b99f254057c0a86da080f78b8c48f38275ec9bf3ad3a681
+  PYTHON_DIGEST_BUILD: sha256:f6aadef8b0b73058c917eec3a703c813b6c812a0971dfe8bf6219784575629ba
+  PYTHON_DIGEST_FINAL: sha256:b2c76b0a65f513d5ae640d59f6a5b1d5e08cac101bd0421d74918fabf621f11b
   PYTHON_VERSION_BUILD: 3.12.12
   PYTHON_VERSION_FINAL: 3.12.12
   SEMVER_MAJOR_MINOR_VERSION: "1.29"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.29.2
-  TEMPORALIO_SERVER_DIGEST: sha256:8ffd0d54a7ef6c85619c11a75009be2aa59491352db09621cfdb1490b5f4b2f1
+  TEMPORALIO_SERVER_DIGEST: sha256:d9ae1ccb2a1730816aead2d4d5b23258dc98daba2079a4bc6d831b1a77b4dfe8
   VARIANT_SUFFIX: ""
   VERSION: 1.29.2
 contents:
@@ -43,7 +43,7 @@ contents:
           - bash
           - coreutils
         artifacts:
-          - name: dhi.io/temporalio-server:1.29.2-debian12@sha256:8ffd0d54a7ef6c85619c11a75009be2aa59491352db09621cfdb1490b5f4b2f1
+          - name: dhi.io/temporalio-server:1.29.2-debian12@sha256:d9ae1ccb2a1730816aead2d4d5b23258dc98daba2079a4bc6d831b1a77b4dfe8
             includes:
               - usr/local/bin/temporal
             uid: 0
@@ -64,7 +64,7 @@ contents:
           uid: 0
           gid: 0
     - name: add cqlsh
-      uses: dhi.io/python:3.12.12-debian12-dev@sha256:f302438a6cbc2feae2fb5eb1dce24ac7514829ba60d0fe2e36bfadf902bfc8e5
+      uses: dhi.io/python:3.12.12-debian12-dev@sha256:f6aadef8b0b73058c917eec3a703c813b6c812a0971dfe8bf6219784575629ba
       privileged: true
       contents:
         packages:
@@ -96,7 +96,7 @@ contents:
           uid: 0
           gid: 0
     - name: add yq
-      uses: dhi.io/python:3.12.12-debian12-dev@sha256:f302438a6cbc2feae2fb5eb1dce24ac7514829ba60d0fe2e36bfadf902bfc8e5
+      uses: dhi.io/python:3.12.12-debian12-dev@sha256:f6aadef8b0b73058c917eec3a703c813b6c812a0971dfe8bf6219784575629ba
       privileged: true
       contents:
         packages:
@@ -128,7 +128,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/temporalio-server:1.29.2-debian12@sha256:8ffd0d54a7ef6c85619c11a75009be2aa59491352db09621cfdb1490b5f4b2f1
+    - name: dhi.io/temporalio-server:1.29.2-debian12@sha256:d9ae1ccb2a1730816aead2d4d5b23258dc98daba2079a4bc6d831b1a77b4dfe8
       includes:
         - etc/temporal/schema/**
         - usr/local/bin/tdbg
@@ -137,7 +137,7 @@ contents:
         - usr/local/bin/temporal-sql-tool
       uid: 0
       gid: 0
-    - name: dhi.io/python:3.12.12-debian12@sha256:fff3aae074d58e1d4b99f254057c0a86da080f78b8c48f38275ec9bf3ad3a681
+    - name: dhi.io/python:3.12.12-debian12@sha256:b2c76b0a65f513d5ae640d59f6a5b1d5e08cac101bd0421d74918fabf621f11b
       includes:
         - opt/**
         - usr/**
