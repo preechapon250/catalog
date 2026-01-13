@@ -21,7 +21,7 @@ vars:
   EXT_BUNDLE_COMMIT_SHA: 3d5750b4307aa5e29111721f8308bff40f4f5c09
   EXT_BUNDLE_VERSION: 4.31.0
   FUNCTIONS_WORKER: python
-  PYTHON_DIGEST: sha256:7a9232974f894cfff2f8ab22be2fe54df8e9f7243cb741f85182fffa8957c636
+  PYTHON_DIGEST: sha256:65e3d2289d1e2bcb1419af38d0ce9182d6f2cf1b51338ca947cae2744b38ec46
   PYTHON_MAJOR_MINOR_VERSION: "3.12"
   PYTHON_VERSION: 3.12.12
   SEMVER_MAJOR_MINOR_VERSION: "4.1046"
@@ -180,7 +180,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/python:3.12.12@sha256:7a9232974f894cfff2f8ab22be2fe54df8e9f7243cb741f85182fffa8957c636
+    - name: dhi.io/python:3.12.12@sha256:65e3d2289d1e2bcb1419af38d0ce9182d6f2cf1b51338ca947cae2744b38ec46
       includes:
         - opt/**
         - usr/**
