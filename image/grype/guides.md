@@ -174,7 +174,7 @@ $ docker run --rm -v $(pwd)/custom.tmpl:/template dhi.io/grype:<tag> ubuntu:late
 Mount a custom Grype configuration file:
 
 ```
-$ docker run --rm -v $(pwd)/.grype.yaml:/root/.grype.yaml dhi.io/grype:<tag> ubuntu:latest
+$ docker run --rm -v $(pwd)/.grype.yaml:/home/nonroot/.grype.yaml dhi.io/grype:<tag> ubuntu:latest
 ```
 
 Example configuration with ignore rules:
@@ -211,7 +211,17 @@ external-sources:
 For repeated scans, cache the vulnerability database:
 
 ```
-$ docker run --rm -v grype-cache:/root/.cache/grype dhi.io/grype:<tag> ubuntu:latest
+$ docker run --rm -v grype-cache:/home/nonroot/.cache/grype dhi.io/grype:<tag> ubuntu:latest
+```
+
+**Note:** When using named volumes with nonroot users, you may encounter permission issues. Consider using bind mounts
+with proper permissions instead:
+
+```bash
+# Create directory with correct permissions
+mkdir -p ~/.cache/grype && chmod 755 ~/.cache/grype
+# Use bind mount instead of named volume
+docker run --rm -v ~/.cache/grype:/home/nonroot/.cache/grype dhi.io/grype:<tag> db update
 ```
 
 #### Database-only updates
@@ -219,7 +229,7 @@ $ docker run --rm -v grype-cache:/root/.cache/grype dhi.io/grype:<tag> ubuntu:la
 Update just the vulnerability database without scanning:
 
 ```
-$ docker run --rm -v grype-cache:/root/.cache/grype dhi.io/grype:<tag> db update
+$ docker run --rm -v grype-cache:/home/nonroot/.cache/grype dhi.io/grype:<tag> db update
 ```
 
 ## Image variants
@@ -384,7 +394,27 @@ For Grype specifically, ensure that:
 - Volume mounts are readable by the nonroot user (UID 65532)
 - Configuration files have appropriate permissions
 - Output directories are writable by the nonroot user
-- Cache directories (`/root/.cache/grype`) are accessible
+- Cache directories (`/home/nonroot/.cache/grype`) are accessible
+
+**Volume permissions for cache directories:**
+
+When using named volumes with nonroot users, Docker creates volumes owned by root, which the nonroot user cannot write
+to. Use one of these workarounds:
+
+1. **Use bind mounts with proper permissions** (recommended):
+
+   ```bash
+   mkdir -p ~/.cache/grype && chmod 755 ~/.cache/grype
+   docker run --rm -v ~/.cache/grype:/home/nonroot/.cache/grype dhi.io/grype:<tag> db update
+   ```
+
+1. **Pre-create named volume with correct ownership**:
+
+   ```bash
+   docker volume create --driver local grype-cache
+   docker run --rm --user root -v grype-cache:/cache chmod 755 /cache
+   docker run --rm -v grype-cache:/home/nonroot/.cache/grype dhi.io/grype:<tag> db update
+   ```
 
 ### Privileged ports
 
@@ -434,7 +464,7 @@ Use ignore rules and VEX documents to manage false positives systematically:
 
 ```bash
 # Test ignore rules configuration
-docker run --rm -v $(pwd)/.grype.yaml:/root/.grype.yaml dhi.io/grype:<tag> ubuntu:latest
+docker run --rm -v $(pwd)/.grype.yaml:/home/nonroot/.grype.yaml dhi.io/grype:<tag> ubuntu:latest
 
 # Validate VEX document application
 docker run --rm -v $(pwd)/filter.vex.json:/vex.json dhi.io/grype:<tag> ubuntu:latest --vex /vex.json
