@@ -16,7 +16,7 @@ vars:
   DEBIAN_EPOCH_MAJOR_VERSION: "1"
   DEBIAN_EPOCH_VERSION: 1.29.2
   DEBIAN_VERSION: "12"
-  PYTHON_DIGEST_BUILD: sha256:b60764ed710affcc0adce119dc44be5f7d682dd8b9730b68e34cd57819bb3238
+  PYTHON_DIGEST_BUILD: sha256:f302438a6cbc2feae2fb5eb1dce24ac7514829ba60d0fe2e36bfadf902bfc8e5
   PYTHON_DIGEST_FINAL: sha256:fff3aae074d58e1d4b99f254057c0a86da080f78b8c48f38275ec9bf3ad3a681
   PYTHON_VERSION_BUILD: 3.12.12
   PYTHON_VERSION_FINAL: 3.12.12
@@ -64,7 +64,7 @@ contents:
           uid: 0
           gid: 0
     - name: add cqlsh
-      uses: dhi.io/python:3.12.12-debian12-dev@sha256:b60764ed710affcc0adce119dc44be5f7d682dd8b9730b68e34cd57819bb3238
+      uses: dhi.io/python:3.12.12-debian12-dev@sha256:f302438a6cbc2feae2fb5eb1dce24ac7514829ba60d0fe2e36bfadf902bfc8e5
       privileged: true
       contents:
         packages:
@@ -96,7 +96,7 @@ contents:
           uid: 0
           gid: 0
     - name: add yq
-      uses: dhi.io/python:3.12.12-debian12-dev@sha256:b60764ed710affcc0adce119dc44be5f7d682dd8b9730b68e34cd57819bb3238
+      uses: dhi.io/python:3.12.12-debian12-dev@sha256:f302438a6cbc2feae2fb5eb1dce24ac7514829ba60d0fe2e36bfadf902bfc8e5
       privileged: true
       contents:
         packages:
