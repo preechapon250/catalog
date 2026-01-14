@@ -5,19 +5,19 @@ image: dhi.io/k8s-sidecar
 variant: runtime
 tags:
   - 2-alpine3.23
-  - 2.2-alpine3.23
-  - 2.2.3-alpine3.23
+  - 2.3-alpine3.23
+  - 2.3.0-alpine3.23
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: 539b0af87a3e9f0b205d10be451b8d5ba88fc580
+  COMMIT_SHA: 1b9501d5dec8100c34e95c64897aa4ae092ff93e
   PYTHON_BUILD_REF: dhi/python:3.14.2-alpine3.23-dev@sha256:f1e19fdf31b64b0afc69e98c1c16131e7fa28426951c32b31deee52e309ed761
   PYTHON_REF: dhi/python:3.14.2-alpine3.23@sha256:8c590a8fbf77d49f0958ef1356d963f3b0936b6bd5df11f6d4144d18d11c65b5
-  SEMVER_MAJOR_MINOR_VERSION: "2.2"
+  SEMVER_MAJOR_MINOR_VERSION: "2.3"
   SEMVER_MAJOR_VERSION: "2"
-  SEMVER_VERSION: 2.2.3
-  VERSION: 2.2.3
+  SEMVER_VERSION: 2.3.0
+  VERSION: 2.3.0
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
@@ -43,15 +43,15 @@ contents:
           - openssl-dev
           - ca-certificates-bundle
         files:
-          - url: git+https://github.com/kiwigrid/k8s-sidecar.git#2.2.3
-            checksum: 539b0af87a3e9f0b205d10be451b8d5ba88fc580
+          - url: git+https://github.com/kiwigrid/k8s-sidecar.git#2.3.0
+            checksum: 1b9501d5dec8100c34e95c64897aa4ae092ff93e
             path: ${source.dir}/k8s-sidecar
             spdx:
               name: k8s-sidecar
-              version: 2.2.3
+              version: 2.3.0
               packages:
                 - name: k8s-sidecar
-                  purl: pkg:github/kiwigrid/k8s-sidecar@2.2.3
+                  purl: pkg:github/kiwigrid/k8s-sidecar@2.3.0
                   license: MIT
             uid: 0
             gid: 0
