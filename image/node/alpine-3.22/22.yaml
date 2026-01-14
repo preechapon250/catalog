@@ -5,8 +5,8 @@ image: dhi.io/node
 variant: runtime
 tags:
   - 22-alpine3.22
-  - 22.21-alpine3.22
-  - 22.21.1-alpine3.22
+  - 22.22-alpine3.22
+  - 22.22.0-alpine3.22
 platforms:
   - linux/amd64
   - linux/arm64
@@ -14,10 +14,10 @@ dates:
   release: "2024-04-24"
   end-of-life: "2027-04-30"
 vars:
-  DIGEST: sha256:eafb856954b059fb399466f5c0a2ca7a5356e9f810f99169069676e1d8b92a7f
+  DIGEST: sha256:cebb860e19be6325cfe108f0bd6e57b1a6e5a36104e02823a0b700a184d07d3d
   NODEJS_VERSION_MAJOR: "22"
-  NODEJS_VERSION_MAJOR_MINOR: "22.21"
-  VERSION: 22.21.1
+  NODEJS_VERSION_MAJOR_MINOR: "22.22"
+  VERSION: 22.22.0
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -39,30 +39,30 @@ contents:
           - busybox
           - coreutils
         artifacts:
-          - name: dhi.io/pkg-node:22.21.1-alpine3.22@sha256:eafb856954b059fb399466f5c0a2ca7a5356e9f810f99169069676e1d8b92a7f
+          - name: dhi.io/pkg-node:22.22.0-alpine3.22@sha256:cebb860e19be6325cfe108f0bd6e57b1a6e5a36104e02823a0b700a184d07d3d
             includes:
               - opt/docker
               - opt/nodejs
               - usr/local/bin/node
             excludes:
               - opt/docker/sbom/yarn
-              - opt/nodejs/node-v22.21.1/bin/corepack
-              - opt/nodejs/node-v22.21.1/bin/npm
-              - opt/nodejs/node-v22.21.1/bin/npx
-              - opt/nodejs/node-v22.21.1/bin/pnpm
-              - opt/nodejs/node-v22.21.1/bin/pnpx
-              - opt/nodejs/node-v22.21.1/bin/yarn
-              - opt/nodejs/node-v22.21.1/bin/yarnpkg
-              - opt/nodejs/node-v22.21.1/include
-              - opt/nodejs/node-v22.21.1/lib
-              - opt/nodejs/node-v22.21.1/share
+              - opt/nodejs/node-v22.22.0/bin/corepack
+              - opt/nodejs/node-v22.22.0/bin/npm
+              - opt/nodejs/node-v22.22.0/bin/npx
+              - opt/nodejs/node-v22.22.0/bin/pnpm
+              - opt/nodejs/node-v22.22.0/bin/pnpx
+              - opt/nodejs/node-v22.22.0/bin/yarn
+              - opt/nodejs/node-v22.22.0/bin/yarnpkg
+              - opt/nodejs/node-v22.22.0/include
+              - opt/nodejs/node-v22.22.0/lib
+              - opt/nodejs/node-v22.22.0/share
             uid: 0
             gid: 0
       pipeline:
         - name: strip
           uses: strip@v1
           with:
-            dir: /opt/nodejs/node-v22.21.1
+            dir: /opt/nodejs/node-v22.22.0
       outputs:
         - source: /opt/nodejs
           target: /opt/nodejs
@@ -97,7 +97,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
-  NODE_VERSION: 22.21.1
+  NODE_VERSION: 22.22.0
 paths:
   - type: directory
     path: /app
