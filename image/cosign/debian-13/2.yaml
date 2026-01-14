@@ -47,7 +47,8 @@ contents:
           uses: go/bump@v1
           work-dir: /go/src/github.com/sigstore/cosign
           with:
-            deps: []
+            deps:
+              - github.com/sigstore/fulcio@v1.8.5
             download: true
         - name: test
           privileged: true
