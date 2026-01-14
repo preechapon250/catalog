@@ -6,8 +6,8 @@ variant: dev
 flavor: sfw-ent
 tags:
   - 22-alpine3.22-sfw-ent-dev
-  - 22.21-alpine3.22-sfw-ent-dev
-  - 22.21.1-alpine3.22-sfw-ent-dev
+  - 22.22-alpine3.22-sfw-ent-dev
+  - 22.22.0-alpine3.22-sfw-ent-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -16,11 +16,11 @@ dates:
   end-of-life: "2027-04-30"
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "arm64" }'
-  DIGEST: sha256:eafb856954b059fb399466f5c0a2ca7a5356e9f810f99169069676e1d8b92a7f
+  DIGEST: sha256:cebb860e19be6325cfe108f0bd6e57b1a6e5a36104e02823a0b700a184d07d3d
   NODEJS_VERSION_MAJOR: "22"
-  NODEJS_VERSION_MAJOR_MINOR: "22.21"
+  NODEJS_VERSION_MAJOR_MINOR: "22.22"
   SFW_VERSION: 1.5.3
-  VERSION: 22.21.1
+  VERSION: 22.22.0
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -50,7 +50,7 @@ contents:
             gid: 0
             mode: "0755"
         artifacts:
-          - name: dhi.io/pkg-node:22.21.1-alpine3.22@sha256:eafb856954b059fb399466f5c0a2ca7a5356e9f810f99169069676e1d8b92a7f
+          - name: dhi.io/pkg-node:22.22.0-alpine3.22@sha256:cebb860e19be6325cfe108f0bd6e57b1a6e5a36104e02823a0b700a184d07d3d
             includes:
               - opt/docker
               - opt/nodejs
@@ -70,9 +70,9 @@ contents:
 
             # if DHI_NO_SFW is set to true, run the command without sfw, otherwise run with sfw
             if [ "${DHI_NO_SFW}" = "true" ]; then
-              /opt/nodejs/node-v22.21.1/bin/npm "$@"
+              /opt/nodejs/node-v22.22.0/bin/npm "$@"
             else
-              sfw /opt/nodejs/node-v22.21.1/bin/npm "$@"
+              sfw /opt/nodejs/node-v22.22.0/bin/npm "$@"
             fi
             EOF
 
@@ -137,7 +137,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
-  NODE_VERSION: 22.21.1
+  NODE_VERSION: 22.22.0
   NPM_CONFIG_UPDATE_NOTIFIER: "false"
   PATH: /opt/socket/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
   YARN_DISABLE_SELF_UPDATE_CHECK: "true"
