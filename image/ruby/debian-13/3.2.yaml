@@ -5,9 +5,9 @@ image: dhi.io/ruby
 variant: runtime
 tags:
   - "3.2"
-  - 3.2.9
+  - 3.2.10
   - 3.2-debian13
-  - 3.2.9-debian13
+  - 3.2.10-debian13
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,9 +18,9 @@ vars:
   GEM_HOME: /usr/local/bundle
   SEMVER_MAJOR_MINOR_VERSION: "3.2"
   SEMVER_MAJOR_VERSION: "3"
-  SEMVER_VERSION: 3.2.9
-  SHA256: cf6699d0084c588e7944d92e1a8edda28b1cc3ee471a1f0aebb4b3d32c9753b2
-  VERSION: 3.2.9
+  SEMVER_VERSION: 3.2.10
+  SHA256: a64a8a910ac2f28834b2170dedea688f06cbc6431fcd65eb18cc49ddbf3826ae
+  VERSION: 3.2.10
 contents:
   packages:
     - '!libelogind0'
@@ -61,15 +61,15 @@ contents:
           - sed
           - zlib1g-dev
         files:
-          - url: https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.9.tar.xz
-            checksum: sha256:cf6699d0084c588e7944d92e1a8edda28b1cc3ee471a1f0aebb4b3d32c9753b2
+          - url: https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.10.tar.xz
+            checksum: sha256:a64a8a910ac2f28834b2170dedea688f06cbc6431fcd65eb18cc49ddbf3826ae
             path: ${source.dir}/ruby.tar.xz
             spdx:
               name: ruby
-              version: 3.2.9
+              version: 3.2.10
               packages:
                 - name: ruby
-                  purl: pkg:dhi/ruby@3.2.9
+                  purl: pkg:dhi/ruby@3.2.10
                   license: BSD-2-Clause
             uid: 0
             gid: 0
@@ -109,19 +109,6 @@ contents:
 
             ruby --version
             ruby -e 'puts "hello world"'
-        - name: update gems
-          privileged: true
-          runs: |
-            set -eux -o pipefail
-
-            gem_folder="$(ruby -e 'puts Gem.default_dir')"
-
-            # Addresses CVE-2025-58767 by upgrading rexml to a version > 3.4.1
-            # Depending on the Ruby version, rexml may be installed with different versions
-            # so we first get the installed version and then upgrade to a version > 3.4.1
-            version="$(gem list --local rexml | awk -F'[()]' '{print $2}')"
-            gem install rexml -v ">= 3.4.2" -i "$gem_folder"
-            gem uninstall rexml -v $version -i "$gem_folder"
         - name: cleanup
           runs: |
             set -eux -o pipefail
@@ -178,7 +165,7 @@ environment:
   GEM_HOME: /usr/local/bundle
   LD_LIBRARY_PATH: /usr/local/lib:${LD_LIBRARY_PATH}
   PATH: /usr/local/bin:/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-  RUBY_VERSION: 3.2.9
+  RUBY_VERSION: 3.2.10
   SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
 annotations:
   org.opencontainers.image.description: A minimal Ruby image

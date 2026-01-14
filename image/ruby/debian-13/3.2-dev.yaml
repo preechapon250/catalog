@@ -5,9 +5,9 @@ image: dhi.io/ruby
 variant: dev
 tags:
   - 3.2-dev
-  - 3.2.9-dev
+  - 3.2.10-dev
   - 3.2-debian13-dev
-  - 3.2.9-debian13-dev
+  - 3.2.10-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -15,16 +15,16 @@ dates:
   release: "2022-12-25"
   end-of-life: "2026-03-31"
 vars:
-  BINUTILS_DIGEST: sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
+  BINUTILS_DIGEST: sha256:ec7e4a2bd685757646c09915f5d71be3613d0bec266926caceccbb5da84e6916
   BINUTILS_VERSION: "2.45"
-  EXPAT_DIGEST: sha256:bf522255414eb53b8992e36dc64fde670d477c0b3be62c84209c4409de35e324
+  EXPAT_DIGEST: sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
   EXPAT_VERSION: 2.7.3
   GEM_HOME: /usr/local/bundle
   SEMVER_MAJOR_MINOR_VERSION: "3.2"
   SEMVER_MAJOR_VERSION: "3"
-  SEMVER_VERSION: 3.2.9
-  SHA256: cf6699d0084c588e7944d92e1a8edda28b1cc3ee471a1f0aebb4b3d32c9753b2
-  VERSION: 3.2.9
+  SEMVER_VERSION: 3.2.10
+  SHA256: a64a8a910ac2f28834b2170dedea688f06cbc6431fcd65eb18cc49ddbf3826ae
+  VERSION: 3.2.10
 contents:
   packages:
     - '!binutils'
@@ -94,15 +94,15 @@ contents:
           - sed
           - zlib1g-dev
         files:
-          - url: https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.9.tar.xz
-            checksum: sha256:cf6699d0084c588e7944d92e1a8edda28b1cc3ee471a1f0aebb4b3d32c9753b2
+          - url: https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.10.tar.xz
+            checksum: sha256:a64a8a910ac2f28834b2170dedea688f06cbc6431fcd65eb18cc49ddbf3826ae
             path: ${source.dir}/ruby.tar.xz
             spdx:
               name: ruby
-              version: 3.2.9
+              version: 3.2.10
               packages:
                 - name: ruby
-                  purl: pkg:dhi/ruby@3.2.9
+                  purl: pkg:dhi/ruby@3.2.10
                   license: BSD-2-Clause
             uid: 0
             gid: 0
@@ -142,19 +142,6 @@ contents:
 
             ruby --version
             ruby -e 'puts "hello world"'
-        - name: update gems
-          privileged: true
-          runs: |
-            set -eux -o pipefail
-
-            gem_folder="$(ruby -e 'puts Gem.default_dir')"
-
-            # Addresses CVE-2025-58767 by upgrading rexml to a version > 3.4.1
-            # Depending on the Ruby version, rexml may be installed with different versions
-            # so we first get the installed version and then upgrade to a version > 3.4.1
-            version="$(gem list --local rexml | awk -F'[()]' '{print $2}')"
-            gem install rexml -v ">= 3.4.2" -i "$gem_folder"
-            gem uninstall rexml -v $version -i "$gem_folder"
         - name: test-dev
           runs: |
             set -eux -o pipefail
@@ -192,7 +179,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:f63e465d4a2f59ba5af48164c16fbd05fbe141e4b932ff27a0bec5e45edf6199
+    - name: dhi.io/pkg-binutils:2.45-debian13@sha256:ec7e4a2bd685757646c09915f5d71be3613d0bec266926caceccbb5da84e6916
       excludes:
         - etc/group
         - etc/os-release
@@ -200,7 +187,7 @@ contents:
         - var/lib/dpkg/status
       uid: 0
       gid: 0
-    - name: dhi.io/pkg-expat:2.7.3-debian13@sha256:bf522255414eb53b8992e36dc64fde670d477c0b3be62c84209c4409de35e324
+    - name: dhi.io/pkg-expat:2.7.3-debian13@sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
       includes:
         - usr/**
         - var/lib/dpkg/status.d
@@ -236,7 +223,7 @@ environment:
   GEM_HOME: /usr/local/bundle
   LD_LIBRARY_PATH: /usr/local/lib:${LD_LIBRARY_PATH}
   PATH: /usr/local/bin:/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-  RUBY_VERSION: 3.2.9
+  RUBY_VERSION: 3.2.10
   SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
 paths:
   - type: directory
