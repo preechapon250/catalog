@@ -20,9 +20,9 @@ vars:
   COMMIT_SHA: b05a85503d4590280c7e9263175269a5f4a09729
   GO_ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
   NODE_ARCH: '#{ target.arch == "amd64" ? "x64" : "arm64" }'
-  NODE_DIGEST: sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
+  NODE_DIGEST: sha256:0885e8d074fa4bce93cb80e564ae339a678b72add6fcfa057a1d0b07dc7dc013
   NODE_MAJOR_VERSION: "22"
-  NODE_VERSION: 22.21.1
+  NODE_VERSION: 22.22.0
   SEMVER_MAJOR_MINOR_VERSION: "9.2"
   SEMVER_MAJOR_VERSION: "9"
   SEMVER_VERSION: 9.2.4
@@ -41,7 +41,7 @@ contents:
     - tini
   builds:
     - name: kibana
-      uses: dhi.io/node:22.21.1-debian13-dev@sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
+      uses: dhi.io/node:22.22.0-debian13-dev@sha256:0885e8d074fa4bce93cb80e564ae339a678b72add6fcfa057a1d0b07dc7dc013
       contents:
         packages:
           - bash
@@ -81,7 +81,7 @@ contents:
 
             # Then, update the "engines.node" requirement to reference the current Node build version;
             # otherwise the upstream version check logic will fail
-            sed -ir "s/\"node\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"node\": \"22.21.1\"/g" package.json
+            sed -ir "s/\"node\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"node\": \"22.22.0\"/g" package.json
         - name: bump yarn deps (9.2)
           uses: yarn/bump@v1
           run-as: "65532"
@@ -122,11 +122,11 @@ contents:
             # Note: There's a hardcoded dependency on `linux-x64` directory in the build tooling
             # when it gathers package info to create NOTICE.txt, so create that directory always,
             # regardless of arch.
-            mkdir -p "${source.dir}/kibana/.node_binaries/22.21.1/glibc-217/linux-x64"
-            ln -s "/opt/nodejs/node-v22.21.1" "${source.dir}/kibana/.node_binaries/22.21.1/glibc-217/linux-x64/extract"
+            mkdir -p "${source.dir}/kibana/.node_binaries/22.22.0/glibc-217/linux-x64"
+            ln -s "/opt/nodejs/node-v22.22.0" "${source.dir}/kibana/.node_binaries/22.22.0/glibc-217/linux-x64/extract"
             if [ ${NODE_ARCH} != "x64" ]; then
-              mkdir -p "${source.dir}/kibana/.node_binaries/22.21.1/glibc-217/linux-${NODE_ARCH}"
-              ln -s "/opt/nodejs/node-v22.21.1" "${source.dir}/kibana/.node_binaries/22.21.1/glibc-217/linux-${NODE_ARCH}/extract"
+              mkdir -p "${source.dir}/kibana/.node_binaries/22.22.0/glibc-217/linux-${NODE_ARCH}"
+              ln -s "/opt/nodejs/node-v22.22.0" "${source.dir}/kibana/.node_binaries/22.22.0/glibc-217/linux-${NODE_ARCH}/extract"
             fi
 
             # 1. Invoke the build script directly (instead of using "yarn build"), since the option to
