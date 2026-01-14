@@ -15,9 +15,9 @@ vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 899ab34fdc6f84ee69b232ab27e0ad4524ea42c8
-  NODE_DEV_DIGEST: sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
-  NODE_DIGEST: sha256:0d6e73ed8ef32058056c3b26642622d8a04f551ed73f83e66dbd83ab046f9112
-  NODE_VERSION: 22.21.1
+  NODE_DEV_DIGEST: sha256:0885e8d074fa4bce93cb80e564ae339a678b72add6fcfa057a1d0b07dc7dc013
+  NODE_DIGEST: sha256:7ec6f31778af2ec3d38ea30a17c5a0ff0b24d79d156749b5ef804e48bd60f988
+  NODE_VERSION: 22.22.0
   SEMVER_MAJOR_MINOR_VERSION: "3.3"
   SEMVER_MAJOR_VERSION: "3"
   SEMVER_VERSION: 3.3.8
@@ -27,7 +27,7 @@ contents:
     - '!base-files'
   builds:
     - name: apigee-npm
-      uses: dhi.io/node:22.21.1-debian13-dev@sha256:ec58b016505a59bfdebbdb9d186432ceffe2af4024d9e5243ecdafe8fcef999b
+      uses: dhi.io/node:22.22.0-debian13-dev@sha256:0885e8d074fa4bce93cb80e564ae339a678b72add6fcfa057a1d0b07dc7dc013
       contents:
         packages:
           - bash
@@ -90,12 +90,12 @@ contents:
 
             npm install -g
       outputs:
-        - source: /opt/nodejs/node-v22.21.1/bin/edgemicro
-          target: /opt/nodejs/node-v22.21.1/bin/edgemicro
+        - source: /opt/nodejs/node-v22.22.0/bin/edgemicro
+          target: /opt/nodejs/node-v22.22.0/bin/edgemicro
           uid: 0
           gid: 0
-        - source: /opt/nodejs/node-v22.21.1/lib/node_modules/edgemicro
-          target: /opt/nodejs/node-v22.21.1/lib/node_modules/edgemicro
+        - source: /opt/nodejs/node-v22.22.0/lib/node_modules/edgemicro
+          target: /opt/nodejs/node-v22.22.0/lib/node_modules/edgemicro
           uid: 0
           gid: 0
         - source: ${target.dir}/nonroot/config
@@ -103,7 +103,7 @@ contents:
           uid: 65532
           gid: 65532
   artifacts:
-    - name: dhi.io/node:22.21.1-debian13@sha256:0d6e73ed8ef32058056c3b26642622d8a04f551ed73f83e66dbd83ab046f9112
+    - name: dhi.io/node:22.22.0-debian13@sha256:7ec6f31778af2ec3d38ea30a17c5a0ff0b24d79d156749b5ef804e48bd60f988
       includes:
         - opt/**
         - usr/**
@@ -152,6 +152,6 @@ annotations:
   org.opencontainers.image.licenses: Apache-2.0
 entrypoint:
   - node
-  - /opt/nodejs/node-v22.21.1/lib/node_modules/edgemicro/cli/edgemicro
+  - /opt/nodejs/node-v22.22.0/lib/node_modules/edgemicro/cli/edgemicro
 cmd:
   - start
