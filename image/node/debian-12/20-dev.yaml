@@ -5,16 +5,16 @@ image: dhi.io/node
 variant: dev
 tags:
   - 20-debian12-dev
-  - 20.19-debian12-dev
-  - 20.19.6-debian12-dev
+  - 20.20-debian12-dev
+  - 20.20.0-debian12-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  DIGEST: sha256:cdfbfc032eb105ad971db509a37fecaa25a4ada7c164bc2883deeb9fb70e02d8
+  DIGEST: sha256:5595c860c84391c401cc079c0f8a7c29ab1a6895c2e21f3e7a2fff4fe320b6c0
   NODEJS_VERSION_MAJOR: "20"
-  NODEJS_VERSION_MAJOR_MINOR: "20.19"
-  VERSION: 20.19.6
+  NODEJS_VERSION_MAJOR_MINOR: "20.20"
+  VERSION: 20.20.0
 contents:
   packages:
     - '!gawk'
@@ -38,7 +38,7 @@ contents:
     - sed
     - util-linux
   artifacts:
-    - name: dhi.io/pkg-node:20.19.6-debian12@sha256:cdfbfc032eb105ad971db509a37fecaa25a4ada7c164bc2883deeb9fb70e02d8
+    - name: dhi.io/pkg-node:20.20.0-debian12@sha256:5595c860c84391c401cc079c0f8a7c29ab1a6895c2e21f3e7a2fff4fe320b6c0
       includes:
         - opt/docker
         - opt/nodejs
@@ -72,7 +72,7 @@ os-release:
 work-dir: /app
 environment:
   DEBIAN_FRONTEND: noninteractive
-  NODE_VERSION: 20.19.6
+  NODE_VERSION: 20.20.0
   NPM_CONFIG_UPDATE_NOTIFIER: "false"
   YARN_DISABLE_SELF_UPDATE_CHECK: "true"
 paths:
