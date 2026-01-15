@@ -34,5 +34,9 @@
     {
         "property": "libthrift.version",
         "value" : "0.16.0"
+    },
+    {
+        "property": "log4j.version",
+        "value" : "2.25.3"
     }
 ]
