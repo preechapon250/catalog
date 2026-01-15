@@ -18,9 +18,9 @@ vars:
   EXPAT_VERSION: 2.7.3
   GEM_HOME: /usr/local/bundle
   JEMALLOC_VERSION: 5.3.0
-  RUBY_DEV_DIGEST: sha256:eb1a9cd1422d7ef0a494b5a32b252e9071976539827daa59a140411b8d984565
+  RUBY_DEV_DIGEST: sha256:dead3a0e4b76dd0d44617fdca54ca120c4f9067da40b5969fb2771860ff20f76
   RUBY_DEV_VERSION: 3.4.8
-  RUBY_DIGEST: sha256:65361f864d67b3076a5014387e9bcc17e146e283e624aeca6213928a5f626ef5
+  RUBY_DIGEST: sha256:1c99f92fae04d9a1c29e821ac1d6a4f363c88e4ab2edd94a2d35f0266a0159dd
   RUBY_VERSION: 3.4.8
   SEMVER_MAJOR_MINOR_VERSION: "1.19"
   SEMVER_MAJOR_VERSION: "1"
@@ -85,7 +85,7 @@ contents:
           uid: 0
           gid: 0
     - name: fluent
-      uses: dhi.io/ruby:3.4.8-debian13-dev@sha256:eb1a9cd1422d7ef0a494b5a32b252e9071976539827daa59a140411b8d984565
+      uses: dhi.io/ruby:3.4.8-debian13-dev@sha256:dead3a0e4b76dd0d44617fdca54ca120c4f9067da40b5969fb2771860ff20f76
       privileged: true
       environment:
         BUNDLE_APP_CONFIG: ${BUNDLE_APP_CONFIG}
@@ -134,7 +134,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/ruby:3.4.8-debian13@sha256:65361f864d67b3076a5014387e9bcc17e146e283e624aeca6213928a5f626ef5
+    - name: dhi.io/ruby:3.4.8-debian13@sha256:1c99f92fae04d9a1c29e821ac1d6a4f363c88e4ab2edd94a2d35f0266a0159dd
       includes:
         - usr/**
       uid: 0
