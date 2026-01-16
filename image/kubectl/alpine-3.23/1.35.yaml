@@ -16,8 +16,8 @@ dates:
 vars:
   COMMIT_SHA: 66452049f3d692768c39c797b21b793dce80314e
   DBG: '#{ target.dev ? "1" : "0" }'
-  GO_REFERENCE: dhi/golang:1.25.5-alpine3.23-dev@sha256:b25c930e72023696a201847b25b828515df2f6077935d9672ee64a3eaca79459
-  GO_VERSION: 1.25.5
+  GO_REFERENCE: dhi/golang:1.25.6-alpine3.23-dev@sha256:31ff552fcbb92889bcf952a4b71c1ae71c84e5b067bfe78038217427e905330e
+  GO_VERSION: 1.25.6
   SEMVER_MAJOR_MINOR_VERSION: "1.35"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.35.0
@@ -31,7 +31,7 @@ contents:
     - ca-certificates-bundle
   builds:
     - name: kubectl
-      uses: dhi.io/golang:1.25.5-alpine3.23-dev@sha256:b25c930e72023696a201847b25b828515df2f6077935d9672ee64a3eaca79459
+      uses: dhi.io/golang:1.25.6-alpine3.23-dev@sha256:31ff552fcbb92889bcf952a4b71c1ae71c84e5b067bfe78038217427e905330e
       contents:
         repositories:
           - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
