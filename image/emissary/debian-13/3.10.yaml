@@ -20,8 +20,8 @@ vars:
   COMMIT_SHA: d25610acbea3cd0e57f924f9f6bd9df99a7e33a3
   ENVOY_DIGEST: sha256:75aafdef175111ab3a757e22c354187acf7e11871ed13fccca943ff5c037e8cc
   ENVOY_VERSION: 1.31.10
-  GO_DIGEST: sha256:62830af7e4fa15a26dc6d12378595f2c70e2e0bee2bc081179d3cffe9bf0657c
-  GO_VERSION: 1.24.11
+  GO_DIGEST: sha256:0321bd51a66050dec733d26d791377273598a4f5078d70a0b8a47633af01f55b
+  GO_VERSION: 1.24.12
   PYTHON_DIGEST: sha256:e551eecbfeb14e9d26e9783e5972fe043af153671bd562ac942c457e9e92ebc2
   PYTHON_MAJOR_MINOR_VERSION: "3.11"
   PYTHON_VERSION: 3.11.14
@@ -41,7 +41,7 @@ contents:
     - locales
   builds:
     - name: emissary
-      uses: dhi.io/golang:1.24.11-debian13-dev@sha256:62830af7e4fa15a26dc6d12378595f2c70e2e0bee2bc081179d3cffe9bf0657c
+      uses: dhi.io/golang:1.24.12-debian13-dev@sha256:0321bd51a66050dec733d26d791377273598a4f5078d70a0b8a47633af01f55b
       environment:
         PATH: /opt/python/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       contents:
