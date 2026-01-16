@@ -20,7 +20,7 @@ vars:
   COMMIT_SHA: c56f4400f22c7e9fe9c5c12b85576b74369fb6b8
   EXPAT_REF: dhi/pkg-expat:2.7.3-debian13@sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
   GIT_LFS_REF: dhi/pkg-git-lfs:3.7.1-debian13@sha256:07a6a23eefa63e4a6fc2a8f37936b8e7bb8326736b23fa3dde880786754f092e
-  GO_REF: dhi/golang:1.25.5-debian13-dev@sha256:f9f36f0abe1b818b2fcb2ce0397af9f223cc3e3310871be2a0b6d999dd97fab0
+  GO_REF: dhi/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
   HELM_REF: dhi/helm:3.19.5-debian13@sha256:553041aea18925190c22dfd454020e1806884639f7dc90b8145bbc048da4bb06
   KUSTOMIZE_REF: dhi/kustomize:5.8.0-debian13@sha256:d524268e105e38bcafa154b36563890e6f0ef88bbfac754628c795e0fa8d368f
   NODE_REF: dhi/node:20.20.0-debian13-dev@sha256:4d28c47d4415afc93c62b806850e7db1f1847728912fbc1a6a3b5c4da0a03931
@@ -47,7 +47,7 @@ contents:
     - tzdata
   builds:
     - name: argocd-go
-      uses: dhi.io/golang:1.25.5-debian13-dev@sha256:f9f36f0abe1b818b2fcb2ce0397af9f223cc3e3310871be2a0b6d999dd97fab0
+      uses: dhi.io/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
       contents:
         packages:
           - curl
