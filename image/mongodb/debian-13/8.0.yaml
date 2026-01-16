@@ -14,8 +14,8 @@ dates:
   release: "2024-10-31"
   end-of-life: "2029-10-31"
 vars:
-  GO_DIGEST: sha256:f9f36f0abe1b818b2fcb2ce0397af9f223cc3e3310871be2a0b6d999dd97fab0
-  GO_VERSION: 1.25.5
+  GO_DIGEST: sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
+  GO_VERSION: 1.25.6
   MONGO_TOOLS_COMMIT_SHA: d909d040daa15cc1356071e835e4bac31a96dce3
   MONGO_TOOLS_VERSION: 100.14.0
   MONGODB_ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
