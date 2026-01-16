@@ -9,12 +9,12 @@ platforms:
   - linux/amd64
 vars:
   CHART_COMMIT_SHA: 298d07bda7e9d772a4136f75dea03af81ef44968
-  CLOUDNATIVE_PG_REFERENCE: dhi/cloudnative-pg:1.27.2-debian13@sha256:6ae894b345d0e560f21322527deb59d0052715d98c0bece963423315f68f7af5
+  CLOUDNATIVE_PG_REFERENCE: dhi/cloudnative-pg:1.27.2-debian13@sha256:bc521b2eb9939dc033e934cd37cba56e62df994b6fc287325d0e2798be277cf9
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
+  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:990351376bd8e5afc77dc61f88f8dd47e31ec480a59dd7b171370d89aadf0f74
   SEMVER_MAJOR_MINOR_VERSION: "0.27"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.27.0
@@ -22,7 +22,7 @@ vars:
 contents:
   builds:
     - name: cloudnative-pg
-      uses: dhi.io/helm:3.19.4-debian13-dev@sha256:4a591aa3cad9e5a0b82d3503e6140956db99735b68351b7b223514220873df4c
+      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:990351376bd8e5afc77dc61f88f8dd47e31ec480a59dd7b171370d89aadf0f74
       contents:
         packages:
           - bash
@@ -47,7 +47,7 @@ contents:
               description: Docker Hardened Images Helm chart for CloudNativePG
               images:
                 - name: cloudnative-pg
-                  ref: dhi/cloudnative-pg:1.27.2-debian13@sha256:6ae894b345d0e560f21322527deb59d0052715d98c0bece963423315f68f7af5
+                  ref: dhi/cloudnative-pg:1.27.2-debian13@sha256:bc521b2eb9939dc033e934cd37cba56e62df994b6fc287325d0e2798be277cf9
               name: cloudnative-pg-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/cloudnative-pg/charts
