@@ -13,7 +13,7 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:e634d3d0c4ae9bc6fc4ffb768fd972fd75025208a94e67b49d271cfc910ea847
+  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
   KUBECTL_REFERENCE: dhi/kubectl:1.34.3-alpine3.22-dev@sha256:0459b7b67ab31a30e497ad651a8d00963f836d73d9e33f1cc6b1c6edb7a0a2cd
   NEO4J_REFERENCE: dhi/neo4j:5.26.19-debian13@sha256:850d52171070e634dc1a3a20b22884c1106f3f37c8c4c2fd7f86cab749bbe195
   SEMVER_MAJOR_MINOR_VERSION: "5.26"
@@ -23,7 +23,7 @@ vars:
 contents:
   builds:
     - name: neo4j
-      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:e634d3d0c4ae9bc6fc4ffb768fd972fd75025208a94e67b49d271cfc910ea847
+      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
       contents:
         files:
           - url: git+https://github.com/neo4j/helm-charts.git#5.26.19
