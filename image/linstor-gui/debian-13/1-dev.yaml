@@ -15,7 +15,7 @@ platforms:
   - linux/arm64
 vars:
   COMMIT_SHA: 73335b5c2628eab389918c4d810d88382112cf10
-  NGINX_REFERENCE: dhi/nginx:1.29.4-debian13@sha256:d395303c05b7c300ac1b280060d3cc5b2de1869d93763ee97a061a9dc0561242
+  NGINX_REFERENCE: dhi/nginx:1.29.4-debian13@sha256:3b341cd0cffb638496bc3d9536bef7f7cffeca23173b0a0c184dee03417ce07b
   NODE_BUILD_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:0885e8d074fa4bce93cb80e564ae339a678b72add6fcfa057a1d0b07dc7dc013
   SEMVER_MAJOR_MINOR_VERSION: "1.9"
   SEMVER_MAJOR_VERSION: "1"
@@ -156,7 +156,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/nginx:1.29.4-debian13@sha256:d395303c05b7c300ac1b280060d3cc5b2de1869d93763ee97a061a9dc0561242
+    - name: dhi.io/nginx:1.29.4-debian13@sha256:3b341cd0cffb638496bc3d9536bef7f7cffeca23173b0a0c184dee03417ce07b
       includes:
         - '**'
       excludes:
