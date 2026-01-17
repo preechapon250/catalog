@@ -188,6 +188,20 @@ cryptographic operations. For example, usage of MD5 fails in FIPS variants.
 To view the image variants and get more information about them, select the Tags tab for this repository, and then select
 a tag.
 
+### iptables variant
+
+The `iptables` variant includes iptables binaries required for kube-vip's egress functionality. This variant includes:
+
+- `/usr/sbin/iptables-legacy`
+- `/usr/sbin/iptables-legacy-restore`
+- `/usr/sbin/iptables-legacy-save`
+- `/usr/sbin/iptables-nft`
+- `/usr/sbin/iptables-nft-restore`
+- `/usr/sbin/iptables-nft-save`
+
+Use the `iptables` variant if you need egress support with kube-vip. For more information, see the
+[kube-vip egress documentation](https://kube-vip.io/docs/usage/egress/).
+
 ## Migrate to a Docker Hardened Image
 
 Switching to the hardened kube-vip image does not require any special changes. You can use it as a drop-in replacement
