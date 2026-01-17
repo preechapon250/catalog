@@ -14,17 +14,17 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:e634d3d0c4ae9bc6fc4ffb768fd972fd75025208a94e67b49d271cfc910ea847
+  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
   SEMVER_MAJOR_MINOR_VERSION: "0.49"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.49.1
-  STRIMZI_KAFKA_REFERENCE: dhi/strimzi-kafka:0.49.1-debian13-kafka-4.1.1@sha256:69abd32b3a193b80e12928242adedc935fe1306db079087dcfccc9caf937a478
-  STRIMZI_OPERATOR_REFERENCE: dhi/strimzi-operator:0.49.1-debian13@sha256:6e55de5f5899aa6c8fac91cdf1d6a16771be3e2b36c1a4941839eb2f18a763fe
+  STRIMZI_KAFKA_REFERENCE: dhi/strimzi-kafka:0.49.1-debian13-kafka-4.1.1@sha256:ea17c44ce9edb92bc7acf75777b82c0f154429ec3ee7c666de2643a2b8224cde
+  STRIMZI_OPERATOR_REFERENCE: dhi/strimzi-operator:0.49.1-debian13@sha256:df33f7093ec4c730ebe9cb5e4ddf69a4757105cca600eaee48c286e630bac0ef
   VERSION: 0.49.1
 contents:
   builds:
     - name: strimzi-kafka-operator
-      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:e634d3d0c4ae9bc6fc4ffb768fd972fd75025208a94e67b49d271cfc910ea847
+      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
       contents:
         packages:
           - bash
@@ -49,9 +49,9 @@ contents:
               description: Docker Hardened Images Helm chart for Strimzi Kafka Operator
               images:
                 - name: strimzi-operator
-                  ref: dhi/strimzi-operator:0.49.1-debian13@sha256:6e55de5f5899aa6c8fac91cdf1d6a16771be3e2b36c1a4941839eb2f18a763fe
+                  ref: dhi/strimzi-operator:0.49.1-debian13@sha256:df33f7093ec4c730ebe9cb5e4ddf69a4757105cca600eaee48c286e630bac0ef
                 - name: strimzi-kafka
-                  ref: dhi/strimzi-kafka:0.49.1-debian13-kafka-4.1.1@sha256:69abd32b3a193b80e12928242adedc935fe1306db079087dcfccc9caf937a478
+                  ref: dhi/strimzi-kafka:0.49.1-debian13-kafka-4.1.1@sha256:ea17c44ce9edb92bc7acf75777b82c0f154429ec3ee7c666de2643a2b8224cde
               name: strimzi-kafka-operator-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/strimzi/strimzi-kafka-operator
