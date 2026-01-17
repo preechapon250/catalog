@@ -5,17 +5,17 @@ image: dhi.io/neo4j
 variant: runtime
 tags:
   - "2025"
-  - "2025.11"
-  - 2025.11.2
+  - "2025.12"
+  - 2025.12.1
   - 2025-debian13
-  - 2025.11-debian13
-  - 2025.11.2-debian13
+  - 2025.12-debian13
+  - 2025.12.1-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x64" : "aarch64" }'
-  COMMIT_SHA: 92013cbcc997b8b349ec385c5b1d734f9d9df496
+  COMMIT_SHA: 495f5719b95fc203ec9c5ccefbb563b1f7e5c39a
   GOSU_REFERENCE: dhi/pkg-gosu:1.19-debian13@sha256:70bdd23b79275347618c96e0b88afbacf136378886d3932deeca323f5d180f95
   GOSU_VERSION: "1.19"
   JRE_DIGEST: sha256:8be38a5a3942a69d6ac8a6040c54fb588b6fc29499fa44fec189d2438be4d6a8
@@ -25,10 +25,10 @@ vars:
   MAVEN_REF: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:54dad2732e2c07f1377491e56c864c20635adf7ab2d60673a0e69455c3e1c947
   MAVEN_VERSION: 3.9.12
   NEO4J_HOME: /var/lib/neo4j
-  SEMVER_MAJOR_MINOR_VERSION: "2025.11"
+  SEMVER_MAJOR_MINOR_VERSION: "2025.12"
   SEMVER_MAJOR_VERSION: "2025"
-  SEMVER_VERSION: 2025.11.2
-  VERSION: 2025.11.2
+  SEMVER_VERSION: 2025.12.1
+  VERSION: 2025.12.1
 contents:
   packages:
     - '!libelogind0'
@@ -49,15 +49,15 @@ contents:
           - tar
           - gzip
         files:
-          - url: git+https://github.com/neo4j/neo4j.git#2025.11.2
-            checksum: 92013cbcc997b8b349ec385c5b1d734f9d9df496
+          - url: git+https://github.com/neo4j/neo4j.git#2025.12.1
+            checksum: 495f5719b95fc203ec9c5ccefbb563b1f7e5c39a
             path: ${source.dir}/neo4j
             spdx:
               name: neo4j
-              version: 2025.11.2
+              version: 2025.12.1
               packages:
                 - name: neo4j
-                  purl: pkg:dhi/neo4j@2025.11.2
+                  purl: pkg:dhi/neo4j@2025.12.1
                   license: GPL-3.0
             uid: 0
             gid: 0
@@ -65,10 +65,10 @@ contents:
             path: ${source.dir}/docker-neo4j-publish
             spdx:
               name: docker-neo4j-publish
-              version: 2025.11.2
+              version: 2025.12.1
               packages:
                 - name: docker-neo4j-publish
-                  purl: pkg:dhi/docker-neo4j-publish@2025.11.2
+                  purl: pkg:dhi/docker-neo4j-publish@2025.12.1
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -78,7 +78,7 @@ contents:
           runs: |
             set -eux -o pipefail
 
-            cp -R 2025.11.2/bullseye/community/local-package ${target.dir}/startup
+            cp -R 2025.12.1/bullseye/community/local-package ${target.dir}/startup
         - name: patch entrypoint to use gosu instead of su-exec
           work-dir: ${target.dir}/startup
           runs: |
