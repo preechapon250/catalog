@@ -13,7 +13,7 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:e634d3d0c4ae9bc6fc4ffb768fd972fd75025208a94e67b49d271cfc910ea847
+  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
   KUBE_RBAC_PROXY_REFERENCE: dhi/kube-rbac-proxy:0.20.2-debian13@sha256:ffc6f4caded4811f15f561336649019113250542f299f1d8282f3134663519f0
   KUBE_STATE_METRICS_REFERENCE: dhi/kube-state-metrics:2.17.0-debian13@sha256:0265699bb30c9c0a566220eaddf7c181b6a200c89e82fb74537c4549c8b9917f
   SEMVER_MAJOR_MINOR_VERSION: "7.0"
@@ -23,7 +23,7 @@ vars:
 contents:
   builds:
     - name: kube-state-metrics-chart
-      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:e634d3d0c4ae9bc6fc4ffb768fd972fd75025208a94e67b49d271cfc910ea847
+      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
       contents:
         files:
           - url: git+https://github.com/prometheus-community/helm-charts.git#kube-state-metrics-7.0.1
