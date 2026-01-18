@@ -5,24 +5,24 @@ image: dhi.io/kube-state-metrics
 variant: runtime
 tags:
   - "2"
-  - "2.17"
-  - 2.17.0
+  - "2.18"
+  - 2.18.0
   - 2-debian13
-  - 2.17-debian13
-  - 2.17.0-debian13
+  - 2.18-debian13
+  - 2.18.0-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: f9f0a178a486dd1cc339ecebf40f27c6d5a48364
+  COMMIT_SHA: ab562f78ebf4cb97cc2f87c1235e457076035d16
   GO_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
   GO_TAG: 1.25.6-debian13-dev
-  SEMVER_MAJOR_MINOR_VERSION: "2.17"
+  SEMVER_MAJOR_MINOR_VERSION: "2.18"
   SEMVER_MAJOR_VERSION: "2"
-  SEMVER_VERSION: 2.17.0
-  VERSION: 2.17.0
+  SEMVER_VERSION: 2.18.0
+  VERSION: 2.18.0
 contents:
   packages:
     - '!base-files'
@@ -31,15 +31,15 @@ contents:
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
       contents:
         files:
-          - url: git+https://github.com/kubernetes/kube-state-metrics.git#v2.17.0
-            checksum: f9f0a178a486dd1cc339ecebf40f27c6d5a48364
+          - url: git+https://github.com/kubernetes/kube-state-metrics.git#v2.18.0
+            checksum: ab562f78ebf4cb97cc2f87c1235e457076035d16
             path: /go/src/github.com/kubernetes/kube-state-metrics
             spdx:
               name: kube-state-metrics
-              version: 2.17.0
+              version: 2.18.0
               packages:
                 - name: kube-state-metrics
-                  purl: pkg:golang/github.com/kubernetes/kube-state-metrics@2.17.0
+                  purl: pkg:golang/github.com/kubernetes/kube-state-metrics@2.18.0
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -50,15 +50,14 @@ contents:
           with:
             deps:
               - github.com/go-viper/mapstructure/v2@v2.4.0
-              - golang.org/x/crypto@v0.45.0
             download: true
         - name: build
           uses: go/build@v1
           work-dir: /go/src/github.com/kubernetes/kube-state-metrics
           with:
             ldflags:
-              - -X github.com/prometheus/common/version.Version=2.17.0
-              - -X github.com/prometheus/common/version.Revision=f9f0a178a486dd1cc339ecebf40f27c6d5a48364
+              - -X github.com/prometheus/common/version.Version=2.18.0
+              - -X github.com/prometheus/common/version.Revision=ab562f78ebf4cb97cc2f87c1235e457076035d16
               - -X github.com/prometheus/common/version.Branch=dhi
               - -X github.com/prometheus/common/version.BuildUser=dhi
               - -X github.com/prometheus/common/version.BuildDate=$(date -u -d @${SOURCE_DATE_EPOCH} +'%FT%TZ')
