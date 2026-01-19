@@ -5,26 +5,26 @@ image: dhi.io/strimzi-operator
 variant: dev
 tags:
   - 0-dev
-  - 0.49-dev
-  - 0.49.1-dev
+  - 0.50-dev
+  - 0.50.0-dev
   - 0-debian13-dev
-  - 0.49-debian13-dev
-  - 0.49.1-debian13-dev
+  - 0.50-debian13-dev
+  - 0.50.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: eb359e808dee4f00230ed031bd381cd2a2f94b9c
+  COMMIT_SHA: 825447910afa6e2db8f2897c4ada35dba9dcfa2a
   JAVA_MAJOR_VERSION: "21"
   JAVA_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:8be38a5a3942a69d6ac8a6040c54fb588b6fc29499fa44fec189d2438be4d6a8
   JAVA_VERSION: 21.0.9.10
   MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:54dad2732e2c07f1377491e56c864c20635adf7ab2d60673a0e69455c3e1c947
   MAVEN_VERSION: 3.9.12
-  SEMVER_MAJOR_MINOR_VERSION: "0.49"
+  SEMVER_MAJOR_MINOR_VERSION: "0.50"
   SEMVER_MAJOR_VERSION: "0"
-  SEMVER_VERSION: 0.49.1
+  SEMVER_VERSION: 0.50.0
   STRIMZI_HOME: /opt/strimzi
-  VERSION: 0.49.1
+  VERSION: 0.50.0
   YQ_REFERENCE: dhi/pkg-go-yq:4.49.2-debian13@sha256:e96d74340c5ca018b01bbcb322ef8f53ae667b61b11e32b8bc642a2d211bdf7f
   YQ_VERSION: 4.49.2
 contents:
@@ -57,15 +57,15 @@ contents:
           - bash
           - unzip
         files:
-          - url: git+https://github.com/strimzi/strimzi-kafka-operator.git#0.49.1
-            checksum: eb359e808dee4f00230ed031bd381cd2a2f94b9c
+          - url: git+https://github.com/strimzi/strimzi-kafka-operator.git#0.50.0
+            checksum: 825447910afa6e2db8f2897c4ada35dba9dcfa2a
             path: ${source.dir}/strimzi
             spdx:
               name: strimzi
-              version: 0.49.1
+              version: 0.50.0
               packages:
                 - name: strimzi
-                  purl: pkg:maven/io.strimzi/strimzi@0.49.1
+                  purl: pkg:maven/io.strimzi/strimzi@0.50.0
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -100,12 +100,12 @@ contents:
 
             mkdir -p '${target.dir}/opt/strimzi'
             for bundle in cluster-operator topic-operator user-operator kafka-init; do
-              unzip -qo "docker-images/artifacts/binaries/${bundle}-0.49.1-dist.zip" -d '${target.dir}/opt/strimzi'
+              unzip -qo "docker-images/artifacts/binaries/${bundle}-0.50.0-dist.zip" -d '${target.dir}/opt/strimzi'
             done
             cp -a docker-images/operator/scripts/. '${target.dir}/opt/strimzi/bin'
 
             mkdir -p '${target.dir}/opt/v1-api-conversion'
-            unzip -qo 'docker-images/artifacts/binaries/v1-api-conversion-0.49.1-dist.zip' -d '${target.dir}/opt/v1-api-conversion'
+            unzip -qo 'docker-images/artifacts/binaries/v1-api-conversion-0.50.0-dist.zip' -d '${target.dir}/opt/v1-api-conversion'
         - name: replace vulnerable lz4 dep
           runs: |
             set -eux -o pipefail
@@ -166,7 +166,7 @@ environment:
   DEBIAN_FRONTEND: noninteractive
   JAVA_HOME: /opt/java/openjdk/21-jre
   STRIMZI_HOME: /opt/strimzi
-  STRIMZI_VERSION: 0.49.1
+  STRIMZI_VERSION: 0.50.0
 annotations:
   org.opencontainers.image.description: A minimal Strimzi Operator image
   org.opencontainers.image.licenses: Apache-2.0
