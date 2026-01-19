@@ -84,6 +84,7 @@ contents:
             bun pm pkg set overrides.node-forge="1.3.2"
             bun pm pkg set overrides.h3="1.15.5"     # CVE-2026-23527
             bun pm pkg set overrides.devalue="5.6.2" # CVE-2026-22774, CVE-2026-22775
+            bun pm pkg set overrides.tar="7.5.3"     # CVE-2026-23745
             bun update
             bun run generate
 
