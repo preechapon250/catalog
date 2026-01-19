@@ -5,11 +5,11 @@ image: dhi.io/gradle
 variant: dev
 tags:
   - 9-jdk25-dev
-  - 9.2-jdk25-dev
-  - 9.2.1-jdk25-dev
+  - 9.3-jdk25-dev
+  - 9.3.0-jdk25-dev
   - 9-jdk25-debian13-dev
-  - 9.2-jdk25-debian13-dev
-  - 9.2.1-jdk25-debian13-dev
+  - 9.3-jdk25-debian13-dev
+  - 9.3.0-jdk25-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,10 +18,10 @@ dates:
 vars:
   EXPAT_DIGEST: sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
   EXPAT_VERSION: 2.7.3
-  GRADLE_DIGEST: sha256:ab2f5f897d0080e65d98d313d9eaa81da52bffb7e1918dc0a3f4c6f5a8bd7d51
-  GRADLE_MAJOR_MINOR_VERSION: "9.2"
+  GRADLE_DIGEST: sha256:e8d21b2989b5ae1b4ae4f0bddda184fb86e521abcb4e74902cbcce466cfa295d
+  GRADLE_MAJOR_MINOR_VERSION: "9.3"
   GRADLE_MAJOR_VERSION: "9"
-  GRADLE_VERSION: 9.2.1
+  GRADLE_VERSION: 9.3.0
   JAVA_DIGEST: sha256:64753662782bec6726dff5583a190d22d39851c30edae3d5ff84352653421983
   JAVA_MAJOR_VERSION: "25"
   JAVA_VERSION: 25.0.1.8
@@ -51,7 +51,7 @@ contents:
         - usr/share/locale/**
       uid: 0
       gid: 0
-    - name: dhi.io/pkg-gradle:9.2.1@sha256:ab2f5f897d0080e65d98d313d9eaa81da52bffb7e1918dc0a3f4c6f5a8bd7d51
+    - name: dhi.io/pkg-gradle:9.3.0@sha256:e8d21b2989b5ae1b4ae4f0bddda184fb86e521abcb4e74902cbcce466cfa295d
       includes:
         - opt/**
         - usr/local/bin/**
@@ -85,8 +85,8 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /build
 environment:
-  GRADLE_HOME: /opt/java/gradle/gradle-9.2.1
-  GRADLE_VERSION: 9.2.1
+  GRADLE_HOME: /opt/java/gradle/gradle-9.3.0
+  GRADLE_VERSION: 9.3.0
   JAVA_HOME: /opt/java/openjdk/25
 paths:
   - type: directory
