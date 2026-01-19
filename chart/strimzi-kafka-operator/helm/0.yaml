@@ -19,7 +19,7 @@ vars:
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.50.0
   STRIMZI_KAFKA_REFERENCE: dhi/strimzi-kafka:0.50.0-debian13-kafka-4.1.1@sha256:67c678b08175657c73b6ea4c02d018805899e23c92bfb88ed5534fbe421c3eab
-  STRIMZI_OPERATOR_REFERENCE: dhi/strimzi-operator:0.49.1-debian13@sha256:df33f7093ec4c730ebe9cb5e4ddf69a4757105cca600eaee48c286e630bac0ef
+  STRIMZI_OPERATOR_REFERENCE: dhi/strimzi-operator:0.50.0-debian13@sha256:5915aeda7da71293def3542f97c654bd46dd78af10204c86982cca2d84ce0477
   VERSION: 0.50.0
 contents:
   builds:
@@ -49,7 +49,7 @@ contents:
               description: Docker Hardened Images Helm chart for Strimzi Kafka Operator
               images:
                 - name: strimzi-operator
-                  ref: dhi/strimzi-operator:0.49.1-debian13@sha256:df33f7093ec4c730ebe9cb5e4ddf69a4757105cca600eaee48c286e630bac0ef
+                  ref: dhi/strimzi-operator:0.50.0-debian13@sha256:5915aeda7da71293def3542f97c654bd46dd78af10204c86982cca2d84ce0477
                 - name: strimzi-kafka
                   ref: dhi/strimzi-kafka:0.50.0-debian13-kafka-4.1.1@sha256:67c678b08175657c73b6ea4c02d018805899e23c92bfb88ed5534fbe421c3eab
               name: strimzi-kafka-operator-chart
