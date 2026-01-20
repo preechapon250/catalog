@@ -5,9 +5,9 @@ image: dhi.io/mysql
 variant: dev
 tags:
   - 8.0-dev
-  - 8.0.44-dev
+  - 8.0.45-dev
   - 8.0-debian13-dev
-  - 8.0.44-debian13-dev
+  - 8.0.45-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -16,13 +16,13 @@ dates:
   end-of-life: "2026-04-30"
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
-  COMMIT_SHA: 153abc27b7dda30b455c0d99e657dac4e39e3505
+  COMMIT_SHA: 666701570c392a6052341b6ddb9c21869bb1d733
   DEBIAN_EPOCH_MAJOR_MINOR_VERSION: "8.0"
   DEBIAN_EPOCH_MAJOR_VERSION: "8"
-  DEBIAN_EPOCH_VERSION: 8.0.44
+  DEBIAN_EPOCH_VERSION: 8.0.45
   GOSU_REFERENCE: dhi/pkg-gosu:1.19-debian13@sha256:21838cdbc7876e163da0f2bc4db1228cc32ebfd66284f4bbdc15ce06f40349e4
   GOSU_VERSION: "1.19"
-  VERSION: 8.0.44
+  VERSION: 8.0.45
 contents:
   packages:
     - '!gawk'
@@ -75,15 +75,15 @@ contents:
           - xz-utils
           - zlib1g-dev
         files:
-          - url: git+https://github.com/mysql/mysql-server#mysql-8.0.44
-            checksum: 153abc27b7dda30b455c0d99e657dac4e39e3505
+          - url: git+https://github.com/mysql/mysql-server#mysql-8.0.45
+            checksum: 666701570c392a6052341b6ddb9c21869bb1d733
             path: ${source.dir}/mysql
             spdx:
               name: mysql
-              version: 8.0.44
+              version: 8.0.45
               packages:
                 - name: mysql
-                  purl: pkg:github/mysql/mysql-server@8.0.44
+                  purl: pkg:github/mysql/mysql-server@8.0.45
                   license: GPL-2.0-only
             uid: 0
             gid: 0
