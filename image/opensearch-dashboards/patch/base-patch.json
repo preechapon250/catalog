@@ -1,2 +1,12 @@
 [
+  {
+      "package": "tar",
+      "dev": false,
+      "version": "7.5.3"
+  },
+  {
+      "package": "@smithy/config-resolver",
+      "dev": false,
+      "version": "4.4.0"
+  }
 ]

@@ -179,6 +179,11 @@ contents:
             uid: 1000
             gid: 1000
       pipeline:
+        - name: patch opensearch-dashboards to use tar 7
+          uses: git/patch@v1
+          work-dir: ${source.dir}/opensearch-dashboards
+          with:
+            patch: ${source.dir}/patches/tar7.patch
         - name: patch opensearch-dashboards with unified yarn patches
           uses: yarn/bump@v1
           privileged: true
@@ -188,10 +193,11 @@ contents:
             yarn-root: ${source.dir}/opensearch-dashboards
         - name: patch opensearch-dashboards base with specific yarn patch
           uses: yarn/bump@v1
+          run-as: opensearch-dashboards
           privileged: true
           with:
             patches: ${source.dir}/patches/base-patch.json
-            skip-yarn-add: true
+            skip-yarn-add: false
             yarn-root: ${source.dir}/opensearch-dashboards
         - name: patch observabilityDashboards with unified patches
           uses: yarn/bump@v1
@@ -422,6 +428,11 @@ contents:
           gid: 1000
           mode: "0777"
           source: image/opensearch-dashboards/patch/base-patch.json
+        - type: file
+          path: /src/patches/tar7.patch
+          uid: 1000
+          gid: 1000
+          source: image/opensearch-dashboards/patch/tar7.patch
       accounts:
         run-as: opensearch-dashboards
         users:
