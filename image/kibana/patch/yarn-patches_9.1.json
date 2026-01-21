@@ -52,5 +52,13 @@
   {
     "package": "tar",
     "version": "^7.5.4"
+  },
+  {
+    "package": "undici",
+    "version": "^7.18.2"
+  },
+  {
+    "package": "@smithy/config-resolver",
+    "version": "^4.4.0"
   }
 ]
