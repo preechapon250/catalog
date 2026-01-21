@@ -26,8 +26,8 @@ vars:
   PIP_IPYTHON_VERSION: 9.6.0
   PIP_NUMPY_VERSION: 2.3.4
   PIP_PYYAML_VERSION: 6.0.3
-  PYTHON_DEV_REFERENCE: dhi/python:3.11.14-debian13-dev@sha256:e889132947fa13502118da58bb349be3715b4ec388b7a31cef6c25ace5c42d0a
-  PYTHON_REFERENCE: dhi/python:3.11.14-debian13@sha256:e551eecbfeb14e9d26e9783e5972fe043af153671bd562ac942c457e9e92ebc2
+  PYTHON_DEV_REFERENCE: dhi/python:3.11.14-debian13-dev@sha256:040feae104600d898d471b158ad0cf9429add0ce056fd2f9670cc4e1c8c864a8
+  PYTHON_REFERENCE: dhi/python:3.11.14-debian13@sha256:fdfa3cc3e9d6eaa2d2d3fa466c44e9278be1840f95aec45b9a9155b56be47f09
   PYTORCH_CUDA_VERSION: 12.8.1
   PYTORCH_CUDNN_VERSION: 9.10.2.21
   PYTORCH_PYTHON_VERSION: "3.11"
@@ -59,7 +59,7 @@ contents:
     - zlib1g-dev
   builds:
     - name: pytorch build
-      uses: dhi.io/python:3.11.14-debian13-dev@sha256:e889132947fa13502118da58bb349be3715b4ec388b7a31cef6c25ace5c42d0a
+      uses: dhi.io/python:3.11.14-debian13-dev@sha256:040feae104600d898d471b158ad0cf9429add0ce056fd2f9670cc4e1c8c864a8
       environment:
         CUDA_PATH: cu128
         INDEX_ARGS: --index-url https://download.pytorch.org/whl/cu128/
@@ -163,7 +163,7 @@ contents:
           gid: 0
           diff: true
   artifacts:
-    - name: dhi.io/python:3.11.14-debian13-dev@sha256:e889132947fa13502118da58bb349be3715b4ec388b7a31cef6c25ace5c42d0a
+    - name: dhi.io/python:3.11.14-debian13-dev@sha256:040feae104600d898d471b158ad0cf9429add0ce056fd2f9670cc4e1c8c864a8
       includes:
         - opt/**
         - usr/**
