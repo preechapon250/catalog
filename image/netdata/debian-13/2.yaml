@@ -17,7 +17,7 @@ vars:
   COMMIT: 38812a29044fc5b0290389bcf1292d9f4af5c334
   GO_VERSION: 1.25.6
   GOLANG_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
-  PYTHON_REFERENCE: dhi/python:3.12.12-debian13@sha256:65e3d2289d1e2bcb1419af38d0ce9182d6f2cf1b51338ca947cae2744b38ec46
+  PYTHON_REFERENCE: dhi/python:3.12.12-debian13@sha256:8fdf129968594c319caf810dcf15b2541d08d2b166a9306f6aaf3637c3168e06
   PYTHON_VERSION: 3.12.12
   SEMVER_MAJOR_MINOR_VERSION: "2.8"
   SEMVER_MAJOR_VERSION: "2"
@@ -222,7 +222,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/python:3.12.12-debian13@sha256:65e3d2289d1e2bcb1419af38d0ce9182d6f2cf1b51338ca947cae2744b38ec46
+    - name: dhi.io/python:3.12.12-debian13@sha256:8fdf129968594c319caf810dcf15b2541d08d2b166a9306f6aaf3637c3168e06
       includes:
         - opt/**
         - usr/**
