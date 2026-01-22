@@ -11,7 +11,7 @@ platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  DIGEST: sha256:c421799ba84187788ebe9472f6db4c7dc892b4fcec0314847fc6e5ffc592f0d1
+  DIGEST: sha256:46462979bb0bc7ae7f1d4541a8d445cf6070606aa9f30564872af45bd9f51b26
   NODEJS_VERSION_MAJOR: "24"
   NODEJS_VERSION_MAJOR_MINOR: "24.13"
   VERSION: 24.13.0
@@ -72,7 +72,7 @@ contents:
           - bash
           - coreutils
         artifacts:
-          - name: dhi.io/pkg-node:24.13.0-debian12@sha256:c421799ba84187788ebe9472f6db4c7dc892b4fcec0314847fc6e5ffc592f0d1
+          - name: dhi.io/pkg-node:24.13.0-debian12@sha256:46462979bb0bc7ae7f1d4541a8d445cf6070606aa9f30564872af45bd9f51b26
             includes:
               - opt/docker
               - opt/nodejs
