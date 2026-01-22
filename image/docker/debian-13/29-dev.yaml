@@ -15,14 +15,14 @@ platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  BUILDX_COMMIT_SHA: 9e66234aa13328a5e75b75aa5574e1ca6d6d9c01
-  BUILDX_VERSION: 0.30.1
+  BUILDX_COMMIT_SHA: 44945d71ff077ce7fc142fbdee6acec8d9acb630
+  BUILDX_VERSION: 0.31.0
   COMMIT_SHA: 0e6fee6c52f761dc79dc4bf712ea9fe4095c9bd2
   COMPOSE_COMMIT_SHA: c428a77111d56683b823a47590eb08de5c59a162
   COMPOSE_VERSION: 5.0.2
   GO_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
-  SCOUT_CLI_PLUGIN_COMMIT_SHA: a899057a1de8eb7fc1060bb39e1197a89f7ff9fc
-  SCOUT_CLI_PLUGIN_VERSION: 1.19.1
+  SCOUT_CLI_PLUGIN_COMMIT_SHA: 04f8540f76d80dd5bfe89f2a3e91bf3a465679c7
+  SCOUT_CLI_PLUGIN_VERSION: 1.19.2
   SEMVER_MAJOR_MINOR_VERSION: "29.1"
   SEMVER_MAJOR_VERSION: "29"
   SEMVER_VERSION: 29.1.5
@@ -49,38 +49,43 @@ contents:
   builds:
     - name: buildx
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
+      work-dir: /go/src/github.com/docker/buildx
+      caches:
+        - path: /go/pkg/mod
       contents:
         packages:
           - gnu-which
         files:
-          - url: git+https://github.com/docker/buildx.git#v0.30.1
-            checksum: 9e66234aa13328a5e75b75aa5574e1ca6d6d9c01
+          - url: git+https://github.com/docker/buildx.git#v0.31.0
+            checksum: 44945d71ff077ce7fc142fbdee6acec8d9acb630
             path: /go/src/github.com/docker/buildx
             spdx:
               name: docker-buildx
-              version: 0.30.1
+              version: 0.31.0
               packages:
                 - name: buildx
-                  purl: pkg:golang/github.com/docker/buildx@0.30.1
+                  purl: pkg:golang/github.com/docker/buildx@0.31.0
                   license: Apache-2.0
             uid: 0
             gid: 0
       pipeline:
         - name: go dependencies
           uses: go/bump@v1
-          work-dir: /go/src/github.com/docker/buildx
           with:
             deps:
-              - golang.org/x/crypto@v0.45.0
+              - github.com/theupdateframework/go-tuf/v2@v2.3.1
             download: true
-        - name: build
-          work-dir: /go/src/github.com/docker/buildx
-          runs: |
-            set -eux -o pipefail
-
-            make build
+        - name: go build
+          uses: go/build@v1
+          with:
+            ldflags:
+              - -X github.com/docker/buildx/version.Version=0.31.0
+              - -X github.com/docker/buildx/version.Revision=44945d71ff077ce7fc142fbdee6acec8d9acb630
+              - -X github.com/docker/buildx/version.Package=github.com/docker/buildx
+            output: ${target.dir}/usr/local/libexec/docker/cli-plugins/docker-buildx
+            packages: ./cmd/buildx
       outputs:
-        - source: /go/src/github.com/docker/buildx/bin/build/docker-buildx
+        - source: ${target.dir}/usr/local/libexec/docker/cli-plugins/docker-buildx
           target: /usr/local/libexec/docker/cli-plugins/docker-buildx
           uid: 0
           gid: 0
@@ -91,6 +96,8 @@ contents:
           gid: 0
     - name: compose
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
+      caches:
+        - path: /go/pkg/mod
       contents:
         packages:
           - bash
@@ -135,17 +142,19 @@ contents:
           gid: 0
     - name: scout
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
+      caches:
+        - path: /go/pkg/mod
       contents:
         files:
-          - url: git+https://github.com/docker/scout-cli-plugin.git#v1.19.1
-            checksum: a899057a1de8eb7fc1060bb39e1197a89f7ff9fc
+          - url: git+https://github.com/docker/scout-cli-plugin.git#v1.19.2
+            checksum: 04f8540f76d80dd5bfe89f2a3e91bf3a465679c7
             path: /go/src/github.com/docker/scout-cli-plugin
             spdx:
               name: scout-cli
-              version: 1.19.1
+              version: 1.19.2
               packages:
                 - name: scout-cli
-                  purl: pkg:github/docker/scout-cli-plugin@1.19.1
+                  purl: pkg:github/docker/scout-cli-plugin@1.19.2
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -154,16 +163,16 @@ contents:
           uses: go/bump@v1
           work-dir: /go/src/github.com/docker/scout-cli-plugin
           with:
-            deps: []
+            deps:
+              - github.com/theupdateframework/go-tuf/v2@v2.3.1
             download: true
-            replaces: []
         - name: build
           uses: go/build@v1
           work-dir: /go/src/github.com/docker/scout-cli-plugin
           with:
             ldflags:
-              - -X github.com/docker/scout-cli-plugin/internal/version.version=1.19.1
-              - -X github.com/docker/scout-cli-plugin/internal/version.commit=a899057a1de8eb7fc1060bb39e1197a89f7ff9fc
+              - -X github.com/docker/scout-cli-plugin/internal/version.version=1.19.2
+              - -X github.com/docker/scout-cli-plugin/internal/version.commit=04f8540f76d80dd5bfe89f2a3e91bf3a465679c7
             output: ${target.dir}/usr/local/libexec/docker/cli-plugins/docker-scout
             packages: ./cmd/docker-scout
       outputs:
@@ -247,7 +256,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 environment:
   DEBIAN_FRONTEND: noninteractive
-  DOCKER_BUILDX_VERSION: 0.30.1
+  DOCKER_BUILDX_VERSION: 0.31.0
   DOCKER_COMPOSE_VERSION: 5.0.2
   DOCKER_TLS_CERTDIR: /cert
   DOCKER_VERSION: 29.1.5
