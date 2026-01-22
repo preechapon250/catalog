@@ -4,12 +4,12 @@ name: Fluent Bit Helm chart 0.x
 image: dhi.io/fluent-bit-chart
 variant: helm
 tags:
-  - 0.54.1
+  - 0.55.0
 platforms:
   - linux/amd64
 vars:
   BUSYBOX_REFERENCE: dhi/busybox:1.37.0-alpine3.22@sha256:a1e4d4675dc1f8b4c9cdc0f62cb7e47623ca063c55665049a801d8d6d129f8b2
-  CHART_COMMIT_SHA: b6f9b5bd4565783d68176125b736831d9e91acc0
+  CHART_COMMIT_SHA: a359bcb5bcc16126b528a10afef8bd26eebd19a8
   CONFIGMAP_RELOAD_REFERENCE: dhi/configmap-reload:0.15.0-debian13@sha256:c1a3250e18dfaee1a72e52a5fcefeaf98d41067b9c7f9edbd3008fd3623a757a
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
@@ -17,10 +17,10 @@ vars:
   DHI_SKIP_CONTEXT_COPY: "true"
   FLUENT_BIT_REFERENCE: dhi/fluent-bit:4.2.2-debian13@sha256:a0e65dfe419c003179510ab57c129194988cd00285588262ff0a0bb307595f08
   HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
-  SEMVER_MAJOR_MINOR_VERSION: "0.54"
+  SEMVER_MAJOR_MINOR_VERSION: "0.55"
   SEMVER_MAJOR_VERSION: "0"
-  SEMVER_VERSION: 0.54.1
-  VERSION: 0.54.1
+  SEMVER_VERSION: 0.55.0
+  VERSION: 0.55.0
 contents:
   builds:
     - name: fluent-bit
@@ -34,8 +34,8 @@ contents:
           - libc-bin
           - sed
         files:
-          - url: git+https://github.com/fluent/helm-charts.git#fluent-bit-0.54.1
-            checksum: b6f9b5bd4565783d68176125b736831d9e91acc0
+          - url: git+https://github.com/fluent/helm-charts.git#fluent-bit-0.55.0
+            checksum: a359bcb5bcc16126b528a10afef8bd26eebd19a8
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
