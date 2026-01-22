@@ -17,7 +17,7 @@ vars:
   BASE_DIGEST: sha256:d46a757d9ec2c6f6d9b7c4cdcfdb9bc65c9614c53ee28e0f489ed844fd2b79c8
   BASE_TAG: 20250419-glibc-debian13
   COMMIT_SHA: ee4f0036283a350681a618176484df6bcde27507
-  RUST_REFERENCE: dhi/rust:1.92.0-debian13-sfw-dev@sha256:7546af07f69ec4c018e3ecb9ebac61828087e710a589f0aab0fe74748bb5533f
+  RUST_REFERENCE: dhi/rust:1.93.0-debian13-sfw-dev@sha256:d6bb30fb1fc88cb9123a0867af12cd83534108e867b5dec93a26761cddc36822
   SEMVER_MAJOR_MINOR_VERSION: "0.9"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.9.26
@@ -46,7 +46,7 @@ contents:
     - util-linux
   builds:
     - name: uv
-      uses: dhi.io/rust:1.92.0-debian13-sfw-dev@sha256:7546af07f69ec4c018e3ecb9ebac61828087e710a589f0aab0fe74748bb5533f
+      uses: dhi.io/rust:1.93.0-debian13-sfw-dev@sha256:d6bb30fb1fc88cb9123a0867af12cd83534108e867b5dec93a26761cddc36822
       contents:
         packages:
           - ca-certificates
