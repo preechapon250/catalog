@@ -19,8 +19,8 @@ vars:
   COMMIT_SHA: 0a6802e88ac2efc194d1feb26e912a313ab85f81
   PYTHON_DIGEST: sha256:237e07b4e1db4ea6e20b6471f4bd40c476ab8593e55726e4ef7780748b362bf2
   PYTHON_VERSION: 3.13.11
-  RUST_DIGEST: sha256:7cfae5cf29c2d25155618749fb9bde3db0e37c1accfbbb86a7194f5fddca9ac1
-  RUST_VERSION: 1.92.0
+  RUST_DIGEST: sha256:341eb393e8afb4c8d486555d6919e2e8ed060f6e097b74cd9b702ee805576920
+  RUST_VERSION: 1.93.0
   SEMVER_MAJOR_MINOR_VERSION: "1.5"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.5.1
@@ -97,7 +97,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/rust:1.92.0-debian13@sha256:7cfae5cf29c2d25155618749fb9bde3db0e37c1accfbbb86a7194f5fddca9ac1
+          - name: dhi.io/rust:1.93.0-debian13@sha256:341eb393e8afb4c8d486555d6919e2e8ed060f6e097b74cd9b702ee805576920
             includes:
               - usr/local/bin/cargo
               - usr/local/bin/rustc
