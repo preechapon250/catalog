@@ -51,6 +51,7 @@ contents:
           with:
             deps:
               - github.com/sigstore/fulcio@v1.8.5
+              - github.com/theupdateframework/go-tuf/v2@v2.3.1
             download: true
         - name: test
           privileged: true
