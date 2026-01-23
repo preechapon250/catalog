@@ -16,6 +16,7 @@ platforms:
   - linux/arm64
 vars:
   COMMIT_SHA: 825447910afa6e2db8f2897c4ada35dba9dcfa2a
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   JAVA_MAJOR_VERSION: "21"
   JAVA_PATH: /opt/java/openjdk/21-jre
   JAVA_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:e0c3e71b08e1051e402957c08de745011f9f1209d27d1e9e8cab1fe6edf9a44b
@@ -166,7 +167,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:c7651f9ef631e9a9feada59aff228f9382bdb537e85dc8e9c201093597898c45
+      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
       contents:
         packages:
           - bash
@@ -177,6 +178,8 @@ contents:
         - name: install locales
           runs: |
             set -eux -o pipefail
+
+            ln -s /etc/locale.alias /usr/share/locale/locale.alias
 
             echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
             locale-gen en_US.UTF-8

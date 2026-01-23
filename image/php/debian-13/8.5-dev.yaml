@@ -19,6 +19,7 @@ vars:
   CFLAGS: -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
   CHECKSUM: 39cb6e4acd679b574d3d3276f148213e935fc25f90403eb84fb1b836a806ef1e
   CPPFLAGS: -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   LDFLAGS: -Wl,-O1 -pie
   OPCACHE_BUILTIN: "true"
   PHP_PREFIX: /opt/php-8.5
@@ -282,7 +283,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:c7651f9ef631e9a9feada59aff228f9382bdb537e85dc8e9c201093597898c45
+      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
       contents:
         packages:
           - bash
@@ -293,6 +294,8 @@ contents:
         - name: install locales
           runs: |
             set -eux -o pipefail
+
+            ln -s /etc/locale.alias /usr/share/locale/locale.alias
 
             echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
             locale-gen en_US.UTF-8

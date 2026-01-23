@@ -15,6 +15,7 @@ dates:
   release: "2023-09-14"
   end-of-life: "2028-11-09"
 vars:
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   GOSU_REFERENCE: dhi/pkg-gosu:1.19-debian13@sha256:21838cdbc7876e163da0f2bc4db1228cc32ebfd66284f4bbdc15ce06f40349e4
   GOSU_VERSION: "1.19"
   MAJOR_VERSION: "16"
@@ -168,7 +169,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:c7651f9ef631e9a9feada59aff228f9382bdb537e85dc8e9c201093597898c45
+      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
       contents:
         packages:
           - bash
@@ -179,6 +180,8 @@ contents:
         - name: install locales
           runs: |
             set -eux -o pipefail
+
+            ln -s /etc/locale.alias /usr/share/locale/locale.alias
 
             echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
             locale-gen en_US.UTF-8

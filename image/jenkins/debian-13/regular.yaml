@@ -19,6 +19,7 @@ vars:
   BUILD_JDK_REF: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:38b228ea69b2f3cbd3202741e73bb3115217a6283be4955e8f9e181d9a3156df
   BUILD_JDK_VERSION: 21.0.9.10
   COMMIT_SHA: be1adbf5ccea5b9c1cc1a9375349d56576b459cd
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   DOCKER_REPO_COMMIT_SHA: b4e60877a915fa749f18a2d8768cb0d7a22b8568
   DOCKER_REPO_VERSION: "2.547"
   JAVA_HOME_PATH: /opt/java/openjdk/21-jre
@@ -138,7 +139,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:c7651f9ef631e9a9feada59aff228f9382bdb537e85dc8e9c201093597898c45
+      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
       contents:
         packages:
           - bash
@@ -149,6 +150,8 @@ contents:
         - name: install locales
           runs: |
             set -eux -o pipefail
+
+            ln -s /etc/locale.alias /usr/share/locale/locale.alias
 
             echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
             locale-gen en_US.UTF-8

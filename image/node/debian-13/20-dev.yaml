@@ -17,6 +17,7 @@ dates:
   release: "2023-04-18"
   end-of-life: "2026-04-30"
 vars:
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   DIGEST: sha256:cb238c7fed384e962db6ec48f6f7fbe336ea03939c79526a4b28e33f97475e83
   EXPAT_DIGEST: sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
   EXPAT_VERSION: 2.7.3
@@ -48,7 +49,7 @@ contents:
     - util-linux
   builds:
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:c7651f9ef631e9a9feada59aff228f9382bdb537e85dc8e9c201093597898c45
+      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
       contents:
         packages:
           - bash
@@ -59,6 +60,8 @@ contents:
         - name: install locales
           runs: |
             set -eux -o pipefail
+
+            ln -s /etc/locale.alias /usr/share/locale/locale.alias
 
             echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
             locale-gen en_US.UTF-8
