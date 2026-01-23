@@ -17,7 +17,7 @@ dates:
   release: "2025-10-15"
   end-of-life: "2026-06-01"
 vars:
-  DIGEST: sha256:3e4c6bdcf38db504bc46d031d352afd3af786a207e4e6705c5ae68f5cc666fd9
+  DIGEST: sha256:abaa500f9cd6425421e5731375c642a0226981e34e24fb56e6746e9cfb377430
   EXPAT_DIGEST: sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
   EXPAT_VERSION: 2.7.3
   NODEJS_VERSION_MAJOR: "25"
@@ -79,7 +79,7 @@ contents:
         - var/lib/dpkg/status.d
       uid: 0
       gid: 0
-    - name: dhi.io/pkg-node:25.4.0-debian13@sha256:3e4c6bdcf38db504bc46d031d352afd3af786a207e4e6705c5ae68f5cc666fd9
+    - name: dhi.io/pkg-node:25.4.0-debian13@sha256:abaa500f9cd6425421e5731375c642a0226981e34e24fb56e6746e9cfb377430
       includes:
         - opt/docker
         - opt/nodejs
