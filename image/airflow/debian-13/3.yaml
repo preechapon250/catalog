@@ -23,7 +23,7 @@ dates:
   release: "2025-04-22"
 vars:
   COMMIT_SHA: d6a009b6dfa1802930f514a2429cc56f5b4c2f12
-  NODE_DIGEST: sha256:ba1cbc36b2f61bd262ab3474b878cc7677dbea874e280182e555b897b07f3e43
+  NODE_DIGEST: sha256:0e18e60142270dd9b0690252df0f18c21d680edb45cdcf0393c823bbdad8d986
   NODE_VERSION: 22.22.0
   PYTHON_BUILD_DIGEST: sha256:24e13f1fc03f94e85eced365faac8323d2c33369c3a68576b18e6aa3e0b5e26d
   PYTHON_BUILD_VERSION: 3.12.12
@@ -88,7 +88,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/pkg-node:22.22.0-debian13@sha256:ba1cbc36b2f61bd262ab3474b878cc7677dbea874e280182e555b897b07f3e43
+          - name: dhi.io/pkg-node:22.22.0-debian13@sha256:0e18e60142270dd9b0690252df0f18c21d680edb45cdcf0393c823bbdad8d986
             includes:
               - opt/nodejs
               - usr/local/bin/node
