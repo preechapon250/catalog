@@ -9,7 +9,7 @@ platforms:
   - linux/arm64
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
-  COREPACK_VERSION: 0.34.5
+  COREPACK_VERSION: 0.34.6
   NPM_VERSION: 11.8.0
   VERSION: 22.22.0
   YARN_VERSION: 1.22.22
@@ -103,8 +103,8 @@ contents:
             path: ${source.dir}/npm-v11.8.0.tgz
             uid: 0
             gid: 0
-          - url: https://registry.npmjs.org/corepack/-/corepack-0.34.5.tgz
-            path: ${source.dir}/corepack-v0.34.5.tgz
+          - url: https://registry.npmjs.org/corepack/-/corepack-0.34.6.tgz
+            path: ${source.dir}/corepack-v0.34.6.tgz
             uid: 0
             gid: 0
       pipeline:
@@ -158,12 +158,12 @@ contents:
               cd ..
             fi
 
-            if [ -f "corepack-v0.34.5.tgz" ]; then
+            if [ -f "corepack-v0.34.6.tgz" ]; then
               echo "(re)installing corepack"
               "${target.dir}/opt/nodejs/node-v22.22.0/bin/node" \
                 "${target.dir}/opt/nodejs/node-v22.22.0/bin/npm" rm corepack -gf --loglevel=silent
               "${target.dir}/opt/nodejs/node-v22.22.0/bin/node" \
-                "${target.dir}/opt/nodejs/node-v22.22.0/bin/npm" install -gf "corepack-v0.34.5.tgz"
+                "${target.dir}/opt/nodejs/node-v22.22.0/bin/npm" install -gf "corepack-v0.34.6.tgz"
             fi
 
             mkdir -p "${target.dir}/usr/local/bin"
