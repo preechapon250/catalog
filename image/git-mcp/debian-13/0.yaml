@@ -17,8 +17,8 @@ platforms:
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
   COMMIT_SHA: 24b9402fd6904e74dff78d06be313fc8b701b937
-  PYTHON_DEV_REFERENCE: dhi/python:3.14.2-debian13-sfw-dev@sha256:3956e86597c968f650e0cbc360ff7534eadfc1fb53f7b2f6254f02ff7c713f0e
-  PYTHON_REFERENCE: dhi/python:3.14.2-debian13@sha256:c055b3667bbfaac0e8e8ef77b0105c6581817e8b05e437352eedab0819e2c2cc
+  PYTHON_DEV_REFERENCE: dhi/python:3.14.2-debian13-sfw-dev@sha256:0ac3cd15277ecf5b3739d4af7845c9a21dbe92123bdb306e2b5da5fbfe51b16b
+  PYTHON_REFERENCE: dhi/python:3.14.2-debian13@sha256:8ae48d8bed25e796e8fe144921ce3a739688b5d0a027011512325f3f2242ce1b
   SEMVER_MAJOR_MINOR_VERSION: "2025.12"
   SEMVER_MAJOR_VERSION: "2025"
   SEMVER_VERSION: 2025.12.18
@@ -30,7 +30,7 @@ contents:
     - git
   builds:
     - name: git-mcp
-      uses: dhi.io/python:3.14.2-debian13-sfw-dev@sha256:3956e86597c968f650e0cbc360ff7534eadfc1fb53f7b2f6254f02ff7c713f0e
+      uses: dhi.io/python:3.14.2-debian13-sfw-dev@sha256:0ac3cd15277ecf5b3739d4af7845c9a21dbe92123bdb306e2b5da5fbfe51b16b
       environment:
         UV_COMPILE_BYTECODE: "1"
       contents:
@@ -88,7 +88,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/python:3.14.2-debian13@sha256:c055b3667bbfaac0e8e8ef77b0105c6581817e8b05e437352eedab0819e2c2cc
+    - name: dhi.io/python:3.14.2-debian13@sha256:8ae48d8bed25e796e8fe144921ce3a739688b5d0a027011512325f3f2242ce1b
       excludes:
         - etc/group
         - etc/passwd
