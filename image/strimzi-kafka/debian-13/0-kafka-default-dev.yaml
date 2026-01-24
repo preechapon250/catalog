@@ -19,16 +19,16 @@ vars:
   DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   JAVA_MAJOR_VERSION: "21"
   JAVA_PATH: /opt/java/openjdk/21-jre
-  JAVA_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:e0c3e71b08e1051e402957c08de745011f9f1209d27d1e9e8cab1fe6edf9a44b
+  JAVA_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JAVA_VERSION: 21.0.9.10
-  JMX_EXPORTER_REFERENCE: dhi/jmx-exporter:1.5.0-debian13@sha256:057caea7dc0b16314703f74dd715fe086d78025ca7983a43f1e47d0eb1694e0f
+  JMX_EXPORTER_REFERENCE: dhi/jmx-exporter:1.5.0-debian13@sha256:5cba7d6bf56a8244c707b520de15022aa657846b00fa88a122ed425a50a4ca45
   JMX_EXPORTER_VERSION: 1.5.0
   KAFKA_EXPORTER_REFERENCE: dhi/kafka-exporter:1.9.0-debian13@sha256:0b4dcc19ed8f5488de6618aec69ca286b5ce26e219ceecdc4438df03abaa4af2
   KAFKA_EXPORTER_VERSION: 1.9.0
   KAFKA_MAJOR_MINOR_VERSION: "4.1"
-  KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:30d68d2d7a31b7679e71dd83f48d91611f889da3e8fc7cc9c41e1dc61b6b402a
+  KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:907d8a30ff7ede1a23b79e1e6a3cc326c93dabc2967c62fd8a1023699417989d
   KAFKA_VERSION: 4.1.1
-  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:5483e50d4bcaac95572eb056d2c1717d921935c5f7f6a8bca5d217d04b1b6a38
+  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
   MAVEN_VERSION: 3.9.12
   SEMVER_MAJOR_MINOR_VERSION: "0.50"
   SEMVER_MAJOR_VERSION: "0"
@@ -62,7 +62,7 @@ contents:
     - util-linux
   builds:
     - name: strimzi-kafka scripts and agents
-      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:5483e50d4bcaac95572eb056d2c1717d921935c5f7f6a8bca5d217d04b1b6a38
+      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
       contents:
         files:
           - url: git+https://github.com/strimzi/strimzi-kafka-operator.git#0.50.0
@@ -193,13 +193,13 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/eclipse-temurin:21.0.9.10-debian13@sha256:e0c3e71b08e1051e402957c08de745011f9f1209d27d1e9e8cab1fe6edf9a44b
+    - name: dhi.io/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
       includes:
         - opt/**
         - usr/local/bin
       uid: 0
       gid: 0
-    - name: dhi.io/kafka:4.1.1-debian13@sha256:30d68d2d7a31b7679e71dd83f48d91611f889da3e8fc7cc9c41e1dc61b6b402a
+    - name: dhi.io/kafka:4.1.1-debian13@sha256:907d8a30ff7ede1a23b79e1e6a3cc326c93dabc2967c62fd8a1023699417989d
       includes:
         - opt/kafka
       uid: 0
@@ -209,7 +209,7 @@ contents:
         - usr/local/bin
       uid: 0
       gid: 0
-    - name: dhi.io/jmx-exporter:1.5.0-debian13@sha256:057caea7dc0b16314703f74dd715fe086d78025ca7983a43f1e47d0eb1694e0f
+    - name: dhi.io/jmx-exporter:1.5.0-debian13@sha256:5cba7d6bf56a8244c707b520de15022aa657846b00fa88a122ed425a50a4ca45
       includes:
         - opt/jmx-exporter/jmx_prometheus_javaagent.jar
       uid: 0
