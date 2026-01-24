@@ -48,7 +48,7 @@ vars:
   JOB_SCHEDULER_COMMIT_SHA: 2efb3da9bc5cb89e63aa56163ddc66129eb2743d
   JOB_SCHEDULER_VERSION: 3.4.0.0
   JRE_MAJOR_VERSION: "21"
-  JRE_REF: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:e0c3e71b08e1051e402957c08de745011f9f1209d27d1e9e8cab1fe6edf9a44b
+  JRE_REF: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JRE_VERSION: 21.0.9.10
   K_NN_COMMIT_SHA: 88e369808a39669f8c0d0ff2f2aa2d1a487c6901
   K_NN_VERSION: 3.4.0.0
@@ -776,7 +776,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/eclipse-temurin:21.0.9.10-debian13@sha256:e0c3e71b08e1051e402957c08de745011f9f1209d27d1e9e8cab1fe6edf9a44b
+    - name: dhi.io/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
       includes:
         - opt/**
         - usr/local/bin/**
