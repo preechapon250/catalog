@@ -21,7 +21,7 @@ vars:
   JAVA_MAJOR_VERSION: "21"
   JRE_REF: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JRE_VERSION: 21.0.9.10
-  MAVEN_REF: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:5483e50d4bcaac95572eb056d2c1717d921935c5f7f6a8bca5d217d04b1b6a38
+  MAVEN_REF: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
   REMOTING_COMMIT_SHA: 03dee9bf88fca2151e7f8f246c64fdacd72c62cb
   REMOTING_SEMVER_VERSION: "3345"
   VERSION: 3345.v03dee9b_f88fc
@@ -73,7 +73,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:5483e50d4bcaac95572eb056d2c1717d921935c5f7f6a8bca5d217d04b1b6a38
+          - name: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
             includes:
               - opt/**
               - usr/local/bin/**
