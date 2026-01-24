@@ -21,12 +21,12 @@ vars:
   JAVA_PATH: /opt/java/openjdk/21-jre
   JAVA_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JAVA_VERSION: 21.0.9.10
-  JMX_EXPORTER_REFERENCE: dhi/jmx-exporter:1.5.0-debian13@sha256:5cba7d6bf56a8244c707b520de15022aa657846b00fa88a122ed425a50a4ca45
+  JMX_EXPORTER_REFERENCE: dhi/jmx-exporter:1.5.0-debian13@sha256:5a3fbebdc657edb66ed6db24b2470a9c8b884b19adbf92e1e8ecee764260ec87
   JMX_EXPORTER_VERSION: 1.5.0
   KAFKA_EXPORTER_REFERENCE: dhi/kafka-exporter:1.9.0-debian13@sha256:0b4dcc19ed8f5488de6618aec69ca286b5ce26e219ceecdc4438df03abaa4af2
   KAFKA_EXPORTER_VERSION: 1.9.0
   KAFKA_MAJOR_MINOR_VERSION: "4.1"
-  KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:907d8a30ff7ede1a23b79e1e6a3cc326c93dabc2967c62fd8a1023699417989d
+  KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:001f660ea80116337fc1f0fae104840f0cd1d0e19370e4920c8b3aee01f40f8f
   KAFKA_VERSION: 4.1.1
   MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
   MAVEN_VERSION: 3.9.12
@@ -199,7 +199,7 @@ contents:
         - usr/local/bin
       uid: 0
       gid: 0
-    - name: dhi.io/kafka:4.1.1-debian13@sha256:907d8a30ff7ede1a23b79e1e6a3cc326c93dabc2967c62fd8a1023699417989d
+    - name: dhi.io/kafka:4.1.1-debian13@sha256:001f660ea80116337fc1f0fae104840f0cd1d0e19370e4920c8b3aee01f40f8f
       includes:
         - opt/kafka
       uid: 0
@@ -209,7 +209,7 @@ contents:
         - usr/local/bin
       uid: 0
       gid: 0
-    - name: dhi.io/jmx-exporter:1.5.0-debian13@sha256:5cba7d6bf56a8244c707b520de15022aa657846b00fa88a122ed425a50a4ca45
+    - name: dhi.io/jmx-exporter:1.5.0-debian13@sha256:5a3fbebdc657edb66ed6db24b2470a9c8b884b19adbf92e1e8ecee764260ec87
       includes:
         - opt/jmx-exporter/jmx_prometheus_javaagent.jar
       uid: 0
