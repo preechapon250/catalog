@@ -6,10 +6,10 @@ variant: runtime
 tags:
   - "11"
   - "11.6"
-  - 11.6.9
+  - 11.6.10
   - 11-debian13
   - 11.6-debian13
-  - 11.6.9-debian13
+  - 11.6.10-debian13
 platforms:
   - linux/amd64
   - linux/arm64
@@ -17,7 +17,7 @@ dates:
   release: "2025-03-25"
   end-of-life: "2026-06-25"
 vars:
-  COMMIT_SHA: 723a1642e8f43947a8e0c4621face5b3d985e1d2
+  COMMIT_SHA: b0865c0373937d9758e189c7047de975899f9de0
   GO_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
   GO_VERSION: 1.25.6
   NODE_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:78c89ee96ad8309a4005d7bae9d2a143f897717ff4b7eca960b2d04d3036e672
@@ -26,8 +26,8 @@ vars:
   PYTHON_VERSION: 3.13.11
   SEMVER_MAJOR_MINOR_VERSION: "11.6"
   SEMVER_MAJOR_VERSION: "11"
-  SEMVER_VERSION: 11.6.9
-  VERSION: 11.6.9
+  SEMVER_VERSION: 11.6.10
+  VERSION: 11.6.10
 contents:
   packages:
     - '!dpkg'
@@ -52,15 +52,15 @@ contents:
           - grep
           - gcc
         files:
-          - url: git+https://github.com/grafana/grafana.git#v11.6.9
-            checksum: 723a1642e8f43947a8e0c4621face5b3d985e1d2
+          - url: git+https://github.com/grafana/grafana.git#v11.6.10
+            checksum: b0865c0373937d9758e189c7047de975899f9de0
             path: /go/src/github.com/grafana/grafana
             spdx:
               name: grafana
-              version: 11.6.9
+              version: 11.6.10
               packages:
                 - name: grafana
-                  purl: pkg:dhi/grafana@11.6.9
+                  purl: pkg:dhi/grafana@11.6.10
                   license: AGPL-3.0
             uid: 0
             gid: 0
@@ -84,7 +84,7 @@ contents:
             set -eux -o pipefail
 
             # The tagged source contains an old version in package.json
-            sed -i "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"11.6.9\"/g" package.json
+            sed -i "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"11.6.10\"/g" package.json
         - name: build ui
           work-dir: /go/src/github.com/grafana/grafana
           privileged: true
@@ -176,7 +176,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /var/lib/grafana
 environment:
-  GRAFANA_VERSION: 11.6.9
+  GRAFANA_VERSION: 11.6.10
   PATH: /usr/share/grafana/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/local/bin
 paths:
   - type: directory
