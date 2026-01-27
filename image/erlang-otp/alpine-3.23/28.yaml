@@ -10,13 +10,13 @@ platforms:
   - linux/amd64
   - linux/arm64
 dates:
-  release: "2025-05-19"
+  release: "2025-05-20"
 vars:
-  COMMIT_SHA: ab489c0b260c637a9487f8753909ea94dacbbec2
+  COMMIT_SHA: aa5b1d3366762ff8f420f2aa6a52604b481530c9
   SEMVER_MAJOR_MINOR_VERSION: "28.3"
   SEMVER_MAJOR_VERSION: "28"
   SEMVER_VERSION: "28.3"
-  VERSION: "28.3"
+  VERSION: 28.3.1
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
@@ -41,14 +41,15 @@ contents:
           - ncurses-dev
           - openssl-dev
         files:
-          - url: git+https://github.com/erlang/otp.git#OTP-28.3
+          - url: git+https://github.com/erlang/otp.git#OTP-28.3.1
+            checksum: aa5b1d3366762ff8f420f2aa6a52604b481530c9
             path: /usr/src/otp
             spdx:
               name: erlang-otp
-              version: "28.3"
+              version: 28.3.1
               packages:
                 - name: erlang-otp
-                  purl: pkg:erlang/github.com/erlang/otp@28.3
+                  purl: pkg:erlang/github.com/erlang/otp@28.3.1
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -78,9 +79,6 @@ contents:
             rm -f ${target.dir}/usr/local/bin/dialyzer
             rm -f ${target.dir}/usr/local/bin/typer
             rm -f ${target.dir}/usr/local/bin/ct_run
-
-            # Remove build sources
-            rm -rf /usr/src/otp
       outputs:
         - source: ${target.dir}/usr/local
           target: /usr/local

@@ -1,35 +1,47 @@
 # syntax=dhi.io/build:2-debian13
 
-name: Erlang/OTP 28.x
+name: Erlang/OTP 27.x (dev)
 image: dhi.io/erlang-otp
-variant: runtime
+variant: dev
 tags:
-  - "28"
-  - "28.3"
-  - 28-debian13
-  - 28.3-debian13
+  - 27-dev
+  - 27.3-dev
+  - 27-debian13-dev
+  - 27.3-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 dates:
-  release: "2025-05-20"
+  release: "2024-05-17"
 vars:
-  COMMIT_SHA: aa5b1d3366762ff8f420f2aa6a52604b481530c9
-  SEMVER_MAJOR_MINOR_VERSION: "28.3"
-  SEMVER_MAJOR_VERSION: "28"
-  SEMVER_VERSION: "28.3"
-  VERSION: 28.3.1
+  COMMIT_SHA: f1b17a1fb4d2bc74501608852547f8d9b504f7e3
+  SEMVER_MAJOR_MINOR_VERSION: "27.3"
+  SEMVER_MAJOR_VERSION: "27"
+  SEMVER_VERSION: "27.3"
+  VERSION: 27.3.4.6
 contents:
   packages:
+    - '!gawk'
     - '!libelogind0'
     - '!mawk'
     - '!original-awk'
+    - apt
     - base-files
+    - bash
     - ca-certificates
     - coreutils
     - dash
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
+    - libc-bin
     - libssl3t64
     - libstdc++6
+    - mawk
+    - perl-base
+    - sed
+    - util-linux
   builds:
     - name: erlang-otp
       contents:
@@ -45,15 +57,15 @@ contents:
           - libssl-dev
           - sed
         files:
-          - url: git+https://github.com/erlang/otp.git#OTP-28.3.1
-            checksum: aa5b1d3366762ff8f420f2aa6a52604b481530c9
+          - url: git+https://github.com/erlang/otp.git#OTP-27.3.4.6
+            checksum: f1b17a1fb4d2bc74501608852547f8d9b504f7e3
             path: /usr/src/otp
             spdx:
               name: erlang-otp
-              version: 28.3.1
+              version: 27.3.4.6
               packages:
                 - name: erlang-otp
-                  purl: pkg:erlang/github.com/erlang/otp@28.3.1
+                  purl: pkg:erlang/github.com/erlang/otp@27.3.4.6
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -67,17 +79,6 @@ contents:
 
             make -j$(nproc)
             make install DESTDIR=${target.dir}
-        - name: cleanup
-          runs: |
-            set -eux -o pipefail
-
-            # Remove examples directories
-            find ${target.dir}/usr/local/lib/erlang -type d -name examples -exec rm -rf {} +
-
-            # Remove dev-only binaries
-            rm -f ${target.dir}/usr/local/bin/dialyzer
-            rm -f ${target.dir}/usr/local/bin/typer
-            rm -f ${target.dir}/usr/local/bin/ct_run
       outputs:
         - source: ${target.dir}/usr/local
           target: /usr/local
@@ -88,10 +89,14 @@ contents:
           uid: 0
           gid: 0
 accounts:
-  run-as: nonroot
+  root: true
+  run-as: root
   users:
     - name: nonroot
       uid: 65532
+      gid: 65532
+    - name: _apt
+      uid: 42
       gid: 65532
   groups:
     - name: nonroot
@@ -106,6 +111,8 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+environment:
+  DEBIAN_FRONTEND: noninteractive
 annotations:
   org.opencontainers.image.description: A minimal Erlang/OTP image
   org.opencontainers.image.licenses: Apache-2.0

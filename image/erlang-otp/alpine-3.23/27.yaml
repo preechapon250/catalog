@@ -1,63 +1,64 @@
-# syntax=dhi.io/build:2-debian13
+# syntax=dhi.io/build:2-alpine3.23
 
-name: Erlang/OTP 28.x
+name: Erlang/OTP 27.x
 image: dhi.io/erlang-otp
 variant: runtime
 tags:
-  - "28"
-  - "28.3"
-  - 28-debian13
-  - 28.3-debian13
+  - 27-alpine3.23
+  - 27.3-alpine3.23
 platforms:
   - linux/amd64
   - linux/arm64
 dates:
-  release: "2025-05-20"
+  release: "2024-05-17"
 vars:
-  COMMIT_SHA: aa5b1d3366762ff8f420f2aa6a52604b481530c9
-  SEMVER_MAJOR_MINOR_VERSION: "28.3"
-  SEMVER_MAJOR_VERSION: "28"
-  SEMVER_VERSION: "28.3"
-  VERSION: 28.3.1
+  COMMIT_SHA: f1b17a1fb4d2bc74501608852547f8d9b504f7e3
+  SEMVER_MAJOR_MINOR_VERSION: "27.3"
+  SEMVER_MAJOR_VERSION: "27"
+  SEMVER_VERSION: "27.3"
+  VERSION: 27.3.4.6
 contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
+    - https://dl-cdn.alpinelinux.org/alpine/v3.23/community
   packages:
-    - '!libelogind0'
-    - '!mawk'
-    - '!original-awk'
-    - base-files
+    - alpine-baselayout-data
     - ca-certificates
-    - coreutils
-    - dash
-    - libssl3t64
-    - libstdc++6
+    - libcrypto3
+    - libstdc++
+    - ncurses-libs
+    - openssl
   builds:
     - name: erlang-otp
       contents:
+        repositories:
+          - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
+          - https://dl-cdn.alpinelinux.org/alpine/v3.23/community
         packages:
+          - autoconf
           - bash
-          - build-essential
-          - coreutils
-          - dpkg-dev
-          - findutils
-          - grep
-          - gzip
-          - libncurses-dev
-          - libssl-dev
-          - sed
+          - build-base
+          - ncurses-dev
+          - openssl-dev
         files:
-          - url: git+https://github.com/erlang/otp.git#OTP-28.3.1
-            checksum: aa5b1d3366762ff8f420f2aa6a52604b481530c9
+          - url: git+https://github.com/erlang/otp.git#OTP-27.3.4.6
+            checksum: f1b17a1fb4d2bc74501608852547f8d9b504f7e3
             path: /usr/src/otp
             spdx:
               name: erlang-otp
-              version: 28.3.1
+              version: 27.3.4.6
               packages:
                 - name: erlang-otp
-                  purl: pkg:erlang/github.com/erlang/otp@28.3.1
+                  purl: pkg:erlang/github.com/erlang/otp@27.3.4.6
                   license: Apache-2.0
             uid: 0
             gid: 0
       pipeline:
+        - name: setup tmp directory
+          runs: |
+            set -eux -o pipefail
+
+            mkdir -p /tmp
         - name: configure and build
           work-dir: /usr/src/otp
           runs: |
@@ -99,11 +100,10 @@ accounts:
       members:
         - nonroot
 os-release:
-  name: Docker Hardened Images (Debian)
-  id: debian
-  version-id: "13"
-  version-codename: trixie
-  pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
+  name: Docker Hardened Images (Alpine)
+  id: alpine
+  version-id: "3.23"
+  pretty-name: Docker Hardened Images/Alpine Linux v3.23
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
 annotations:

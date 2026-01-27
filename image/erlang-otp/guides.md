@@ -11,9 +11,8 @@ For example:
 For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
 This image provides the Erlang/OTP runtime and development tools for building highly concurrent, distributed, and
-fault-tolerant applications. It includes the Erlang virtual machine (BEAM), standard libraries, and essential build
-tools like rebar3 in `-dev` variants. Runtime variants contain only the minimal components needed to run Erlang releases
-in production.
+fault-tolerant applications. Runtime variants contain only the minimal components needed to run Erlang releases in
+production.
 
 ### Build and run an Erlang application
 

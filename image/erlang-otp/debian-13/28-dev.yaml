@@ -12,7 +12,7 @@ platforms:
   - linux/amd64
   - linux/arm64
 dates:
-  release: "2025-05-19"
+  release: "2025-05-20"
 vars:
   COMMIT_SHA: aa5b1d3366762ff8f420f2aa6a52604b481530c9
   SEMVER_MAJOR_MINOR_VERSION: "28.3"
@@ -33,6 +33,7 @@ contents:
     - dash
     - diffutils
     - dpkg
+    - findutils
     - grep
     - libc-bin
     - libssl3t64
@@ -57,6 +58,7 @@ contents:
           - sed
         files:
           - url: git+https://github.com/erlang/otp.git#OTP-28.3.1
+            checksum: aa5b1d3366762ff8f420f2aa6a52604b481530c9
             path: /usr/src/otp
             spdx:
               name: erlang-otp

@@ -1,22 +1,22 @@
 # syntax=dhi.io/build:2-alpine3.23
 
-name: Erlang/OTP 28.x (dev)
+name: Erlang/OTP 27.x (dev)
 image: dhi.io/erlang-otp
 variant: dev
 tags:
-  - 28-alpine3.23-dev
-  - 28.3-alpine3.23-dev
+  - 27-alpine3.23-dev
+  - 27.3-alpine3.23-dev
 platforms:
   - linux/amd64
   - linux/arm64
 dates:
-  release: "2025-05-20"
+  release: "2024-05-17"
 vars:
-  COMMIT_SHA: aa5b1d3366762ff8f420f2aa6a52604b481530c9
-  SEMVER_MAJOR_MINOR_VERSION: "28.3"
-  SEMVER_MAJOR_VERSION: "28"
-  SEMVER_VERSION: "28.3"
-  VERSION: 28.3.1
+  COMMIT_SHA: f1b17a1fb4d2bc74501608852547f8d9b504f7e3
+  SEMVER_MAJOR_MINOR_VERSION: "27.3"
+  SEMVER_MAJOR_VERSION: "27"
+  SEMVER_VERSION: "27.3"
+  VERSION: 27.3.4.6
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.23/main
@@ -45,15 +45,15 @@ contents:
           - ncurses-dev
           - openssl-dev
         files:
-          - url: git+https://github.com/erlang/otp.git#OTP-28.3.1
-            checksum: aa5b1d3366762ff8f420f2aa6a52604b481530c9
+          - url: git+https://github.com/erlang/otp.git#OTP-27.3.4.6
+            checksum: f1b17a1fb4d2bc74501608852547f8d9b504f7e3
             path: /usr/src/otp
             spdx:
               name: erlang-otp
-              version: 28.3.1
+              version: 27.3.4.6
               packages:
                 - name: erlang-otp
-                  purl: pkg:erlang/github.com/erlang/otp@28.3.1
+                  purl: pkg:erlang/github.com/erlang/otp@27.3.4.6
                   license: Apache-2.0
             uid: 0
             gid: 0
