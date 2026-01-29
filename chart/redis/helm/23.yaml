@@ -14,9 +14,9 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
   KUBECTL_REFERENCE: dhi/kubectl:1.34.3-debian13@sha256:4764749d32d0312dc2d9f82b3309d691cea656f098810caaaa9e0156714c0da0
-  REDIS_EXPORTER_REFERENCE: dhi/redis-exporter:1.80.1-debian13-compat@sha256:ea39f5746ca751137bb4a6518a57b0b9cde9effd6e53fbf5e1e4ebc213ab746f
+  REDIS_EXPORTER_REFERENCE: dhi/redis-exporter:1.80.2-debian13-compat@sha256:bbe38624021bdace38007244310595d5ccecb317e698bb20a8480ae3f35a511a
   REDIS_REFERENCE: dhi/redis:8.2.3-debian13-compat@sha256:5f091601d2ee04bd5297e2783e9a97ae99ac29f0619f4c5d7837fefd91948bed
   SEMVER_MAJOR_MINOR_VERSION: "23.0"
   SEMVER_MAJOR_VERSION: "23"
@@ -25,7 +25,7 @@ vars:
 contents:
   builds:
     - name: redis
-      uses: dhi.io/helm:3.19.5-debian13-dev@sha256:9fa0f8ba70052f17df5a7a3469c2e306d18b5f934f3439ce781c9dd5a2f6b96a
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
       contents:
         files:
           - url: git+https://github.com/docker-hardened-images/helm-charts.git#redis/23.0.5
@@ -44,7 +44,7 @@ contents:
                 - name: redis
                   ref: dhi/redis:8.2.3-debian13-compat@sha256:5f091601d2ee04bd5297e2783e9a97ae99ac29f0619f4c5d7837fefd91948bed
                 - name: redis-exporter
-                  ref: dhi/redis-exporter:1.80.1-debian13-compat@sha256:ea39f5746ca751137bb4a6518a57b0b9cde9effd6e53fbf5e1e4ebc213ab746f
+                  ref: dhi/redis-exporter:1.80.2-debian13-compat@sha256:bbe38624021bdace38007244310595d5ccecb317e698bb20a8480ae3f35a511a
                 - name: bash
                   ref: dhi/bash:5.2.37-debian13@sha256:f4a446ed86875dce4b449b082ad5742a292a5222238429ca23e22335c0bd4466
                 - name: kubectl
