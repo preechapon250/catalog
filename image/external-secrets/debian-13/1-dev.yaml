@@ -67,6 +67,12 @@ contents:
           with:
             deps: []
             download: true
+        - name: patch security fix
+          uses: git/patch@v1
+          work-dir: /go/src/github.com/external-secrets/external-secrets
+          with:
+            patches:
+              - ${source.dir}/patch/security-pr5884.patch
         - name: build external-secrets
           uses: go/build@v1
           work-dir: /go/src/github.com/external-secrets/external-secrets
@@ -79,6 +85,12 @@ contents:
           with:
             output: ${target.dir}/usr/local/bin/esoctl
             packages: ./cmd/esoctl
+      paths:
+        - type: file
+          path: ${source.dir}/patch/security-pr5884.patch
+          uid: 0
+          gid: 0
+          source: image/external-secrets/patch/security-pr5884.patch
       outputs:
         - source: ${target.dir}/usr/local/bin/external-secrets
           target: /usr/local/bin/external-secrets
