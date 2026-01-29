@@ -4,28 +4,28 @@ name: HAProxy Helm chart 1.x
 image: dhi.io/haproxy-chart
 variant: helm
 tags:
-  - 1.27.0
+  - 1.28.0
 platforms:
   - linux/amd64
 vars:
-  CHART_COMMIT_SHA: d86b80cde4ce782ed1108dd2177a17d791f78394
+  CHART_COMMIT_SHA: 982c4adb3c203399ba017c10d7bdf4bd434b0a58
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   HAPROXY_REFERENCE: dhi/haproxy:3.1.12-debian13@sha256:6b96ca7d5904cfb05a569048a5124d6fc4b42273e241d8fe20816a6d2bc8a897
   HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
-  SEMVER_MAJOR_MINOR_VERSION: "1.27"
+  SEMVER_MAJOR_MINOR_VERSION: "1.28"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.27.0
-  VERSION: 1.27.0
+  SEMVER_VERSION: 1.28.0
+  VERSION: 1.28.0
 contents:
   builds:
     - name: haproxy
       uses: dhi.io/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
       contents:
         files:
-          - url: git+https://github.com/haproxytech/helm-charts.git#haproxy-1.27.0
+          - url: git+https://github.com/haproxytech/helm-charts.git#haproxy-1.28.0
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
