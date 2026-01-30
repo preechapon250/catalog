@@ -28,6 +28,14 @@ vars:
 contents:
   packages:
     - '!base-files'
+    - '!libpython3-stdlib'
+    - '!libpython3.13-minimal'
+    - '!libpython3.13-stdlib'
+    - '!python3'
+    - '!python3-dbus'
+    - '!python3-minimal'
+    - '!python3.13'
+    - '!python3.13-minimal'
     - e2fsprogs
     - nfs-common
     - xfsprogs
