@@ -73,7 +73,12 @@ contents:
             cat > "${target.dir}/opt/socket/bin/npm" << 'EOF'
             #!/bin/sh
 
-            sfw /opt/nodejs/node-v24.13.0/bin/npm "$@"
+            # if DHI_NO_SFW is set to true, run the command without sfw, otherwise run with sfw
+            if [ "${DHI_NO_SFW}" = "true" ]; then
+              /opt/nodejs/node-v24.13.0/bin/npm "$@"
+            else
+              sfw /opt/nodejs/node-v24.13.0/bin/npm "$@"
+            fi
             EOF
 
             chmod +x "${target.dir}/opt/socket/bin/npm"
@@ -86,7 +91,12 @@ contents:
             cat > "${target.dir}/opt/socket/bin/yarn" << EOF
             #!/bin/sh
 
-            sfw $YARN_PATH "\$@"
+            # if DHI_NO_SFW is set to true, run the command without sfw, otherwise run with sfw
+            if [ "\${DHI_NO_SFW}" = "true" ]; then
+              $YARN_PATH "\$@"
+            else
+              sfw $YARN_PATH "\$@"
+            fi
             EOF
 
             chmod +x "${target.dir}/opt/socket/bin/yarn"

@@ -112,7 +112,12 @@ contents:
             cat > "${target.dir}/opt/socket/bin/pip" << 'EOF'
             #!/bin/bash
 
-            sfw /opt/python/bin/pip "$@"
+            # if DHI_NO_SFW is set to true, run the command without sfw, otherwise run with sfw
+            if [ "${DHI_NO_SFW}" = "true" ]; then
+              /opt/python/bin/pip "$@"
+            else
+              sfw /opt/python/bin/pip "$@"
+            fi
             EOF
 
             chmod +x "${target.dir}/opt/socket/bin/pip"
