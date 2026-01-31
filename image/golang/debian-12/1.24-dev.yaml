@@ -15,8 +15,8 @@ vars:
   BINUTILS_DIGEST: sha256:84e2b257f650047d79895d79e3becead653a915923c3aa1a03a525387bb5517d
   BINUTILS_VERSION: "2.45"
   DIGEST: sha256:9ca7588bdc299e28d9a4514cf579234227f4f37a1644e116e841cbd939e35218
-  EXPAT_DIGEST: sha256:3fdbe5af6f4e7951e227db3bd931072fec23771bafa560f7d178b71abe53ef90
-  EXPAT_VERSION: 2.7.3
+  EXPAT_DIGEST: sha256:1135126380318703e38e851688e0bf3dd973d079f73dd4a9d662219a455a7207
+  EXPAT_VERSION: 2.7.4
   MAJOR_MINOR_VERSION: "1.24"
   MAJOR_VERSION: "1"
   VERSION: 1.24.12
@@ -66,7 +66,7 @@ contents:
         - var/lib/dpkg/status
       uid: 0
       gid: 0
-    - name: dhi.io/pkg-expat:2.7.3-debian12@sha256:3fdbe5af6f4e7951e227db3bd931072fec23771bafa560f7d178b71abe53ef90
+    - name: dhi.io/pkg-expat:2.7.4-debian12@sha256:1135126380318703e38e851688e0bf3dd973d079f73dd4a9d662219a455a7207
       includes:
         - usr/**
         - var/lib/dpkg/status.d
