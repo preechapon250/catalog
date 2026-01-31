@@ -1,28 +1,28 @@
 # syntax=dhi.io/build:2-alpine3.22
 
-name: LocalStack 4.12.x
+name: LocalStack 4.13.x
 image: dhi.io/localstack
 variant: runtime
 tags:
   - 4-alpine3.22
-  - 4.12-alpine3.22
-  - 4.12.0-alpine3.22
+  - 4.13-alpine3.22
+  - 4.13.0-alpine3.22
   - 4-python3.13-alpine3.22
-  - 4.12-python3.13-alpine3.22
-  - 4.12.0-python3.13-alpine3.22
+  - 4.13-python3.13-alpine3.22
+  - 4.13.0-python3.13-alpine3.22
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: b570b3ee2cf98ba084073f2774583eed4fb0ad38
-  PYTHON_BUILD_REFERENCE: dhi/python:3.13.11-alpine3.22-dev@sha256:aa8fd40d4761eb1b56f0dd6dea1f192fde9da52a43de84bc656e003606e724b7
+  COMMIT_SHA: 29e817623b4522c28a0d07311d68e1cff849613f
+  PYTHON_BUILD_REFERENCE: dhi/python:3.13.11-alpine3.22-dev@sha256:ecbc0c688df19ab05eafa240f4884f6f5671d033dd9ccf5c5747adf8e6c8d193
   PYTHON_MAJOR_MINOR_VERSION: "3.13"
-  PYTHON_REFERENCE: dhi/python:3.13.11-alpine3.22@sha256:6b548ac1188c0197b0f91f54c9b87d05fd5de2cc29695ab523ed5d99ffd599f7
+  PYTHON_REFERENCE: dhi/python:3.13.11-alpine3.22@sha256:61b01ddfca1d952eb3a0051e8ebf0c9d626660b4f577d8ccc66a2d59527d582d
   PYTHON_VERSION: 3.13.11
-  SEMVER_MAJOR_MINOR_VERSION: "4.12"
+  SEMVER_MAJOR_MINOR_VERSION: "4.13"
   SEMVER_MAJOR_VERSION: "4"
-  SEMVER_VERSION: 4.12.0
-  VERSION: 4.12.0
+  SEMVER_VERSION: 4.13.0
+  VERSION: 4.13.0
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -34,7 +34,7 @@ contents:
     - unzip
   builds:
     - name: localstack
-      uses: dhi.io/python:3.13.11-alpine3.22-dev@sha256:aa8fd40d4761eb1b56f0dd6dea1f192fde9da52a43de84bc656e003606e724b7
+      uses: dhi.io/python:3.13.11-alpine3.22-dev@sha256:ecbc0c688df19ab05eafa240f4884f6f5671d033dd9ccf5c5747adf8e6c8d193
       contents:
         repositories:
           - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -45,15 +45,15 @@ contents:
           - sed
           - g++
         files:
-          - url: git+https://github.com/localstack/localstack.git#v4.12.0
-            checksum: b570b3ee2cf98ba084073f2774583eed4fb0ad38
+          - url: git+https://github.com/localstack/localstack.git#v4.13.0
+            checksum: 29e817623b4522c28a0d07311d68e1cff849613f
             path: ${source.dir}/localstack
             spdx:
               name: localstack
-              version: 4.12.0
+              version: 4.13.0
               packages:
                 - name: localstack
-                  purl: pkg:dhi/localstack@4.12.0
+                  purl: pkg:dhi/localstack@4.13.0
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -74,7 +74,7 @@ contents:
             python3 -m venv "$VIRTUAL_ENV"
 
             # Since we modified the source, we need to set the version explicitly to avoid undesired bumps
-            export SETUPTOOLS_SCM_PRETEND_VERSION="4.12.0"
+            export SETUPTOOLS_SCM_PRETEND_VERSION="4.13.0"
             "$VIRTUAL_ENV/bin/python3" -m pip install -r "${source.dir}/localstack/requirements-runtime.txt"
             "$VIRTUAL_ENV/bin/python3" -m pip install -e "${source.dir}/localstack[runtime]"
             "$VIRTUAL_ENV/bin/python3" -m plux --workdir "${source.dir}/localstack" entrypoints
@@ -114,7 +114,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/python:3.13.11-alpine3.22@sha256:6b548ac1188c0197b0f91f54c9b87d05fd5de2cc29695ab523ed5d99ffd599f7
+    - name: dhi.io/python:3.13.11-alpine3.22@sha256:61b01ddfca1d952eb3a0051e8ebf0c9d626660b4f577d8ccc66a2d59527d582d
       includes:
         - opt/**
         - usr/**
