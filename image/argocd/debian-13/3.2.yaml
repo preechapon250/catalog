@@ -18,12 +18,12 @@ dates:
 vars:
   ARGOCD_USER_ID: "999"
   COMMIT_SHA: 65b029342d656c03c57f0d0e14433438750c8f5d
-  EXPAT_REF: dhi/pkg-expat:2.7.3-debian13@sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
+  EXPAT_REF: dhi/pkg-expat:2.7.4-debian13@sha256:1a2ba4b5f4c2a647ccec8ee0d2bccba26bc8704c9c89f9940a9cebadc49cb88d
   GIT_LFS_REF: dhi/pkg-git-lfs:3.7.1-debian13@sha256:39d9505c630096482f762cf2a0c9917391182575eb6a4de20babf5da33ffd150
   GO_REF: dhi/golang:1.25.6-debian13-dev@sha256:a0607a787c801dba5f5637b939566066da29bebc0e6512e3fa0af1695c5090bc
   HELM_REF: dhi/helm:3.20.0-debian13@sha256:5aeaaafb197500ce777df6b5a5da43467bc2dcb592bffb6692a9c08416e3bc60
   KUSTOMIZE_REF: dhi/kustomize:5.8.0-debian13@sha256:90f6d60ff06057e8975f8e7632c404f80bcd2cbe40259e2c86514554507dd9b0
-  NODE_REF: dhi/node:20.20.0-debian13-dev@sha256:9def6083db41668934d8cbeb71e959efb3defca48fd2b8e77ee06191b2403daa
+  NODE_REF: dhi/node:20.20.0-debian13-dev@sha256:972edf6ec2f55ee956f77b90b3a857e3653530232938c2cb533c263728790dbc
   SEMVER_MAJOR_MINOR_VERSION: "3.2"
   SEMVER_MAJOR_VERSION: "3"
   SEMVER_VERSION: 3.2.6
@@ -73,7 +73,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:20.20.0-debian13-dev@sha256:9def6083db41668934d8cbeb71e959efb3defca48fd2b8e77ee06191b2403daa
+          - name: dhi.io/node:20.20.0-debian13-dev@sha256:972edf6ec2f55ee956f77b90b3a857e3653530232938c2cb533c263728790dbc
             includes:
               - opt/nodejs
               - opt/yarn
@@ -210,7 +210,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-expat:2.7.3-debian13@sha256:037c2c61d485b887cadce5dbee99b62c3a25be61082dcc108419c6fd465876e6
+    - name: dhi.io/pkg-expat:2.7.4-debian13@sha256:1a2ba4b5f4c2a647ccec8ee0d2bccba26bc8704c9c89f9940a9cebadc49cb88d
       includes:
         - opt/**
         - usr/**
