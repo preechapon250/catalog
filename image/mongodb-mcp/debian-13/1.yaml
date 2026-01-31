@@ -15,7 +15,7 @@ platforms:
   - linux/arm64
 vars:
   COMMIT_SHA: 7283f597ae0256bd4a190c5281b6ed76c6278935
-  NODE_BUILD_REFERENCE: dhi/node:24.13.0-debian13-sfw-dev@sha256:546513dbe0c5bb8605abde323b0af9fe9a113edb6eb0ba82f56be28391bcd962
+  NODE_BUILD_REFERENCE: dhi/node:24.13.0-debian13-sfw-dev@sha256:5a22c1a9bc40d5a791d6b70985983094af934aafd3be44288dfc2afbe01440c9
   NODE_RUNTIME_REFERENCE: dhi/node:24.13.0-debian13@sha256:c2368c70538c2459b90d588e5344013064da76aeba6fc4443457b2c376e60cd7
   SEMVER_MAJOR_MINOR_VERSION: "1.5"
   SEMVER_MAJOR_VERSION: "1"
@@ -26,7 +26,7 @@ contents:
     - '!base-files'
   builds:
     - name: mongodb-mcp
-      uses: dhi.io/node:24.13.0-debian13-sfw-dev@sha256:546513dbe0c5bb8605abde323b0af9fe9a113edb6eb0ba82f56be28391bcd962
+      uses: dhi.io/node:24.13.0-debian13-sfw-dev@sha256:5a22c1a9bc40d5a791d6b70985983094af934aafd3be44288dfc2afbe01440c9
       contents:
         files:
           - url: git+https://github.com/mongodb-js/mongodb-mcp-server.git#v1.5.0
