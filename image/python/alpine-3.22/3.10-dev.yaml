@@ -13,7 +13,7 @@ dates:
   release: "2021-10-04"
   end-of-life: "2026-10-31"
 vars:
-  PKG_PYTHON_REFERENCE: dhi/pkg-python:3.10.19-alpine3.22@sha256:893448699ca0ea61b225e0614a22639f326618c69c2d4e217adf4dd43acac355
+  PKG_PYTHON_REFERENCE: dhi/pkg-python:3.10.19-alpine3.22@sha256:abc5e1ffabbb52ebf23f91860fa9fc0de633c47f88f8f858771bf1d658107291
   PYTHON_MAJOR_MINOR_VERSION: "3.10"
   PYTHON_MAJOR_VERSION: "3"
   PYTHON_VERSION: 3.10.19
@@ -43,7 +43,7 @@ contents:
     - tzdata
     - zlib
   artifacts:
-    - name: dhi.io/pkg-python:3.10.19-alpine3.22@sha256:893448699ca0ea61b225e0614a22639f326618c69c2d4e217adf4dd43acac355
+    - name: dhi.io/pkg-python:3.10.19-alpine3.22@sha256:abc5e1ffabbb52ebf23f91860fa9fc0de633c47f88f8f858771bf1d658107291
       includes:
         - opt/**
       uid: 0
