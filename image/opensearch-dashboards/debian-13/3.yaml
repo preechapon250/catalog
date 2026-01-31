@@ -32,7 +32,7 @@ vars:
   INDEX_MANAGEMENT_DASHBOARDS_VERSION: 3.4.0.0
   ML_COMMONS_DASHBOARDS_COMMIT_SHA: 464ba767a693676f1b81e847eba254749d2c9e56
   ML_COMMONS_DASHBOARDS_VERSION: 3.4.0.0
-  NODE_BUILD_REF: dhi/node:20.20.0-debian13-dev@sha256:9def6083db41668934d8cbeb71e959efb3defca48fd2b8e77ee06191b2403daa
+  NODE_BUILD_REF: dhi/node:20.20.0-debian13-dev@sha256:972edf6ec2f55ee956f77b90b3a857e3653530232938c2cb533c263728790dbc
   NODE_RUNTIME_REF: dhi/node:20.20.0-debian13@sha256:11e556a8474ba49c90740fa13041e15d5fbc2bec95929d3e74f901c95d9bf33c
   NODE_RUNTIME_VERSION: 20.20.0
   NOTIFICATIONS_DASHBOARDS_COMMIT_SHA: 099f245a630d2e324c380fd9ca851f99b99e3c03
@@ -77,7 +77,7 @@ contents:
     - libstdc++6
   builds:
     - name: opensearch-dashboards from source
-      uses: dhi.io/node:20.20.0-debian13-dev@sha256:9def6083db41668934d8cbeb71e959efb3defca48fd2b8e77ee06191b2403daa
+      uses: dhi.io/node:20.20.0-debian13-dev@sha256:972edf6ec2f55ee956f77b90b3a857e3653530232938c2cb533c263728790dbc
       contents:
         packages:
           - bash
