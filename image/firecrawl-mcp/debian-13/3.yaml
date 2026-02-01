@@ -16,7 +16,7 @@ platforms:
   - linux/arm64
 vars:
   COMMIT_SHA: d22f144eee0754fd819b5b976b32294d8d234ea5
-  NODE_BUILD_REFERENCE: dhi/node:24.13.0-debian13-sfw-dev@sha256:546513dbe0c5bb8605abde323b0af9fe9a113edb6eb0ba82f56be28391bcd962
+  NODE_BUILD_REFERENCE: dhi/node:24.13.0-debian13-sfw-dev@sha256:60f527f2c7db88d8929f5da14f44ecc84f9450df7666ffd102987a18143317f6
   NODE_RUNTIME_REFERENCE: dhi/node:24.13.0-debian13@sha256:c2368c70538c2459b90d588e5344013064da76aeba6fc4443457b2c376e60cd7
   SEMVER_MAJOR_MINOR_VERSION: "3.2"
   SEMVER_MAJOR_VERSION: "3"
@@ -27,7 +27,7 @@ contents:
     - '!base-files'
   builds:
     - name: firecrawl-mcp
-      uses: dhi.io/node:24.13.0-debian13-sfw-dev@sha256:546513dbe0c5bb8605abde323b0af9fe9a113edb6eb0ba82f56be28391bcd962
+      uses: dhi.io/node:24.13.0-debian13-sfw-dev@sha256:60f527f2c7db88d8929f5da14f44ecc84f9450df7666ffd102987a18143317f6
       contents:
         files:
           - url: git+https://github.com/firecrawl/firecrawl-mcp-server.git#v3.2.1
@@ -47,7 +47,7 @@ contents:
           uses: npm/bump@v1
           privileged: true
           environment:
-            PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            DHI_NO_SFW: "true"
           with:
             bumps: ${source.dir}/patch/npm-bump.json
             npm-root: ${source.dir}/firecrawl-mcp-d22f144eee0754fd819b5b976b32294d8d234ea5
