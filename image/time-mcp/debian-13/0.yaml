@@ -17,8 +17,8 @@ platforms:
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
   COMMIT_SHA: 24b9402fd6904e74dff78d06be313fc8b701b937
-  PYTHON_DEV_REFERENCE: dhi/python:3.14.2-debian13-sfw-dev@sha256:b228c9a07e74bdd158b8660617ab17389fa34b2a2f0d5db1fee343c1462b87bc
-  PYTHON_REFERENCE: dhi/python:3.14.2-debian13@sha256:01c97484fa6477fa64d81593df30a97ef50eabc695390b015eaca37a61f67644
+  PYTHON_DEV_REFERENCE: dhi/python:3.14.2-debian13-sfw-dev@sha256:dba307dff09a4af8e6d5db48f176c004bb8d73b49a6c6b862573255c6759c407
+  PYTHON_REFERENCE: dhi/python:3.14.2-debian13@sha256:41084dfc5e56316e9b2d4c474774dad61b7a4c709d05040ab3b9c822791ac94e
   SEMVER_MAJOR_MINOR_VERSION: "2025.12"
   SEMVER_MAJOR_VERSION: "2025"
   SEMVER_VERSION: 2025.12.18
@@ -32,7 +32,7 @@ contents:
     - base-files
   builds:
     - name: time-mcp
-      uses: dhi.io/python:3.14.2-debian13-sfw-dev@sha256:b228c9a07e74bdd158b8660617ab17389fa34b2a2f0d5db1fee343c1462b87bc
+      uses: dhi.io/python:3.14.2-debian13-sfw-dev@sha256:dba307dff09a4af8e6d5db48f176c004bb8d73b49a6c6b862573255c6759c407
       environment:
         UV_COMPILE_BYTECODE: "1"
       contents:
@@ -90,7 +90,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/python:3.14.2-debian13@sha256:01c97484fa6477fa64d81593df30a97ef50eabc695390b015eaca37a61f67644
+    - name: dhi.io/python:3.14.2-debian13@sha256:41084dfc5e56316e9b2d4c474774dad61b7a4c709d05040ab3b9c822791ac94e
       uid: 0
       gid: 0
 accounts:
