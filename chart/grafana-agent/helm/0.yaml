@@ -9,13 +9,13 @@ platforms:
   - linux/amd64
 vars:
   CHART_COMMIT_SHA: 5ef5377b3d5421e754bff1028fd1ce4b3259cf5f
-  CONFIGMAP_RELOAD_REFERENCE: dhi/configmap-reload:0.15.0-debian13@sha256:c1a3250e18dfaee1a72e52a5fcefeaf98d41067b9c7f9edbd3008fd3623a757a
+  CONFIGMAP_RELOAD_REFERENCE: dhi/configmap-reload:0.15.0-debian13@sha256:cb60ab48307f6a806574d89520b9f8a2766a37a9940632b7672872915b7b5a51
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  GRAFANA_AGENT_REFERENCE: dhi/grafana-agent:0.44.7-debian13@sha256:431571473c0f35015ab6927a0e1c9037d0f431f6af7f1641ea4e113c6117e802
-  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
+  GRAFANA_AGENT_REFERENCE: dhi/grafana-agent:0.44.7-debian13@sha256:b7a4da4e5fee5a2c7561204f69529543761d63f872478f8846ae0c119d0e50f0
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:8ae259169a30387938ec0314da8084fd0c74a3726412e78e852205ab043a2673
   SEMVER_MAJOR_MINOR_VERSION: "0.44"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.44.2
@@ -23,7 +23,7 @@ vars:
 contents:
   builds:
     - name: grafana-agent
-      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:8ae259169a30387938ec0314da8084fd0c74a3726412e78e852205ab043a2673
       contents:
         packages:
           - bash
@@ -48,9 +48,9 @@ contents:
               description: Docker Hardened Images Helm chart for Grafana Agent
               images:
                 - name: grafana-agent
-                  ref: dhi/grafana-agent:0.44.7-debian13@sha256:431571473c0f35015ab6927a0e1c9037d0f431f6af7f1641ea4e113c6117e802
+                  ref: dhi/grafana-agent:0.44.7-debian13@sha256:b7a4da4e5fee5a2c7561204f69529543761d63f872478f8846ae0c119d0e50f0
                 - name: configmap-reload
-                  ref: dhi/configmap-reload:0.15.0-debian13@sha256:c1a3250e18dfaee1a72e52a5fcefeaf98d41067b9c7f9edbd3008fd3623a757a
+                  ref: dhi/configmap-reload:0.15.0-debian13@sha256:cb60ab48307f6a806574d89520b9f8a2766a37a9940632b7672872915b7b5a51
               name: grafana-agent-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/grafana/agent
