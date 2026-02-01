@@ -10,12 +10,12 @@ platforms:
 vars:
   CHART_COMMIT_SHA: c82afcc25e9d6a807111ba637b1a4568f9033fc6
   DEX_IMAGE_TAG: 2.44.0
-  DEX_REFERENCE: dhi/dex:2.44.0-debian13@sha256:425ff52b6af5b02603a4bc6b2b08e30bb9ebfe64fa9d52c5d3b0920b3c591e67
+  DEX_REFERENCE: dhi/dex:2.44.0-debian13@sha256:f99965257b279745209913af19456bd6f786ca1226c9851c477f6e115ed9913b
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:8ae259169a30387938ec0314da8084fd0c74a3726412e78e852205ab043a2673
   SEMVER_MAJOR_MINOR_VERSION: "0.24"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.24.0
@@ -23,7 +23,7 @@ vars:
 contents:
   builds:
     - name: dex
-      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:a9247b60e56f190fb6de43042004c80b6ad903fe8df5becc513d89066aa3221c
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:8ae259169a30387938ec0314da8084fd0c74a3726412e78e852205ab043a2673
       contents:
         packages:
           - bash
@@ -48,7 +48,7 @@ contents:
               description: Docker Hardened Images Helm chart for Dex
               images:
                 - name: dex
-                  ref: dhi/dex:2.44.0-debian13@sha256:425ff52b6af5b02603a4bc6b2b08e30bb9ebfe64fa9d52c5d3b0920b3c591e67
+                  ref: dhi/dex:2.44.0-debian13@sha256:f99965257b279745209913af19456bd6f786ca1226c9851c477f6e115ed9913b
               name: dex-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/dexidp/helm-charts
