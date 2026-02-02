@@ -13,7 +13,7 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:8ae259169a30387938ec0314da8084fd0c74a3726412e78e852205ab043a2673
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
   POLICY_REPORTER_IMAGE_TAG: 3.7.0
   POLICY_REPORTER_REFERENCE: dhi/kyverno-policy-reporter:3.7.0-debian13@sha256:a28b72ef0c73cc1c89fe9f410ad6ee27cc746d4a8238be0fbb8dc48694c608c9
   POLICY_REPORTER_UI_IMAGE_TAG: 2.5.1
@@ -27,7 +27,7 @@ vars:
 contents:
   builds:
     - name: kyverno-policy-reporter
-      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:8ae259169a30387938ec0314da8084fd0c74a3726412e78e852205ab043a2673
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
       contents:
         packages:
           - bash
