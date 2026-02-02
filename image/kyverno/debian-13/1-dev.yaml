@@ -5,11 +5,11 @@ image: dhi.io/kyverno
 variant: dev
 tags:
   - 1-dev
-  - 1.16-dev
-  - 1.16.3-dev
+  - 1.17-dev
+  - 1.17.0-dev
   - 1-debian13-dev
-  - 1.16-debian13-dev
-  - 1.16.3-debian13-dev
+  - 1.17-debian13-dev
+  - 1.17.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,12 +18,12 @@ dates:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 188151e6b60b192aabcbc24943c3159e5cfab5da
+  COMMIT_SHA: 3e5e775669753daae01e280298f85b4604db9198
   GOLANG_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
-  SEMVER_MAJOR_MINOR_VERSION: "1.16"
+  SEMVER_MAJOR_MINOR_VERSION: "1.17"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.16.3
-  VERSION: 1.16.3
+  SEMVER_VERSION: 1.17.0
+  VERSION: 1.17.0
 contents:
   packages:
     - '!base-files'
@@ -46,36 +46,30 @@ contents:
   builds:
     - name: kyverno
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
+      work-dir: /go/src/github.com/kyverno/kyverno
+      caches:
+        - path: /go/pkg/mod
       contents:
         files:
-          - url: git+https://github.com/kyverno/kyverno.git#v1.16.3
-            checksum: 188151e6b60b192aabcbc24943c3159e5cfab5da
+          - url: git+https://github.com/kyverno/kyverno.git#v1.17.0
+            checksum: 3e5e775669753daae01e280298f85b4604db9198
             path: /go/src/github.com/kyverno/kyverno
             spdx:
               name: kyverno
-              version: 1.16.3
+              version: 1.17.0
               packages:
                 - name: kyverno
-                  purl: pkg:golang/github.com/kyverno/kyverno@1.16.3
+                  purl: pkg:golang/github.com/kyverno/kyverno@1.17.0
                   license: Apache-2.0
             uid: 0
             gid: 0
       pipeline:
         - name: patch
           uses: go/bump@v1
-          work-dir: /go/src/github.com/kyverno/kyverno
           with:
-            deps:
-              - github.com/go-viper/mapstructure/v2@v2.4.0
-              - golang.org/x/crypto@v0.45.0
-              - github.com/sigstore/fulcio@v1.8.5
-              - github.com/sigstore/rekor@v1.5.0
-              - github.com/sigstore/sigstore@v1.10.4
+            deps: []
             download: true
-            replaces:
-              - github.com/sigstore/timestamp-authority=github.com/docker-hardened-images/sigstore-timestamp-authority@v1.2.10-0.20251207163215-621a8cc1532f
         - name: test
-          work-dir: /go/src/github.com/kyverno/kyverno
           privileged: true
           runs: |
             set -eux -o pipefail
@@ -84,13 +78,12 @@ contents:
               # Some unit tests will actually try to use X25519 which is not allowed in FIPS mode
               export GODEBUG=fips140=on
             fi
-            CGO_ENABLED=0 go test -C /go/src/github.com/kyverno/kyverno ./...
+            CGO_ENABLED=0 go test ./...
         - name: build
           uses: go/build@v1
-          work-dir: /go/src/github.com/kyverno/kyverno
           with:
             ldflags:
-              - -X github.com/kyverno/kyverno/pkg/version.BuildVersion=1.16.3
+              - -X github.com/kyverno/kyverno/pkg/version.BuildVersion=1.17.0
             output: ${target.dir}/usr/local/bin/kyverno
             packages: ./cmd/kyverno
       outputs:
