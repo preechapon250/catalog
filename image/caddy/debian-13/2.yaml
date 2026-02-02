@@ -101,6 +101,9 @@ os-release:
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
 work-dir: /srv
+environment:
+  XDG_CONFIG_HOME: /config
+  XDG_DATA_HOME: /data
 paths:
   - type: directory
     path: /etc/caddy
