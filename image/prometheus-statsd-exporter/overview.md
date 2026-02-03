@@ -26,6 +26,5 @@ into existing Docker workflows.
 
 ## Trademarks
 
-This listing is prepared by Docker. All third-party product names, logos, and trademarks are the property of their
-respective owners and are used solely for identification. Docker claims no interest in those marks, and no affiliation,
-sponsorship, or endorsement is implied
+Prometheus® is a trademark of the Linux Foundation. All rights in the mark are reserved to the Linux Foundation. Any use
+by Docker is for referential purposes only and does not indicate sponsorship, endorsement, or affiliation.
