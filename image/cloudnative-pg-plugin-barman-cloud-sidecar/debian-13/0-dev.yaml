@@ -5,26 +5,26 @@ image: dhi.io/cloudnative-pg-plugin-barman-cloud-sidecar
 variant: dev
 tags:
   - 0-dev
-  - 0.10-dev
-  - 0.10.0-dev
+  - 0.11-dev
+  - 0.11.0-dev
   - 0-debian13-dev
-  - 0.10-debian13-dev
-  - 0.10.0-debian13-dev
+  - 0.11-debian13-dev
+  - 0.11.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  BARMAN_CLOUD_REFERENCE: dhi/cloudnative-pg-plugin-barman-cloud:0.10.0-debian13@sha256:528073dc7d6af9e50d9c7801623d7aeb6f63c01850fca0c9ebe0ced14c11ec22
+  BARMAN_CLOUD_REFERENCE: dhi/cloudnative-pg-plugin-barman-cloud:0.11.0-debian13@sha256:1b5298df594bcaeea32e68df505bf0febb6290ae4449b3fb9df1085f181be421
   BARMAN_COMMIT_SHA: 3d4dd4e3fb5ffb7ebc9e57851ee9049aa0caaf4f
   BARMAN_VERSION: 3.17.0
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  PYTHON_BUILD_REF: dhi/python:3.14.2-debian13-dev@sha256:32eb03d65667b1fbd186b3019feca362548d5cd868b4c1858fca0139834c02f4
-  PYTHON_REF: dhi/python:3.14.2-debian13@sha256:2a1e15070c4798908463c6ef43e63cb278fcd27b025e0296e8144a28dff34dbb
-  SEMVER_MAJOR_MINOR_VERSION: "0.10"
+  PYTHON_BUILD_REF: dhi/python:3.14.2-debian13-dev@sha256:dd916fef1499eecf0a2c27b65050943538ac8a48ef9695d546526982bf1974a9
+  PYTHON_REF: dhi/python:3.14.2-debian13@sha256:41084dfc5e56316e9b2d4c474774dad61b7a4c709d05040ab3b9c822791ac94e
+  SEMVER_MAJOR_MINOR_VERSION: "0.11"
   SEMVER_MAJOR_VERSION: "0"
-  SEMVER_VERSION: 0.10.0
-  VERSION: 0.10.0
+  SEMVER_VERSION: 0.11.0
+  VERSION: 0.11.0
 contents:
   packages:
     - '!gawk'
@@ -46,7 +46,7 @@ contents:
     - util-linux
   builds:
     - name: cloudnative-pg-plugin-barman-cloud-sidecar
-      uses: dhi.io/python:3.14.2-debian13-dev@sha256:32eb03d65667b1fbd186b3019feca362548d5cd868b4c1858fca0139834c02f4
+      uses: dhi.io/python:3.14.2-debian13-dev@sha256:dd916fef1499eecf0a2c27b65050943538ac8a48ef9695d546526982bf1974a9
       contents:
         packages:
           - '!base-files'
@@ -90,12 +90,12 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/cloudnative-pg-plugin-barman-cloud:0.10.0-debian13@sha256:528073dc7d6af9e50d9c7801623d7aeb6f63c01850fca0c9ebe0ced14c11ec22
+    - name: dhi.io/cloudnative-pg-plugin-barman-cloud:0.11.0-debian13@sha256:1b5298df594bcaeea32e68df505bf0febb6290ae4449b3fb9df1085f181be421
       includes:
         - usr/local/bin/manager
       uid: 0
       gid: 0
-    - name: dhi.io/python:3.14.2-debian13@sha256:2a1e15070c4798908463c6ef43e63cb278fcd27b025e0296e8144a28dff34dbb
+    - name: dhi.io/python:3.14.2-debian13@sha256:41084dfc5e56316e9b2d4c474774dad61b7a4c709d05040ab3b9c822791ac94e
       includes:
         - opt/**
         - usr/**
