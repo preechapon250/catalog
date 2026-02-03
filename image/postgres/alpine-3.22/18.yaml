@@ -38,7 +38,7 @@ contents:
     - libxml2
     - libxslt
     - linux-pam
-    - llvm
+    - llvm20-libs
     - lz4-libs
     - numactl
     - readline
