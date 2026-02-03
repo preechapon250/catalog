@@ -14,7 +14,7 @@ vars:
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
-  PROMETHEUS_NATS_EXPORTER_REFERENCE: dhi/prometheus-nats-exporter:0.18.0-debian13@sha256:73113eb945796c959e554e2296f7837019cea4fa733a4c7838d515883b642ff6
+  PROMETHEUS_NATS_EXPORTER_REFERENCE: dhi/prometheus-nats-exporter:0.19.0-debian13@sha256:b9bf0d7a1065f2e682c7dab305422e8b534c06b842859cc8d1671919825aaefa
   SEMVER_MAJOR_MINOR_VERSION: "2.21"
   SEMVER_MAJOR_VERSION: "2"
   SEMVER_VERSION: 2.21.1
@@ -40,7 +40,7 @@ contents:
               description: Docker Hardened Images Helm chart for Prometheus NATS Exporter
               images:
                 - name: prometheus-nats-exporter
-                  ref: dhi/prometheus-nats-exporter:0.18.0-debian13@sha256:73113eb945796c959e554e2296f7837019cea4fa733a4c7838d515883b642ff6
+                  ref: dhi/prometheus-nats-exporter:0.19.0-debian13@sha256:b9bf0d7a1065f2e682c7dab305422e8b534c06b842859cc8d1671919825aaefa
               name: prometheus-nats-exporter-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/prometheus-community/helm-charts
