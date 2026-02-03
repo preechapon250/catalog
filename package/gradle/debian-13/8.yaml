@@ -25,7 +25,7 @@ contents:
   builds:
     - name: gradle
       uses: dhi.io/eclipse-temurin:17.0.18.8-jdk-debian13-dev@sha256:949f1e7beb8aa9573a828b0b3b3a24d797bd3a36e77c410b2e5d4bd5c60730e5
-      privileged: true
+      work-dir: ${source.dir}/gradle
       environment:
         PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       contents:
@@ -53,23 +53,19 @@ contents:
         - name: patch bouncycastle
           uses: git/patch@v1
           with:
-            dir: ${source.dir}/gradle
             patch: ${source.dir}/patch/0001-Update-org.bouncycastle-bcprov-jdk18on-1.78.patch
         - name: patch jgit
           uses: git/patch@v1
           with:
-            dir: ${source.dir}/gradle
             patch: ${source.dir}/patch/0002-Update-org.eclipse.jgit-org.eclipse.jgit-6.10.1.2025.patch
         - name: patch commons-lang3
           uses: git/patch@v1
           with:
-            dir: ${source.dir}/gradle
             patch: ${source.dir}/patch/0003-Update-org.apache.commons-commons-lang3-3.18.0.patch
         - name: install
+          privileged: true
           runs: |
             set -eux -o pipefail
-
-            cd "${source.dir}/gradle"
 
             # TODO cd: we need to download the gradle wrapper ahead of time
             ./gradlew :distributions-full:binDistributionZip -Pversion="8.14.4"
