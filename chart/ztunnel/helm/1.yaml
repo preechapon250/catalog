@@ -13,16 +13,16 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:71b7163acd69b29d5d2c431646ad54a453b27a9915cce53b4d277796e0dabc79
   SEMVER_MAJOR_MINOR_VERSION: "1.27"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.27.5
   VERSION: 1.27.5
-  ZTUNNEL_REFERENCE: dhi/ztunnel:1.27.5-debian13@sha256:8e679758ba8c7f7c0cbb76b369daddbc7265c98fccb6aadf90f618761373e4a8
+  ZTUNNEL_REFERENCE: dhi/ztunnel:1.27.5-debian13@sha256:6361d48ffea244aad131b318d072f6fbe163b1b68884577bb366cb1c82f7eeaf
 contents:
   builds:
     - name: ztunnel
-      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:71b7163acd69b29d5d2c431646ad54a453b27a9915cce53b4d277796e0dabc79
       contents:
         files:
           - url: git+https://github.com/istio/istio.git#1.27.5
@@ -39,7 +39,7 @@ contents:
               description: Docker Hardened Images Helm chart for ZTunnel
               images:
                 - name: ztunnel
-                  ref: dhi/ztunnel:1.27.5-debian13@sha256:8e679758ba8c7f7c0cbb76b369daddbc7265c98fccb6aadf90f618761373e4a8
+                  ref: dhi/ztunnel:1.27.5-debian13@sha256:6361d48ffea244aad131b318d072f6fbe163b1b68884577bb366cb1c82f7eeaf
               name: ztunnel-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/istio/istio
