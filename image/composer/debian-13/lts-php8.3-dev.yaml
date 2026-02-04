@@ -20,7 +20,7 @@ vars:
   PHP_INI_DIR: /opt/php-8.3/etc/php
   PHP_MAJOR_MINOR_VERSION: "8.3"
   PHP_PREFIX: /opt/php-8.3
-  PHP_REFERENCE: dhi/php:8.3.30-debian13@sha256:ce4c9b7ceac05a61e3ffdd4fd00a986169da3aaadbeba6e58f067b02f882aaaa
+  PHP_REFERENCE: dhi/php:8.3.30-debian13@sha256:10edac2b6fabd43a7f49091244e273c70cae3080e9577a273982c85074a6eb37
   PHP_VERSION: 8.3.30
   SEMVER_MAJOR_MINOR_VERSION: "2.2"
   SEMVER_MAJOR_VERSION: "2"
@@ -130,7 +130,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/php:8.3.30-debian13@sha256:ce4c9b7ceac05a61e3ffdd4fd00a986169da3aaadbeba6e58f067b02f882aaaa
+    - name: dhi.io/php:8.3.30-debian13@sha256:10edac2b6fabd43a7f49091244e273c70cae3080e9577a273982c85074a6eb37
       includes:
         - opt/docker/sbom/php
         - opt/php-8.3
