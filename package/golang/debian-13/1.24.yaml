@@ -3,14 +3,14 @@
 image: dhi.io/pkg-golang
 variant: runtime
 tags:
-  - 1.24.12
-  - 1.24.12-debian13
+  - 1.24.13
+  - 1.24.13-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT: 63a1b82d1e68ddd87652467303901593efe0ff11
-  VERSION: 1.24.12
+  COMMIT: 96e4e2b1616c3c59577d48abcf2823bf1fdcd2e2
+  VERSION: 1.24.13
 contents:
   packages:
     - '!base-files'
@@ -28,14 +28,14 @@ contents:
           - golang-1.24
           - git
         files:
-          - url: git+https://github.com/golang/go.git#go1.24.12
+          - url: git+https://github.com/golang/go.git#go1.24.13
             path: ${source.dir}/go
             spdx:
               name: golang
-              version: 1.24.12
+              version: 1.24.13
               packages:
                 - name: golang
-                  purl: pkg:dhi/golang@1.24.12
+                  purl: pkg:dhi/golang@1.24.13
                   license: BSD-3-Clause
             uid: 0
             gid: 0
@@ -44,7 +44,7 @@ contents:
           uses: git/checkout@v1
           with:
             dir: go
-            expected-commit: 63a1b82d1e68ddd87652467303901593efe0ff11
+            expected-commit: 96e4e2b1616c3c59577d48abcf2823bf1fdcd2e2
         - name: install
           runs: |
             set -eux -o pipefail
@@ -86,7 +86,7 @@ os-release:
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
 environment:
-  GOLANG_VERSION: 1.24.12
+  GOLANG_VERSION: 1.24.13
   GOPATH: /go
   GOTOOLCHAIN: local
   PATH: /go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
