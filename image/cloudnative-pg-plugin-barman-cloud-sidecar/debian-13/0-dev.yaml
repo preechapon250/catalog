@@ -19,8 +19,8 @@ vars:
   BARMAN_VERSION: 3.17.0
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  PYTHON_BUILD_REF: dhi/python:3.14.2-debian13-dev@sha256:dd916fef1499eecf0a2c27b65050943538ac8a48ef9695d546526982bf1974a9
-  PYTHON_REF: dhi/python:3.14.2-debian13@sha256:41084dfc5e56316e9b2d4c474774dad61b7a4c709d05040ab3b9c822791ac94e
+  PYTHON_BUILD_REF: dhi/python:3.14.3-debian13-dev@sha256:6c1502bbc5f233550ca0c0c9c06299c53d048bb5e71500058320d98bf33f1e26
+  PYTHON_REF: dhi/python:3.14.3-debian13@sha256:a156890ce30519ddf34a88b6c5b60b4b67c13b4a4b8cb764e3c1f8490081d7e3
   SEMVER_MAJOR_MINOR_VERSION: "0.11"
   SEMVER_MAJOR_VERSION: "0"
   SEMVER_VERSION: 0.11.0
@@ -46,7 +46,7 @@ contents:
     - util-linux
   builds:
     - name: cloudnative-pg-plugin-barman-cloud-sidecar
-      uses: dhi.io/python:3.14.2-debian13-dev@sha256:dd916fef1499eecf0a2c27b65050943538ac8a48ef9695d546526982bf1974a9
+      uses: dhi.io/python:3.14.3-debian13-dev@sha256:6c1502bbc5f233550ca0c0c9c06299c53d048bb5e71500058320d98bf33f1e26
       contents:
         packages:
           - '!base-files'
@@ -95,7 +95,7 @@ contents:
         - usr/local/bin/manager
       uid: 0
       gid: 0
-    - name: dhi.io/python:3.14.2-debian13@sha256:41084dfc5e56316e9b2d4c474774dad61b7a4c709d05040ab3b9c822791ac94e
+    - name: dhi.io/python:3.14.3-debian13@sha256:a156890ce30519ddf34a88b6c5b60b4b67c13b4a4b8cb764e3c1f8490081d7e3
       includes:
         - opt/**
         - usr/**
