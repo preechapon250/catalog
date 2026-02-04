@@ -21,7 +21,7 @@ vars:
   PYTHON_MAJOR_MINOR_VERSION: "3.13"
   PYTHON_REFERENCE: dhi/python:3.13.11-debian13@sha256:82f87b495af6eea80c889c028756a1929a71a8d6b424ebd511b557294a97e55e
   PYTHON_VERSION: 3.13.11
-  RUST_REFERENCE: dhi/rust:1.93.0-debian13@sha256:341eb393e8afb4c8d486555d6919e2e8ed060f6e097b74cd9b702ee805576920
+  RUST_REFERENCE: dhi/rust:1.93.0-debian13@sha256:fe475b0245d118aacf5ac365e741535b0fb8ce2e5bf01d9f484ff67680bb964f
   RUST_VERSION: 1.93.0
   SEMVER_MAJOR_MINOR_VERSION: "3.7"
   SEMVER_MAJOR_VERSION: "3"
@@ -48,7 +48,7 @@ contents:
     - util-linux
   builds:
     - name: influxdb3
-      uses: dhi.io/rust:1.93.0-debian13@sha256:341eb393e8afb4c8d486555d6919e2e8ed060f6e097b74cd9b702ee805576920
+      uses: dhi.io/rust:1.93.0-debian13@sha256:fe475b0245d118aacf5ac365e741535b0fb8ce2e5bf01d9f484ff67680bb964f
       contents:
         packages:
           - git
