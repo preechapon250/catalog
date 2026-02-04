@@ -16,11 +16,11 @@ platforms:
 vars:
   DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   JAVA_HOME: /opt/java/openjdk/21
-  JAVA_RUN_REFERENCE: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:ed528dbe9717e6ce59d1e534905137119f549778e3cb16f76b9eb9a5e296ec5b
-  JAVA_VERSION: 21.0.9.10
+  JAVA_RUN_REFERENCE: dhi/eclipse-temurin:21.0.10.7-jdk-debian13-dev@sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
+  JAVA_VERSION: 21.0.10.7
   JDK_MAJOR_VERSION: "21"
   JDK_PATH: /opt/java/openjdk/21
-  JDK_REFERENCE: dhi/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:ed528dbe9717e6ce59d1e534905137119f549778e3cb16f76b9eb9a5e296ec5b
+  JDK_REFERENCE: dhi/eclipse-temurin:21.0.10.7-jdk-debian13-dev@sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
   SEMVER_MAJOR_MINOR_VERSION: "11.0"
   SEMVER_MAJOR_VERSION: "11"
   SEMVER_VERSION: 11.0.18
@@ -85,7 +85,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:ed528dbe9717e6ce59d1e534905137119f549778e3cb16f76b9eb9a5e296ec5b
+          - name: dhi.io/eclipse-temurin:21.0.10.7-jdk-debian13-dev@sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
             includes:
               - opt/**
             uid: 0
@@ -178,7 +178,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:ed528dbe9717e6ce59d1e534905137119f549778e3cb16f76b9eb9a5e296ec5b
+    - name: dhi.io/eclipse-temurin:21.0.10.7-jdk-debian13-dev@sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
       includes:
         - opt/**
         - usr/local/bin/**
