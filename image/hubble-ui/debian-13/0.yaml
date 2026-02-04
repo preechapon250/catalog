@@ -156,7 +156,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 paths:
   - type: directory
-    path: /run
+    path: /run/nginx
     uid: 65532
     gid: 65532
     mode: "0777"

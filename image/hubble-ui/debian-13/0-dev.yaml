@@ -150,7 +150,7 @@ environment:
   DEBIAN_FRONTEND: noninteractive
 paths:
   - type: directory
-    path: /run
+    path: /run/nginx
     uid: 65532
     gid: 65532
     mode: "0777"
