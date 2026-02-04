@@ -5,19 +5,19 @@ image: dhi.io/seaweedfs
 variant: dev
 tags:
   - 4-dev
-  - 4.08-dev
+  - 4.09-dev
   - 4-debian13-dev
-  - 4.08-debian13-dev
+  - 4.09-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 330bd92ddce763649d07e078d550cb03eda6a593
+  COMMIT_SHA: 5a5cc386924087f06ef451006ad5d8068576b93e
   GO_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
   MAJOR_VERSION: "4"
-  VERSION: "4.08"
+  VERSION: "4.09"
 contents:
   packages:
     - '!base-files'
@@ -30,15 +30,15 @@ contents:
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
       contents:
         files:
-          - url: git+https://github.com/seaweedfs/seaweedfs.git#4.08
-            checksum: 330bd92ddce763649d07e078d550cb03eda6a593
+          - url: git+https://github.com/seaweedfs/seaweedfs.git#4.09
+            checksum: 5a5cc386924087f06ef451006ad5d8068576b93e
             path: /go/src/github.com/seaweedfs/seaweedfs
             spdx:
               name: seaweedfs
-              version: "4.08"
+              version: "4.09"
               packages:
                 - name: seaweedfs
-                  purl: pkg:golang/github.com/seaweedfs/seaweedfs@4.08
+                  purl: pkg:golang/github.com/seaweedfs/seaweedfs@4.09
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -68,7 +68,7 @@ contents:
           work-dir: /go/src/github.com/seaweedfs/seaweedfs/weed
           with:
             ldflags:
-              - -X github.com/seaweedfs/seaweedfs/weed/util/version.COMMIT=330bd92ddce763649d07e078d550cb03eda6a593
+              - -X github.com/seaweedfs/seaweedfs/weed/util/version.COMMIT=5a5cc386924087f06ef451006ad5d8068576b93e
             output: ${target.dir}/usr/bin/weed
       outputs:
         - source: ${target.dir}/usr/bin/weed
