@@ -6,22 +6,22 @@ variant: runtime
 tags:
   - "0"
   - "0.107"
-  - 0.107.0
+  - 0.107.1
   - 0-debian13
   - 0.107-debian13
-  - 0.107.0-debian13
+  - 0.107.1-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 3e8647396b9b201136afe07a30b98cd5850dcc64
+  COMMIT_SHA: c6a67581ab4e7aa494351b919326ad6606af3010
   GO_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
   SEMVER_MAJOR_MINOR_VERSION: "0.107"
   SEMVER_MAJOR_VERSION: "0"
-  SEMVER_VERSION: 0.107.0
-  VERSION: 0.107.0
+  SEMVER_VERSION: 0.107.1
+  VERSION: 0.107.1
 contents:
   packages:
     - '!base-files'
@@ -30,15 +30,15 @@ contents:
       uses: dhi.io/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
       contents:
         files:
-          - url: git+https://github.com/anchore/grype.git#v0.107.0
-            checksum: 3e8647396b9b201136afe07a30b98cd5850dcc64
+          - url: git+https://github.com/anchore/grype.git#v0.107.1
+            checksum: c6a67581ab4e7aa494351b919326ad6606af3010
             path: /go/src/github.com/anchore/grype
             spdx:
               name: grype
-              version: 0.107.0
+              version: 0.107.1
               packages:
                 - name: grype
-                  purl: pkg:golang/github.com/anchore/grype@0.107.0
+                  purl: pkg:golang/github.com/anchore/grype@0.107.1
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -62,9 +62,9 @@ contents:
           work-dir: /go/src/github.com/anchore/grype
           with:
             ldflags:
-              - -X main.version=0.107.0
-              - -X main.gitDescription=0.107.0
-              - -X main.gitCommit=3e8647396b9b201136afe07a30b98cd5850dcc64
+              - -X main.version=0.107.1
+              - -X main.gitDescription=0.107.1
+              - -X main.gitCommit=c6a67581ab4e7aa494351b919326ad6606af3010
               - -X main.buildDate=$(date -ud @${SOURCE_DATE_EPOCH} +'%Y-%m-%dT%H:%M:%SZ')
             output: ${target.dir}/usr/local/bin/grype
             packages: ./cmd/grype
