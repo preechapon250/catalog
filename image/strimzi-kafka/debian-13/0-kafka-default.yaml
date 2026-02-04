@@ -28,7 +28,7 @@ vars:
   KAFKA_MAJOR_MINOR_VERSION: "4.1"
   KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:acf023f0ea22724990898029db9ef9b2cdee58ac6f584a9111f4ac23334a0195
   KAFKA_VERSION: 4.1.1
-  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
+  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:8865d3259daff83e4114913b6291d5f3216f02f710e52a4f2a15ef42355448d6
   MAVEN_VERSION: 3.9.12
   SEMVER_MAJOR_MINOR_VERSION: "0.50"
   SEMVER_MAJOR_VERSION: "0"
@@ -53,7 +53,7 @@ contents:
     - tzdata
   builds:
     - name: strimzi-kafka scripts and agents
-      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
+      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:8865d3259daff83e4114913b6291d5f3216f02f710e52a4f2a15ef42355448d6
       contents:
         files:
           - url: git+https://github.com/strimzi/strimzi-kafka-operator.git#0.50.0
