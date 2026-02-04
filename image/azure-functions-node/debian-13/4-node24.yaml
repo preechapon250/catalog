@@ -16,10 +16,10 @@ platforms:
 vars:
   BUILD_NUMBER: "100"
   COMMIT_SHA: d2b723ade785c2630569ea74606a94486029c8a4
-  DOTNET_REFERENCE: dhi/dotnet:8.0.417-sdk-debian13@sha256:3ceb0d48a944dc2acd4861f37a9a272f886ee46ebfd27d86020ed986d2f57bed
+  DOTNET_REFERENCE: dhi/dotnet:8.0.417-sdk-debian13@sha256:e5142af1b51b230dcf7e27a7d7ee8c0599fe1de23a6400d651b9dc594bde6f5c
   DOTNET_VERSION: 8.0.417
-  EXT_BUNDLE_COMMIT_SHA: 3d5750b4307aa5e29111721f8308bff40f4f5c09
-  EXT_BUNDLE_VERSION: 4.31.0
+  EXT_BUNDLE_COMMIT_SHA: 6f91ab8724392340705e925d94ef8b2479e47a57
+  EXT_BUNDLE_VERSION: 4.32.0
   FUNCTIONS_WORKER: node
   NODE_MAJOR_MINOR_VERSION: "24.13"
   NODE_MAJOR_VERSION: "24"
@@ -52,7 +52,7 @@ contents:
     - unixodbc
   builds:
     - name: azure-functions-host
-      uses: dhi.io/dotnet:8.0.417-sdk-debian13@sha256:3ceb0d48a944dc2acd4861f37a9a272f886ee46ebfd27d86020ed986d2f57bed
+      uses: dhi.io/dotnet:8.0.417-sdk-debian13@sha256:e5142af1b51b230dcf7e27a7d7ee8c0599fe1de23a6400d651b9dc594bde6f5c
       contents:
         packages:
           - bash
@@ -98,7 +98,7 @@ contents:
           uid: 0
           gid: 0
     - name: azure-functions-extension-bundles
-      uses: dhi.io/dotnet:8.0.417-sdk-debian13@sha256:3ceb0d48a944dc2acd4861f37a9a272f886ee46ebfd27d86020ed986d2f57bed
+      uses: dhi.io/dotnet:8.0.417-sdk-debian13@sha256:e5142af1b51b230dcf7e27a7d7ee8c0599fe1de23a6400d651b9dc594bde6f5c
       contents:
         packages:
           - bash
@@ -106,15 +106,15 @@ contents:
           - sed
           - unzip
         files:
-          - url: git+https://github.com/Azure/azure-functions-extension-bundles.git#4.31.0
-            checksum: 3d5750b4307aa5e29111721f8308bff40f4f5c09
+          - url: git+https://github.com/Azure/azure-functions-extension-bundles.git#4.32.0
+            checksum: 6f91ab8724392340705e925d94ef8b2479e47a57
             path: ${source.dir}/azure-functions-extension-bundles
             spdx:
               name: azure-functions-extension-bundles
-              version: 4.31.0
+              version: 4.32.0
               packages:
                 - name: azure-functions-extension-bundles
-                  purl: pkg:github/Azure/azure-functions-extension-bundles@4.31.0
+                  purl: pkg:github/Azure/azure-functions-extension-bundles@4.32.0
                   license: MIT
             uid: 0
             gid: 0
@@ -154,9 +154,9 @@ contents:
           runs: |
             set -eux -o pipefail
 
-            mkdir -p ${target.dir}/FuncExtensionBundles/Microsoft.Azure.Functions.ExtensionBundle/4.31.0
-            unzip Microsoft.Azure.Functions.ExtensionBundle.4.31.0_linux-x64.zip \
-              -d ${target.dir}/FuncExtensionBundles/Microsoft.Azure.Functions.ExtensionBundle/4.31.0
+            mkdir -p ${target.dir}/FuncExtensionBundles/Microsoft.Azure.Functions.ExtensionBundle/4.32.0
+            unzip Microsoft.Azure.Functions.ExtensionBundle.4.32.0_linux-x64.zip \
+              -d ${target.dir}/FuncExtensionBundles/Microsoft.Azure.Functions.ExtensionBundle/4.32.0
       paths:
         - type: directory
           path: ${source.dir}/patch
