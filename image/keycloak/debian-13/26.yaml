@@ -23,9 +23,9 @@ vars:
   DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
   JRE_REFERENCE: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JRE_VERSION: 21.0.9.10
-  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
+  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:8865d3259daff83e4114913b6291d5f3216f02f710e52a4f2a15ef42355448d6
   MAVEN_VERSION: 3.9.12
-  NODE_BUILD_REFERENCE: dhi/node:24.13.0-debian13-dev@sha256:3bb2c3991b08bbd59c4aa3de9e00010cd55ebafce2000b92d4199f6d2f71637b
+  NODE_BUILD_REFERENCE: dhi/node:24.13.0-debian13-dev@sha256:e41e6c832a75e6b86f3ce6b271ce412dfa71df26828589983766800e2942582b
   NODE_BUILD_VERSION: 24.13.0
   NODE_REFERENCE: sha256:f4224680e72e4235283a924b299ae04eea7b722dc732cd2353a80ea274538c9c
   NODE_VERSION: 24.11.1
@@ -42,7 +42,7 @@ contents:
     - sed
   builds:
     - name: keycloak
-      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:6c01d18d2ed53b76cdd3c377bd007a88cd11e9c94e8ca24b81ffe22cdbb828ed
+      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:8865d3259daff83e4114913b6291d5f3216f02f710e52a4f2a15ef42355448d6
       contents:
         packages:
           - coreutils
@@ -65,7 +65,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:24.13.0-debian13-dev@sha256:3bb2c3991b08bbd59c4aa3de9e00010cd55ebafce2000b92d4199f6d2f71637b
+          - name: dhi.io/node:24.13.0-debian13-dev@sha256:e41e6c832a75e6b86f3ce6b271ce412dfa71df26828589983766800e2942582b
             includes:
               - opt/**
               - usr/local/bin
