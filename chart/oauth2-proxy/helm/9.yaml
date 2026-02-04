@@ -14,9 +14,9 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:71b7163acd69b29d5d2c431646ad54a453b27a9915cce53b4d277796e0dabc79
   OAUTH2_PROXY_REFERENCE: dhi/oauth2-proxy:7.14.2-debian13@sha256:08a29bc5ab96e55bbfc63976b237ba356e14bb54f2547c166c297e2714290dd0
-  REDIS_CHART_REFERENCE: dhi/redis-chart:23.0.5@sha256:573139603ba259a72ee4a9c76d8e3cc93711b1078ccd0c46064754ca71f2d6f9
+  REDIS_CHART_REFERENCE: dhi/redis-chart:23.0.5@sha256:74000fcb82f22e8d24766091a1bb71e8adcd9ce4bfff2797fc690d240698527e
   SEMVER_MAJOR_MINOR_VERSION: "10.1"
   SEMVER_MAJOR_VERSION: "10"
   SEMVER_VERSION: 10.1.2
@@ -24,7 +24,7 @@ vars:
 contents:
   builds:
     - name: oauth2-proxy
-      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:7cb2e3261500133ea8b5a670b731b6d200e5637b9b1d8451ccc759c358fca0dc
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:71b7163acd69b29d5d2c431646ad54a453b27a9915cce53b4d277796e0dabc79
       contents:
         files:
           - url: git+https://github.com/oauth2-proxy/manifests.git#oauth2-proxy-10.1.2
@@ -43,7 +43,7 @@ contents:
                 - alias: redis
                   condition: redis.enabled
                   name: redis-chart
-                  ref: dhi/redis-chart:23.0.5@sha256:573139603ba259a72ee4a9c76d8e3cc93711b1078ccd0c46064754ca71f2d6f9
+                  ref: dhi/redis-chart:23.0.5@sha256:74000fcb82f22e8d24766091a1bb71e8adcd9ce4bfff2797fc690d240698527e
               description: Docker Hardened Images Helm chart for OAuth2 Proxy Cool version
               images:
                 - name: oauth2-proxy
