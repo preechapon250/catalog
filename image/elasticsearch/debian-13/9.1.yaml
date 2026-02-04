@@ -18,8 +18,8 @@ vars:
   ELASTICSEARCH_COMMIT_SHA: f2e019bd8110088070638ca779ec1543188c0f43
   ELASTICSEARCH_OUTPUT_ARCHIVE_DIR: '#{ target.arch == "amd64" ? "linux-tar" : "linux-aarch64-tar" }'
   GO_ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
-  JDK_DIGEST: sha256:ed528dbe9717e6ce59d1e534905137119f549778e3cb16f76b9eb9a5e296ec5b
-  JDK_VERSION: 21.0.9.10
+  JDK_DIGEST: sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
+  JDK_VERSION: 21.0.10.7
   SEMVER_MAJOR_MINOR_VERSION: "9.1"
   SEMVER_MAJOR_VERSION: "9"
   SEMVER_VERSION: 9.1.10
@@ -39,7 +39,7 @@ contents:
     - tini
   builds:
     - name: elasticsearch
-      uses: dhi.io/eclipse-temurin:21.0.9.10-jdk-debian13-dev@sha256:ed528dbe9717e6ce59d1e534905137119f549778e3cb16f76b9eb9a5e296ec5b
+      uses: dhi.io/eclipse-temurin:21.0.10.7-jdk-debian13-dev@sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
       privileged: true
       contents:
         packages:
