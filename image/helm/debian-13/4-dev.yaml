@@ -20,7 +20,7 @@ vars:
   SEMVER_MAJOR_VERSION: "4"
   SEMVER_VERSION: 4.1.0
   VERSION: 4.1.0
-  YQ_REFERENCE: dhi/pkg-go-yq:4.52.2-debian13@sha256:4b1b7737216c71f4bc310454e5d84d1bb3de045676a3677a611f9fe3818101d6
+  YQ_REFERENCE: dhi/pkg-go-yq:4.52.2-debian13@sha256:a3cb9b9fddb1f624b055c36b85d005bbee2aebd3bc272d51a47aa43821c9f374
   YQ_VERSION: 4.52.2
 contents:
   packages:
@@ -101,7 +101,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/pkg-go-yq:4.52.2-debian13@sha256:4b1b7737216c71f4bc310454e5d84d1bb3de045676a3677a611f9fe3818101d6
+    - name: dhi.io/pkg-go-yq:4.52.2-debian13@sha256:a3cb9b9fddb1f624b055c36b85d005bbee2aebd3bc272d51a47aa43821c9f374
       includes:
         - opt/docker/sbom/yq
         - usr/local/bin/yq
