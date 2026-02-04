@@ -27,7 +27,7 @@
   {
     "package": "@babel/runtime",
     "dev": false,
-    "version": "7.26.10"
+    "version": "7.28.6"
   },
   {
     "package": "qs",
@@ -43,5 +43,10 @@
     "package": "lodash",
     "dev": false,
     "version": "4.17.23"
+  },
+  {
+    "package": "fast-xml-parser",
+    "dev": false,
+    "version": "5.3.4"
   }
 ]
