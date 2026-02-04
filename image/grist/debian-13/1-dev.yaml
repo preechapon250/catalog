@@ -15,9 +15,9 @@ platforms:
   - linux/arm64
 vars:
   COMMIT_SHA: fd80abacf2924fa33311d133c441558d297c5ce7
-  NODE_BUILD_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:8057fbd8048c78f13b277d9cb456c6c0875cd1c59872929e034df0367f867485
+  NODE_BUILD_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:992058adf730d1c5f0c03396dd13f4771efc4946777871b3d2ace8803b622223
   NODE_BUILD_VERSION: 22.22.0
-  NODE_REFERENCE: dhi/node:22.22.0-debian13@sha256:0a373b51361acbd29226f71f1605b34c8876a9c4749744c7ba82d25eb954e515
+  NODE_REFERENCE: dhi/node:22.22.0-debian13@sha256:1fddcc146af360e21fea512f7d020696b79090a69c91321a8677653bfef4a522
   NODE_VERSION: 22.22.0
   PYTHON_BUILD_MAJOR_MINOR: "3.11"
   PYTHON_BUILD_REFERENCE: dhi/python:3.11.14-debian13-dev@sha256:8f11d2e3a8bd39990a0836f88b746860d018bdf18355a46477a87fbb7512cf14
@@ -51,7 +51,7 @@ contents:
     - util-linux
   builds:
     - name: grist-node
-      uses: dhi.io/node:22.22.0-debian13-dev@sha256:8057fbd8048c78f13b277d9cb456c6c0875cd1c59872929e034df0367f867485
+      uses: dhi.io/node:22.22.0-debian13-dev@sha256:992058adf730d1c5f0c03396dd13f4771efc4946777871b3d2ace8803b622223
       environment:
         PATH: /opt/python/bin:/usr/local/bin:/usr/bin:/bin
       contents:
@@ -177,7 +177,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/node:22.22.0-debian13@sha256:0a373b51361acbd29226f71f1605b34c8876a9c4749744c7ba82d25eb954e515
+    - name: dhi.io/node:22.22.0-debian13@sha256:1fddcc146af360e21fea512f7d020696b79090a69c91321a8677653bfef4a522
       includes:
         - opt/**
         - usr/local/bin/**
