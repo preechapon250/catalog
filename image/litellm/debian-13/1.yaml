@@ -69,7 +69,15 @@ contents:
             uid: 0
             gid: 0
           - url: https://registry.npmjs.org/diff/-/diff-8.0.3.tgz
-            path: ${source.dir}/diff-8.0.3.tgz
+            path: ${source.dir}/npm-patches/diff-8.0.3.tgz
+            uid: 0
+            gid: 0
+          - url: https://registry.npmjs.org/tar/-/tar-7.5.7.tgz
+            path: ${source.dir}/npm-patches/tar-7.5.7.tgz
+            uid: 0
+            gid: 0
+          - url: https://registry.npmjs.org/@isaacs/brace-expansion/-/brace-expansion-5.0.1.tgz
+            path: ${source.dir}/npm-patches/brace-expansion-5.0.1.tgz
             uid: 0
             gid: 0
       pipeline:
@@ -133,24 +141,37 @@ contents:
             pip install --upgrade 'nodejs-wheel-binaries>=24.13.0' # Fix CVE-2025-55130, CVE-2025-55131, CVE-2025-59466, CVE-2026-21637, CVE-2025-55132
             pip install --upgrade 'python-multipart>=0.0.22'       # Fix CVE-2026-24486
             pip install --upgrade 'orjson>=3.11.5'                 # Fix CVE-2025-67221
-        - name: patch diff package in nodejs_wheel
+        - name: patch npm packages in nodejs_wheel
           privileged: true
           runs: |
             set -eux -o pipefail
 
-            # Extract fixed diff version (downloaded in files section)
-            mkdir -p /tmp/diff-fix
-            tar -xzf ${source.dir}/diff-8.0.3.tgz -C /tmp/diff-fix
+            # Define packages to patch using associative array: [search_path]=tarball
+            # search_path is the directory name under node_modules to find and replace
+            declare -A PATCHES=(
+              ["diff"]="diff-8.0.3.tgz"                               # CVE-2026-24001
+              ["tar"]="tar-7.5.7.tgz"                                 # CVE-2026-24842
+              ["@isaacs/brace-expansion"]="brace-expansion-5.0.1.tgz" # GHSA-7h2j-956f-4vf2
+            )
 
-            # Find and replace diff package in nodejs_wheel location
-            # The path is: /opt/litellm/lib/python3.*/site-packages/nodejs_wheel/lib/node_modules/npm/node_modules/diff
-            find "$VIRTUAL_ENV/lib" -type d -path "*/nodejs_wheel/lib/node_modules/npm/node_modules/diff" -print0 | while IFS= read -r -d '' diff_dir; do
-              echo "Replacing $diff_dir"
-              rm -rf "$diff_dir"
-              cp -r /tmp/diff-fix/package "$diff_dir"
+            for search_path in "${!PATCHES[@]}"; do
+              tarball="${PATCHES[$search_path]}"
+              echo "Patching $search_path..."
+
+              # Extract fixed package version to temporary directory
+              tmp_dir=$(mktemp -d)
+              tar -xzf "${source.dir}/npm-patches/$tarball" -C "$tmp_dir"
+
+              # Find and replace package in nodejs_wheel location
+              # The path is: /opt/litellm/lib/python3.*/site-packages/nodejs_wheel/lib/node_modules/npm/node_modules/<search_path>
+              find "$VIRTUAL_ENV/lib" -type d -path "*/nodejs_wheel/lib/node_modules/npm/node_modules/$search_path" -print0 | while IFS= read -r -d '' pkg_dir; do
+                echo "  Replacing $pkg_dir"
+                rm -rf "$pkg_dir"
+                cp -r "$tmp_dir/package" "$pkg_dir"
+              done
+
+              echo "  ✓ $search_path patched successfully"
             done
-
-            rm -rf /tmp/diff-fix
         - name: install final packages in venv
           privileged: true
           runs: |
