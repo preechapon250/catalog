@@ -6,24 +6,24 @@ variant: dev
 flavor: contrib
 tags:
   - 0-contrib-dev
-  - 0.144-contrib-dev
-  - 0.144.0-contrib-dev
+  - 0.145-contrib-dev
+  - 0.145.0-contrib-dev
   - 0-debian13-contrib-dev
-  - 0.144-debian13-contrib-dev
-  - 0.144.0-debian13-contrib-dev
+  - 0.145-debian13-contrib-dev
+  - 0.145.0-debian13-contrib-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 9e444f54f4033bf6b7c254f0a8797ffd3917b6de
+  COMMIT_SHA: cd308b015bdea349d54f308fa98568dc48e37f82
   DIST_NAME: otelcol-contrib
-  GOLANG_REFERENCE: dhi/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
-  SEMVER_MAJOR_MINOR_VERSION: "0.144"
+  GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
+  SEMVER_MAJOR_MINOR_VERSION: "0.145"
   SEMVER_MAJOR_VERSION: "0"
-  SEMVER_VERSION: 0.144.0
-  VERSION: 0.144.0
+  SEMVER_VERSION: 0.145.0
+  VERSION: 0.145.0
 contents:
   packages:
     - '!base-files'
@@ -45,18 +45,18 @@ contents:
     - util-linux
   builds:
     - name: opentelemetry-collector
-      uses: dhi.io/golang:1.25.6-debian13-dev@sha256:1c001ad95e22efced3c6cc3cf875bbfe69c061a383d3b787d4f0a8103e73311c
+      uses: dhi.io/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
       contents:
         files:
-          - url: git+https://github.com/open-telemetry/opentelemetry-collector-releases.git#9e444f54f4033bf6b7c254f0a8797ffd3917b6de
-            checksum: 9e444f54f4033bf6b7c254f0a8797ffd3917b6de
+          - url: git+https://github.com/open-telemetry/opentelemetry-collector-releases.git#cd308b015bdea349d54f308fa98568dc48e37f82
+            checksum: cd308b015bdea349d54f308fa98568dc48e37f82
             path: /go/src/github.com/open-telemetry/opentelemetry-collector-releases
             spdx:
               name: opentelemetry-collector-releases
-              version: 0.144.0
+              version: 0.145.0
               packages:
                 - name: opentelemetry-collector-releases
-                  purl: pkg:golang/github.com/open-telemetry/opentelemetry-collector-releases@0.144.0
+                  purl: pkg:golang/github.com/open-telemetry/opentelemetry-collector-releases@0.145.0
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -87,7 +87,7 @@ contents:
           work-dir: /go/src/github.com/open-telemetry/opentelemetry-collector-releases/distributions/otelcol-contrib/_build
           with:
             ldflags:
-              - -X github.com/open-telemetry/opentelemetry-collector-releases/distributions/otelcol-contrib/_build/version.Version=0.144.0
+              - -X github.com/open-telemetry/opentelemetry-collector-releases/distributions/otelcol-contrib/_build/version.Version=0.145.0
             output: ${target.dir}/usr/local/bin/otelcol-contrib
       outputs:
         - source: ${target.dir}/usr/local/bin
