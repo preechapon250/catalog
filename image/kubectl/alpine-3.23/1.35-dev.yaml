@@ -16,8 +16,8 @@ dates:
 vars:
   COMMIT_SHA: 66452049f3d692768c39c797b21b793dce80314e
   DBG: '#{ target.dev ? "1" : "0" }'
-  GO_REFERENCE: dhi/golang:1.25.6-alpine3.23-dev@sha256:b2b4bb49fde981b8077960336cb0e9e8a174ecdaa2f2562a9603911bdfbf38ee
-  GO_VERSION: 1.25.6
+  GO_REFERENCE: dhi/golang:1.25.7-alpine3.23-dev@sha256:3911f7c6405bf6d2cbfd9d045cc7425ea6126ac3ebb7fb465f273ea9289909d9
+  GO_VERSION: 1.25.7
   SEMVER_MAJOR_MINOR_VERSION: "1.35"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.35.0
@@ -33,7 +33,7 @@ contents:
     - ca-certificates-bundle
   builds:
     - name: kubectl
-      uses: dhi.io/golang:1.25.6-alpine3.23-dev@sha256:b2b4bb49fde981b8077960336cb0e9e8a174ecdaa2f2562a9603911bdfbf38ee
+      uses: dhi.io/golang:1.25.7-alpine3.23-dev@sha256:3911f7c6405bf6d2cbfd9d045cc7425ea6126ac3ebb7fb465f273ea9289909d9
       work-dir: /go/src/k8s.io/kubernetes
       contents:
         packages:
