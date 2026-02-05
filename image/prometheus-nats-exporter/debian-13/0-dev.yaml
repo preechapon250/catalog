@@ -6,10 +6,10 @@ variant: dev
 tags:
   - 0-dev
   - 0.19-dev
-  - 0.19.0-dev
+  - 0.19.1-dev
   - 0-debian13-dev
   - 0.19-debian13-dev
-  - 0.19.0-debian13-dev
+  - 0.19.1-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,12 +18,12 @@ dates:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: a899095c431bd661ecb9de32b028a95638f1bf15
+  COMMIT_SHA: 635496a73745d94ea298133d5e0e16a7ef880019
   GO_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
   SEMVER_MAJOR_MINOR_VERSION: "0.19"
   SEMVER_MAJOR_VERSION: "0"
-  SEMVER_VERSION: 0.19.0
-  VERSION: 0.19.0
+  SEMVER_VERSION: 0.19.1
+  VERSION: 0.19.1
 contents:
   packages:
     - '!base-files'
@@ -50,15 +50,15 @@ contents:
         - path: /go/pkg/mod
       contents:
         files:
-          - url: git+https://github.com/nats-io/prometheus-nats-exporter.git#v0.19.0
-            checksum: a899095c431bd661ecb9de32b028a95638f1bf15
+          - url: git+https://github.com/nats-io/prometheus-nats-exporter.git#v0.19.1
+            checksum: 635496a73745d94ea298133d5e0e16a7ef880019
             path: /go/src/github.com/nats-io/prometheus-nats-exporter
             spdx:
               name: prometheus-nats-exporter
-              version: 0.19.0
+              version: 0.19.1
               packages:
                 - name: prometheus-nats-exporter
-                  purl: pkg:golang/github.com/nats-io/prometheus-nats-exporter@v0.19.0
+                  purl: pkg:golang/github.com/nats-io/prometheus-nats-exporter@v0.19.1
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -86,8 +86,8 @@ contents:
           with:
             ldflags:
               - -s -w
-              - -X main.version=0.19.0
-              - -X main.commit=a899095c431bd661ecb9de32b028a95638f1bf15
+              - -X main.version=0.19.1
+              - -X main.commit=635496a73745d94ea298133d5e0e16a7ef880019
               - -X main.date=$(date -d @${SOURCE_DATE_EPOCH} +'%F-%T')
             output: ${target.dir}/usr/local/bin/prometheus-nats-exporter
             packages: .
