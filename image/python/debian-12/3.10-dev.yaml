@@ -14,7 +14,7 @@ dates:
   end-of-life: "2026-10-31"
 vars:
   BINUTILS_REFERENCE: dhi/pkg-binutils:2.45-debian12@sha256:84e2b257f650047d79895d79e3becead653a915923c3aa1a03a525387bb5517d
-  PKG_PYTHON_REFERENCE: dhi/pkg-python:3.10.19-debian12@sha256:5fbfd55f0df176960a45524d1e5692fa836bebfbbea39d2d08a93f2ab7ac31f9
+  PKG_PYTHON_REFERENCE: dhi/pkg-python:3.10.19-debian12@sha256:426da293995b15f5bfe5cf8b6f6fd638e254a19a29bd9d8da2fd567f0cb824d2
   PYTHON_MAJOR_MINOR_VERSION: "3.10"
   PYTHON_MAJOR_VERSION: "3"
   PYTHON_VERSION: 3.10.19
@@ -66,7 +66,7 @@ contents:
     - util-linux
     - zlib1g
   artifacts:
-    - name: dhi.io/pkg-python:3.10.19-debian12@sha256:5fbfd55f0df176960a45524d1e5692fa836bebfbbea39d2d08a93f2ab7ac31f9
+    - name: dhi.io/pkg-python:3.10.19-debian12@sha256:426da293995b15f5bfe5cf8b6f6fd638e254a19a29bd9d8da2fd567f0cb824d2
       includes:
         - opt/**
       uid: 0
