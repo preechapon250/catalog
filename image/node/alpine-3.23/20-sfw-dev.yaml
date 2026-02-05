@@ -16,10 +16,10 @@ dates:
   end-of-life: "2026-04-30"
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "arm64" }'
-  DIGEST: sha256:e03f20ce72318f3a8f23e8c27aa87de7755dc122954d2303774c07f100da690e
+  DIGEST: sha256:b267767b948384ec2b9b86a2b13c6ea1ca0c6070c6507c82d56b5cc36c7e91b5
   NODEJS_VERSION_MAJOR: "20"
   NODEJS_VERSION_MAJOR_MINOR: "20.20"
-  PKG_NODE_REFERENCE: dhi/pkg-node:20.20.0-alpine3.23@sha256:e03f20ce72318f3a8f23e8c27aa87de7755dc122954d2303774c07f100da690e
+  PKG_NODE_REFERENCE: dhi/pkg-node:20.20.0-alpine3.23@sha256:b267767b948384ec2b9b86a2b13c6ea1ca0c6070c6507c82d56b5cc36c7e91b5
   SFW_VERSION: 1.5.4
   VERSION: 20.20.0
 contents:
@@ -55,7 +55,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/pkg-node:20.20.0-alpine3.23@sha256:e03f20ce72318f3a8f23e8c27aa87de7755dc122954d2303774c07f100da690e
+          - name: dhi.io/pkg-node:20.20.0-alpine3.23@sha256:b267767b948384ec2b9b86a2b13c6ea1ca0c6070c6507c82d56b5cc36c7e91b5
             includes:
               - opt/docker
               - opt/nodejs
