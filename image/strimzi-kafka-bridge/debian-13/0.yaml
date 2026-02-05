@@ -52,7 +52,16 @@ contents:
                   license: Apache-2.0
             uid: 0
             gid: 0
+          - url: https://repo1.maven.org/maven2/at/yawk/lz4/lz4-java/1.10.1/lz4-java-1.10.1.jar
+            path: ${source.dir}/patch/deps/at.yawk.lz4.lz4-java-1.10.1.jar
+            uid: 0
+            gid: 0
       pipeline:
+        - name: patch
+          uses: mvn/patch@v1
+          with:
+            mvn-root: ${source.dir}/strimzi-kafka-bridge
+            properties: ${source.dir}/patch/mvn-properties.json
         - name: build strimzi kafka bridge
           work-dir: ${source.dir}/strimzi-kafka-bridge
           privileged: true
@@ -64,6 +73,18 @@ contents:
 
             mkdir -p '${target.dir}/opt/strimzi'
             cp -a 'target/kafka-bridge-0.33.1/kafka-bridge-0.33.1/.' '${target.dir}/opt/strimzi'
+        - name: replace vulnerable lz4 dep
+          runs: |
+            set -eux -o pipefail
+
+            rm "${target.dir}/opt/strimzi/libs/org.lz4.lz4-java-1.8.0.jar"
+            cp "${source.dir}/patch/deps/at.yawk.lz4.lz4-java-1.10.1.jar" "${target.dir}/opt/strimzi/libs/org.lz4.lz4-java-1.10.1.jar"
+      paths:
+        - type: file
+          path: /src/patch/mvn-properties.json
+          uid: 0
+          gid: 0
+          source: image/strimzi-kafka-bridge/patch/mvn-properties.json
       outputs:
         - source: ${target.dir}/opt/strimzi
           target: /opt/strimzi
