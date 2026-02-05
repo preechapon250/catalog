@@ -12,10 +12,6 @@
         "value" : "3.18.0"
     },
     {
-        "property": "jersey.version",
-        "value" : "3.0.17"
-    },
-    {
         "property": "log4j.version",
         "value" : "2.25.3"
     }
