@@ -2,7 +2,7 @@
   {
       "package": "tar",
       "dev": false,
-      "version": "7.5.4"
+      "version": "7.5.7"
   },
   {
       "package": "@smithy/config-resolver",
