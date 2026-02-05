@@ -54,6 +54,12 @@ contents:
             uid: 0
             gid: 0
       pipeline:
+        - name: patch
+          uses: npm/bump@v1
+          privileged: true
+          with:
+            bumps: ${source.dir}/npm-patches.json
+            npm-root: ${source.dir}/edgemicro
         - name: install dependencies
           work-dir: ${source.dir}/edgemicro
           privileged: true
@@ -112,6 +118,12 @@ contents:
             set -eux -o pipefail
 
             npm install -g
+      paths:
+        - type: file
+          path: /src/npm-patches.json
+          uid: 0
+          gid: 0
+          source: image/apigee-microgateway/patch/npm-patches.json
       outputs:
         - source: /opt/nodejs/node-v22.22.0/bin/edgemicro
           target: /opt/nodejs/node-v22.22.0/bin/edgemicro
