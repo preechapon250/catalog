@@ -16,8 +16,8 @@ dates:
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x86_64" : "aarch64" }'
   COMMIT_SHA: e1b101139286fed67fb694aa7dded21d140b564b
-  GO_REFERENCE: dhi/golang:1.24.12-debian13-dev@sha256:7486068e365dd29bd664fe0ad2f153d7a5f61f6b104c259b7ff642edd7cf40b5
-  GO_VERSION: 1.24.12
+  GO_REFERENCE: dhi/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
+  GO_VERSION: 1.24.13
   GRADLE_REFERENCE: dhi/gradle:8.14.4-jdk21-debian13-dev@sha256:63883727e15c4d3f73fad0240d2323c1234201f3b1fd8864835c9589bfd2207f
   GRADLE_VERSION: 8.14.4
   JAVA_MAJOR_VERSION: "21"
@@ -41,7 +41,7 @@ contents:
     - sed
   builds:
     - name: env2yaml go for 8.18
-      uses: dhi.io/golang:1.24.12-debian13-dev@sha256:7486068e365dd29bd664fe0ad2f153d7a5f61f6b104c259b7ff642edd7cf40b5
+      uses: dhi.io/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
       contents:
         packages:
           - bash
