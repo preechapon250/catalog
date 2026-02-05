@@ -15,8 +15,8 @@ dates:
 vars:
   COMMIT_SHA: 2195eae9e91f2e72114365d9bb9c670d0c08de12
   DBG: '#{ target.dev ? "1" : "0" }'
-  GO_REFERENCE: dhi/golang:1.24.12-alpine3.22-dev@sha256:fbbfd572060b446561b08c97a054239da7e457c4bdfc52c9f46bfdb179bcfa05
-  GO_VERSION: 1.24.12
+  GO_REFERENCE: dhi/golang:1.24.13-alpine3.22-dev@sha256:3304dc6ed2353c4aa2b6c32a9717e41a833eaf7994bb00155ca91a8250e85c57
+  GO_VERSION: 1.24.13
   SEMVER_MAJOR_MINOR_VERSION: "1.32"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.32.11
@@ -57,7 +57,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/golang:1.24.12-alpine3.22-dev@sha256:fbbfd572060b446561b08c97a054239da7e457c4bdfc52c9f46bfdb179bcfa05
+          - name: dhi.io/golang:1.24.13-alpine3.22-dev@sha256:3304dc6ed2353c4aa2b6c32a9717e41a833eaf7994bb00155ca91a8250e85c57
             includes:
               - usr/local/go
             uid: 0
