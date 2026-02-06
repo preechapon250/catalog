@@ -26,7 +26,7 @@ vars:
   LAUNCHER_VERSION: "313"
   MAVEN_REF: dhi/maven:3.9.12-jdk25-debian13-dev@sha256:dace02fb67919d893ae11aac8bb70d499a00307da1e4d54e3bbed694c0374dd6
   MAVEN_VERSION: 3.9.12
-  NODE_REF: dhi/node:22.22.0-debian13@sha256:4cc4baaea9766c69050e1df17605d639016565fb0fc141f54bf16a804d7a107c
+  NODE_REF: dhi/node:22.22.0-debian13@sha256:929e379216af18f2998563acdacef4554897f30d19fdcc7ee25955c97f736c2e
   VERSION: "479"
 contents:
   packages:
@@ -113,7 +113,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:22.22.0-debian13@sha256:4cc4baaea9766c69050e1df17605d639016565fb0fc141f54bf16a804d7a107c
+          - name: dhi.io/node:22.22.0-debian13@sha256:929e379216af18f2998563acdacef4554897f30d19fdcc7ee25955c97f736c2e
             includes:
               - opt/nodejs
               - usr/local/bin
