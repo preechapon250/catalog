@@ -5,26 +5,26 @@ image: dhi.io/hubble-proto
 variant: dev
 tags:
   - 1-dev
-  - 1.18-dev
-  - 1.18.6-dev
+  - 1.19-dev
+  - 1.19.0-dev
   - 1-debian13-dev
-  - 1.18-debian13-dev
-  - 1.18.6-debian13-dev
+  - 1.19-debian13-dev
+  - 1.19.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 95896696119f33a0f5d21019182192fcdab3600f
-  GOLANG_REFERENCE: dhi/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
+  COMMIT_SHA: 7c6667e1e707d7f39a4af3409c2a9ebea2917d32
+  GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
   PROTOC_GEN_GO_GRPC_VERSION: 1.5.1
   PROTOC_GEN_GO_JSON_VERSION: 1.5.0
   PROTOC_GEN_GO_VERSION: 1.36.10
-  SEMVER_MAJOR_MINOR_VERSION: "1.18"
+  SEMVER_MAJOR_MINOR_VERSION: "1.19"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.18.6
-  VERSION: 1.18.6
+  SEMVER_VERSION: 1.19.0
+  VERSION: 1.19.0
 contents:
   packages:
     - '!base-files'
@@ -46,18 +46,18 @@ contents:
     - util-linux
   builds:
     - name: hubble-proto
-      uses: dhi.io/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
+      uses: dhi.io/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
       contents:
         files:
-          - url: git+https://github.com/cilium/cilium.git#v1.18.6
-            checksum: 95896696119f33a0f5d21019182192fcdab3600f
+          - url: git+https://github.com/cilium/cilium.git#v1.19.0
+            checksum: 7c6667e1e707d7f39a4af3409c2a9ebea2917d32
             path: /go/src/github.com/cilium/cilium
             spdx:
               name: hubble-proto
-              version: 1.18.6
+              version: 1.19.0
               packages:
                 - name: hubble-proto
-                  purl: pkg:golang/github.com/cilium/cilium@1.18.6
+                  purl: pkg:golang/github.com/cilium/cilium@1.19.0
                   license: Apache-2.0
             uid: 0
             gid: 0
