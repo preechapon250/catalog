@@ -21,8 +21,8 @@ vars:
   COUCHDB_DOCKER_DEFAULT_INI_CHECKSUM: sha256:341de88134122400019a4cbf398dc35774bdd4f2dab3b6b9ad4fec596e627656
   COUCHDB_DOCKER_ENTRYPOINT_CHECKSUM: sha256:d3042b6e100bfe2b9f124f654afc6bdbcad9e9e870511c60e9010da759b60962
   COUCHDB_DOCKER_VM_ARGS_CHECKSUM: sha256:5f84c4bfc47f16f404443dc1437829372ab9ee126d30fc819a2927a4cd333da7
-  ERLANG_DEV_REFERENCE: dhi/erlang-otp:27.3-debian13-dev@sha256:d8236434cc25dd1f94180805072f9b844e6ec7e4059e7066913b47957baf10dc
-  ERLANG_REFERENCE: dhi/erlang-otp:27.3-debian13@sha256:f91c9a0513b63081ba2ffaa71c54af4dc9bfaac7ca569affc10cce2bce72fadd
+  ERLANG_DEV_REFERENCE: dhi/erlang-otp:27.3-debian13-dev@sha256:6877a3f641abec4769e80b09ff3bce90da17b06353c749ae32354b1b472074f8
+  ERLANG_REFERENCE: dhi/erlang-otp:27.3-debian13@sha256:a6cb604a8d048af5bbdd9ea846a9bd5e366bc19ca12c83d03a659ba60cf942d7
   GOSU_REFERENCE: dhi/pkg-gosu:1.19-debian13@sha256:ad00937d2ef6f2b4a89692b1e60a054f8a5dda8a8d7b1e12d1c98149f402b3a0
   GOSU_VERSION: "1.19"
   NODE_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:50357af85ac21065acba83877601749772a229ad8234082c81d34a22a5a4a81b
@@ -72,7 +72,7 @@ contents:
       mode: "0644"
   builds:
     - name: build couchdb
-      uses: dhi.io/erlang-otp:27.3-debian13-dev@sha256:d8236434cc25dd1f94180805072f9b844e6ec7e4059e7066913b47957baf10dc
+      uses: dhi.io/erlang-otp:27.3-debian13-dev@sha256:6877a3f641abec4769e80b09ff3bce90da17b06353c749ae32354b1b472074f8
       contents:
         packages:
           - bash
@@ -226,7 +226,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/erlang-otp:27.3-debian13@sha256:f91c9a0513b63081ba2ffaa71c54af4dc9bfaac7ca569affc10cce2bce72fadd
+    - name: dhi.io/erlang-otp:27.3-debian13@sha256:a6cb604a8d048af5bbdd9ea846a9bd5e366bc19ca12c83d03a659ba60cf942d7
       includes:
         - /usr/local/**
       uid: 0
