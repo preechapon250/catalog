@@ -13,8 +13,8 @@ vars:
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
-  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:71b7163acd69b29d5d2c431646ad54a453b27a9915cce53b4d277796e0dabc79
-  PROMETHEUS_CONFIG_RELOADER_IMAGE_REFERENCE: dhi/prometheus-config-reloader:0.88.1-debian13@sha256:06b110960985ddb6dfd5c48217302ae28bf8ea8a73183ed69c220c0a9b7d3f49
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:73af12ec3112d328c39a579a6b5a20d2667e69ee08be6644dce079721b4bce9c
+  PROMETHEUS_CONFIG_RELOADER_IMAGE_REFERENCE: dhi/prometheus-config-reloader:0.88.1-debian13@sha256:e56fef5adce639d753100c9f865bd4bf914b67185a65ba83c930ee444d9b35d9
   PROMTAIL_REFERENCE: dhi/promtail:3.5.9-debian13@sha256:28c49c44c33f3b62ae7fda65232f17dc0ef34f971cc362cabce231ca5bd84f91
   SEMVER_MAJOR_MINOR_VERSION: "6.17"
   SEMVER_MAJOR_VERSION: "6"
@@ -23,7 +23,7 @@ vars:
 contents:
   builds:
     - name: promtail
-      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:71b7163acd69b29d5d2c431646ad54a453b27a9915cce53b4d277796e0dabc79
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:73af12ec3112d328c39a579a6b5a20d2667e69ee08be6644dce079721b4bce9c
       contents:
         packages:
           - bash
@@ -50,7 +50,7 @@ contents:
                 - name: promtail
                   ref: dhi/promtail:3.5.9-debian13@sha256:28c49c44c33f3b62ae7fda65232f17dc0ef34f971cc362cabce231ca5bd84f91
                 - name: prometheus-config-reloader
-                  ref: dhi/prometheus-config-reloader:0.88.1-debian13@sha256:06b110960985ddb6dfd5c48217302ae28bf8ea8a73183ed69c220c0a9b7d3f49
+                  ref: dhi/prometheus-config-reloader:0.88.1-debian13@sha256:e56fef5adce639d753100c9f865bd4bf914b67185a65ba83c930ee444d9b35d9
               name: promtail-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/grafana/helm-charts
