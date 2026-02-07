@@ -27,7 +27,7 @@ vars:
   MAVEN_VERSION: 3.9.12
   NAME_DETAIL: Scala 2.12.x, Java 17.x, Python 3.13.x
   PYTHON_MAJOR_MINOR_VERSION: "3.13"
-  PYTHON_REFERENCE: dhi/python:3.13.12-debian13@sha256:81866198729516850ffeec4d4185dc46f7b50801874a560e2ced7b9a2a96fd6f
+  PYTHON_REFERENCE: dhi/python:3.13.12-debian13@sha256:5cc2bb3bad0f747b0b98aa1978ab1359189382eecee4cd0d35d15723037d158b
   PYTHON_VERSION: 3.13.12
   SCALA_VERSION: "2.12"
   SEMVER_MAJOR_MINOR_VERSION: "3.5"
@@ -222,7 +222,7 @@ contents:
         - opt/**
       uid: 0
       gid: 0
-    - name: dhi.io/python:3.13.12-debian13@sha256:81866198729516850ffeec4d4185dc46f7b50801874a560e2ced7b9a2a96fd6f
+    - name: dhi.io/python:3.13.12-debian13@sha256:5cc2bb3bad0f747b0b98aa1978ab1359189382eecee4cd0d35d15723037d158b
       includes:
         - opt/**
       uid: 0
