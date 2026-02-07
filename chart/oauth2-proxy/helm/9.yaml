@@ -4,12 +4,12 @@ name: OAuth2 Proxy Helm chart 10.x
 image: dhi.io/oauth2-proxy-chart
 variant: helm
 tags:
-  - 10.1.2
+  - 10.1.3
 platforms:
   - linux/amd64
 vars:
   ALPINE_BASE_REFERENCE: dhi/alpine-base:3.22-alpine3.22@sha256:8650b1d1d7b78da72f6a11b87de14868ae880270c60932f51c10c1329fb95b8a
-  CHART_COMMIT_SHA: 008a0643f0d70aa220addcb9688c02e72282648c
+  CHART_COMMIT_SHA: f4b882473c32fb41fe4772864d81d92be629b3ef
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
@@ -19,16 +19,16 @@ vars:
   REDIS_CHART_REFERENCE: dhi/redis-chart:23.0.5@sha256:a108c4b07bde4a12de0a4327e7bcf1875ed8f41db063f9d9f473e45b35afc030
   SEMVER_MAJOR_MINOR_VERSION: "10.1"
   SEMVER_MAJOR_VERSION: "10"
-  SEMVER_VERSION: 10.1.2
-  VERSION: 10.1.2
+  SEMVER_VERSION: 10.1.3
+  VERSION: 10.1.3
 contents:
   builds:
     - name: oauth2-proxy
       uses: dhi.io/helm:3.20.0-debian13-dev@sha256:83f437b3254d4db06d42aa7e1e8e6043ae1feacadf709e6b12b925345c91468a
       contents:
         files:
-          - url: git+https://github.com/oauth2-proxy/manifests.git#oauth2-proxy-10.1.2
-            checksum: 008a0643f0d70aa220addcb9688c02e72282648c
+          - url: git+https://github.com/oauth2-proxy/manifests.git#oauth2-proxy-10.1.3
+            checksum: f4b882473c32fb41fe4772864d81d92be629b3ef
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
