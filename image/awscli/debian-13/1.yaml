@@ -63,6 +63,13 @@ contents:
 
             unzip -q awscli.zip
             ./awscli-bundle/install -i "${target.dir}/opt/aws-cli"
+        - name: bump
+          work-dir: ${target.dir}/opt/aws-cli
+          privileged: true
+          runs: |
+            set -eux -o pipefail
+
+            ${target.dir}/opt/aws-cli/bin/python -m pip install --upgrade 'pyasn1>=0.6.2' # CVE-2026-23490
         - name: cleanup dependencies
           work-dir: ${target.dir}/opt/aws-cli
           runs: |
