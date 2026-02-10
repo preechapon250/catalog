@@ -67,5 +67,9 @@
     "removeLockfileEntries": [
       "node_modules/fast-xml-parser"
     ]
+  },
+  {
+    "package": "axios",
+    "version": "1.13.5"
   }
 ]
