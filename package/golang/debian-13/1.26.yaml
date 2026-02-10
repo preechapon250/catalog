@@ -3,15 +3,15 @@
 image: dhi.io/pkg-golang
 variant: runtime
 tags:
-  - 1.26rc3
-  - 1.26rc3-debian13
+  - 1.26.0
+  - 1.26.0-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT: 70d5aa7ba25f23b02d87512c5a6b6a9c699334ee
+  COMMIT: d90b98e65320778f3b1f99a6951ab20f04d218b3
   GO_REFERENCE: dhi/pkg-golang:1.25.7-debian13@sha256:632d8adcfa45328142a2d5c83ff2790a7a84d125feb446724717fe14182eb874
-  VERSION: 1.26rc3
+  VERSION: 1.26.0
 contents:
   packages:
     - '!base-files'
@@ -28,15 +28,15 @@ contents:
           - sed
           - git
         files:
-          - url: git+https://github.com/golang/go.git#go1.26rc3
-            checksum: 70d5aa7ba25f23b02d87512c5a6b6a9c699334ee
+          - url: git+https://github.com/golang/go.git#go1.26.0
+            checksum: d90b98e65320778f3b1f99a6951ab20f04d218b3
             path: ${source.dir}/go
             spdx:
               name: golang
-              version: 1.26rc3
+              version: 1.26.0
               packages:
                 - name: golang
-                  purl: pkg:dhi/golang@1.26rc3
+                  purl: pkg:dhi/golang@1.26.0
                   license: BSD-3-Clause
             uid: 0
             gid: 0
@@ -87,7 +87,7 @@ os-release:
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
 environment:
-  GOLANG_VERSION: 1.26rc3
+  GOLANG_VERSION: 1.26.0
   GOPATH: /go
   GOTOOLCHAIN: local
   PATH: /go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
