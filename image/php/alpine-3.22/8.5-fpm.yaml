@@ -272,7 +272,7 @@ paths:
     gid: 65532
     mode: "0755"
   - type: file
-    path: ${PHP_INI_DIR}/conf.d/fpm.ini
+    path: /opt/php-8.5/etc/php/conf.d/fpm.ini
     content: |
       ; https://github.com/docker-library/php/issues/878#issuecomment-938595965
       fastcgi.logging = Off
