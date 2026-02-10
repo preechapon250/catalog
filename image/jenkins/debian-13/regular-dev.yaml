@@ -4,8 +4,8 @@ name: Jenkins 2.x (weekly) (dev)
 image: dhi.io/jenkins
 variant: dev
 tags:
-  - 2.549-dev
-  - 2.549-debian13-dev
+  - 2.550-dev
+  - 2.550-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,23 +18,23 @@ vars:
   BUILD_JDK_DIGEST: sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
   BUILD_JDK_REF: dhi/eclipse-temurin:21.0.10.7-jdk-debian13-dev@sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
   BUILD_JDK_VERSION: 21.0.10.7
-  COMMIT_SHA: 8fb447edd84db1b3000fdfb9cc97b96e2c67c1a7
+  COMMIT_SHA: a53f64faa2469a512167692015e4f1f10be90409
   DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
-  DOCKER_REPO_COMMIT_SHA: cff181206ea7369c51eba3c45095af6841194911
-  DOCKER_REPO_VERSION: "2.549"
+  DOCKER_REPO_COMMIT_SHA: 17ddac167ae8b16cf15a8ec7851846002db33010
+  DOCKER_REPO_VERSION: "2.550"
   JAVA_HOME_PATH: /opt/java/openjdk/21-jre
   JAVA_MAJOR_VERSION: "21"
   JDK_MAJOR_VERSION: "21"
   JRE_DIGEST: sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JRE_REF: dhi/eclipse-temurin:21.0.9.10-debian13@sha256:0261fc5162735dbbd5a002ecd8e17957652aa80314c8af19d4c1f2805a92000a
   JRE_VERSION: 21.0.9.10
-  LIBPNG_REF: dhi/pkg-libpng:1.6.54-debian13@sha256:8f1202ad965c1cf70b86c74e96c34c90c98399d42f6a8de0e8477fb6aa4e7caa
+  LIBPNG_REF: dhi/pkg-libpng:1.6.55-debian13@sha256:c5c07ac5cccf14b8fcdb468bcf9609e87c1a50fd904016c52e90b675504eabc8
   MAVEN_DIGEST: sha256:50d1124c3ead0fb112213d6578160a29774c98db966d55f2e3a3a76329e8a3db
   MAVEN_REF: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:50d1124c3ead0fb112213d6578160a29774c98db966d55f2e3a3a76329e8a3db
   MAVEN_VERSION: 3.9.12
-  SEMVER_MAJOR_MINOR_VERSION: "2.549"
+  SEMVER_MAJOR_MINOR_VERSION: "2.550"
   SEMVER_MAJOR_VERSION: "2"
-  VERSION: "2.549"
+  VERSION: "2.550"
 contents:
   packages:
     - '!gawk'
@@ -79,20 +79,20 @@ contents:
           - sed
           - tar
         files:
-          - url: git+https://github.com/jenkinsci/jenkins.git#jenkins-2.549
-            checksum: 8fb447edd84db1b3000fdfb9cc97b96e2c67c1a7
-            path: ${source.dir}/jenkins-8fb447edd84db1b3000fdfb9cc97b96e2c67c1a7
+          - url: git+https://github.com/jenkinsci/jenkins.git#jenkins-2.550
+            checksum: a53f64faa2469a512167692015e4f1f10be90409
+            path: ${source.dir}/jenkins-a53f64faa2469a512167692015e4f1f10be90409
             spdx:
               name: jenkins
-              version: "2.549"
+              version: "2.550"
               packages:
                 - name: jenkins
-                  purl: pkg:dhi/jenkins@2.549
+                  purl: pkg:dhi/jenkins@2.550
                   license: MIT
             uid: 0
             gid: 0
-          - url: git+https://github.com/jenkinsci/docker.git#cff181206ea7369c51eba3c45095af6841194911
-            checksum: cff181206ea7369c51eba3c45095af6841194911
+          - url: git+https://github.com/jenkinsci/docker.git#17ddac167ae8b16cf15a8ec7851846002db33010
+            checksum: 17ddac167ae8b16cf15a8ec7851846002db33010
             path: ${source.dir}/docker-builds
             uid: 0
             gid: 0
@@ -105,14 +105,14 @@ contents:
             gid: 0
       pipeline:
         - name: build
-          work-dir: ${source.dir}/jenkins-8fb447edd84db1b3000fdfb9cc97b96e2c67c1a7
+          work-dir: ${source.dir}/jenkins-a53f64faa2469a512167692015e4f1f10be90409
           privileged: true
           runs: |
             set -eux -o pipefail
 
             mvn clean install -DskipTests -Dmaven.test.skip=true -Dspotless.check.skip=true
         - name: install
-          work-dir: ${source.dir}/jenkins-8fb447edd84db1b3000fdfb9cc97b96e2c67c1a7
+          work-dir: ${source.dir}/jenkins-a53f64faa2469a512167692015e4f1f10be90409
           runs: |
             set -eux -o pipefail
 
@@ -215,7 +215,7 @@ environment:
   JENKINS_SLAVE_AGENT_PORT: "50000"
   JENKINS_UC: https://updates.jenkins.io
   JENKINS_UC_EXPERIMENTAL: https://updates.jenkins.io/experimental
-  JENKINS_VERSION: "2.549"
+  JENKINS_VERSION: "2.550"
   LANG: en_US.UTF-8
   LANGUAGE: en_US:en
   LC_ALL: en_US.UTF-8
