@@ -62,7 +62,7 @@ To install the chart, use `helm install`. Make sure you use `helm login` to log 
 Optionally, you can also use the `--dry-run` flag to test the installation without actually installing anything.
 
 ```console
-helm install my-keda oci://dhi.io/keda-exporter-chart --version <version> \
+helm install my-keda oci://dhi.io/keda-chart --version <version> \
   --set "pullSecrets[0]=helm-pull-secret.name" \
 ```
 
