@@ -6,7 +6,7 @@ variant: runtime
 tags:
   - 25-debian12
   - 25.6-debian12
-  - 25.6.0-debian12
+  - 25.6.1-debian12
 platforms:
   - linux/amd64
   - linux/arm64
@@ -14,10 +14,10 @@ dates:
   release: "2025-10-15"
   end-of-life: "2026-06-01"
 vars:
-  DIGEST: sha256:7e75813d2d61dd4408171b6523346a4ce4436ad47fe918bf0029951d328198d6
+  DIGEST: sha256:bf88c2a581ce60b4f1474ec87ec39cacbdf65aa3dac14711b57dcd4b89f333f9
   NODEJS_VERSION_MAJOR: "25"
   NODEJS_VERSION_MAJOR_MINOR: "25.6"
-  VERSION: 25.6.0
+  VERSION: 25.6.1
 contents:
   packages:
     - '!acl'
@@ -76,30 +76,30 @@ contents:
           - bash
           - coreutils
         artifacts:
-          - name: dhi.io/pkg-node:25.6.0-debian12@sha256:7e75813d2d61dd4408171b6523346a4ce4436ad47fe918bf0029951d328198d6
+          - name: dhi.io/pkg-node:25.6.1-debian12@sha256:bf88c2a581ce60b4f1474ec87ec39cacbdf65aa3dac14711b57dcd4b89f333f9
             includes:
               - opt/docker
               - opt/nodejs
               - usr/local/bin/node
             excludes:
               - opt/docker/sbom/yarn
-              - opt/nodejs/node-v25.6.0/bin/corepack
-              - opt/nodejs/node-v25.6.0/bin/npm
-              - opt/nodejs/node-v25.6.0/bin/npx
-              - opt/nodejs/node-v25.6.0/bin/pnpm
-              - opt/nodejs/node-v25.6.0/bin/pnpx
-              - opt/nodejs/node-v25.6.0/bin/yarn
-              - opt/nodejs/node-v25.6.0/bin/yarnpkg
-              - opt/nodejs/node-v25.6.0/include
-              - opt/nodejs/node-v25.6.0/lib
-              - opt/nodejs/node-v25.6.0/share
+              - opt/nodejs/node-v25.6.1/bin/corepack
+              - opt/nodejs/node-v25.6.1/bin/npm
+              - opt/nodejs/node-v25.6.1/bin/npx
+              - opt/nodejs/node-v25.6.1/bin/pnpm
+              - opt/nodejs/node-v25.6.1/bin/pnpx
+              - opt/nodejs/node-v25.6.1/bin/yarn
+              - opt/nodejs/node-v25.6.1/bin/yarnpkg
+              - opt/nodejs/node-v25.6.1/include
+              - opt/nodejs/node-v25.6.1/lib
+              - opt/nodejs/node-v25.6.1/share
             uid: 0
             gid: 0
       pipeline:
         - name: strip
           uses: strip@v1
           with:
-            dir: /opt/nodejs/node-v25.6.0
+            dir: /opt/nodejs/node-v25.6.1
       outputs:
         - source: /opt/nodejs
           target: /opt/nodejs
@@ -135,7 +135,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
-  NODE_VERSION: 25.6.0
+  NODE_VERSION: 25.6.1
 paths:
   - type: directory
     path: /app
