@@ -133,7 +133,7 @@ contents:
             # CVE remediation: Upgrade packages to fix known vulnerabilities
             pip install --upgrade 'starlette>=0.49.1'              # Fix CVE-2025-62727
             pip install --upgrade 'aiohttp>=3.12.14'               # Fix CVE-2025-53643
-            pip install --upgrade 'cryptography>=44.0.1'           # Fix CVE-2024-12797
+            pip install --upgrade 'cryptography>=46.0.5'           # Fix CVE-2026-26007
             pip install --upgrade 'mcp>=1.23.0'                    # Fix CVE-2025-66416
             pip install --upgrade 'fastapi-sso>=0.19.0'            # Fix CVE-2025-14546
             pip install --upgrade 'urllib3>=2.6.3'                 # Fix CVE-2026-21441
@@ -141,6 +141,7 @@ contents:
             pip install --upgrade 'nodejs-wheel-binaries>=24.13.0' # Fix CVE-2025-55130, CVE-2025-55131, CVE-2025-59466, CVE-2026-21637, CVE-2025-55132
             pip install --upgrade 'python-multipart>=0.0.22'       # Fix CVE-2026-24486
             pip install --upgrade 'orjson>=3.11.5'                 # Fix CVE-2025-67221
+            pip install --upgrade 'pillow>=12.1.1'                 # Fix CVE-2026-25990
         - name: patch npm packages in nodejs_wheel
           privileged: true
           runs: |
