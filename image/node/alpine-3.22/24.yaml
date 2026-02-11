@@ -6,7 +6,7 @@ variant: runtime
 tags:
   - 24-alpine3.22
   - 24.13-alpine3.22
-  - 24.13.0-alpine3.22
+  - 24.13.1-alpine3.22
 platforms:
   - linux/amd64
   - linux/arm64
@@ -14,10 +14,10 @@ dates:
   release: "2025-05-06"
   end-of-life: "2028-04-30"
 vars:
-  DIGEST: sha256:6debfdd2174de0a5475c04e52ac3bba538857cc8c4aa5a429a7b8180f4303cd1
+  DIGEST: sha256:783fabcf4c4ea4f1300e69b0f4daf876cb283045840bda8b26f7654725dfeba8
   NODEJS_VERSION_MAJOR: "24"
   NODEJS_VERSION_MAJOR_MINOR: "24.13"
-  VERSION: 24.13.0
+  VERSION: 24.13.1
 contents:
   repositories:
     - https://dl-cdn.alpinelinux.org/alpine/v3.22/main
@@ -39,30 +39,30 @@ contents:
           - busybox
           - coreutils
         artifacts:
-          - name: dhi.io/pkg-node:24.13.0-alpine3.22@sha256:6debfdd2174de0a5475c04e52ac3bba538857cc8c4aa5a429a7b8180f4303cd1
+          - name: dhi.io/pkg-node:24.13.1-alpine3.22@sha256:783fabcf4c4ea4f1300e69b0f4daf876cb283045840bda8b26f7654725dfeba8
             includes:
               - opt/docker
               - opt/nodejs
               - usr/local/bin/node
             excludes:
               - opt/docker/sbom/yarn
-              - opt/nodejs/node-v24.13.0/bin/corepack
-              - opt/nodejs/node-v24.13.0/bin/npm
-              - opt/nodejs/node-v24.13.0/bin/npx
-              - opt/nodejs/node-v24.13.0/bin/pnpm
-              - opt/nodejs/node-v24.13.0/bin/pnpx
-              - opt/nodejs/node-v24.13.0/bin/yarn
-              - opt/nodejs/node-v24.13.0/bin/yarnpkg
-              - opt/nodejs/node-v24.13.0/include
-              - opt/nodejs/node-v24.13.0/lib
-              - opt/nodejs/node-v24.13.0/share
+              - opt/nodejs/node-v24.13.1/bin/corepack
+              - opt/nodejs/node-v24.13.1/bin/npm
+              - opt/nodejs/node-v24.13.1/bin/npx
+              - opt/nodejs/node-v24.13.1/bin/pnpm
+              - opt/nodejs/node-v24.13.1/bin/pnpx
+              - opt/nodejs/node-v24.13.1/bin/yarn
+              - opt/nodejs/node-v24.13.1/bin/yarnpkg
+              - opt/nodejs/node-v24.13.1/include
+              - opt/nodejs/node-v24.13.1/lib
+              - opt/nodejs/node-v24.13.1/share
             uid: 0
             gid: 0
       pipeline:
         - name: strip
           uses: strip@v1
           with:
-            dir: /opt/nodejs/node-v24.13.0
+            dir: /opt/nodejs/node-v24.13.1
       outputs:
         - source: /opt/nodejs
           target: /opt/nodejs
@@ -97,7 +97,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
-  NODE_VERSION: 24.13.0
+  NODE_VERSION: 24.13.1
 paths:
   - type: directory
     path: /app
