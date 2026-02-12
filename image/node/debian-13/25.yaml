@@ -17,7 +17,7 @@ dates:
   release: "2025-10-15"
   end-of-life: "2026-06-01"
 vars:
-  DIGEST: sha256:c7d8dd7f3a713f9d3543b8953299f516777393fd6d0e584e1c1b39a26d7e1e01
+  DIGEST: sha256:0c33bd9042ff23281a4bc5c2ff9b4ce7085731b7a719c646bcb97caf190d5d5d
   NODEJS_VERSION_MAJOR: "25"
   NODEJS_VERSION_MAJOR_MINOR: "25.6"
   VERSION: 25.6.1
@@ -79,7 +79,7 @@ contents:
           - bash
           - coreutils
         artifacts:
-          - name: dhi.io/pkg-node:25.6.1-debian13@sha256:c7d8dd7f3a713f9d3543b8953299f516777393fd6d0e584e1c1b39a26d7e1e01
+          - name: dhi.io/pkg-node:25.6.1-debian13@sha256:0c33bd9042ff23281a4bc5c2ff9b4ce7085731b7a719c646bcb97caf190d5d5d
             includes:
               - opt/docker
               - opt/nodejs
