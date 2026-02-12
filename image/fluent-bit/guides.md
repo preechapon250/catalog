@@ -196,10 +196,10 @@ cryptographic operations. For example, usage of MD5 fails in FIPS variants.
 
 ### Available Fluent Bit variants
 
-- **Runtime variants** (e.g., `4.1`, `4.1.1`, `4.1-debian13`): Minimal images for production use running as nonroot user
+- **Runtime variants** (e.g., `4.2`, `4.2.1`, `4.2-debian13`): Minimal images for production use running as nonroot user
   (65532)
 
-All variants are based on hardened Debian 13 and include Fluent Bit version 4.1.x
+All variants are based on hardened Debian 13 and include Fluent Bit version 4.2.x
 
 ## Migrate to a Docker Hardened Image
 
@@ -224,7 +224,7 @@ The following steps outline the general migration process.
 1. **Find hardened images for your app.**
 
    A hardened image may have several variants. Inspect the image tags and find the image variant that meets your needs.
-   Fluent Bit images are available in version 4.1.x
+   Fluent Bit images are available in version 4.2.x
 
 1. **Update the base image in your Dockerfile.**
 
