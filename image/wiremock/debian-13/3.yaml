@@ -20,7 +20,7 @@ vars:
   JAVA_MAJOR_VERSION: "17"
   JRE_REF: dhi/eclipse-temurin:17.0.18.8-debian13@sha256:4f22eebc7fc54d05a8854dc97b0a7364e0eead60930f1df69ad8bc5786f92c1e
   JRE_VERSION: 17.0.18.8
-  NODE_REFERENCE: dhi/node:25.6.1-debian13-dev@sha256:55461ecbe238e09f15ac7edb54fe85ee83d06a43990800fcf929a961e73de213
+  NODE_REFERENCE: dhi/node:25.6.1-debian13-dev@sha256:572cc8fe72b8bb00c90df4d125d41eccb2869bb10ed9fe278c42eb0ae4d865d3
   NODE_VERSION: 25.6.1
   SEMVER_MAJOR_MINOR_VERSION: "3.13"
   SEMVER_MAJOR_VERSION: "3"
@@ -58,7 +58,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:25.6.1-debian13-dev@sha256:55461ecbe238e09f15ac7edb54fe85ee83d06a43990800fcf929a961e73de213
+          - name: dhi.io/node:25.6.1-debian13-dev@sha256:572cc8fe72b8bb00c90df4d125d41eccb2869bb10ed9fe278c42eb0ae4d865d3
             includes:
               - opt/nodejs/**
               - usr/local/bin/node
