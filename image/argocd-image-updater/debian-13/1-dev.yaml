@@ -16,8 +16,8 @@ platforms:
 dates:
   release: "2025-12-15"
 vars:
-  AWSCLI_REFERENCE: dhi/awscli:2.33.19-debian13@sha256:b0a17363387c56dcb4093962f99287a60c4dff40356f51e380b8d82af5ec3119
-  AWSCLI_VERSION: 2.33.19
+  AWSCLI_REFERENCE: dhi/awscli:2.33.20-debian13@sha256:53ca59e20c91e603e5825e6731eecc09a7f007c88d9896710dc7435f8e2877b9
+  AWSCLI_VERSION: 2.33.20
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 611293b8bf56c70c824ad99abeefe1e2a6573a87
@@ -121,7 +121,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/awscli:2.33.19-debian13@sha256:b0a17363387c56dcb4093962f99287a60c4dff40356f51e380b8d82af5ec3119
+    - name: dhi.io/awscli:2.33.20-debian13@sha256:53ca59e20c91e603e5825e6731eecc09a7f007c88d9896710dc7435f8e2877b9
       includes:
         - opt/aws-cli
         - opt/docker/sbom/awscli
@@ -171,7 +171,7 @@ os-release:
   bug-report-url: https://docker.com/support/
 work-dir: /app
 environment:
-  AWS_CLI_VERSION: 2.33.19
+  AWS_CLI_VERSION: 2.33.20
   DEBIAN_FRONTEND: noninteractive
   PATH: /opt/aws-cli/bin:/usr/sbin:/sbin:/usr/bin:/bin
 paths:
