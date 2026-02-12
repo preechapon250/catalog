@@ -45,7 +45,8 @@ contents:
           uses: go/bump@v1
           work-dir: /go/src/github.com/aws/karpenter-provider-aws
           with:
-            deps: []
+            deps:
+              - golang.org/x/net@v0.45.0
             download: true
         - name: build
           uses: go/build@v1
