@@ -1,0 +1,109 @@
+# syntax=dhi.io/build:2-helm3
+
+name: Prometheus Helm chart 28.x
+image: dhi.io/prometheus-chart
+variant: helm
+tags:
+  - 28.9.1
+platforms:
+  - linux/amd64
+vars:
+  ALERTMANAGER_CHART_REFERENCE: dhi/alertmanager-chart:1.33.1@sha256:c7ea4d5912cc54bf9ea2e20e8c538b3810250cb5b7ede75737cace8fe37b8ca8
+  CHART_COMMIT_SHA: dd711a4a7e0a384c3003c1eab7dd0946540e47c5
+  DHI_NAMESPACE: dhi
+  DHI_PREFIX: ""
+  DHI_REGISTRY: dhi.io
+  DHI_SKIP_CONTEXT_COPY: "true"
+  HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:bbd34d906c2bce0070a2daa2c7858393feb6c51862fb139a6e1afc923b6e15b0
+  KUBE_STATE_METRICS_CHART_REFERENCE: dhi/kube-state-metrics-chart:7.1.0@sha256:06b13daca78a6d7492c4acd77c13a221be4838f43ff101fdb6b825249bdb81b5
+  NODE_EXPORTER_CHART_REFERENCE: dhi/node-exporter-chart:4.51.1@sha256:050386e2b6db1445c91d39ffae90a3ecfca4871685d465b15fcc1b4a65dbe9da
+  PROMETHEUS_CONFIG_RELOADER_REFERENCE: dhi/prometheus-config-reloader:0.89.0-debian13@sha256:2ed3c5e3d910d1f1e38eb00618e7c9a3c08e7cb11b8d6b127477a223f1c0a1b5
+  PROMETHEUS_REFERENCE: dhi/prometheus:3.9.1-debian13@sha256:f233a2ddf4ac6b8efaaf3f482b3dbf53c5f0e383b5c7db8af2abb4e9f51aacaf
+  PUSHGATEWAY_CHART_REFERENCE: dhi/pushgateway-chart:3.6.0@sha256:0115246c2c186572ce1d396dce3ad389543f9c24820019b9cfaa01936d9ae9f9
+  SEMVER_MAJOR_MINOR_VERSION: "28.9"
+  SEMVER_MAJOR_VERSION: "28"
+  SEMVER_VERSION: 28.9.1
+  VERSION: 28.9.1
+contents:
+  builds:
+    - name: prometheus-chart
+      uses: dhi.io/helm:3.20.0-debian13-dev@sha256:bbd34d906c2bce0070a2daa2c7858393feb6c51862fb139a6e1afc923b6e15b0
+      contents:
+        files:
+          - url: git+https://github.com/prometheus-community/helm-charts.git#prometheus-28.9.1
+            checksum: dd711a4a7e0a384c3003c1eab7dd0946540e47c5
+            path: ${source.dir}/helm-charts
+            uid: 0
+            gid: 0
+      pipeline:
+        - name: prepare chart
+          uses: helm/rudder@v1
+          work-dir: ${source.dir}/helm-charts/charts/prometheus
+          with:
+            chart:
+              appRef: prometheus
+              dependencies:
+                - alias: alertmanager
+                  condition: alertmanager.enabled
+                  name: alertmanager
+                  ref: dhi/alertmanager-chart:1.33.1@sha256:c7ea4d5912cc54bf9ea2e20e8c538b3810250cb5b7ede75737cace8fe37b8ca8
+                - alias: kube-state-metrics
+                  condition: kube-state-metrics.enabled
+                  name: kube-state-metrics
+                  ref: dhi/kube-state-metrics-chart:7.1.0@sha256:06b13daca78a6d7492c4acd77c13a221be4838f43ff101fdb6b825249bdb81b5
+                - alias: prometheus-node-exporter
+                  condition: prometheus-node-exporter.enabled
+                  name: prometheus-node-exporter
+                  ref: dhi/node-exporter-chart:4.51.1@sha256:050386e2b6db1445c91d39ffae90a3ecfca4871685d465b15fcc1b4a65dbe9da
+                - alias: prometheus-pushgateway
+                  condition: prometheus-pushgateway.enabled
+                  name: prometheus-pushgateway
+                  ref: dhi/pushgateway-chart:3.6.0@sha256:0115246c2c186572ce1d396dce3ad389543f9c24820019b9cfaa01936d9ae9f9
+              description: Docker Hardened Images Helm chart for Prometheus
+              images:
+                - name: prometheus
+                  ref: dhi/prometheus:3.9.1-debian13@sha256:f233a2ddf4ac6b8efaaf3f482b3dbf53c5f0e383b5c7db8af2abb4e9f51aacaf
+                - name: prometheus-config-reloader
+                  ref: dhi/prometheus-config-reloader:0.89.0-debian13@sha256:2ed3c5e3d910d1f1e38eb00618e7c9a3c08e7cb11b8d6b127477a223f1c0a1b5
+              name: prometheus-chart
+              notes: ${source.dir}/config/NOTES.txt
+              sourceUrl: https://github.com/prometheus-community/helm-charts
+            cmd: prepare
+            registry: dhi.io
+        - name: relocate chart
+          uses: helm/rudder@v1
+          work-dir: ${source.dir}/helm-charts/charts/prometheus
+          with:
+            cmd: patch
+            patches:
+              from: ${source.dir}/config
+            registry: dhi.io
+        - name: helm login
+          uses: helm/login@v1
+          with:
+            registry: dhi.io
+        - name: update dependencies
+          uses: helm/cmd@v1
+          work-dir: ${source.dir}/helm-charts/charts
+          privileged: true
+          with:
+            chart: prometheus
+            cmd: dependency update
+        - name: lint
+          uses: helm/cmd@v1
+          work-dir: ${source.dir}/helm-charts/charts
+          with:
+            chart: prometheus
+            cmd: lint .
+        - name: package
+          uses: helm/package@v1
+          work-dir: ${source.dir}/helm-charts/charts
+          with:
+            chart: prometheus
+      paths:
+        - type: directory
+          path: ${source.dir}/config
+          uid: 0
+          gid: 0
+          mode: "0644"
+          source: chart/prometheus/config
