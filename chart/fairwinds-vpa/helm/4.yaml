@@ -14,8 +14,8 @@ vars:
   DHI_REGISTRY: dhi.io
   DHI_SKIP_CONTEXT_COPY: "true"
   HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:bbd34d906c2bce0070a2daa2c7858393feb6c51862fb139a6e1afc923b6e15b0
-  KUBE_WEBHOOK_CERTGEN_REFERENCE: dhi/kube-webhook-certgen:1.7.6-debian13@sha256:2788b3122ef093f2d20efaf02c50a393942ea46247a0d4cae7aba4cf36ab1128
-  KUBECTL_REFERENCE: dhi/kubectl:1.35.0-debian13@sha256:66a48474c10bad77b470aa46bcfba7399b18c73e0f93d2aba57a7ad769a5ccdf
+  KUBE_WEBHOOK_CERTGEN_REFERENCE: dhi/kube-webhook-certgen:1.7.7-debian13@sha256:8d0735274181cd3d984f66299e81434898141ee745d06e30ce5068b216e0859d
+  KUBECTL_REFERENCE: dhi/kubectl:1.35.0-debian13@sha256:9a348aa816c6192df2875ead343def0673ab4d5c335ef02af08f9568a099f5f9
   METRICS_SERVER_REFERENCE: dhi/metrics-server-chart:3.13.0@sha256:eeea1fdedea03e6460e026f096c74e9f9602bafd37763938e4c568ff30813bf8
   SEMVER_MAJOR_MINOR_VERSION: "4.10"
   SEMVER_MAJOR_VERSION: "4"
@@ -58,9 +58,9 @@ contents:
                 - name: vpa-updater
                   ref: dhi/vpa-updater:1.6.0-debian13@sha256:fe0466f504e940a59e4afd51a2fa74acc61e518ee3856e6bce03736f2a2ff6c7
                 - name: kube-webhook-certgen
-                  ref: dhi/kube-webhook-certgen:1.7.6-debian13@sha256:2788b3122ef093f2d20efaf02c50a393942ea46247a0d4cae7aba4cf36ab1128
+                  ref: dhi/kube-webhook-certgen:1.7.7-debian13@sha256:8d0735274181cd3d984f66299e81434898141ee745d06e30ce5068b216e0859d
                 - name: kubectl
-                  ref: dhi/kubectl:1.35.0-debian13@sha256:66a48474c10bad77b470aa46bcfba7399b18c73e0f93d2aba57a7ad769a5ccdf
+                  ref: dhi/kubectl:1.35.0-debian13@sha256:9a348aa816c6192df2875ead343def0673ab4d5c335ef02af08f9568a099f5f9
               name: fairwinds-vpa-chart
               notes: ${source.dir}/config/NOTES.txt
               sourceUrl: https://github.com/FairwindsOps/charts
