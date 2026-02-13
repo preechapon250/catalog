@@ -21,8 +21,8 @@ vars:
   PHP_INI_DIR: /opt/php-8.5/etc/php
   PHP_MAJOR_MINOR_VERSION: "8.5"
   PHP_PREFIX: /opt/php-8.5
-  PHP_REFERENCE: dhi/php:8.5.2-debian13@sha256:fb468201c308435fff5cab058f96e7cfc707e76348790dad02563d28774cb454
-  PHP_VERSION: 8.5.2
+  PHP_REFERENCE: dhi/php:8.5.3-debian13@sha256:a9c947ccf2aefc626ba6313adc1b3474c1d637c699dc181317e61860deadba33
+  PHP_VERSION: 8.5.3
   SEMVER_MAJOR_MINOR_VERSION: "2.9"
   SEMVER_MAJOR_VERSION: "2"
   SEMVER_VERSION: 2.9.5
@@ -131,7 +131,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/php:8.5.2-debian13@sha256:fb468201c308435fff5cab058f96e7cfc707e76348790dad02563d28774cb454
+    - name: dhi.io/php:8.5.3-debian13@sha256:a9c947ccf2aefc626ba6313adc1b3474c1d637c699dc181317e61860deadba33
       includes:
         - opt/docker/sbom/php
         - opt/php-8.5
