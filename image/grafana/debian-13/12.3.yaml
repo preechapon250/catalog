@@ -44,6 +44,8 @@ contents:
   builds:
     - name: grafana
       uses: dhi.io/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
+      caches:
+        - path: /usr/local/share/.cache/yarn
       contents:
         packages:
           - bash
@@ -55,6 +57,7 @@ contents:
           - grep
           - gcc
           - chromium
+          - jq
         files:
           - url: git+https://github.com/grafana/grafana.git#v12.3.3
             checksum: 2a14494b2d6ab60f860d8b27603d0ccb264336f6
@@ -95,6 +98,19 @@ contents:
 
             # The tagged source contains an old version in package.json
             sed -i "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"12.3.3\"/g" package.json
+        - name: update node-gyp
+          work-dir: /go/src/github.com/grafana/grafana
+          privileged: true
+          runs: |
+            set -eux -o pipefail
+
+            # Update node-gyp version to be compatible with Python >=3.12
+            jq '.resolutions += { "node-gyp" : "^10.0.0" }' package.json > package.new.json
+            rm package.json
+            mv package.new.json package.json
+
+            # Update lockfile with updated versions
+            yarn install
         - name: build ui
           work-dir: /go/src/github.com/grafana/grafana
           privileged: true

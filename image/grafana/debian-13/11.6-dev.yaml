@@ -60,6 +60,7 @@ contents:
           - python3-setuptools
           - grep
           - gcc
+          - jq
         files:
           - url: git+https://github.com/grafana/grafana.git#v11.6.10
             checksum: b0865c0373937d9758e189c7047de975899f9de0
@@ -94,6 +95,19 @@ contents:
 
             # The tagged source contains an old version in package.json
             sed -i "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"11.6.10\"/g" package.json
+        - name: update node-gyp
+          work-dir: /go/src/github.com/grafana/grafana
+          privileged: true
+          runs: |
+            set -eux -o pipefail
+
+            # Update node-gyp version to be compatible with Python >=3.12
+            jq '.resolutions += { "node-gyp" : "^10.0.0" }' package.json > package.new.json
+            rm package.json
+            mv package.new.json package.json
+
+            # Update lockfile with updated versions
+            yarn install
         - name: build ui
           work-dir: /go/src/github.com/grafana/grafana
           privileged: true
