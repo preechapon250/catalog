@@ -20,11 +20,6 @@
         "version": "2.2.1"
     },
     {
-        "package": "qs",
-        "dev": false,
-        "version": "6.14.1"
-    },
-    {
         "package": "jspdf",
         "dev": false,
         "version": "4.1.0"
