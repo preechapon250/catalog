@@ -59,13 +59,17 @@ contents:
             gid: 0
       pipeline:
         - name: bump dependencies
+          work-dir: ${source.dir}/localstack
           runs: |
             set -eux -o pipefail
 
-            sed -i 's#urllib3==2.6.1#urllib3==2.6.3#g' '${source.dir}/localstack/requirements-runtime.txt'   # CVE-2026-21441
-            sed -i 's#cbor2==5.7.1#cbor2==5.8.0#g' '${source.dir}/localstack/requirements-runtime.txt'       # CVE-2025-68131
-            sed -i 's#werkzeug==3.1.4#werkzeug==3.1.5#g' '${source.dir}/localstack/requirements-runtime.txt' # CVE-2026-21860
+            sed -i 's#urllib3==2.6.1#urllib3==2.6.3#g' 'requirements-runtime.txt'           # CVE-2026-21441
+            sed -i 's#cbor2==5.7.1#cbor2==5.8.0#g' 'requirements-runtime.txt'               # CVE-2025-68131
+            sed -i 's#werkzeug==3.1.4#werkzeug==3.1.5#g' 'requirements-runtime.txt'         # CVE-2026-21860
+            sed -i 's#cryptography==46.0.3#cryptography==46.0.5#g' requirements-runtime.txt # CVE-2026-26007
+            sed -i 's#protobuf==6.33.4#protobuf==6.33.5#g' requirements-runtime.txt         # CVE-2026-0994
         - name: install
+          work-dir: ${source.dir}/localstack
           privileged: true
           runs: |
             set -eux -o pipefail
@@ -75,10 +79,10 @@ contents:
 
             # Since we modified the source, we need to set the version explicitly to avoid undesired bumps
             export SETUPTOOLS_SCM_PRETEND_VERSION="4.13.1"
-            "$VIRTUAL_ENV/bin/python3" -m pip install -r "${source.dir}/localstack/requirements-runtime.txt"
-            "$VIRTUAL_ENV/bin/python3" -m pip install -e "${source.dir}/localstack[runtime]"
-            "$VIRTUAL_ENV/bin/python3" -m plux --workdir "${source.dir}/localstack" entrypoints
-            "$VIRTUAL_ENV/bin/python3" -m pip install -U "${source.dir}/localstack[runtime]"
+            "$VIRTUAL_ENV/bin/python3" -m pip install -r requirements-runtime.txt
+            "$VIRTUAL_ENV/bin/python3" -m pip install -e .[runtime]
+            "$VIRTUAL_ENV/bin/python3" -m plux --workdir . entrypoints
+            "$VIRTUAL_ENV/bin/python3" -m pip install -U .[runtime]
             "$VIRTUAL_ENV/bin/python3" -m pip uninstall -y pip
 
             mkdir -p "${target.dir}/usr/lib"
