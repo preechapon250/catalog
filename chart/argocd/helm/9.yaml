@@ -4,12 +4,12 @@ name: Argo CD Helm chart 9.x
 image: dhi.io/argocd-chart
 variant: helm
 tags:
-  - 9.4.1
+  - 9.4.2
 platforms:
   - linux/amd64
 vars:
-  ARGOCD_REFERENCE: dhi/argocd:3.2.6-debian13@sha256:7430996e87d1822ed622528baf6f1e956301c481f345be27743a005da34872ce
-  CHART_COMMIT_SHA: 3937c58d055d4e0a5b7f7e3095e40f0ccf78b0ca
+  ARGOCD_REFERENCE: dhi/argocd:3.2.6-debian13@sha256:54cc00c16a216f3c156545f18fce075d2d0f9e3c89a4e29732107e7f472f87ef
+  CHART_COMMIT_SHA: 35dc9f3bd2e73ecf8b5bbf440531fd4ed387eb78
   DEX_REFERENCE: dhi/dex:2.44.0-debian13@sha256:c621d4f2f0b76edf5d9877fdcd95a7cc7ea9f9555345c1766859bf3a3640fdde
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
@@ -17,13 +17,13 @@ vars:
   DHI_SKIP_CONTEXT_COPY: "true"
   HAPROXY_CHART_REFERENCE: dhi/haproxy-chart:1.28.0@sha256:d9c41110501149a41f093f094a6c6111658c34ae38b22998547076e6846f9aeb
   HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:bbd34d906c2bce0070a2daa2c7858393feb6c51862fb139a6e1afc923b6e15b0
-  REDIS_CHART_REFERENCE: dhi/redis-chart:23.0.5@sha256:f0dfd38173b24d7a60ca5e2e9d1ea5de03d68d35bb9679f34b49cecf854615fb
+  REDIS_CHART_REFERENCE: dhi/redis-chart:23.0.5@sha256:ad0b6a92df204abe8db0fd14ce07a4dd7f78b86ba986480edac1ebf0cdc126e4
   REDIS_EXPORTER_REFERENCE: dhi/redis-exporter:1.81.0-debian13@sha256:db2e8927541a30e3dfa71cba7549c80dc56d43548a163b0ec5e7153cf73c399b
   REDIS_REFERENCE: dhi/redis:8.2.4-debian13-compat@sha256:51a5b92dc6225640926d3ad94c6cc021a814f63c99143fdbcdcd27e87e6e2647
   SEMVER_MAJOR_MINOR_VERSION: "9.4"
   SEMVER_MAJOR_VERSION: "9"
-  SEMVER_VERSION: 9.4.1
-  VERSION: 9.4.1
+  SEMVER_VERSION: 9.4.2
+  VERSION: 9.4.2
 contents:
   builds:
     - name: argocd
@@ -37,8 +37,8 @@ contents:
           - libc-bin
           - sed
         files:
-          - url: git+https://github.com/argoproj/argo-helm#argo-cd-9.4.1
-            checksum: 3937c58d055d4e0a5b7f7e3095e40f0ccf78b0ca
+          - url: git+https://github.com/argoproj/argo-helm#argo-cd-9.4.2
+            checksum: 35dc9f3bd2e73ecf8b5bbf440531fd4ed387eb78
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
@@ -53,7 +53,7 @@ contents:
                 - alias: redis-ha
                   condition: redis-ha.enabled
                   name: redis-ha
-                  ref: dhi/redis-chart:23.0.5@sha256:f0dfd38173b24d7a60ca5e2e9d1ea5de03d68d35bb9679f34b49cecf854615fb
+                  ref: dhi/redis-chart:23.0.5@sha256:ad0b6a92df204abe8db0fd14ce07a4dd7f78b86ba986480edac1ebf0cdc126e4
                 - alias: haproxy
                   condition: haproxy.enabled
                   name: haproxy
@@ -61,7 +61,7 @@ contents:
               description: Docker Hardened Images Helm chart for Argo CD
               images:
                 - name: argocd
-                  ref: dhi/argocd:3.2.6-debian13@sha256:7430996e87d1822ed622528baf6f1e956301c481f345be27743a005da34872ce
+                  ref: dhi/argocd:3.2.6-debian13@sha256:54cc00c16a216f3c156545f18fce075d2d0f9e3c89a4e29732107e7f472f87ef
                 - name: dex
                   ref: dhi/dex:2.44.0-debian13@sha256:c621d4f2f0b76edf5d9877fdcd95a7cc7ea9f9555345c1766859bf3a3640fdde
                 - name: redis
