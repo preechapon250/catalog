@@ -6,10 +6,10 @@ variant: dev
 tags:
   - 3-dev
   - 3.6-dev
-  - 3.6.7-dev
+  - 3.6.8-dev
   - 3-debian13-dev
   - 3.6-debian13-dev
-  - 3.6.7-debian13-dev
+  - 3.6.8-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,15 +18,15 @@ dates:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 17283643416ef8e830565ce40d3d3d7cc453e68e
-  GOLANG_REFERENCE: dhi/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
-  GOLANG_VERSION: 1.24.13
-  NODE_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:50357af85ac21065acba83877601749772a229ad8234082c81d34a22a5a4a81b
+  COMMIT_SHA: 2f215ab9a1068248669dacf77ec6901f21051c75
+  GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
+  GOLANG_VERSION: 1.25.7
+  NODE_REFERENCE: dhi/node:22.22.0-debian13-dev@sha256:6df589004fcb02942cefb4ee3ce4347b7a2cf024d276602cf020837a7e24041c
   NODE_VERSION: 22.22.0
   SEMVER_MAJOR_MINOR_VERSION: "3.6"
   SEMVER_MAJOR_VERSION: "3"
-  SEMVER_VERSION: 3.6.7
-  VERSION: 3.6.7
+  SEMVER_VERSION: 3.6.8
+  VERSION: 3.6.8
 contents:
   packages:
     - '!gawk'
@@ -48,26 +48,26 @@ contents:
     - util-linux
   builds:
     - name: go
-      uses: dhi.io/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
+      uses: dhi.io/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
       contents:
         packages:
           - grep
           - sed
         files:
-          - url: git+https://github.com/traefik/traefik.git#v3.6.7
-            checksum: 17283643416ef8e830565ce40d3d3d7cc453e68e
+          - url: git+https://github.com/traefik/traefik.git#v3.6.8
+            checksum: 2f215ab9a1068248669dacf77ec6901f21051c75
             path: /go/src/github.com/traefik/traefik/v3
             spdx:
               name: traefik
-              version: 3.6.7
+              version: 3.6.8
               packages:
                 - name: traefik
-                  purl: pkg:golang/github.com/traefik/traefik@3.6.7#v3
+                  purl: pkg:golang/github.com/traefik/traefik@3.6.8#v3
                   license: MIT
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:22.22.0-debian13-dev@sha256:50357af85ac21065acba83877601749772a229ad8234082c81d34a22a5a4a81b
+          - name: dhi.io/node:22.22.0-debian13-dev@sha256:6df589004fcb02942cefb4ee3ce4347b7a2cf024d276602cf020837a7e24041c
             includes:
               - opt/nodejs
               - usr/local/bin
@@ -114,7 +114,7 @@ contents:
           work-dir: /go/src/github.com/traefik/traefik/v3
           with:
             ldflags:
-              - -X github.com/traefik/traefik/v3/pkg/version.Version=3.6.7
+              - -X github.com/traefik/traefik/v3/pkg/version.Version=3.6.8
               - -X github.com/traefik/traefik/v3/pkg/version.Codename=$(grep -Po 'CODENAME \?= \K\w+' Makefile)
               - -X github.com/traefik/traefik/v3/pkg/version.BuildDate=$(date -d @${SOURCE_DATE_EPOCH} +'"%Y-%m-%dT%H:%M:%SZ')
             output: ${target.dir}/usr/local/bin/traefik
