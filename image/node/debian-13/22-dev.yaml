@@ -17,7 +17,7 @@ dates:
   release: "2024-04-24"
   end-of-life: "2027-04-30"
 vars:
-  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
   DIGEST: sha256:3b87930d8b8f79f2b6e9079c79cfa1804b17e23bb42d17778419d6e9d70dc63b
   EXPAT_DIGEST: sha256:1a2ba4b5f4c2a647ccec8ee0d2bccba26bc8704c9c89f9940a9cebadc49cb88d
   EXPAT_VERSION: 2.7.4
@@ -49,7 +49,7 @@ contents:
     - util-linux
   builds:
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+      uses: dhi.io/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
       contents:
         packages:
           - bash

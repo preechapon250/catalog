@@ -15,7 +15,7 @@ dates:
   release: "2023-09-14"
   end-of-life: "2028-11-09"
 vars:
-  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
   GOSU_REFERENCE: dhi/pkg-gosu:1.19-debian13@sha256:0adf47c4681aa332d8fee82c62c5198236ded4a663703977b0a4fc7690cd8100
   GOSU_VERSION: "1.19"
   MAJOR_VERSION: "16"
@@ -169,7 +169,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+      uses: dhi.io/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
       contents:
         packages:
           - bash

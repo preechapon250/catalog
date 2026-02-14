@@ -18,7 +18,7 @@ dates:
   end-of-life: "2026-04-12"
 vars:
   COMMIT_SHA: 5a48a37b2dbd7b51e3640cd1d947438459556cc6
-  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
   JAVA_MAJOR_VERSION: "17"
   JAVA_REFERENCE: dhi/eclipse-temurin:17.0.18.8-debian13@sha256:4f22eebc7fc54d05a8854dc97b0a7364e0eead60930f1df69ad8bc5786f92c1e
   JAVA_VERSION: 17.0.18.8
@@ -187,7 +187,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+      uses: dhi.io/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
       contents:
         packages:
           - bash

@@ -16,7 +16,7 @@ platforms:
 dates:
   release: "2013-10-22"
 vars:
-  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+  DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
   JAVA_DIGEST: sha256:06b052ecff54363ba616669096269e82f8a19838e31983da5366d338515819ad
   JAVA_MAJOR_VERSION: "21"
   JAVA_VERSION: 21.0.10
@@ -91,7 +91,7 @@ contents:
           uid: 0
           gid: 0
     - name: locale
-      uses: dhi.io/debian-base:trixie-debian13@sha256:1244523a2f7b6c096c6f98ce0349df6798c775c57322c51f8a4982daf60c256c
+      uses: dhi.io/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
       contents:
         packages:
           - bash
