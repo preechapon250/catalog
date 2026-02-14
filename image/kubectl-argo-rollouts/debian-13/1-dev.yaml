@@ -6,10 +6,10 @@ variant: dev
 tags:
   - 1-dev
   - 1.8-dev
-  - 1.8.3-dev
+  - 1.8.4-dev
   - 1-debian13-dev
   - 1.8-debian13-dev
-  - 1.8.3-debian13-dev
+  - 1.8.4-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -18,13 +18,13 @@ dates:
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 49fa1516cf71672b69e265267da4e1d16e1fe114
+  COMMIT_SHA: 55e89ddc5329db9ebd72edff5503f2822d2e80ff
   GO_REFERENCE: dhi/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
   NODE_REFERENCE: dhi/node:20.20.0-debian13-dev@sha256:e1fa6232b91855da1de48ced95e6e8e876929686460b845787a8628a663a17a7
   SEMVER_MAJOR_MINOR_VERSION: "1.8"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.8.3
-  VERSION: 1.8.3
+  SEMVER_VERSION: 1.8.4
+  VERSION: 1.8.4
 contents:
   packages:
     - '!base-files'
@@ -51,15 +51,15 @@ contents:
         packages:
           - binutils-gold
         files:
-          - url: git+https://github.com/argoproj/argo-rollouts.git#v1.8.3
-            checksum: 49fa1516cf71672b69e265267da4e1d16e1fe114
+          - url: git+https://github.com/argoproj/argo-rollouts.git#v1.8.4
+            checksum: 55e89ddc5329db9ebd72edff5503f2822d2e80ff
             path: /go/src/github.com/argoproj/argo-rollouts
             spdx:
               name: kubectl-argo-rollouts
-              version: 1.8.3
+              version: 1.8.4
               packages:
                 - name: kubectl-argo-rollouts
-                  purl: pkg:golang/github.com/argoproj/argo-rollouts@1.8.3
+                  purl: pkg:golang/github.com/argoproj/argo-rollouts@1.8.4
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -109,9 +109,9 @@ contents:
           work-dir: /go/src/github.com/argoproj/argo-rollouts
           with:
             ldflags:
-              - -X github.com/argoproj/argo-rollouts/utils/version.version=1.8.3
+              - -X github.com/argoproj/argo-rollouts/utils/version.version=1.8.4
               - -X github.com/argoproj/argo-rollouts/utils/version.buildDate=$(date -ud @${SOURCE_DATE_EPOCH} +'%Y-%m-%dT%H:%M:%SZ')
-              - -X github.com/argoproj/argo-rollouts/utils/version.gitCommit=49fa1516cf71672b69e265267da4e1d16e1fe114
+              - -X github.com/argoproj/argo-rollouts/utils/version.gitCommit=55e89ddc5329db9ebd72edff5503f2822d2e80ff
               - -X github.com/argoproj/argo-rollouts/utils/version.gitTreeState=clean
             output: ${target.dir}/usr/local/bin/kubectl-argo-rollouts
             packages: ./cmd/kubectl-argo-rollouts
