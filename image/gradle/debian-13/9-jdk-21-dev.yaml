@@ -18,7 +18,7 @@ dates:
 vars:
   EXPAT_DIGEST: sha256:1a2ba4b5f4c2a647ccec8ee0d2bccba26bc8704c9c89f9940a9cebadc49cb88d
   EXPAT_VERSION: 2.7.4
-  GRADLE_DIGEST: sha256:8ecfa42a2efe65375c7d7dd1b649945982f3c21c2bd39eb377208bf849993cca
+  GRADLE_DIGEST: sha256:86a32d627c782ec4543782614751ab1d0d11f495d4fc15aefb8bb760f31cdec3
   GRADLE_MAJOR_MINOR_VERSION: "9.3"
   GRADLE_MAJOR_VERSION: "9"
   GRADLE_VERSION: 9.3.1
@@ -51,7 +51,7 @@ contents:
         - usr/share/locale/**
       uid: 0
       gid: 0
-    - name: dhi.io/pkg-gradle:9.3.1@sha256:8ecfa42a2efe65375c7d7dd1b649945982f3c21c2bd39eb377208bf849993cca
+    - name: dhi.io/pkg-gradle:9.3.1@sha256:86a32d627c782ec4543782614751ab1d0d11f495d4fc15aefb8bb760f31cdec3
       includes:
         - opt/**
         - usr/local/bin/**
