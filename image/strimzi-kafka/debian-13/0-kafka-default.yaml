@@ -21,14 +21,14 @@ vars:
   JAVA_PATH: /opt/java/openjdk/21-jre
   JAVA_REFERENCE: dhi/eclipse-temurin:21.0.10.7-debian13@sha256:6c6079768261b7f033e00ca6a86e5a3a9ee17068a1ba5ebd3328fec30360b871
   JAVA_VERSION: 21.0.10.7
-  JMX_EXPORTER_REFERENCE: dhi/jmx-exporter:1.5.0-debian13@sha256:a4c12607dd8efef3afacd6e51fba895d3d9cf4d6264fbfc0c9623b5d02a8776a
+  JMX_EXPORTER_REFERENCE: dhi/jmx-exporter:1.5.0-debian13@sha256:1fa044a8c0f88cc1327096c0aa6f6efbc3a51fe8cc16a2cfa785f6f737377c83
   JMX_EXPORTER_VERSION: 1.5.0
   KAFKA_EXPORTER_REFERENCE: dhi/kafka-exporter:1.9.0-debian13@sha256:a4de442a5f5c484c873f0478d91893fa1eb8535589138273239a4e7b1ac34c14
   KAFKA_EXPORTER_VERSION: 1.9.0
   KAFKA_MAJOR_MINOR_VERSION: "4.1"
-  KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:8e79b54e6abf50e962e07f73b9eda5abc63f7dd47b14681630219d9cd3541af6
+  KAFKA_REFERENCE: dhi/kafka:4.1.1-debian13@sha256:ab87bfd11b068bee48e79e252863ac6122dc1d75abf5d6ad348324bb7ddc1aae
   KAFKA_VERSION: 4.1.1
-  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:7be737b468ae11b235c61e6284d7690132dceac3ad7df63b0562e6c14aba3d22
+  MAVEN_REFERENCE: dhi/maven:3.9.12-jdk21-debian13-dev@sha256:d0a5963c0b8688c649c3bdf75ca1452a929317ca7d3a93284b1924c56cca7be3
   MAVEN_VERSION: 3.9.12
   SEMVER_MAJOR_MINOR_VERSION: "0.50"
   SEMVER_MAJOR_VERSION: "0"
@@ -53,7 +53,7 @@ contents:
     - tzdata
   builds:
     - name: strimzi-kafka scripts and agents
-      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:7be737b468ae11b235c61e6284d7690132dceac3ad7df63b0562e6c14aba3d22
+      uses: dhi.io/maven:3.9.12-jdk21-debian13-dev@sha256:d0a5963c0b8688c649c3bdf75ca1452a929317ca7d3a93284b1924c56cca7be3
       contents:
         files:
           - url: git+https://github.com/strimzi/strimzi-kafka-operator.git#0.50.0
@@ -190,7 +190,7 @@ contents:
         - usr/local/bin
       uid: 0
       gid: 0
-    - name: dhi.io/kafka:4.1.1-debian13@sha256:8e79b54e6abf50e962e07f73b9eda5abc63f7dd47b14681630219d9cd3541af6
+    - name: dhi.io/kafka:4.1.1-debian13@sha256:ab87bfd11b068bee48e79e252863ac6122dc1d75abf5d6ad348324bb7ddc1aae
       includes:
         - opt/kafka
       uid: 0
@@ -200,7 +200,7 @@ contents:
         - usr/local/bin
       uid: 0
       gid: 0
-    - name: dhi.io/jmx-exporter:1.5.0-debian13@sha256:a4c12607dd8efef3afacd6e51fba895d3d9cf4d6264fbfc0c9623b5d02a8776a
+    - name: dhi.io/jmx-exporter:1.5.0-debian13@sha256:1fa044a8c0f88cc1327096c0aa6f6efbc3a51fe8cc16a2cfa785f6f737377c83
       includes:
         - opt/jmx-exporter/jmx_prometheus_javaagent.jar
       uid: 0
