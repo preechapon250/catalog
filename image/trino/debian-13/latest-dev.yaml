@@ -23,7 +23,7 @@ vars:
   JVM_KILL_COMMIT: 8a6ae95b38905f98ce6b7b727efb2dc75da16e11
   LAUNCHER_COMMIT_SHA: 708c73d39cbb96fa5ef7631cc255581973aef82b
   LAUNCHER_VERSION: "314"
-  MAVEN_REF: dhi/maven:3.9.12-jdk25-debian13-dev@sha256:a02ab5c30d30acc5c0e590d4a69f7bd379fa5f91a7f2f2d84254f250fde19013
+  MAVEN_REF: dhi/maven:3.9.12-jdk25-debian13-dev@sha256:e794aa3b873d7fdd74841f5d6da14113912af3a3a83cffeb97bf5f8e2317b26c
   MAVEN_VERSION: 3.9.12
   NODE_REF: dhi/node:22.22.0-debian13@sha256:1c925e6d34bc432c93c7f9f1bd1efb5fc8c4b0d5479d72519706dcea0646bf56
   VERSION: "479"
@@ -134,7 +134,7 @@ contents:
               - opt/**
             uid: 0
             gid: 0
-          - name: dhi.io/maven:3.9.12-jdk25-debian13-dev@sha256:a02ab5c30d30acc5c0e590d4a69f7bd379fa5f91a7f2f2d84254f250fde19013
+          - name: dhi.io/maven:3.9.12-jdk25-debian13-dev@sha256:e794aa3b873d7fdd74841f5d6da14113912af3a3a83cffeb97bf5f8e2317b26c
             includes:
               - opt/**
               - usr/local/bin/**
