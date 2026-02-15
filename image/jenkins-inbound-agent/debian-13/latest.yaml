@@ -14,7 +14,7 @@ vars:
   DOCKER_AGENT_COMMIT_SHA: a923d50a12dec5a3e00cada2ca3e254a2d2d26b7
   JAVA_HOME_PATH: /opt/java/openjdk/21-jre
   JAVA_MAJOR_VERSION: "21"
-  JENKINS_AGENT_REF: dhi/jenkins-agent:3345-debian13@sha256:9d9589a63806b322a6950837cb78b16aca3ed23a933013c293e9d07b4f7faec3
+  JENKINS_AGENT_REF: dhi/jenkins-agent:3345-debian13@sha256:f940d9853847e5e4a5d8eb41cc767e00f3fcc5b17aa6e2790dfcfbe5d13b8227
   REMOTING_COMMIT_SHA: 03dee9bf88fca2151e7f8f246c64fdacd72c62cb
   REMOTING_MAJOR_VERSION: "3345"
   REMOTING_VERSION: 3345.v03dee9b_f88fc
@@ -86,7 +86,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/jenkins-agent:3345-debian13@sha256:9d9589a63806b322a6950837cb78b16aca3ed23a933013c293e9d07b4f7faec3
+    - name: dhi.io/jenkins-agent:3345-debian13@sha256:f940d9853847e5e4a5d8eb41cc767e00f3fcc5b17aa6e2790dfcfbe5d13b8227
       includes:
         - home/jenkins/**
         - opt/**
