@@ -62,8 +62,8 @@ vars:
   NOTIFICATIONS_VERSION: 3.5.0.0
   OBSERVABILITY_COMMIT_SHA: 24fc538cf1a50d253a37e9c13298cebca024f95c
   OBSERVABILITY_VERSION: 3.5.0.0
-  OPENSEARCH_BUILD_COMMIT_SHA: 9917c3edf20efcd4db8328b732a6cfc4673675ca
-  OPENSEARCH_BUILD_VERSION: 3.4.0
+  OPENSEARCH_BUILD_COMMIT_SHA: 139499ff11880353a9a2e47efabe762e7261754d
+  OPENSEARCH_BUILD_VERSION: 3.5.0
   OPENSEARCH_LEARNING_TO_RANK_BASE_COMMIT_SHA: 2f37b2151b1480d969029f07cd6db8969e5e92da
   OPENSEARCH_LEARNING_TO_RANK_BASE_VERSION: 3.5.0.0
   OPENSEARCH_MAJOR_MINOR_VERSION: "3.5"
@@ -470,8 +470,8 @@ contents:
                   license: Apache-2.0
             uid: 1000
             gid: 1000
-          - url: git+https://github.com/opensearch-project/opensearch-build.git#3.4.0
-            checksum: 9917c3edf20efcd4db8328b732a6cfc4673675ca
+          - url: git+https://github.com/opensearch-project/opensearch-build.git#3.5.0
+            checksum: 139499ff11880353a9a2e47efabe762e7261754d
             path: ${source.dir}/opensearch-build
             uid: 1000
             gid: 1000
