@@ -5,9 +5,9 @@ image: dhi.io/istio-proxyv2
 variant: runtime
 tags:
   - "1.27"
-  - 1.27.6
+  - 1.27.7
   - 1.27-debian13
-  - 1.27.6-debian13
+  - 1.27.7-debian13
 platforms:
   - linux/amd64
   - linux/arm64
@@ -17,7 +17,7 @@ dates:
 vars:
   BAZEL_ARCH: '#{ target.arch == "amd64" ? "x86_64" : "arm64" }'
   BAZEL_VERSION: 7.7.1
-  COMMIT_SHA: 24bc7826a01a398e20642342aada30d26a8c2112
+  COMMIT_SHA: 044f05ec0a1c9ba4bf80a26d801a39f70b58af81
   GO_REFERENCE: dhi/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
   GO_VARIANT_SUFFIX: -dev
   GO_VERSION: 1.24.13
@@ -26,8 +26,8 @@ vars:
   PYTHON_VERSION: 3.12.12
   SEMVER_MAJOR_MINOR_VERSION: "1.27"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.27.6
-  VERSION: 1.27.6
+  SEMVER_VERSION: 1.27.7
+  VERSION: 1.27.7
 contents:
   packages:
     - '!libelogind0'
@@ -61,27 +61,27 @@ contents:
           - pkg-config
           - sed
         files:
-          - url: git+https://github.com/istio/istio.git#1.27.6
-            checksum: 24bc7826a01a398e20642342aada30d26a8c2112
+          - url: git+https://github.com/istio/istio.git#1.27.7
+            checksum: 044f05ec0a1c9ba4bf80a26d801a39f70b58af81
             path: /go/src/istio.io/istio
             spdx:
               name: istio
-              version: 1.27.6
+              version: 1.27.7
               packages:
                 - name: istio
-                  purl: pkg:golang/istio.io/istio@1.27.6
+                  purl: pkg:golang/istio.io/istio@1.27.7
                   license: Apache-2.0
             uid: 0
             gid: 0
-          - url: git+https://github.com/istio/proxy.git#1.27.6
+          - url: git+https://github.com/istio/proxy.git#1.27.7
             checksum: 0ba73dcebc4c11bd3833a4a78b503e0167702b20
             path: ${source.dir}/istio-proxy
             spdx:
               name: istio-proxy
-              version: 1.27.6
+              version: 1.27.7
               packages:
                 - name: istio-proxy
-                  purl: pkg:golang/github.com/istio/proxy@1.27.6
+                  purl: pkg:golang/github.com/istio/proxy@1.27.7
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -160,10 +160,10 @@ contents:
           runs: |
             set -eux -o pipefail
 
-            GOLDFLAGS="-X istio.io/istio/pkg/version.buildVersion=1.27.6
-                       -X istio.io/istio/pkg/version.buildGitRevision=24bc7826a01a398e20642342aada30d26a8c2112
+            GOLDFLAGS="-X istio.io/istio/pkg/version.buildVersion=1.27.7
+                       -X istio.io/istio/pkg/version.buildGitRevision=044f05ec0a1c9ba4bf80a26d801a39f70b58af81
                        -X istio.io/istio/pkg/version.buildStatus=Clean
-                       -X istio.io/istio/pkg/version.buildTag=1.27.6
+                       -X istio.io/istio/pkg/version.buildTag=1.27.7
                        -X istio.io/istio/pkg/version.buildHub=docker.io/dhi
                        -X istio.io/istio/pkg/version.buildOS=$(go env GOOS)
                        -X istio.io/istio/pkg/version.buildArch=$(go env GOARCH)"
