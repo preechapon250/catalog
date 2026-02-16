@@ -16,7 +16,7 @@ platforms:
 dates:
   release: "2026-01-21"
 vars:
-  ARGOCLI_REF: dhi/argocli:3.7.9-debian13@sha256:649f546856dcfad4ca6c6010d967ef7ca2980b5b88cae17fd758a01d1b07a4e7
+  ARGOCLI_REF: dhi/argocli:3.7.10-debian13@sha256:e39d24f38db3eca2dc4dee87ca0f91ffcea187ce1a1d2d9abafa3fb2ace44f2f
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: 3de38ac2501f80427e052a2c0d174366a9c81c8b
@@ -100,7 +100,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/argocli:3.7.9-debian13@sha256:649f546856dcfad4ca6c6010d967ef7ca2980b5b88cae17fd758a01d1b07a4e7
+    - name: dhi.io/argocli:3.7.10-debian13@sha256:e39d24f38db3eca2dc4dee87ca0f91ffcea187ce1a1d2d9abafa3fb2ace44f2f
       includes:
         - usr/local/bin/argo
       uid: 0
