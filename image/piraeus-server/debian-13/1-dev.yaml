@@ -21,10 +21,10 @@ vars:
   COMMIT_SHA: 4f78b2e2550bd5f0e6a06bd9bbc6bc46ee348edb
   DEBIAN_REFERENCE: dhi/debian-base:trixie-debian13@sha256:9ef766670af4743904b0f992a26b525c6c914648b56ea597ec23452adcf1a95d
   GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
-  GRADLE_REFERENCE: dhi/gradle:8.14.4-jdk17-debian13-dev@sha256:c13a9efa2a24876046145812ed8b1dabd447b19343ead1e1a2b80a10ec3b4140
+  GRADLE_REFERENCE: dhi/gradle:8.14.4-jdk17-debian13-dev@sha256:64824bb4e0a25d33315c444f0face92efdccefb3b5391bbd222939b91537f81d
   GRADLE_VERSION: 8.14.4
   JRE_PATH: /opt/java/openjdk/17-jre
-  JRE_REFERENCE: dhi/eclipse-temurin:17.0.18.8-debian13@sha256:4f22eebc7fc54d05a8854dc97b0a7364e0eead60930f1df69ad8bc5786f92c1e
+  JRE_REFERENCE: dhi/eclipse-temurin:17.0.18.8-debian13@sha256:e86ccb5c8b66bf58cac5e2ca508ef711669fcc00e5508c90fc8e90ad352b64ec
   JRE_VERSION: 17.0.18.8
   K8S_AWAIT_ELECTION_COMMIT_SHA: a0b8ad628a23290de9ad08101b18bdecf69705ed
   K8S_AWAIT_ELECTION_VERSION: v0.4.2
@@ -382,7 +382,7 @@ contents:
           uid: 0
           gid: 0
     - name: linstor-server
-      uses: dhi.io/gradle:8.14.4-jdk17-debian13-dev@sha256:c13a9efa2a24876046145812ed8b1dabd447b19343ead1e1a2b80a10ec3b4140
+      uses: dhi.io/gradle:8.14.4-jdk17-debian13-dev@sha256:64824bb4e0a25d33315c444f0face92efdccefb3b5391bbd222939b91537f81d
       contents:
         packages:
           - git
@@ -547,7 +547,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/eclipse-temurin:17.0.18.8-debian13@sha256:4f22eebc7fc54d05a8854dc97b0a7364e0eead60930f1df69ad8bc5786f92c1e
+    - name: dhi.io/eclipse-temurin:17.0.18.8-debian13@sha256:e86ccb5c8b66bf58cac5e2ca508ef711669fcc00e5508c90fc8e90ad352b64ec
       includes:
         - opt/**
         - usr/local/bin/**
