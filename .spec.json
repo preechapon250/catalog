@@ -533,6 +533,21 @@
                 },
                 "type": "array"
               },
+              "matrix": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "type": "object"
+                },
+                "type": "array"
+              },
               "contents": {
                 "properties": {
                   "repositories": {
@@ -699,6 +714,11 @@
                     },
                     "uses": {
                       "oneOf": [
+                        {
+                          "const": "go/hermetic@v1",
+                          "title": "Downlonds Go modules for hermetic and reproducible builds",
+                          "description": "Downloads Go modules for hermetic and reproducible builds."
+                        },
                         {
                           "const": "go/bump@v1",
                           "title": "Go dependency bump",
