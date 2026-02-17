@@ -5,8 +5,8 @@ your Docker Hub namespace), update your commands to reference the mirrored image
 
 For example:
 
-- Public image: `dhi.io/<repository>:<tag>`
-- Mirrored image: `<your-namespace>/dhi-<repository>:<tag>`
+- Public image: `dhi.io/azul:<tag>`
+- Mirrored image: `<your-namespace>/dhi-azul:<tag>`
 
 For the examples, you must first use `docker login dhi.io` to authenticate to the registry to pull the images.
 
@@ -103,14 +103,14 @@ build image:
 
 ```docker
 # Option 1: Use a different image for building
-FROM openjdk:23 AS builder
+FROM openjdk:21 AS builder
 WORKDIR /app
 COPY *.java .
 RUN javac *.java
 RUN jar cvf app.jar *.class
 
 # Runtime stage with DHI
-FROM dhi.io/azul:23-jdk-prime
+FROM dhi.io/azul:21-jdk-prime
 WORKDIR /app
 COPY --from=builder /app/app.jar .
 CMD ["java", "-cp", "app.jar", "Main"]
@@ -119,7 +119,7 @@ CMD ["java", "-cp", "app.jar", "Main"]
 Alternatively, compile locally and copy only the JAR:
 
 ```docker
-FROM dhi.io/azul:23-jdk-prime
+FROM dhi.io/azul:21-jdk-prime
 WORKDIR /app
 COPY app.jar .
 CMD ["java", "-jar", "app.jar"]
@@ -196,9 +196,22 @@ docker debug <container-name>
 
 ## Image variants
 
-The Azul Platform Prime Docker Hardened Images are available as runtime images that include full JDK capabilities:
+The Azul Docker Hardened Images are available as runtime images that include full JDK capabilities in two flavors:
 
-- **Available versions**: 11, 17, 21, and 23
+- Azul Platform Prime (Zing): High-performance JVM optimized for low-latency, pauseless operation using the C4 GC and
+  Falcon JIT.
+
+  - **Available versions**: 11, 17, and 21
+  - **Tag format**: `<major>-jdk-prime` (example: `21-jdk-prime`)
+
+- Azul Zulu (OpenJDK builds): Production-ready, certified OpenJDK builds from Azul suitable for general-purpose Java
+  workloads.
+
+  - **Available versions**: 11, 17, 21, and 25
+  - **Tag format**: `<major>-jdk-zulu` (examples: `17-jdk-zulu`, `21-jdk-zulu`)
+
+Common characteristics for both variants:
+
 - **Base OS**: Debian 13
 - **User**: Runs as nonroot (UID 65532)
 - **Included tools**: Full JDK (java, javac, jar, and diagnostic tools)
@@ -232,7 +245,7 @@ The following steps outline the general migration process.
 
 1. **Find hardened images for your app.**
 
-   Azul Platform Prime images are available in versions 11, 17, 21, and 23. Choose the version that matches your
+   Azul Platform Prime images are available in versions 11, 17, and 21. Choose the version that matches your
    application's requirements.
 
 1. **Update the base image in your Dockerfile.**
@@ -240,7 +253,7 @@ The following steps outline the general migration process.
    Update the base image in your application's Dockerfile to the hardened image:
 
    ```docker
-   FROM dhi.io/azul:23-jdk-prime
+   FROM dhi.io/azul:21-jdk-prime
    ```
 
 1. **Adjust for no shell.**
@@ -310,7 +323,52 @@ The default command is `java --help`. Always specify your application's entry po
 CMD ["java", "-jar", "/app/myapp.jar"]
 ```
 
-### Azul Zing-specific considerations
+### Azul Zulu-specific considerations
+
+#### Azul Zulu (OpenJDK) availability and differences
+
+Azul Zulu is now supported as an alternate DHI flavor for users who prefer certified OpenJDK builds from Azul. Zulu
+images provide a more traditional OpenJDK experience (compatible with HotSpot garbage collectors and JIT) and are
+suitable for general-purpose Java workloads, while Azul Platform Prime (Zing) focuses on low-latency, pauseless
+operation.
+
+Key differences between the two DHI flavors:
+
+- Azul Platform Prime (Zing): C4 GC, Falcon JIT, designed for low-latency and predictable performance.
+- Azul Zulu (OpenJDK): Standard OpenJDK behavior, broadly compatible with HotSpot options and tooling.
+
+When to choose Zulu:
+
+- You need a certified OpenJDK distribution with broad compatibility.
+- Your application does not require the pauseless GC or Zing-specific optimizations.
+- You want upstream OpenJDK compatibility and easier parity with other OpenJDK-based images.
+
+How to run Zulu images with DHI tags:
+
+- Check available tags in this repository (examples): `dhi.io/azul:17-jdk-zulu`, `dhi.io/azul:21-jdk-zulu`,
+  `dhi.io/azul:11-jdk-zulu`.
+
+Examples:
+
+```bash
+# Run Java help
+docker run --rm dhi.io/azul:17-jdk-zulu
+
+# Check Java version
+docker run --rm dhi.io/azul:17-jdk-zulu java -version
+
+# Run a JAR
+docker run -v $(pwd):/app dhi.io/azul:17-jdk-zulu java -jar /app/myapp.jar
+```
+
+Note: For Zulu variants, JAVA_HOME is set to `/opt/zulu/zulu-jdk<MAJOR_VERSION>` and PATH is updated accordingly.
+
+#### Performance and compatibility notes for Zulu
+
+- Zulu uses the standard HotSpot garbage collectors (G1, Parallel, Shenandoah when available). Tune GC flags according
+  to the chosen collector.
+- JNI and native libraries must be compatible with Debian 13 and glibc used in the image.
+- Zulu images include the full JDK toolchain and are subject to the same no-shell, nonroot policies as other DHI images.
 
 #### Performance tuning
 
