@@ -5,24 +5,24 @@ image: dhi.io/netdata
 variant: dev
 tags:
   - 2-dev
-  - 2.8-dev
-  - 2.8.5-dev
+  - 2.9-dev
+  - 2.9.0-dev
   - 2-debian13-dev
-  - 2.8-debian13-dev
-  - 2.8.5-debian13-dev
+  - 2.9-debian13-dev
+  - 2.9.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT: 38812a29044fc5b0290389bcf1292d9f4af5c334
+  COMMIT: 845e8de2be2f2e5d6d0ba2f7c0c9b38de996ff01
   GO_VERSION: 1.25.7
   GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
   PYTHON_REFERENCE: dhi/python:3.12.12-debian13@sha256:b09ef62ad55e2469016d6c36d36a23efbea3e5962394132446018ca07e023ebd
   PYTHON_VERSION: 3.12.12
-  SEMVER_MAJOR_MINOR_VERSION: "2.8"
+  SEMVER_MAJOR_MINOR_VERSION: "2.9"
   SEMVER_MAJOR_VERSION: "2"
-  SEMVER_VERSION: 2.8.5
-  VERSION: 2.8.5
+  SEMVER_VERSION: 2.9.0
+  VERSION: 2.9.0
 contents:
   packages:
     - '!gawk'
@@ -96,15 +96,15 @@ contents:
           - libzstd-dev
           - patch
         files:
-          - url: git+https://github.com/netdata/netdata.git#v2.8.5
-            checksum: 38812a29044fc5b0290389bcf1292d9f4af5c334
+          - url: git+https://github.com/netdata/netdata.git#v2.9.0
+            checksum: 845e8de2be2f2e5d6d0ba2f7c0c9b38de996ff01
             path: /usr/src/netdata
             spdx:
               name: netdata
-              version: 2.8.5
+              version: 2.9.0
               packages:
                 - name: netdata
-                  purl: pkg:dhi/netdata@2.8.5
+                  purl: pkg:dhi/netdata@2.9.0
                   license: GPL-3.0
             uid: 0
             gid: 0
@@ -113,9 +113,9 @@ contents:
           uses: go/bump@v1
           work-dir: /usr/src/netdata/src/go
           with:
-            deps:
-              - golang.org/x/crypto@v0.45.0
-            download: true
+            deps: []
+        - uses: go/hermetic@v1
+          work-dir: /usr/src/netdata/src/go
         - name: build-and-install
           work-dir: /usr/src/netdata
           privileged: true
