@@ -4,12 +4,12 @@ name: Kubernetes Cluster Autoscaler Helm chart 9.x
 image: dhi.io/kubernetes-cluster-autoscaler-chart
 variant: helm
 tags:
-  - 9.55.0
+  - 9.55.1
 platforms:
   - linux/amd64
 vars:
   AUTOSCALER_REFERENCE: dhi/kubernetes-cluster-autoscaler:1.34.3-debian13@sha256:52c676bf33b8fd27689bf4cb5b1d2e54b9194bcdbe415ca1355386aaac7560ff
-  CHART_COMMIT_SHA: 3587312682d84bf6c4bc0ddc4d679f0074b5de2f
+  CHART_COMMIT_SHA: 4063e80431285255a3c8c0f03bad4a2ef581048a
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
@@ -17,8 +17,8 @@ vars:
   HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:7069456b86d57f9f2efaf7561c7f78097c6a4382a6e3420d23680ce61a045f34
   SEMVER_MAJOR_MINOR_VERSION: "9.55"
   SEMVER_MAJOR_VERSION: "9"
-  SEMVER_VERSION: 9.55.0
-  VERSION: 9.55.0
+  SEMVER_VERSION: 9.55.1
+  VERSION: 9.55.1
 contents:
   builds:
     - name: kubernetes-cluster-autoscaler
@@ -32,8 +32,8 @@ contents:
           - libc-bin
           - sed
         files:
-          - url: git+https://github.com/kubernetes/autoscaler.git#cluster-autoscaler-chart-9.55.0
-            checksum: 3587312682d84bf6c4bc0ddc4d679f0074b5de2f
+          - url: git+https://github.com/kubernetes/autoscaler.git#cluster-autoscaler-chart-9.55.1
+            checksum: 4063e80431285255a3c8c0f03bad4a2ef581048a
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
