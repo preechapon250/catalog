@@ -5,23 +5,23 @@ image: dhi.io/victoriametrics-vmselect
 variant: dev
 tags:
   - 1-dev
-  - 1.135-dev
-  - 1.135.0-dev
+  - 1.136-dev
+  - 1.136.0-dev
   - 1-debian13-dev
-  - 1.135-debian13-dev
-  - 1.135.0-debian13-dev
+  - 1.136-debian13-dev
+  - 1.136.0-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
-  COMMIT_SHA: 8f80fb601d5ca1ba29fad2800ef7ff4b22df4b26
-  GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
-  SEMVER_MAJOR_MINOR_VERSION: "1.135"
+  COMMIT_SHA: 5572cecf0d7ce73d480b06d945e46e75b822c456
+  GOLANG_REFERENCE: dhi/golang:1.26.0-debian13-dev@sha256:7c7ee6a2db0fa9a332ba1c96f2cc11b53dc7535a899ce66e45391db4dfa26350
+  SEMVER_MAJOR_MINOR_VERSION: "1.136"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.135.0
-  VERSION: 1.135.0-cluster
+  SEMVER_VERSION: 1.136.0
+  VERSION: 1.136.0-cluster
 contents:
   packages:
     - '!base-files'
@@ -43,32 +43,31 @@ contents:
     - util-linux
   builds:
     - name: victoriametrics-vmselect
-      uses: dhi.io/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
+      uses: dhi.io/golang:1.26.0-debian13-dev@sha256:7c7ee6a2db0fa9a332ba1c96f2cc11b53dc7535a899ce66e45391db4dfa26350
+      work-dir: /go/src/github.com/VictoriaMetrics/VictoriaMetrics
       contents:
         packages:
           - coreutils
         files:
-          - url: git+https://github.com/VictoriaMetrics/VictoriaMetrics.git#v1.135.0-cluster
-            checksum: 8f80fb601d5ca1ba29fad2800ef7ff4b22df4b26
+          - url: git+https://github.com/VictoriaMetrics/VictoriaMetrics.git#v1.136.0-cluster
+            checksum: 5572cecf0d7ce73d480b06d945e46e75b822c456
             path: /go/src/github.com/VictoriaMetrics/VictoriaMetrics
             spdx:
               name: victoriametrics-vmselect
-              version: 1.135.0-cluster
+              version: 1.136.0-cluster
               packages:
                 - name: victoriametrics-vmselect
-                  purl: pkg:dhi/victoriametrics-vmselect@1.135.0-cluster
+                  purl: pkg:dhi/victoriametrics-vmselect@1.136.0-cluster
                   license: Apache-2.0
             uid: 0
             gid: 0
       pipeline:
         - name: patch
           uses: go/bump@v1
-          work-dir: /go/src/github.com/VictoriaMetrics/VictoriaMetrics
           with:
             deps: []
-            download: true
+        - uses: go/hermetic@v1
         - name: test
-          work-dir: /go/src/github.com/VictoriaMetrics/VictoriaMetrics
           privileged: true
           runs: |
             set -eux -o pipefail
@@ -77,13 +76,12 @@ contents:
               export GODEBUG=fips140=on
             fi
 
-            CGO_ENABLED=0 GOEXPERIMENT=synctest go test ./lib/... ./app/...
+            CGO_ENABLED=0 go test ./lib/... ./app/...
         - name: build
           uses: go/build@v1
-          work-dir: /go/src/github.com/VictoriaMetrics/VictoriaMetrics
           with:
             ldflags:
-              - -X 'github.com/VictoriaMetrics/VictoriaMetrics/lib/buildinfo.Version=vmselect-1.135.0-cluster'
+              - -X 'github.com/VictoriaMetrics/VictoriaMetrics/lib/buildinfo.Version=vmselect-1.136.0-cluster'
             output: ${target.dir}/usr/local/bin/vmselect
             packages: ./app/vmselect
       outputs:
