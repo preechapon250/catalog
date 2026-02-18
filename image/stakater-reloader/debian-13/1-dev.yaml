@@ -6,22 +6,22 @@ variant: dev
 tags:
   - 1-dev
   - 1.4-dev
-  - 1.4.12-dev
-  - v1.4.12-dev
+  - 1.4.13-dev
+  - v1.4.13-dev
   - 1-debian13-dev
   - 1.4-debian13-dev
-  - 1.4.12-debian13-dev
+  - 1.4.13-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
   ARCH: '#{ target.arch == "amd64" ? "amd64" : "arm64" }'
-  COMMIT_SHA: 264b90df9d40a474308be258f4185996347de915
-  GOLANG_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
+  COMMIT_SHA: f15812138b7ff8cea15b057a847bd75a3bddd5ff
+  GOLANG_REFERENCE: dhi/golang:1.26.0-debian13-dev@sha256:7c7ee6a2db0fa9a332ba1c96f2cc11b53dc7535a899ce66e45391db4dfa26350
   SEMVER_MAJOR_MINOR_VERSION: "1.4"
   SEMVER_MAJOR_VERSION: "1"
-  SEMVER_VERSION: 1.4.12
-  VERSION: 1.4.12
+  SEMVER_VERSION: 1.4.13
+  VERSION: 1.4.13
 contents:
   packages:
     - '!gawk'
@@ -46,18 +46,18 @@ contents:
     - util-linux
   builds:
     - name: go
-      uses: dhi.io/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
+      uses: dhi.io/golang:1.26.0-debian13-dev@sha256:7c7ee6a2db0fa9a332ba1c96f2cc11b53dc7535a899ce66e45391db4dfa26350
       contents:
         files:
-          - url: git+https://github.com/stakater/Reloader.git#v1.4.12
-            checksum: 264b90df9d40a474308be258f4185996347de915
+          - url: git+https://github.com/stakater/Reloader.git#v1.4.13
+            checksum: f15812138b7ff8cea15b057a847bd75a3bddd5ff
             path: /go/src/github.com/stakater/Reloader
             spdx:
               name: reloader
-              version: 1.4.12
+              version: 1.4.13
               packages:
                 - name: reloader
-                  purl: pkg:golang/github.com/stakater/Reloader@1.4.12
+                  purl: pkg:golang/github.com/stakater/Reloader@1.4.13
                   license: Apache-2.0
             uid: 0
             gid: 0
@@ -66,15 +66,14 @@ contents:
           uses: go/bump@v1
           work-dir: /go/src/github.com/stakater/Reloader
           with:
-            deps:
-              - golang.org/x/net@v0.45.0
+            deps: []
             download: true
         - name: build
           uses: go/build@v1
           work-dir: /go/src/github.com/stakater/Reloader
           with:
             ldflags:
-              - -X github.com/stakater/Reloader/main.Version=1.4.12
+              - -X github.com/stakater/Reloader/main.Version=1.4.13
             output: ${target.dir}/usr/local/bin/Reloader
       outputs:
         - source: ${target.dir}/usr/local/bin/Reloader
