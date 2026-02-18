@@ -12,16 +12,16 @@ platforms:
 dates:
   release: "2026-01-07"
 vars:
-  ANTLR_COMMIT_SHA: 5bd7f9ea4822b231a93f8b34e8c91a2387a0e208
-  ANTLR_VERSION: 4.11.1
+  ANTLR_COMMIT_SHA: cc82115a4e7f53d71d9d905caa2c2dfa4da58899
+  ANTLR_VERSION: 4.13.2
   BASE_DIGEST: sha256:74fc43fa240887b8159970e434244039aab0c6efaaa9cf044004cdc22aa2a34d
   BASE_TAG: 20250419-debian13
   COMMIT_SHA: bfa90fb2d651b3a9ff68cd292b4ecaa4a8cab8c5
   MYSQL_COMMIT_SHA: 447eb26e094b444a88c532028647e48228c3c04f
   MYSQL_SHELL_COMMIT_SHA: 9104d2f0b28da5feda235b9517644c809ceb675a
   MYSQL_VERSION: 9.6.0
-  PYTHON_DEV_REFERENCE: dhi/python:3.13.11-debian13-dev@sha256:cccde27da83b398117194e07f65536b48b38029471ba0e54bb94142b49cd7de3
-  PYTHON_REFERENCE: dhi/python:3.13.11-debian13@sha256:69d93f84737a8fc40a674fffdab76bcce577fac3af407345283663b92d4157cc
+  PYTHON_DEV_REFERENCE: dhi/python:3.13.12-debian13-dev@sha256:e804df61d954e90edc605f29bfc89d22df071bd35709f42cc8d783b718c41b97
+  PYTHON_REFERENCE: dhi/python:3.13.12-debian13@sha256:e3ce38c682400c9fd4872709d88f9dc4f4373cf097a72c10bd80eeecf1198338
   SEMVER_MAJOR_MINOR_VERSION: "9.6"
   SEMVER_MAJOR_VERSION: "9"
   SEMVER_VERSION: 9.6.0
@@ -52,7 +52,7 @@ contents:
     - util-linux
   builds:
     - name: mysql-operator
-      uses: dhi.io/python:3.13.11-debian13-dev@sha256:cccde27da83b398117194e07f65536b48b38029471ba0e54bb94142b49cd7de3
+      uses: dhi.io/python:3.13.12-debian13-dev@sha256:e804df61d954e90edc605f29bfc89d22df071bd35709f42cc8d783b718c41b97
       contents:
         packages:
           - bash
@@ -112,15 +112,15 @@ contents:
                   license: GPL-2.0-only
             uid: 0
             gid: 0
-          - url: git+https://github.com/antlr/antlr4#v4.11.1
-            checksum: 5bd7f9ea4822b231a93f8b34e8c91a2387a0e208
+          - url: git+https://github.com/antlr/antlr4#4.13.2
+            checksum: cc82115a4e7f53d71d9d905caa2c2dfa4da58899
             path: ${source.dir}/antlr4
             spdx:
               name: antlr4
-              version: 4.11.1
+              version: 4.13.2
               packages:
                 - name: antlr4
-                  purl: pkg:github/antlr/antlr4@4.11.1
+                  purl: pkg:github/antlr/antlr4@4.13.2
                   license: BSD-3-Clause
             uid: 0
             gid: 0
@@ -315,7 +315,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/python:3.13.11-debian13@sha256:69d93f84737a8fc40a674fffdab76bcce577fac3af407345283663b92d4157cc
+    - name: dhi.io/python:3.13.12-debian13@sha256:e3ce38c682400c9fd4872709d88f9dc4f4373cf097a72c10bd80eeecf1198338
       includes:
         - opt/**
         - usr/**
