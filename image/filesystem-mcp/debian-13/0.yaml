@@ -28,6 +28,10 @@ contents:
     - name: filesystem-mcp
       uses: dhi.io/node:24.13.1-debian13-sfw-dev@sha256:8cad61e71ca1c2213578e8ef29d41f7a3e0fc7ed18cb6eceb636ffe410c7e14d
       contents:
+        packages:
+          - bash
+          - gzip
+          - findutils
         files:
           - url: git+https://github.com/modelcontextprotocol/servers.git#2025.12.18
             checksum: 24b9402fd6904e74dff78d06be313fc8b701b937
@@ -39,6 +43,10 @@ contents:
                 - name: filesystem-mcp
                   purl: pkg:dhi/filesystem-mcp@2025.12.18
                   license: MIT
+            uid: 0
+            gid: 0
+          - url: https://registry.npmjs.org/minimatch/-/minimatch-10.2.1.tgz
+            path: ${source.dir}/minimatch-10.2.1.tgz
             uid: 0
             gid: 0
       pipeline:
@@ -65,6 +73,24 @@ contents:
             rm -rf node_modules
 
             npm ci --ignore-scripts --omit=dev
+        - name: patch nested minimatch packages
+          work-dir: ${source.dir}/servers/src/filesystem
+          runs: |
+            set -eux -o pipefail
+
+            # Extract fixed minimatch version (downloaded in files section)
+            mkdir -p /tmp/minimatch-fix
+            tar -xzf ${source.dir}/minimatch-10.2.1.tgz -C /tmp/minimatch-fix
+
+            # Find and replace ALL minimatch packages in node_modules
+            # Only match directories named "minimatch" that contain package.json (actual npm packages)
+            find node_modules -type d -name "minimatch" -exec test -f {}/package.json \; -print0 | while IFS= read -r -d '' minimatch_dir; do
+              echo "Replacing $minimatch_dir"
+              rm -rf "$minimatch_dir"
+              cp -r /tmp/minimatch-fix/package "$minimatch_dir"
+            done
+
+            rm -rf /tmp/minimatch-fix
       paths:
         - type: file
           path: ${source.dir}/patch/npm-bumps.json
