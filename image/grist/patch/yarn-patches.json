@@ -37,7 +37,7 @@
     {
         "package": "axios",
         "dev": false,
-        "version": "1.12.0"
+        "version": "1.13.5"
     },
     {
         "package": "typeorm",
@@ -67,7 +67,7 @@
     {
         "package": "qs",
         "dev": false,
-        "version": "6.14.1"
+        "version": "6.14.2"
     },
     {
         "package": "tar",
@@ -83,5 +83,17 @@
         "package": "fast-xml-parser",
         "dev": false,
         "version": "5.3.6"
+    },
+    {
+        "package": "tar",
+        "version": "7.5.8"
+    },
+    {
+        "package": "lodash",
+        "version": "4.17.23"
+    },
+    {
+        "package": "minimatch",
+        "version": "10.2.1"
     }
 ]
