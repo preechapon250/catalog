@@ -4,14 +4,14 @@ name: Kube Prometheus Stack Helm chart 82.x
 image: dhi.io/kube-prometheus-stack-chart
 variant: helm
 tags:
-  - 82.1.0
+  - 82.1.1
 platforms:
   - linux/amd64
 vars:
   ADMISSION_WEBHOOK_REFERENCE: dhi/prometheus-operator-admission-webhook:0.89.0-debian13@sha256:3be30df3d91baf7fefb0075b8c4c96f5fa2d712938e6f934b6f1948fd2911d14
   ALERTMANAGER_REFERENCE: dhi/alertmanager:0.31.1-debian13@sha256:90a647781f3c91cc672ce864d265d14380dd9ef46ce9830e9dbe106f6419ee55
   BUSYBOX_REFERENCE: dhi/busybox:1.37.0-debian13@sha256:ee1f963dd3d57a59ae3f99fca81b06d19d1bef7c8289ff84001e0c65f39a8464
-  CHART_COMMIT_SHA: bac375b1a2b44cf12eec04475099a653f5f7d2c5
+  CHART_COMMIT_SHA: bda530fb51d15b0c140bb59d0b9a7400669badfb
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
   DHI_REGISTRY: dhi.io
@@ -27,9 +27,9 @@ vars:
   PROMETHEUS_REFERENCE: dhi/prometheus:3.9.1-debian13@sha256:6e7311111eec9d8fc4dca1d8e2d323081c072ea639ab9ea14d50da96faa0d1e6
   SEMVER_MAJOR_MINOR_VERSION: "82.1"
   SEMVER_MAJOR_VERSION: "82"
-  SEMVER_VERSION: 82.1.0
+  SEMVER_VERSION: 82.1.1
   THANOS_REFERENCE: dhi/thanos:0.41.0-debian13@sha256:248d3e6cd93dfac46631567bdc4e308e8a36212e34adf52bea5e4230557e1725
-  VERSION: 82.1.0
+  VERSION: 82.1.1
 contents:
   builds:
     - name: kube-prometheus-stack-chart
@@ -43,8 +43,8 @@ contents:
           - libc-bin
           - sed
         files:
-          - url: git+https://github.com/prometheus-community/helm-charts.git#kube-prometheus-stack-82.1.0
-            checksum: bac375b1a2b44cf12eec04475099a653f5f7d2c5
+          - url: git+https://github.com/prometheus-community/helm-charts.git#kube-prometheus-stack-82.1.1
+            checksum: bda530fb51d15b0c140bb59d0b9a7400669badfb
             path: ${source.dir}/helm-charts
             uid: 0
             gid: 0
