@@ -1,15 +1,15 @@
 # syntax=dhi.io/build:2-debian13
 
-name: Grafana k6 1.x
+name: Grafana k6 1.x (dev)
 image: dhi.io/k6
-variant: runtime
+variant: dev
 tags:
-  - "1"
-  - "1.6"
-  - 1.6.1
-  - 1-debian13
-  - 1.6-debian13
-  - 1.6.1-debian13
+  - 1-dev
+  - 1.6-dev
+  - 1.6.1-dev
+  - 1-debian13-dev
+  - 1.6-debian13-dev
+  - 1.6.1-debian13-dev
 platforms:
   - linux/amd64
   - linux/arm64
@@ -25,6 +25,22 @@ vars:
 contents:
   packages:
     - '!base-files'
+    - '!gawk'
+    - '!libelogind0'
+    - '!original-awk'
+    - apt
+    - bash
+    - ca-certificates
+    - coreutils
+    - diffutils
+    - dpkg
+    - findutils
+    - grep
+    - libc-bin
+    - mawk
+    - perl-base
+    - sed
+    - util-linux
   builds:
     - name: k6
       uses: dhi.io/golang:1.24.13-debian13-dev@sha256:ab5aa6c5769f20dd35a2fd530954d59efc7940e6e37870d02b935f413b7229a0
@@ -92,10 +108,14 @@ contents:
       uid: 0
       gid: 0
 accounts:
-  run-as: nonroot
+  root: true
+  run-as: root
   users:
     - name: nonroot
       uid: 65532
+      gid: 65532
+    - name: _apt
+      uid: 42
       gid: 65532
   groups:
     - name: nonroot
@@ -110,6 +130,8 @@ os-release:
   pretty-name: Docker Hardened Images/Debian GNU/Linux 13 (trixie)
   home-url: https://docker.com/products/hardened-images/
   bug-report-url: https://docker.com/support/
+environment:
+  DEBIAN_FRONTEND: noninteractive
 annotations:
   org.opencontainers.image.description: A minimal Grafana k6 image
   org.opencontainers.image.licenses: AGPL-3.0
