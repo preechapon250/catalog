@@ -1,5 +1,5 @@
 diff --git a/Gemfile.jruby-3.1.lock.release b/Gemfile.jruby-3.1.lock.release
-index a86bbcb59..6876a92ab 100644
+index 95e39355c..02b58f3da 100644
 --- a/Gemfile.jruby-3.1.lock.release
 +++ b/Gemfile.jruby-3.1.lock.release
 @@ -64,7 +64,7 @@ GEM
@@ -11,6 +11,15 @@ index a86bbcb59..6876a92ab 100644
        aws-sdk-core (~> 3, >= 3.231.0)
        aws-sdk-kms (~> 1)
        aws-sigv4 (~> 1.5)
+@@ -122,7 +122,7 @@ GEM
+     equalizer (0.0.11)
+     et-orbi (1.4.0)
+       tzinfo
+-    faraday (2.14.0)
++    faraday (2.14.1)
+       faraday-net_http (>= 2.0, < 3.5)
+       json
+       logger
 @@ -537,7 +537,7 @@ GEM
        aws-sdk-cloudwatch
        aws-sdk-core (~> 3)
@@ -20,8 +29,17 @@ index a86bbcb59..6876a92ab 100644
        aws-sdk-sns
        aws-sdk-sqs
        concurrent-ruby
+@@ -740,7 +740,7 @@ GEM
+       nio4r (~> 2.0)
+     raabro (1.4.0)
+     racc (1.8.1-java)
+-    rack (3.2.4)
++    rack (3.2.5)
+     rack-protection (4.2.1)
+       base64 (>= 0.1.0)
+       logger (>= 1.6.0)
 diff --git a/build.gradle b/build.gradle
-index ecbe76eae..307cd25ce 100644
+index 915f5a824..5919cd29e 100644
 --- a/build.gradle
 +++ b/build.gradle
 @@ -64,7 +64,8 @@ allprojects {
