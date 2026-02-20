@@ -18,7 +18,7 @@ vars:
   KUBE_STATE_METRICS_CHART_REFERENCE: dhi/kube-state-metrics-chart:7.1.0@sha256:5bdd8744510d5beb285bea8e4bb84fca81b2a35c02bccb645e3370b2e190ec83
   NODE_EXPORTER_CHART_REFERENCE: dhi/node-exporter-chart:4.51.1@sha256:0df3e30c57b8701510929fbf9d6c1aebe951926e49fa2e58fc058a496afa10bd
   PROMETHEUS_CONFIG_RELOADER_REFERENCE: dhi/prometheus-config-reloader:0.89.0-debian13@sha256:2d5cb7f61093b680ce65cd6b35ed16337c237f5ebc95b32b09cd9a91a0b1f995
-  PROMETHEUS_REFERENCE: dhi/prometheus:3.9.1-debian13@sha256:dbc3113e3f0c6ff9da85353826ce1fd95a7e28ccc4015883a8c533dc53929d34
+  PROMETHEUS_REFERENCE: dhi/prometheus:3.9.1-debian13@sha256:78202bf89773ab29efec2abb24ad40c1136030c09fce22366a5710c7e37cbf0b
   PUSHGATEWAY_CHART_REFERENCE: dhi/pushgateway-chart:3.6.0@sha256:113889e5c70f630945278de228407fb84a4dd091b07baff36dfd1b76c9cbf495
   SEMVER_MAJOR_MINOR_VERSION: "28.9"
   SEMVER_MAJOR_VERSION: "28"
@@ -62,7 +62,7 @@ contents:
               description: Docker Hardened Images Helm chart for Prometheus
               images:
                 - name: prometheus
-                  ref: dhi/prometheus:3.9.1-debian13@sha256:dbc3113e3f0c6ff9da85353826ce1fd95a7e28ccc4015883a8c533dc53929d34
+                  ref: dhi/prometheus:3.9.1-debian13@sha256:78202bf89773ab29efec2abb24ad40c1136030c09fce22366a5710c7e37cbf0b
                 - name: prometheus-config-reloader
                   ref: dhi/prometheus-config-reloader:0.89.0-debian13@sha256:2d5cb7f61093b680ce65cd6b35ed16337c237f5ebc95b32b09cd9a91a0b1f995
               name: prometheus-chart
