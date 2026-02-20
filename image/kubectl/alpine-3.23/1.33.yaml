@@ -15,8 +15,8 @@ dates:
 vars:
   COMMIT_SHA: a7245cdf3f69e11356c7e8f92b3e78ca4ee4e757
   DBG: '#{ target.dev ? "1" : "0" }'
-  GO_REFERENCE: dhi/golang:1.24.13-alpine3.23-dev@sha256:cad7904c1ac90d505ae452697458e05ee7d0deb3cac1189ae4177caf8212073b
   GO_VERSION: 1.24.13
+  GOLANG_REFERENCE: dhi/golang:1.24.13-alpine3.23-dev@sha256:cad7904c1ac90d505ae452697458e05ee7d0deb3cac1189ae4177caf8212073b
   SEMVER_MAJOR_MINOR_VERSION: "1.33"
   SEMVER_MAJOR_VERSION: "1"
   SEMVER_VERSION: 1.33.7
