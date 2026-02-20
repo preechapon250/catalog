@@ -17,8 +17,8 @@ platforms:
 vars:
   ARCH: '#{ target.arch == "amd64" ? "x64" : "arm64" }'
   COMMIT_SHA: c21081c71ab69c8b88da1b139841e2ea73228bb4
-  NODE_BUILD_REFERENCE: dhi/node:24.13.1-debian13-sfw-dev@sha256:8cad61e71ca1c2213578e8ef29d41f7a3e0fc7ed18cb6eceb636ffe410c7e14d
-  NODE_RUNTIME_REFERENCE: dhi/node:24.13.1-debian13@sha256:10e1fce8bd287e1c59c2627c153e89c58e9698d1f1c501e2bca4d27edd2597af
+  NODE_BUILD_REFERENCE: dhi/node:24.13.1-debian13-sfw-dev@sha256:3c3ee28ecac2015276801d95e262ccc0e726dd572d6d015aed9324634fb7530d
+  NODE_RUNTIME_REFERENCE: dhi/node:24.13.1-debian13@sha256:ad92702c396102423298416abb41ddf0845792beca435df5b47f2f92ed03209c
   PNPM_VERSION: 10.30.1
   SEMVER_MAJOR_MINOR_VERSION: "2.1"
   SEMVER_MAJOR_VERSION: "2"
@@ -32,7 +32,7 @@ contents:
     - base-files
   builds:
     - name: context7-mcp
-      uses: dhi.io/node:24.13.1-debian13-sfw-dev@sha256:8cad61e71ca1c2213578e8ef29d41f7a3e0fc7ed18cb6eceb636ffe410c7e14d
+      uses: dhi.io/node:24.13.1-debian13-sfw-dev@sha256:3c3ee28ecac2015276801d95e262ccc0e726dd572d6d015aed9324634fb7530d
       contents:
         files:
           - url: https://github.com/pnpm/pnpm/releases/download/v10.30.1/pnpm-linux-${ARCH}
@@ -102,7 +102,7 @@ contents:
           uid: 0
           gid: 0
   artifacts:
-    - name: dhi.io/node:24.13.1-debian13@sha256:10e1fce8bd287e1c59c2627c153e89c58e9698d1f1c501e2bca4d27edd2597af
+    - name: dhi.io/node:24.13.1-debian13@sha256:ad92702c396102423298416abb41ddf0845792beca435df5b47f2f92ed03209c
       uid: 0
       gid: 0
 accounts:
