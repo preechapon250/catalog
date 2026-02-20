@@ -21,7 +21,7 @@ vars:
   KUBE_STATE_METRICS_CHART_REFERENCE: dhi/kube-state-metrics-chart:7.1.0@sha256:5bdd8744510d5beb285bea8e4bb84fca81b2a35c02bccb645e3370b2e190ec83
   KUBE_WEBHOOK_CERTGEN_REFERENCE: dhi/kube-webhook-certgen:1.7.7-debian13@sha256:8d0735274181cd3d984f66299e81434898141ee745d06e30ce5068b216e0859d
   KUBECTL_REFERENCE: dhi/kubectl:1.35.0-debian13@sha256:9a348aa816c6192df2875ead343def0673ab4d5c335ef02af08f9568a099f5f9
-  NODE_EXPORTER_CHART_REFERENCE: dhi/node-exporter-chart:4.51.1@sha256:0a00c3111f88572328ccf27eac5be3088b9e4898c4cf71a2df72656b9e8594f5
+  NODE_EXPORTER_CHART_REFERENCE: dhi/node-exporter-chart:4.51.1@sha256:0df3e30c57b8701510929fbf9d6c1aebe951926e49fa2e58fc058a496afa10bd
   PROMETHEUS_CONFIG_RELOADER_REFERENCE: dhi/prometheus-config-reloader:0.89.0-debian13@sha256:2d5cb7f61093b680ce65cd6b35ed16337c237f5ebc95b32b09cd9a91a0b1f995
   PROMETHEUS_OPERATOR_REFERENCE: dhi/prometheus-operator:0.89.0-debian13@sha256:2a4d5b1919666bfb94ebfa5f1f678e82a810339abb3fee8e538839102618dda0
   PROMETHEUS_REFERENCE: dhi/prometheus:3.9.1-debian13@sha256:dbc3113e3f0c6ff9da85353826ce1fd95a7e28ccc4015883a8c533dc53929d34
@@ -66,7 +66,7 @@ contents:
                 - alias: prometheus-node-exporter
                   condition: nodeExporter.enabled
                   name: node-exporter
-                  ref: dhi/node-exporter-chart:4.51.1@sha256:0a00c3111f88572328ccf27eac5be3088b9e4898c4cf71a2df72656b9e8594f5
+                  ref: dhi/node-exporter-chart:4.51.1@sha256:0df3e30c57b8701510929fbf9d6c1aebe951926e49fa2e58fc058a496afa10bd
                 - alias: grafana
                   condition: grafana.enabled
                   name: grafana
