@@ -24,7 +24,7 @@ vars:
   GO_REFERENCE: dhi/golang:1.25.7-debian13-dev@sha256:d241d31631f6bcfdef4f42f70083bb06d51e6401d9ce172a05b9ba37f27c2940
   GO_TAGS: libsqlite3,sqlite_foreign_keys,sqlite_json,assets,noasm
   GO_VERSION: 1.25.7
-  NODE_REFERENCE: dhi/node:24.13.1-debian13-dev@sha256:21139392b9ec5015cbfa486306cf8122293a233466db9cdff8d1f9c3d61adc19
+  NODE_REFERENCE: dhi/node:24.13.1-debian13-dev@sha256:312720d478f3fe3936affa4a15415a57ff6bc2327ad922105888ba945f1d268d
   NODE_VERSION: 24.13.1
   OPENAPI_COMMIT_SHA: 8b5f1bbb2cd388eb454dc9da19e3d2c4061cdf5f
   PROTOC_GEN_GO_VERSION: v1.34.1
@@ -89,7 +89,7 @@ contents:
             uid: 0
             gid: 0
         artifacts:
-          - name: dhi.io/node:24.13.1-debian13-dev@sha256:21139392b9ec5015cbfa486306cf8122293a233466db9cdff8d1f9c3d61adc19
+          - name: dhi.io/node:24.13.1-debian13-dev@sha256:312720d478f3fe3936affa4a15415a57ff6bc2327ad922105888ba945f1d268d
             includes:
               - opt/nodejs
               - opt/yarn
