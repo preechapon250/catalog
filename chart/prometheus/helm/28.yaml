@@ -8,7 +8,7 @@ tags:
 platforms:
   - linux/amd64
 vars:
-  ALERTMANAGER_CHART_REFERENCE: dhi/alertmanager-chart:1.33.1@sha256:6169cea86032ad0912f23386d156e56361363c2624f02746f40cef7d34b51dd0
+  ALERTMANAGER_CHART_REFERENCE: dhi/alertmanager-chart:1.33.1@sha256:d36467dcc86a86cc2c9afaff4e1bc13ceb90d3dcc7d90b33a5f971ab29855293
   CHART_COMMIT_SHA: dd711a4a7e0a384c3003c1eab7dd0946540e47c5
   DHI_NAMESPACE: dhi
   DHI_PREFIX: ""
@@ -16,7 +16,7 @@ vars:
   DHI_SKIP_CONTEXT_COPY: "true"
   HELM_REFERENCE: dhi/helm:3.20.0-debian13-dev@sha256:7069456b86d57f9f2efaf7561c7f78097c6a4382a6e3420d23680ce61a045f34
   KUBE_STATE_METRICS_CHART_REFERENCE: dhi/kube-state-metrics-chart:7.1.0@sha256:5bdd8744510d5beb285bea8e4bb84fca81b2a35c02bccb645e3370b2e190ec83
-  NODE_EXPORTER_CHART_REFERENCE: dhi/node-exporter-chart:4.51.1@sha256:0a00c3111f88572328ccf27eac5be3088b9e4898c4cf71a2df72656b9e8594f5
+  NODE_EXPORTER_CHART_REFERENCE: dhi/node-exporter-chart:4.51.1@sha256:0df3e30c57b8701510929fbf9d6c1aebe951926e49fa2e58fc058a496afa10bd
   PROMETHEUS_CONFIG_RELOADER_REFERENCE: dhi/prometheus-config-reloader:0.89.0-debian13@sha256:2d5cb7f61093b680ce65cd6b35ed16337c237f5ebc95b32b09cd9a91a0b1f995
   PROMETHEUS_REFERENCE: dhi/prometheus:3.9.1-debian13@sha256:dbc3113e3f0c6ff9da85353826ce1fd95a7e28ccc4015883a8c533dc53929d34
   PUSHGATEWAY_CHART_REFERENCE: dhi/pushgateway-chart:3.6.0@sha256:113889e5c70f630945278de228407fb84a4dd091b07baff36dfd1b76c9cbf495
@@ -46,7 +46,7 @@ contents:
                 - alias: alertmanager
                   condition: alertmanager.enabled
                   name: alertmanager
-                  ref: dhi/alertmanager-chart:1.33.1@sha256:6169cea86032ad0912f23386d156e56361363c2624f02746f40cef7d34b51dd0
+                  ref: dhi/alertmanager-chart:1.33.1@sha256:d36467dcc86a86cc2c9afaff4e1bc13ceb90d3dcc7d90b33a5f971ab29855293
                 - alias: kube-state-metrics
                   condition: kube-state-metrics.enabled
                   name: kube-state-metrics
@@ -54,7 +54,7 @@ contents:
                 - alias: prometheus-node-exporter
                   condition: prometheus-node-exporter.enabled
                   name: prometheus-node-exporter
-                  ref: dhi/node-exporter-chart:4.51.1@sha256:0a00c3111f88572328ccf27eac5be3088b9e4898c4cf71a2df72656b9e8594f5
+                  ref: dhi/node-exporter-chart:4.51.1@sha256:0df3e30c57b8701510929fbf9d6c1aebe951926e49fa2e58fc058a496afa10bd
                 - alias: prometheus-pushgateway
                   condition: prometheus-pushgateway.enabled
                   name: prometheus-pushgateway
