@@ -5,25 +5,25 @@ image: dhi.io/mlflow
 variant: runtime
 tags:
   - "3"
-  - "3.9"
-  - 3.9.0
+  - "3.10"
+  - 3.10.0
   - 3-debian13
-  - 3.9-debian13
-  - 3.9.0-debian13
+  - 3.10-debian13
+  - 3.10.0-debian13
 platforms:
   - linux/amd64
   - linux/arm64
 vars:
-  COMMIT_SHA: cf3d582a7b8a6f234e4d28ef6987bb8076c6ee54
+  COMMIT_SHA: d0b97413e383796f1ca742b20cac74543185816c
   NODE_DIGEST: sha256:326dbb185fb87c06a75e6b307b8bf503d79ade219d242e43467a38cce93457b5
   NODE_VERSION: 22.22.0
   PYTHON_DIGEST: sha256:b09ef62ad55e2469016d6c36d36a23efbea3e5962394132446018ca07e023ebd
   PYTHON_MAJOR_MINOR_VERSION: "3.12"
   PYTHON_VERSION: 3.12.12
-  SEMVER_MAJOR_MINOR_VERSION: "3.9"
+  SEMVER_MAJOR_MINOR_VERSION: "3.10"
   SEMVER_MAJOR_VERSION: "3"
-  SEMVER_VERSION: 3.9.0
-  VERSION: 3.9.0
+  SEMVER_VERSION: 3.10.0
+  VERSION: 3.10.0
 contents:
   packages:
     - '!libelogind0'
@@ -41,15 +41,15 @@ contents:
           - findutils
           - sed
         files:
-          - url: git+https://github.com/mlflow/mlflow.git#v3.9.0
-            checksum: cf3d582a7b8a6f234e4d28ef6987bb8076c6ee54
+          - url: git+https://github.com/mlflow/mlflow.git#v3.10.0
+            checksum: d0b97413e383796f1ca742b20cac74543185816c
             path: ${source.dir}/mlflow
             spdx:
               name: mlflow
-              version: 3.9.0
+              version: 3.10.0
               packages:
                 - name: mlflow
-                  purl: pkg:pypi/mlflow@3.9.0
+                  purl: pkg:pypi/mlflow@3.10.0
                   license: Apache-2.0
             uid: 0
             gid: 0
